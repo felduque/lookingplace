@@ -46,3 +46,16 @@ export const createProperty = async (req, res) => {
       });
     }
   };
+
+  export const getProperty = async (req, res) => {
+    try {
+      const property = await Property.findAll({
+        attributes: ["id", "title", "description", "capacity", "image", "rating"],
+      });
+      res.json({
+        data: property,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
