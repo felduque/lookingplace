@@ -1,4 +1,4 @@
-:root {
+/*:root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 24px;
@@ -13,9 +13,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-}
+}*/
 
-a {
+/*a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
@@ -33,7 +33,7 @@ body {
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: ;
   line-height: 1.1;
 }
 
@@ -67,4 +67,125 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}*/
+
+/*Mis cambios*/
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
+.allSignUp{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+section{
+    width: 100%;
+    max-width: 420px;
+    min-height: 200px;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex-grow: 1;
+  padding-bottom: 1rem;
+}
+
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+button,
+textarea {
+  font-family: 'Nunito', sans-serif;
+  font-size: 20px;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+}
+
+label,
+button {
+  margin-top: 1rem;
+}
+
+button {
+  padding: 0.5rem;
+}
+
+.offscreen {
+  position: absolute;
+  left: -9999px;
+}
+
+.errmsg {
+  background-color: lightpink;
+  color: firebrick;
+  font-weight: bold;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.instructions {
+  font-size: 0.75rem;
+  border-radius: 0.5rem;
+  color: #fff;
+  padding: 0.25rem;
+  position: relative;
+  bottom: -10px;
+}
+
+
+.valid {
+  color: limegreen;
+  margin-left: 0.25rem;
+}
+
+.invalid {
+  color: red;
+  margin-left: 0.25rem;
+}
+
+.false{
+  color: red;
+}
+
+.hide {
+  display: none;
+}
+
+#uidnote{
+  color: rgb(190, 50, 50);
+}
+#passNote{
+  color: red;
+}
+#confirmnote{
+  color: rgb(190, 50, 50);
+}
+#email{
+  color: rgb(190, 50, 50);
+}
+
+.line {
+  display: inline-block;
+}
+
+/*.flexGrow {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+}*/
