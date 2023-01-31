@@ -8,6 +8,10 @@ import { apiSlice } from "./redux/Api";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App />
+    <ApiProvider api={apiSlice}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ApiProvider>
   </React.StrictMode>
 );
