@@ -26,10 +26,17 @@ app.use(
 app.use(morgan("dev"));
 
 // Relation aboutMe and Client & aboutme and Tenant
-Client.hasMany(Aboutme, { foreignKey: "client_about" });
+// Client.hasMany(Aboutme, { foreignKey: "client_about" });
+// Aboutme.belongsTo(Client, { foreignKey: "client_about" });
+// Tenant.hasMany(Aboutme, { foreignKey: "tenant_about" });
+// Aboutme.belongsTo(Tenant, { foreignKey: "tenant_about" });
+
+Client.hasOne(Aboutme, { foreignKey: "client_about" });
 Aboutme.belongsTo(Client, { foreignKey: "client_about" });
-Tenant.hasMany(Aboutme, { foreignKey: "tenant_about" });
+
+Tenant.hasOne(Aboutme, { foreignKey: "tenant_about" });
 Aboutme.belongsTo(Tenant, { foreignKey: "tenant_about" });
+
 
 // Routes
 app.use(clientRoutes);
