@@ -3,6 +3,8 @@ import { Tenant } from "../../models/tenant.model.js";
 import { Client } from "../../models/client.model.js";
 
 
+//numero de camas, numero de baños, servicios (wifi, cocina, lavadora, plancha, zona de trabajo, checking checkout)
+
 export const createProperty = async (req, res) => {
     const { title, description, capacity, image, rating, tenant_property, client_property } =
       req.body;
