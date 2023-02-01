@@ -8,13 +8,66 @@ export const Property = sequelize.define("Property", {
     autoIncrement: true,
   },
   title: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(60),
+    allowNull: false,
+    validate: {
+      isAlphanumeric: {
+        args: true,
+        msg: "solo letras",
+      },
+      min: {
+        args: 3,
+        msg: "The name at least needs 3 characters",
+      },
+      max: {
+        args: 60,
+        msg: "Max characters are 60",
+      },
+      notNull: {
+        args: true,
+        msg: "Cannot be null",
+      },
+    },
   },
+
+  /**
+   * ! Cambiar acorde a la necesidad
+   */
   description: {
     type: DataTypes.TEXT,
+    allowNull: false,
+    validator: {
+      len: {
+        args: [3, 300],
+        msg: "Description needs to have between 3 to 300 characters",
+      },
+      notNull: {
+        args: true,
+        msg: "Cannot be null",
+      },
+    },
   },
   capacity: {
     type: DataTypes.INTEGER,
+    allowNull: false,
+    validate: {
+      isInt: {
+        args: true,
+        msg: "Only numbers please",
+      },
+      min: {
+        args: 1,
+        msg: "1 is the lowest capacity",
+      },
+      max: {
+        args: 30,
+        msg: "30 is the max capacity for a room",
+      },
+      notNull: {
+        args: true,
+        msg: "Cannot be null",
+      },
+    },
   },
   image: {
     type: DataTypes.ARRAY(DataTypes.STRING),
