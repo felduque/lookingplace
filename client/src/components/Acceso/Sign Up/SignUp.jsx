@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "../Hooks/Axios";
 import { Link } from "react-router-dom";
+import ReCAPTCHA from "react-google-recaptcha";
 
 import {
   faCheck,
@@ -27,6 +28,8 @@ export default function SignUp() {
 
   const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState(false);
+
+  const [validCaptcha, setValidCaptcha] = useState(false);
 
   const [avatar, setAvatar] = useState("");
   //const [validAvatar, setValidAvatar] = useState(false);
@@ -88,6 +91,13 @@ export default function SignUp() {
         setErrMsg("Registration Failed");
       }
     }
+  };
+
+  //ReCaptcha
+  const captcha = useRef(null);
+  console.log(validCaptcha);
+  const onChangeCaptcha = () => {
+    if(captcha.current.getValue()) validCaptcha(true); console.log(validCaptcha);
   };
 
   return (
@@ -222,14 +232,16 @@ export default function SignUp() {
               onChange={(e) => setAvatar(e.target.value)}
               value={avatar}
             />
-            {
-              /*Falta captcha !*/
-              //Código Aquí :)
-            }
+
+            <ReCAPTCHA
+                 ref={captcha}
+                 sitekey="6Le2F0EkAAAAAPCok1gCfpggSPFK8oKRBI5GDSAE"
+                 onChange={onChangeCaptcha}
+            />
 
             <button
               disabled={
-                !fullName || !password || !matchPassword || email ? true : false
+                !fullName || !password || !matchPassword || email || !validCaptcha ? true : false
               }
             >
               Sign Up
