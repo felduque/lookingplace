@@ -9,20 +9,5 @@ export const Character = sequelize.define("Characters", {
   },
   name: {
     type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      isAlpha: {
-        args: true,
-        msg: "only letters",
-      },
-      len: {
-        args: [3, 120],
-        msg: "Name needs to have between 3 to 120 characters",
-      },
-      notNull: {
-        args: true,
-        msg: "cannot be null",
-      },
-    },
   },
 });
