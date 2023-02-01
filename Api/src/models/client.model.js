@@ -52,7 +52,6 @@ export const Client = sequelize.define("Clients", {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
-    isAlpha: true,
     validate: {
       len: {
         args: [9, 15],

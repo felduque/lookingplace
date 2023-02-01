@@ -6,6 +6,6 @@ import { Router } from "express";
   
   const router = Router();
   
-  router.post("/property", createProperty);
-  router.get("/getproperty", getProperty);
+  router.post("/property/createproperty", createProperty);
+  router.get("/property/getproperty", getProperty);
   export default router;
