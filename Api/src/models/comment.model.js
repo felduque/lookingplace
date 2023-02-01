@@ -8,16 +8,12 @@ export const Comment = sequelize.define("Comment", {
     autoIncrement: true,
   },
   comment: {
-    type: DataTypes.TEXT(280),
-    allowNull: false,
-    valiate: {
-      min: {
-        args: 4,
-        msg: "Your comment needs at least 4 characters",
-      },
-      max: {
-        args: 280,
-        msg: "Your comment already exceeded the maximum of characters (280)",
+    type: DataTypes.TEXT,
+    allowNull: true,
+    validator: {
+      len: {
+        args: [3, 300],
+        msg: "Description needs to have between 3 to 300 characters",
       },
     },
   },

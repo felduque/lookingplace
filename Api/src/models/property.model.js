@@ -8,74 +8,66 @@ export const Property = sequelize.define("Property", {
     autoIncrement: true,
   },
   title: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.STRING(60),
     allowNull: false,
     validate: {
-      notNull: {
-        msg: "Cannot be null",
-      },
-      len: {
-        args: [3, 100],
-        msg: "Name need at least 3 letters",
-      },
       isAlpha: {
         args: true,
-        msg: "A name is needed (only letters)",
+        msg: "Only letters",
+      },
+      min: {
+        args: 3,
+        msg: "The name at least needs 3 characters",
+      },
+      max: {
+        args: 60,
+        msg: "Max characters are 60",
+      },
+      notNull: {
+        args: true,
+        msg: "Cannot be null",
       },
     },
   },
   description: {
-    type: DataTypes.TEXT(600),
+    type: DataTypes.TEXT,
     allowNull: false,
-    validate: {
-      notNull: {
-        msg: "Cannot be null",
-      },
+    validator: {
       len: {
-        args: [3, 600],
-        msg: "Description at least need 3 characters",
+        args: [3, 300],
+        msg: "Description needs to have between 3 to 300 characters",
       },
-      isAlpha: {
+      notNull: {
         args: true,
-        msg: "A name is needed (only letters)",
+        msg: "Cannot be null",
       },
     },
   },
   capacity: {
-    type: DataTypes.INTEGER(30),
+    type: DataTypes.INTEGER,
     allowNull: false,
     validate: {
-      notNull: {
-        msg: "Cannot be null",
-      },
-      isNumber: {
+      isInt: {
         args: true,
-        msg: "Needs to be a number",
+        msg: "Only numbers please",
       },
       min: {
         args: 1,
-        msg: "Minimum value is 1",
+        msg: "1 is the lowest capacity",
       },
       max: {
         args: 30,
-        msg: "Max value is 30",
+        msg: "30 is the max capacity for a room",
+      },
+
+      notNull: {
+        args: true,
+        msg: "Cannot be null",
       },
     },
   },
   image: {
     type: DataTypes.ARRAY(DataTypes.STRING),
-    allowNull: false,
-    defaultValue:
-      "https://static.vecteezy.com/system/resources/thumbnails/000/350/646/small_2x/Real_Estate__281_29.jpg",
-    valdiate: {
-      notNull: {
-        msg: "Cannot be null",
-      },
-      isUrl: {
-        args: true,
-        msg: "Needs to be a URL",
-      },
-    },
   },
   rating: {
     type: DataTypes.DECIMAL(10, 1),
