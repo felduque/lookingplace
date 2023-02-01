@@ -10,7 +10,7 @@ import { Property } from "./models/property.model.js";
 import { Tenant } from "./models/tenant.model.js";
 import clientRoutes from "./routes/Client/client.routes.js";
 import tenantRoutes from "./routes/Tenant/tenant.routes.js";
-import propertyRoutes from "./routes/Property/property.routes.js"
+import propertyRoutes from "./routes/Property/property.routes.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 const __filename = fileURLToPath(import.meta.url);
@@ -33,29 +33,16 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(morgan("dev"));
 
 // Relation aboutMe and Client & aboutme and Tenant
-// Client.hasMany(Aboutme, { foreignKey: "client_about" });
-// Aboutme.belongsTo(Client, { foreignKey: "client_about" });
-// Tenant.hasMany(Aboutme, { foreignKey: "tenant_about" });
-// Aboutme.belongsTo(Tenant, { foreignKey: "tenant_about" });
-
-Client.hasOne(Aboutme, { foreignKey: "client_about" });
+Client.hasMany(Aboutme, { foreignKey: "client_about" });
 Aboutme.belongsTo(Client, { foreignKey: "client_about" });
-
-Tenant.hasOne(Aboutme, { foreignKey: "tenant_about" });
+Tenant.hasMany(Aboutme, { foreignKey: "tenant_about" });
 Aboutme.belongsTo(Tenant, { foreignKey: "tenant_about" });
-
-
-
 
 Tenant.hasMany(Property, { foreignKey: "tenant_property" });
 Property.belongsTo(Tenant, { foreignKey: "tenant_property" });
 
 Client.hasMany(Property, { foreignKey: "client_property" });
 Property.belongsTo(Client, { foreignKey: "client_property" });
-
-
-
-
 
 // Routes
 app.use(clientRoutes);
