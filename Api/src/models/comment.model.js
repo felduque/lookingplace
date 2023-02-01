@@ -9,5 +9,12 @@ export const Comment = sequelize.define("Comment", {
   },
   comment: {
     type: DataTypes.TEXT,
+    allowNull: true,
+    validator: {
+      len: {
+        args: [3, 300],
+        msg: "Description needs to have between 3 to 300 characters",
+      },
+    },
   },
 });
