@@ -13,8 +13,8 @@ export const apiSlice = createApi({
     getCards: builder.query({
       query: () => "/tasks",
       providesTags: ["Tasks"],
-      // transformResponse: (response) =>
-      // response.sort((a, b) => a.capacity - b.capacity),
+      transformResponse: (response) =>
+        response.sort((a, b) => a.capacity - b.capacity),
       // response.filter((e) => e.capacity === "1"),
     }),
     invalidatesTags: ["Tasks"],

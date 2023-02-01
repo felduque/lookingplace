@@ -7,13 +7,12 @@ function Home(props) {
   const { data: cards, error } = useGetCardsQuery();
   return (
     <div className="">
-      <NavBar />
+      <NavBar className="w-3" />
       <div className="md:flex gap-4 shrink-0">
         {cards?.length
           ? cards.map((card) => (
               <ul key={card.id}>
                 <Card
-                  className=""
                   title={card.title}
                   image={card.image}
                   capacity={card.capacity}
