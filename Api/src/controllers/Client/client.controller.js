@@ -9,6 +9,11 @@
 import { Aboutme } from "../../models/aboutme.model.js";
 import { Client } from "../../models/client.model.js";
 import { Tenant } from "../../models/tenant.model.js";
+import bcrypt from "bcrypt";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 export const createAboutme = async (req, res) => {
   const { description, hobbies, age, from, client_about, tenant_about } =
@@ -54,15 +59,28 @@ export const createAboutme = async (req, res) => {
 };
 
 export const createClient = async (req, res) => {
-  const { fullName, email, password, verify, avatar, phone } = req.body;
+  const { fullName, email, password, verify, phone } = req.body;
+  // ! Upload Image
+  const img = req.files.img;
+  let pathImage = __dirname + "/../../public/client/" + img.name;
+  img.mv(pathImage);
+  let url = (pathImage = "http://localhost:3000/client/" + img.name);
+  // ! Encrypt password
+  const salt = await bcrypt.genSalt(10);
+  const passwordCrypt = await bcrypt.hash(password, salt);
   try {
+    const searchPhone = await Client.findOne({ where: { phone } });
+    const searchEmail = await Client.findOne({ where: { email } });
+    if (searchEmail) return res.status(400).json({ message: "Email exists" });
+    if (searchPhone) return res.status(400).json({ message: "Phone exists" });
+
     let newClient = await Client.create(
       {
         fullName,
         email,
-        password,
+        password: passwordCrypt,
         verify,
-        avatar,
+        avatar: url,
         phone,
       }
       // relation aboutMe and create aboutme
@@ -108,5 +126,109 @@ export const getClient = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const getClientById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    let clientId = await Client.findOne({
+      where: { id },
+      attributes: ["id", "fullName", "email", "avatar"],
+    });
+    if (!clientId) return res.status(400).json({ message: "Client not found" });
+    if (clientId) {
+      res.json({
+        data: clientId,
+      });
+    }
+  } catch (err) {
+    res.json({
+      message: "Something goes wrong",
+      data: {},
+    });
+  }
+};
+
+export const updateClient = async (req, res) => {
+  const { id } = req.params;
+  const { fullName, email, password, verify, avatar } = req.body;
+  try {
+    let client = await Client.findOne({
+      where: { id },
+    });
+    if (!client) return res.status(400).json({ message: "Client not found" });
+    if (client) {
+      await Client.update(
+        {
+          fullName,
+          email,
+          password,
+          verify,
+          avatar,
+        },
+        {
+          where: { id },
+        }
+      );
+      res.json({
+        message: "Client updated successfully",
+        data: client,
+      });
+    }
+  } catch (err) {
+    res.json({
+      message: "Something goes wrong",
+      data: {},
+    });
+  }
+};
+
+export const deleteClient = async (req, res) => {
+  const { id } = req.params;
+  try {
+    let client = await Client.findOne({
+      where: { id },
+    });
+    if (!client) return res.status(400).json({ message: "Client not found" });
+    if (client) {
+      await Client.destroy({
+        where: { id },
+      });
+      res.json({
+        message: "Client deleted successfully",
+        data: client,
+      });
+    }
+  } catch (err) {
+    res.json({
+      message: "Something goes wrong",
+      data: {},
+    });
+  }
+};
+
+export const validateClient = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    let client = await Client.findOne({ where: { email } });
+    if (!client) return res.status(400).json({ message: "Client not found" });
+    if (client) {
+      const validPassword = await bcrypt.compare(password, client.password);
+      if (!validPassword)
+        return res.status(400).json({ message: "Invalid password" });
+      if (validPassword === true) {
+        res.json({
+          message: validPassword,
+          data: client,
+        });
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    res.json({
+      message: "Something goes wrong",
+      data: {},
+    });
   }
 };
