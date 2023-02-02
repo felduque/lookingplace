@@ -12,6 +12,7 @@ import { Tenant } from "../../models/tenant.model.js";
 import bcrypt from "bcrypt";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import jwt from "jsonwebtoken";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -107,6 +108,33 @@ export const createClient = async (req, res) => {
       message: "Error",
       data: {},
     });
+  }
+};
+
+export const login = async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password)
+    return res
+      .status(400)
+      .json({ message: "emailname and password are required." });
+
+  const foundUser = await Client.findOne({ where: { email } });
+  if (!foundUser) return res.sendStatus(401);
+
+  const match = await bcrypt.compare(password, foundUser.password);
+
+  if (match) {
+    try {
+      const token = jwt.sign(
+        { email: email, password: password },
+        "24bfa9d95a7799b7cec3ef56ad0a7c1e49d91c879967eb64e18b1732ffec9a45ad2743648d802ffdd7297793edf64b58c3bf6b080d0280ca469c98854d01ad50",
+        { expiresIn: "3m" }
+      );
+      require("crypto").randomBytes(64).toString("hex");
+      res.status(200).json(token);
+    } catch (err) {
+      console.log(err);
+    }
   }
 };
 
