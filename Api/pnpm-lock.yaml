@@ -11,6 +11,7 @@ specifiers:
   express-validator: ^6.14.3
   firebase: ^9.16.0
   firebase-admin: ^11.5.0
+  jsonwebtoken: ^9.0.0
   morgan: ^1.10.0
   nodemailer: ^6.9.1
   nodemon: ^2.0.20
@@ -28,6 +29,7 @@ dependencies:
   express-validator: 6.14.3
   firebase: 9.16.0
   firebase-admin: 11.5.0
+  jsonwebtoken: 9.0.0
   morgan: 1.10.0
   nodemailer: 6.9.1
   pg: 8.9.0

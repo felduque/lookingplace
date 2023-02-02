@@ -136,6 +136,13 @@ export const getClientById = async (req, res) => {
     let clientId = await Client.findOne({
       where: { id },
       attributes: ["id", "fullName", "email", "avatar"],
+      include: [
+        {
+          model: Aboutme,
+          as: "Aboutmes",
+          attributes: ["id", "description", "hobbies", "age", "from"],
+        },
+      ],
     });
     if (!clientId) return res.status(400).json({ message: "Client not found" });
     if (clientId) {
@@ -224,6 +231,26 @@ export const validateClient = async (req, res) => {
           data: client,
         });
       }
+    }
+  } catch (error) {
+    console.log(error);
+    res.json({
+      message: "Something goes wrong",
+      data: {},
+    });
+  }
+};
+
+export const googleMapCoord = async (req, res) => {
+  const { lat, lng } = req.body;
+  try {
+    let client = await Client.findOne({ where: { lat, lng } });
+    if (!client) return res.status(400).json({ message: "Client not found" });
+    if (client) {
+      res.json({
+        message: "Client found",
+        data: client,
+      });
     }
   } catch (error) {
     console.log(error);

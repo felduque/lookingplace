@@ -1,7 +1,7 @@
 import Sequelize from "sequelize";
 
 const sequelize = new Sequelize(
-  "postgres://qgkajrlr:N8RxTLqSbOGGWvhM7wUG4_sCTRLQlr85@chunee.db.elephantsql.com/qgkajrlr",
+  "postgres://itdnwfxe:IuRTXnrtJTsdSuw3we5ArdeQ9_ctVbvU@fanny.db.elephantsql.com/itdnwfxe",
   {
     logging: false,
   }
