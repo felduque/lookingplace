@@ -11,9 +11,9 @@ export const Tenant = sequelize.define("Tenant", {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
-      isAlpha: {
-        args: true,
-        msg: "only letters",
+      is: {
+        args: /^[A-Za-z ]+$/,
+        msg: "solo letras",
       },
       min: {
         args: 3,
@@ -47,34 +47,22 @@ export const Tenant = sequelize.define("Tenant", {
   avatar: {
     type: DataTypes.STRING,
     allowNull: false,
-    defaultValue:
-      "https://img2.freepng.es/20180418/wve/kisspng-refilmery-computer-icons-avatar-user-profile-avatar-vector-5ad7bb8f659906.3642332415240876954162.jpg",
-    validate: {
-      isUrl: {
-        args: true,
-        msg: "Please enter a URL",
-      },
-    },
   },
   password: {
     type: DataTypes.STRING,
   },
   phone: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull: false,
     unique: true,
     validate: {
-      isInt: {
+      isAlphanumeric: {
         args: true,
-        msg: "Only numbers please",
+        msg: "Only alphanumeric values",
       },
-      max: {
-        args: 15,
+      len: {
+        args: [9, 15],
         msg: "The maximum number of numbers are 15",
-      },
-      min: {
-        args: 11,
-        msg: "The minimum number of numbers are 11",
       },
     },
   },
