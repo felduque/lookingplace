@@ -65,8 +65,8 @@ export const Client = sequelize.define("Clients", {
   verify: {
     type: DataTypes.BOOLEAN,
   },
-  verifyImg: {
-    type: DataTypes.ARRAY(DataTypes.STRING),
-    allowNull: true,
-  },
+   verifyImg: {
+     type: DataTypes.ARRAY(DataTypes.STRING),
+     allowNull: true,
+   },
 });

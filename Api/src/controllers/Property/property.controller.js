@@ -109,11 +109,12 @@ export const getProperty = async (req, res) => {
         {
           model: Comment,
           as: "property_comment",
-          attributes: ["id", "comments"],
+          attributes: ["comment"]
         },
       ],
     });
-    res.json({ property });
+    console.log("property:",property);
+    res.json( property );
   } catch (error) {
     console.log(error);
   }
