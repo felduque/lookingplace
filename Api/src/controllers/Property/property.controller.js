@@ -24,11 +24,26 @@ export const createProperty = async (req, res) => {
     client_property,
   } = req.body;
     const image = req.files;
+    capacity,
+    beds,
+    baths,
+    pets,
+    smoke,
+    party,
+    price,
+    image,
+    rating,
+    tenant_property,
+    client_property,
+    checkIn,
+    checkOut,
+  } = req.body;
   try {
     let newProperty = await Property.create(
       {
         title,
         description,
+
         checkIn,
         checkOut,
         capacity,
@@ -42,6 +57,19 @@ export const createProperty = async (req, res) => {
         rating,
         tenant_property,
         client_property,
+        capacity,
+        beds,
+        baths,
+        pets,
+        smoke,
+        party,
+        price,
+        image,
+        rating,
+        tenant_property,
+        client_property,
+        checkIn,
+        checkOut,
       },
       {
         includes: [
