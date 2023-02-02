@@ -11,6 +11,7 @@ import { Tenant } from "./models/tenant.model.js";
 import clientRoutes from "./routes/Client/client.routes.js";
 import tenantRoutes from "./routes/Tenant/tenant.routes.js";
 import propertyRoutes from "./routes/Property/property.routes.js";
+import commentRoutes from "./routes/Comment/comment.routes.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 const __filename = fileURLToPath(import.meta.url);
@@ -44,9 +45,24 @@ Property.belongsTo(Tenant, { foreignKey: "tenant_property" });
 Client.hasMany(Property, { foreignKey: "client_property" });
 Property.belongsTo(Client, { foreignKey: "client_property" });
 
+// Relation Comment
+
+Client.hasMany(Comment, { foreignKey: "client_comment" });
+Comment.belongsTo(Client, { foreignKey: "client_comment" });
+
+Tenant.hasMany(Comment, { foreignKey: "tenant_comment" });
+Comment.belongsTo(Tenant, { foreignKey: "tenant_comment" });
+
+Property.hasMany(Comment, { foreignKey: "property_comment" });
+Comment.belongsTo(Property, { foreignKey: "property_comment" });
+
+
+
+
 // Routes
 app.use(clientRoutes);
 app.use(tenantRoutes);
 app.use(propertyRoutes);
+app.use(commentRoutes)
 
 export default app;
