@@ -1,10 +1,20 @@
 import React from "react";
 import { useEffect } from "react";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import axios from "axios";
 import Select from "react-select";
 import CurrencyInput from "react-currency-input-field";
 import makeAnimated, { Input } from "react-select/animated";
+// Google Maps
+import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import PlacesAutocomplete from "react-places-autocomplete";
+import {
+  geocodeByAddress,
+  geocodeByPlaceId,
+  getLatLng,
+} from "react-places-autocomplete";
+
+// Fin Google Maps
 
 const animatedComponents = makeAnimated();
 
@@ -18,38 +28,66 @@ const options = [
 ];
 
 export default function FormHostCreate() {
+  // Google Maps
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: "AIzaSyDrViDX9rfRwIuHnmg19Ss7qT9UgIwD_Ok",
+    libraries: ["places"],
+  });
+
+  const [address, setAddress] = useState("");
+  const [coordinates, setCoordinates] = useState({
+    lat: null,
+    lng: null,
+  });
+
+  const handleSelect = async (value) => {
+    setAddress(value);
+    const results = await geocodeByAddress(value);
+    const { lat, lng } = await getLatLng(results[0]);
+    // console.log(lat, lng);
+    setCoordinates({
+      lat: lat,
+      lng: lng,
+    });
+    setInputs({
+      ...inputs,
+      lat: lat,
+      lng: lng,
+    });
+    // console.log(coordinates);
+  };
+
+  // Fin Google Maps
   const [inputs, setInputs] = useState({
     title: "",
     description: "",
+    checkIn: "10:00",
+    checkOut: "10:00",
     capacity: 1,
     beds: 1,
-    baths: 0,
+    baths: 1,
     services: [],
-    checkin: "10:00",
-    checkout: "10:00",
     smoke: false,
     party: false,
     pets: false,
-    country: "",
-    state: "",
-    city: "",
-    img: [],
-    images: {},
     price: 0,
+    image: [],
     rating: 1,
+    lat: 0,
+    lng: 0,
   });
   // estados relacionados con inputs.images para mostrar lo subido
   const [urlImages, setUrlImages] = useState([]);
 
   useEffect(() => {
     // seteo el array si no hay images, sino creo el array a mostar
-    if (inputs.img.length === 0) setUrlImages([]);
-    if (inputs.img.length > 0) {
+    if (inputs.image.length === 0) setUrlImages([]);
+    if (inputs.image.length > 0) {
       const newArrayUrl = [];
-      inputs.img.forEach((img) => newArrayUrl.push(URL.createObjectURL(img)));
+      inputs.image.forEach((img) => newArrayUrl.push(URL.createObjectURL(img)));
       setUrlImages(newArrayUrl);
     }
-  }, [inputs.img]);
+  }, [inputs.image]);
 
   const handleChange = (e, actionMeta = false) => {
     // Select no tiene name en el evento, usa ActionMeta
@@ -74,7 +112,7 @@ export default function FormHostCreate() {
         ...inputs,
         [e.target.name]: e.target.checked,
       });
-    } else if (e.target.name === "img") {
+    } else if (e.target.name === "image") {
       // console.log(e.target.files);
       // console.log(Array.isArray(e.target.files));
       setInputs({
@@ -92,9 +130,9 @@ export default function FormHostCreate() {
   // eliminando image del estado y actualizando el estado; todo esta referenciado al state principal inputs
   const handleClickImg = (e) => {
     const { id } = e.target;
-    inputs.img.splice(id, 1);
-    const arrayImg = [...inputs.img];
-    setInputs({ ...inputs, img: arrayImg });
+    inputs.image.splice(id, 1);
+    const arrayImg = [...inputs.image];
+    setInputs({ ...inputs, image: arrayImg });
   };
 
   const handleSubmit = (e) => {
@@ -109,12 +147,13 @@ export default function FormHostCreate() {
   };
 
   // console.log(inputs);
-  console.log(inputs.images);
+  console.log(inputs);
 
+  if (!isLoaded) return <div>...Cargando</div>;
   return (
     <div>
       <h3>Comenzemos la travesia con nuestros viajeros!</h3>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} encType="multiple">
         <div>
           <label htmlFor="title">Titulo del Alojamiento</label>
           <input
@@ -152,6 +191,8 @@ export default function FormHostCreate() {
             id="beds"
             type="number"
             name="beds"
+            min={1}
+            max={20}
             value={inputs.beds}
             onChange={handleChange}
           />
@@ -162,6 +203,8 @@ export default function FormHostCreate() {
             id="baths"
             type="number"
             name="baths"
+            min={1}
+            max={20}
             value={inputs.baths}
             onChange={handleChange}
           />
@@ -181,22 +224,22 @@ export default function FormHostCreate() {
           <p>Reglas del alojamiento</p>
         </div>
         <div>
-          <label htmlFor="checkin">Horario de entrada</label>
+          <label htmlFor="checkIn">Horario de entrada</label>
           <input
-            id="checkin"
+            id="checkIn"
             type="time"
-            name="checkin"
-            value={inputs.checkin}
+            name="checkIn"
+            value={inputs.checkIn}
             onChange={handleChange}
           />
         </div>
         <div>
-          <label htmlFor="checkout">Horario de salida</label>
+          <label htmlFor="checkOut">Horario de salida</label>
           <input
-            id="checkout"
+            id="checkOut"
             type="time"
-            name="checkout"
-            value={inputs.checkout}
+            name="checkOut"
+            value={inputs.checkOut}
             onChange={handleChange}
           />
         </div>
@@ -233,42 +276,65 @@ export default function FormHostCreate() {
         <div>
           <label htmlFor="">Ubicacion</label>
         </div>
-        <div>
-          <label htmlFor="">Pais</label>
-          <input
-            type="text"
-            name="country"
-            value={inputs.country}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="">Ciudad</label>
-          <input
-            type="text"
-            name="state"
-            value={inputs.state}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="">Distrito</label>
-          <input
-            type="text"
-            name="city"
-            value={inputs.city}
-            onChange={handleChange}
-          />
-        </div>
+        {/* Gooogle Maps */}
+        {/* <p>lat:{coordinates.lat}</p>
+        <p>long:{coordinates.lng}</p>
+        <p>Adress:{address}</p> */}
+        <PlacesAutocomplete
+          value={address}
+          onChange={setAddress}
+          onSelect={handleSelect}
+        >
+          {({
+            getInputProps,
+            suggestions,
+            getSuggestionItemProps,
+            loading,
+          }) => (
+            <div>
+              <input
+                {...getInputProps({
+                  placeholder: "Busca tu dirección ...",
+                  className: "location-search-input",
+                })}
+              />
+              <div className="autocomplete-dropdown-container">
+                {loading && <div>Loading...</div>}
+                {suggestions.map((suggestion) => {
+                  const className = suggestion.active
+                    ? "suggestion-item--active"
+                    : "suggestion-item";
+                  // inline style for demonstration purpose
+                  const style = suggestion.active
+                    ? { backgroundColor: "#fafafa", cursor: "pointer" }
+                    : { backgroundColor: "#ffffff", cursor: "pointer" };
+                  return (
+                    <div
+                      {...getSuggestionItemProps(suggestion, {
+                        className,
+                        style,
+                      })}
+                    >
+                      <span>{suggestion.description}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </PlacesAutocomplete>
+
+        {/* Fin Gooogle Maps */}
+
         <div>
           <button type="button">
-            <label htmlFor="img">Selecciona las fotos</label>
+            <label htmlFor="image">Selecciona las fotos</label>
           </button>
           <input
             style={{ display: "none" }}
-            id="img"
+            id="image"
             type="file"
-            name="img"
+            name="image"
             // value={inputs.img}
             multiple
             accept="image/*"
