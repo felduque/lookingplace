@@ -8,21 +8,41 @@
 
 import { Tenant } from "../../models/tenant.model.js";
 import { Aboutme } from "../../models/aboutme.model.js";
+import bcrypt from "bcrypt";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 export const createTenant = async (req, res) => {
   const { fullName, email, password, verify, avatar, phone } = req.body;
+  // ! Upload Image
+  const img = req.files?.img;
+  console.log(req.files);
+  let pathImage = __dirname + "/../../public/tenant/" + img?.name;
+  img?.mv(pathImage);
+  let url = (pathImage = "http://localhost:3000/tenant/" + img?.name);
+  if (!img) url = "google.com";
+  // ! Encrypt password
+  const salt = await bcrypt.genSalt(10);
+  const passwordCrypt = await bcrypt.hash(password, salt);
   try {
+    const searchPhone = await Tenant.findOne({ where: { phone } });
+    const searchEmail = await Tenant.findOne({ where: { email } });
+    if (searchEmail) return res.status(400).json({ message: "Email exists" });
+    if (searchPhone) return res.status(400).json({ message: "Phone exists" });
+
     let newClient = await Tenant.create({
       fullName,
       email,
-      password,
+      password: passwordCrypt,
       verify,
-      avatar,
+      avatar: url,
       phone,
     });
     if (newClient) {
       return res.json({
-        message: "Client created successfully",
+        message: "Tenant created successfully",
         data: newClient,
       });
     }
@@ -98,7 +118,7 @@ export const updateTenant = async (req, res) => {
       });
     }
     return res.json({
-      message: "Client updated successfully",
+      message: "Tenant updated successfully",
       data: client,
     });
   } catch (error) {
@@ -117,7 +137,7 @@ export const deleteTenant = async (req, res) => {
       where: { id },
     });
     res.json({
-      message: "Client deleted successfully",
+      message: "Tenant deleted successfully",
       count: deleteRowCount,
     });
   } catch (error) {
@@ -133,7 +153,7 @@ export const validateTenant = async (req, res) => {
     });
     if (client) {
       return res.json({
-        message: "Client found successfully",
+        message: "Tenant found successfully",
         data: client,
       });
     }

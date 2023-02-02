@@ -61,10 +61,11 @@ export const createAboutme = async (req, res) => {
 export const createClient = async (req, res) => {
   const { fullName, email, password, verify, phone } = req.body;
   // ! Upload Image
-  const img = req.files.img;
-  let pathImage = __dirname + "/../../public/client/" + img.name;
-  img.mv(pathImage);
-  let url = (pathImage = "http://localhost:3000/client/" + img.name);
+  const img = req.files?.img;
+  let pathImage = __dirname + "/../../public/client/" + img?.name;
+  img?.mv(pathImage);
+  let url = (pathImage = "http://localhost:3000/client/" + img?.name);
+  if (!img) url = "google.com";
   // ! Encrypt password
   const salt = await bcrypt.genSalt(10);
   const passwordCrypt = await bcrypt.hash(password, salt);
@@ -103,7 +104,7 @@ export const createClient = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({
-      message: "Something goes wrong",
+      message: "Error",
       data: {},
     });
   }

@@ -95,9 +95,12 @@ export default function SignUp() {
 
   //ReCaptcha
   const captcha = useRef(null);
-  console.log(validCaptcha);
+  console.log('Captcha: ', validCaptcha);
   const onChangeCaptcha = () => {
-    if(captcha.current.getValue()) validCaptcha(true); console.log(validCaptcha);
+    if(captcha.current.getValue()) {
+      setValidCaptcha(true); 
+      console.log('Captcha: ', validCaptcha);
+    }
   };
 
   return (
@@ -204,6 +207,31 @@ export default function SignUp() {
             <label>
               <FontAwesomeIcon
                 icon={faCheck}
+                className={validPhone ? "valid" : "hide"}
+              />
+              <FontAwesomeIcon
+                icon={faTimes}
+                className={validEmail || !email ? "hide" : "invalid"}
+              />
+            </label>
+            <input
+              type="email"
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              required
+            />
+            <p
+              id="email"
+              className={email && !validEmail ? "instructions" : "offscreen"}
+            >
+              <FontAwesomeIcon icon={faInfoCircle} />
+              Email Incorrect
+            </p>
+            
+            <label>
+              <FontAwesomeIcon
+                icon={faCheck}
                 className={validEmail ? "valid" : "hide"}
               />
               <FontAwesomeIcon
@@ -225,23 +253,25 @@ export default function SignUp() {
               <FontAwesomeIcon icon={faInfoCircle} />
               Email Incorrect
             </p>
+
+            { /*
             <label>Avatar: </label>
             <input
               type="file" //Checkear, no estoy seguro
               placeholder="Avatar"
               onChange={(e) => setAvatar(e.target.value)}
               value={avatar}
-            />
-
+            /> */ }
+            <p>
             <ReCAPTCHA
                  ref={captcha}
                  sitekey="6Le2F0EkAAAAAPCok1gCfpggSPFK8oKRBI5GDSAE"
                  onChange={onChangeCaptcha}
             />
-
+            </p>
             <button
               disabled={
-                !fullName || !password || !matchPassword || email || !validCaptcha ? true : false
+                !fullName || !password || !matchPassword || !email || !validEmail || !validCaptcha ? true : false
               }
             >
               Sign Up
