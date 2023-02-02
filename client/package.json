@@ -13,16 +13,20 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.16",
+    "@react-google-maps/api": "^2.18.1",
     "@reduxjs/toolkit": "^1.9.1",
     "axios": "^1.2.5",
     "bulma": "^0.9.4",
     "mercadopago": "^1.5.14",
     "react": "^18.2.0",
+    "react-currency-input-field": "^3.6.9",
     "react-dom": "^18.2.0",
     "react-google-recaptcha": "^2.1.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.0",
-    "redux": "^4.2.0"
+    "react-select": "^5.7.0",
+    "redux": "^4.2.0",
+    "use-places-autocomplete": "^4.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.26",
