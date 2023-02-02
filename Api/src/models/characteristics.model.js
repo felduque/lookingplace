@@ -11,9 +11,9 @@ export const Character = sequelize.define("Characters", {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
-      isAlpha: {
-        args: true,
-        msg: "only letters",
+      is: {
+        args: /^[A-Za-z ]+$/,
+        msg: "solo letras",
       },
       len: {
         args: [3, 120],
@@ -21,7 +21,7 @@ export const Character = sequelize.define("Characters", {
       },
       notNull: {
         args: true,
-        msg: "cannot be null",
+        msg: "Cannot be null",
       },
     },
   },
