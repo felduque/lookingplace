@@ -1,267 +1,128 @@
-import { useState, useEffect, useRef } from "react";
-import axios from "../Hooks/Axios";
-import { Link } from "react-router-dom";
+import { useEffect, useState, useRef } from 'react';
+import axios from "axios";
 import ReCAPTCHA from "react-google-recaptcha";
+import validateForm  from './validate.js';
 
-import {
-  faCheck,
-  faTimes,
-  faInfoCircle,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-const fullName_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
-const password_REGEX =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const email_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-const REGISTER_URL = "/api/user/createUser";
 
 export default function SignUp() {
-  const [fullName, setfullName] = useState("");
-  const [validName, setValidName] = useState(false);
 
-  const [password, setPassword] = useState("");
-  const [validPassword, setvalidPassword] = useState(false);
-
-  const [matchPassword, setMatchPassword] = useState("");
-  const [validMatch, setValidMatch] = useState(false);
-
-  const [email, setEmail] = useState("");
-  const [validEmail, setValidEmail] = useState(false);
+  const [inputs, setInputs] = useState(
+    {
+      fullName: '',
+      password: '',
+      password2: '',
+      email: '',
+      phone: null
+    }
+  );
 
   const [validCaptcha, setValidCaptcha] = useState(false);
 
-  const [avatar, setAvatar] = useState("");
-  //const [validAvatar, setValidAvatar] = useState(false);
+  let allDataUser = {
 
-  const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
+    fullName: inputs.fullName,
+    password: inputs.password,
+    email: inputs.email,
+    phone: inputs.phone
 
-  useEffect(() => {
-    setValidName(fullName_REGEX.test(fullName));
-  }, [fullName]);
+  }
 
-  useEffect(() => {
-    setvalidPassword(password_REGEX.test(password));
-    setValidMatch(password === matchPassword);
-  }, [password, matchPassword]);
+  const [errors, setErrors] = useState({});
+  const errorsLength = Object.entries(errors).length;
 
-  useEffect(() => {
-    setValidEmail(email_REGEX.test(email));
-  }, [email]);
+   //Cambia estados de error e input. Llama a ValidateForm
+   function handleChange(event) {
+    event.preventDefault();
 
-  useEffect(() => {
-    setErrMsg("");
-  }, [fullName, password, matchPassword, email]);
+    setInputs( { ...inputs, [event.target.name]: event.target.value  } ); //Acceder al name del elemento, y guardar value
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // Si el boton es activado con hack
-    const v1 = fullName_REGEX.test(fullName);
-    const v2 = password_REGEX.test(password);
-    const v3 = email_REGEX.test(email);
-    if (!v1 || !v2 || v3) {
-      setErrMsg("Invalid Entry");
-      return;
+    setErrors( validateForm( { ...inputs, [event.target.name]: event.target.value } ) );
+   }
+   //ReCaptcha
+   const captcha = useRef(null);
+   console.log('Captcha: ', validCaptcha);
+   const onChangeCaptcha = () => {
+   if(captcha.current.getValue()) {
+       setValidCaptcha(true); 
+       console.log('Captcha: ', validCaptcha);
+     }
+};
+
+   //Controlador de envío
+   function handleSubmit(evt) {
+    evt.preventDefault();
+    if(!inputs.fullName || !inputs.password || !inputs.password2 || !inputs.email || !inputs.phone || !validCaptcha || errorsLength !== 0) {
+      alert('Ups! Fill out the entire form.');
     }
+    else {
+    setErrors(
+      validateForm({
+        ...inputs,
+        [evt.target.name]: evt.target.value,
+      }),
+    );
+        //ENVÍO
+        createUser(allDataUser);
+        alert('SignUp Sucess');
+        setInputs({
+          fullName: '',
+          password: '',
+          password2: '',
+          email: '',
+          phone: null
+        });
+   }
+  }
+
+  async function createUser(dataUser) {
     try {
-      const response = await axios.post(
-        REGISTER_URL,
-        JSON.stringify({ fullName, password, email }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
-      console.log(JSON.stringify(response?.data));
-      //console.log(JSON.stringify(response))
-      setSuccess(true);
-      //clear state and controlled inputs
-      setfullName("");
-      setPassword("");
-      setMatchPassword("");
-      setEmail("");
-      setAvatar("");
+      await axios.post("http://localhost:3000/client/createuser", dataUser);
     } catch (err) {
-      if (!err?.response) {
-        setErrMsg("No Server Response");
-      } else if (err.response?.status === 409) {
-        setErrMsg("email Taken");
-      } else {
-        setErrMsg("Registration Failed");
-      }
+      console.error(err, "Error create new user");
     }
-  };
+  }
 
-  //ReCaptcha
-  const captcha = useRef(null);
-  console.log('Captcha: ', validCaptcha);
-  const onChangeCaptcha = () => {
-    if(captcha.current.getValue()) {
-      setValidCaptcha(true); 
-      console.log('Captcha: ', validCaptcha);
-    }
-  };
+   useEffect(() => {
+    setErrors(validateForm(inputs));
+  }, [inputs]);
 
-  return (
-    <div className="allSignUp">
-      {success ? (
-        <section>
-          <h1>Success!</h1>
-          <p>
-            <Link to="/login">Sign In</Link>
-          </p>
-        </section>
-      ) : (
-        <section>
-          <p className={errMsg ? "errmsg" : "offscreen"}>{errMsg}</p>
-          <h1>Register</h1>
-          <form onSubmit={handleSubmit}>
-            <label>
-              <FontAwesomeIcon
-                icon={faCheck}
-                className={validName ? "valid" : "hide"}
-              />
-              <FontAwesomeIcon
-                icon={faTimes}
-                className={validName || !fullName ? "hide" : "invalid"}
-              />
-            </label>
-            <input
-              type="text"
-              id="fullName"
-              placeholder="fullName"
-              autoComplete="off"
-              onChange={(e) => setfullName(e.target.value)}
-              value={fullName}
-              required
-            />
-            <p
-              id="uidnote"
-              className={fullName && !validName ? "instructions" : "offscreen"}
-            >
-              <FontAwesomeIcon icon={faInfoCircle} />
-              4 to 24 characters.
-              <br />
-              Must begin with a letter.
-              <br />
-              Letters, numbers, underscores, hyphens allowed.
+
+return (
+  <div>
+
+  <div>
+      <div>
+            <button>Back</button>
+     </div>
+        <div>
+        <form onSubmit={handleSubmit}>
+            <fieldset>
+            <legend>SignUp</legend>
+            <p>
+            <label>Name </label>
+            <input type='text' name='fullName' value={inputs.fullName} placeholder='Full Name' onChange={(event) => handleChange(event)}  />
+            { errors.name ? <p><span className='error'>{errors.name}</span></p> : null }
             </p>
-
-            <label>
-              <FontAwesomeIcon
-                icon={faCheck}
-                className={validPassword ? "valid" : "hide"}
-              />
-              <FontAwesomeIcon
-                icon={faTimes}
-                className={validPassword || !password ? "hide" : "invalid"}
-              />
-            </label>
-            <input
-              type="password"
-              id="password"
-              placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              required
-            />
-            <p
-              id="passNote"
-              className={
-                password && !validPassword ? "instructions" : "offscreen"
-              }
-            >
-              <FontAwesomeIcon icon={faInfoCircle} />8 to 24 characters. Must
-              include uppercase and lowercase letters, a number and a special
-              character. Allowed special characters:{"!,#,@,#,$,%"}
+            <p>
+            <label>Password </label>
+            <input type='password' name='password'  value={inputs.password} placeholder='Password' onChange={(event) => handleChange(event)} />
+            { errors.password ? <p><span className='error'>{errors.password}</span></p> : null }
             </p>
-
-            <label>
-              <FontAwesomeIcon
-                icon={faCheck}
-                className={validMatch && matchPassword ? "valid" : "hide"}
-              />
-              <FontAwesomeIcon
-                icon={faTimes}
-                className={validMatch || !matchPassword ? "hide" : "invalid"}
-              />
-            </label>
-            <input
-              type="password"
-              placeholder="Confirm Password"
-              onChange={(e) => setMatchPassword(e.target.value)}
-              value={matchPassword}
-              required
-            />
-            <p
-              id="confirmnote"
-              className={
-                matchPassword && !validMatch ? "instructions" : "offscreen"
-              }
-            >
-              <FontAwesomeIcon icon={faInfoCircle} />
-              Must match the first password input field.
+            <p>
+            <label>Repeat password </label>
+            <input type='password' name='password2'  value={inputs.password2} placeholder='Repeat password' onChange={(event) => handleChange(event)} />
+            { errors.password2 ? <p><span className='error'>{errors.password2}</span></p> : null }
             </p>
-
-            <label>
-              <FontAwesomeIcon
-                icon={faCheck}
-                className={validPhone ? "valid" : "hide"}
-              />
-              <FontAwesomeIcon
-                icon={faTimes}
-                className={validEmail || !email ? "hide" : "invalid"}
-              />
-            </label>
-            <input
-              type="email"
-              placeholder="Email"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              required
-            />
-            <p
-              id="email"
-              className={email && !validEmail ? "instructions" : "offscreen"}
-            >
-              <FontAwesomeIcon icon={faInfoCircle} />
-              Email Incorrect
+            <p>
+            <label>Mail </label>
+            <input type='text' name='email' value={inputs.email} placeholder='email adress' onChange={(event) => handleChange(event)}  />
+            { errors.mail ? <p><span className='error'>{errors.mail}</span></p> : null }
             </p>
-            
-            <label>
-              <FontAwesomeIcon
-                icon={faCheck}
-                className={validEmail ? "valid" : "hide"}
-              />
-              <FontAwesomeIcon
-                icon={faTimes}
-                className={validEmail || !email ? "hide" : "invalid"}
-              />
-            </label>
-            <input
-              type="email"
-              placeholder="Email"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              required
-            />
-            <p
-              id="email"
-              className={email && !validEmail ? "instructions" : "offscreen"}
-            >
-              <FontAwesomeIcon icon={faInfoCircle} />
-              Email Incorrect
+            <p>
+            <label>Number phone </label>
+            <input type='text' name='phone' value={inputs.phone} placeholder='Number phone' onChange={(event) => handleChange(event)}  />
+            { errors.phone ? <p><span className='error'>{errors.phone}</span></p> : null }
             </p>
-
-            { /*
-            <label>Avatar: </label>
-            <input
-              type="file" //Checkear, no estoy seguro
-              placeholder="Avatar"
-              onChange={(e) => setAvatar(e.target.value)}
-              value={avatar}
-            /> */ }
             <p>
             <ReCAPTCHA
                  ref={captcha}
@@ -269,23 +130,18 @@ export default function SignUp() {
                  onChange={onChangeCaptcha}
             />
             </p>
-            <button
-              disabled={
-                !fullName || !password || !matchPassword || !email || !validEmail || !validCaptcha ? true : false
-              }
-            >
-              Sign Up
-            </button>
-          </form>
-          <p>
-            Already registered?
-            <br />
-            <span className="line">
-              <Link to="/login">Sign In</Link>
-            </span>
-          </p>
-        </section>
-      )}
+            <p>
+
+            </p>
+            
+            <p><button type='submit' disabled={!inputs.fullName || !inputs.password || !inputs.password2 || !inputs.email || !inputs.phone || !validCaptcha || errorsLength !== 0}>SignUp</button></p>
+
+        </fieldset>
+        </form>
+        </div>
+
     </div>
-  );
-}
+
+  </div>
+);
+};
