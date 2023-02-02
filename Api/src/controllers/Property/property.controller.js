@@ -52,8 +52,6 @@ export const createProperty = async (req, res) => {
     });
   }
 };
-<<<<<<< HEAD
-=======
 
 export const getProperty = async (req, res) => {
   try {
@@ -63,14 +61,13 @@ export const getProperty = async (req, res) => {
         {
           model: Comment,
           as: "property_comment",
-          attributes: ["comment"]
+          attributes: ["comment"],
         },
       ],
     });
-    console.log("property:",property);
-    res.json( property );
+    console.log("property:", property);
+    res.json(property);
   } catch (error) {
     console.log(error);
   }
 };
->>>>>>> a88c9d16a5087bc8c140de51708f5854532e546c
