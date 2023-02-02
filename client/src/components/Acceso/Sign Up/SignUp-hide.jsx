@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+/*import { useState, useEffect, useRef } from "react";
 import axios from "../Hooks/Axios";
 import { Link } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -252,7 +252,7 @@ export default function SignUp() {
               placeholder="Avatar"
               onChange={(e) => setAvatar(e.target.value)}
               value={avatar}
-            /> */ }
+            /> 
             <p>
             <ReCAPTCHA
                  ref={captcha}
@@ -279,4 +279,4 @@ export default function SignUp() {
       )}
     </div>
   );
-}
+}*/
