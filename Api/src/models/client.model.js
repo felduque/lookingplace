@@ -43,7 +43,6 @@ export const Client = sequelize.define("Clients", {
   avatar: {
     type: DataTypes.STRING,
     allowNull: false,
-    defaultValue: "http://localhost:3000/client/avatar.png",
   },
   password: {
     type: DataTypes.STRING,
@@ -52,11 +51,14 @@ export const Client = sequelize.define("Clients", {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
-    isAlpha: true,
     validate: {
+      isInt: {
+        args: true,
+        msg: "Only numeric values",
+      },
       len: {
         args: [9, 15],
-        msg: "The maximum number of numbers are 15",
+        msg: "Phone number needs to have between 9 and 15 numbers",
       },
     },
   },

@@ -11,8 +11,8 @@ export const Property = sequelize.define("Property", {
     type: DataTypes.STRING(60),
     allowNull: false,
     validate: {
-      isAlphanumeric: {
-        args: true,
+      is: {
+        args: /^[A-Za-z ]+$/,
         msg: "solo letras",
       },
       min: {
@@ -47,14 +47,18 @@ export const Property = sequelize.define("Property", {
       },
     },
   },
+  checkIn: {
+    type: DataTypes.STRING,
+    defaultValue: "00:00",
+  },
+  checkOut: {
+    type: DataTypes.STRING,
+    defaultValue: "00:00",
+  },
   capacity: {
     type: DataTypes.INTEGER,
     allowNull: false,
     validate: {
-      isInt: {
-        args: true,
-        msg: "Only numbers please",
-      },
       min: {
         args: 1,
         msg: "1 is the lowest capacity",
@@ -68,6 +72,42 @@ export const Property = sequelize.define("Property", {
         msg: "Cannot be null",
       },
     },
+  },
+  beds: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    validate: {
+      min: {
+        args: 1,
+        msg: "Minimum value is 1",
+      },
+    },
+  },
+  baths: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    validate: {
+      min: {
+        args: 1,
+        msg: "Minimum value is 1",
+      },
+    },
+  },
+  smoke: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+  },
+  party: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+  },
+  pets: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+  },
+  price: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
   },
   image: {
     type: DataTypes.ARRAY(DataTypes.STRING),
