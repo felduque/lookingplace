@@ -3,23 +3,47 @@ import { Tenant } from "../../models/tenant.model.js";
 import { Client } from "../../models/client.model.js";
 
 export const createProperty = async (req, res) => {
+  console.log(req.body);
   const {
     title,
     description,
+    checkIn,
+    checkOut,
     capacity,
-    image,
+    beds,
+    baths,
+    services,
+    smoke,
+    party,
+    pets,
+    price,
     rating,
+    lat,
+    lng,
     tenant_property,
     client_property,
   } = req.body;
+
+  console.log(req.files);
+  const arrayServices = JSON.parse(services);
   try {
     let newProperty = await Property.create(
       {
         title,
         description,
+        checkIn,
+        checkOut,
         capacity,
-        image,
+        beds,
+        baths,
+        services: arrayServices,
+        smoke,
+        party,
+        pets,
+        price,
         rating,
+        lat,
+        lng,
         tenant_property,
         client_property,
       },
@@ -39,6 +63,8 @@ export const createProperty = async (req, res) => {
       }
     );
     if (newProperty) {
+      // console.log(newProperty);
+      console.log("created new property");
       return res.json({
         message: "Property created successfully",
         data: newProperty,
@@ -55,6 +81,7 @@ export const createProperty = async (req, res) => {
 
 export const getProperty = async (req, res) => {
   try {
+<<<<<<< HEAD
     const property = await Property.findAll({
       attributes: ["id", "title", "description", "capacity", "image", "rating"],
       includes: [
@@ -66,6 +93,9 @@ export const getProperty = async (req, res) => {
       ],
     });
     console.log("property:", property);
+=======
+    const property = await Property.findAll();
+>>>>>>> 0948fe008e0a3363d6fd98a521712569e3d0fc2c
     res.json(property);
   } catch (error) {
     console.log(error);

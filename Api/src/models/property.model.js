@@ -29,10 +29,6 @@ export const Property = sequelize.define("Property", {
       },
     },
   },
-
-  /**
-   * ! Cambiar acorde a la necesidad
-   */
   description: {
     type: DataTypes.TEXT,
     allowNull: false,
@@ -93,6 +89,9 @@ export const Property = sequelize.define("Property", {
       },
     },
   },
+  services: {
+    type: DataTypes.ARRAY(DataTypes.STRING),
+  },
   smoke: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
@@ -106,7 +105,7 @@ export const Property = sequelize.define("Property", {
     allowNull: false,
   },
   price: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.FLOAT,
     allowNull: false,
   },
   image: {
@@ -119,5 +118,11 @@ export const Property = sequelize.define("Property", {
       max: 5,
       min: 0,
     },
+  },
+  lat: {
+    type: DataTypes.FLOAT,
+  },
+  lng: {
+    type: DataTypes.FLOAT,
   },
 });
