@@ -11,7 +11,7 @@ import { Tenant } from "./models/tenant.model.js";
 import clientRoutes from "./routes/Client/client.routes.js";
 import tenantRoutes from "./routes/Tenant/tenant.routes.js";
 import propertyRoutes from "./routes/Property/property.routes.js";
-import commentRoutes from "./routes/Comment/comment.routes.js";
+import otherRoutes from "./routes/Other/other.routes.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 const __filename = fileURLToPath(import.meta.url);
@@ -24,7 +24,21 @@ const app = express();
 import cors from "cors";
 
 // Cors
-app.use(cors({ origin: "*" }));
+let allowedOrigins = ["http://127.0.0.1:5173"];
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        var msg =
+          "The CORS policy for this site does not " +
+          "allow access from the specified Origin.";
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
+  })
+);
 
 // Midelewares
 app.use(bodyParser.json());
@@ -65,6 +79,6 @@ Comment.belongsTo(Property, { foreignKey: "property_comment" });
 app.use(clientRoutes);
 app.use(tenantRoutes);
 app.use(propertyRoutes);
-app.use(commentRoutes);
+app.use(otherRoutes);
 
 export default app;

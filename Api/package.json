@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "type": "module",
+  "token":"d326bd8491ea256a50a6c1640f6033f216003493b8a20f75df485b791ee94089baf7bcc76bf044dd5db28938f10c00e212826d096afd815f90daaf39baef3d63",
   "scripts": {
     "start": "nodemon index.js"
   },
