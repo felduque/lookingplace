@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { GoogleMap, LoadScript } from "@react-google-maps/api";
+import { Link } from "react-router-dom";
 
 export default function Navbar(props) {
   const [coordinates, setCoordinates] = useState({
@@ -20,21 +21,38 @@ export default function Navbar(props) {
   };
 
   return (
-    <LoadScript
-      googleMapsApiKey="AIzaSyAm-iCiF6TdNp8kz715Ud_sMd8ywWYDmNg"
-      libraries={["places"]}
-    >
-      <div>
-        <input type="text" onChange={(e) => getCoordinates(e.target.value)} />
-        <GoogleMap
-          mapContainerStyle={{
-            height: "400px",
-            width: "100%",
-          }}
-          center={{ lat: coordinates.lat, lng: coordinates.lng }}
-          zoom={14}
-        />
+    <>
+      <LoadScript
+        googleMapsApiKey="AIzaSyAm-iCiF6TdNp8kz715Ud_sMd8ywWYDmNg"
+        libraries={["places"]}
+      >
+        <div>
+          <input
+            type="text"
+            className="inputMap"
+            onChange={(e) => getCoordinates(e.target.value)}
+          />
+          <GoogleMap
+            mapContainerStyle={{
+              height: "300px",
+              width: "45%",
+            }}
+            center={{ lat: coordinates.lat, lng: coordinates.lng }}
+            zoom={14}
+          />
+        </div>
+      </LoadScript>
+      <div className="btnNav">
+        <Link to="/login">
+          <button>Login</button>
+        </Link>
+        <Link to="/">
+          <button>Home</button>
+        </Link>
+        <Link to="/register">
+          <button>Register</button>
+        </Link>
       </div>
-    </LoadScript>
+    </>
   );
 }

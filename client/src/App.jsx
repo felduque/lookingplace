@@ -1,10 +1,14 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
 import SignUp from "./components/Acceso/Sign Up/SignUp";
 import Login from "./components/Acceso/Sign In/Login";
 import Admin from "./components/Admin/Admin";
+import Navbar from "./components/NavBar/NavBar";
+import RequireAuth from "./components/ProtectRoute/RequireAuth";
+import { Outlet } from "react-router-dom";
+import Layout from "./components/ProtectRoute/Layout";
 
 function App() {
   const [user, setUser] = useState({});
@@ -18,14 +22,23 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
+    <>
+      <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/register" element={<SignUp />} />
-        <Route path="/login" element={<Login user={user} />} />
-        <Route path="/settings" element={<Admin user={user} />} />
+        <Route path="/" element={<Layout />}>
+          {/*Public Routes*/}
+
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<SignUp />} />
+          <Route path="/login" element={<Login user={user} />} />
+
+          {/*Protect routes*/}
+          <Route element={<RequireAuth />}>
+            <Route path="/settings" element={<Admin user={user} />} />
+          </Route>
+        </Route>
       </Routes>
-    </BrowserRouter>
+    </>
   );
 }
 

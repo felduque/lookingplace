@@ -1,19 +1,21 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import AuthContext from "../../context/AuthProvider";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import useAuth from "../../ProtectRoute/useAuth";
 import axios from "axios";
-import LoginGoogle from "./LoginGoogle";
 
 //const LOGIN_URL = "/client/login";
 
 export default function Login() {
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth } = useAuth();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     setErrMsg("");
@@ -38,7 +40,7 @@ export default function Login() {
       console.log(email, password, accessToken);
       setEmail("");
       setPassword("");
-      setSuccess(true);
+      navigate(from, { replace: true });
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
@@ -54,47 +56,37 @@ export default function Login() {
 
   return (
     <>
-      {success ? (
-        <section>
-          <h1>Ya estás logueado</h1>
-          <br />
-          <p>
-            <Link to="/">Go to home</Link>
-          </p>
-        </section>
-      ) : (
-        <section>
-          <p>{errMsg}</p>
-          <h1>Sign In</h1>
-          <form onSubmit={handleSubmit}>
-            <input
-              type="email"
-              id="emailname"
-              autoComplete="off"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              required
-            />
-            <input
-              type="password"
-              id="passwordLogin"
-              autoComplete="off"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              required
-            />
-            <button>Sign In</button>
-          </form>
-          <p>
-            Need an Account? <br />
-            <span>
-              <Link to="/register">Sign Up</Link>
-            </span>
-          </p>
-
-          <LoginGoogle />
-        </section>
-      )}
+      <section>
+        <p>{errMsg}</p>
+        <h1>Sign In</h1>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            id="emailname"
+            placeholder="Email"
+            autoComplete="off"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            required
+          />
+          <input
+            type="password"
+            id="passwordLogin"
+            placeholder="Password"
+            autoComplete="off"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            required
+          />
+          <button>Sign In</button>
+        </form>
+        <p>
+          Need an Account? <br />
+          <span>
+            <Link to="/register">Sign Up</Link>
+          </span>
+        </p>
+      </section>
     </>
   );
 }

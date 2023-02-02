@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import ReCAPTCHA from "react-google-recaptcha";
 import validateForm from "./validate.js";
+import { Link } from "react-router-dom";
 
 export default function SignUp() {
   const [inputs, setInputs] = useState({
@@ -93,7 +94,9 @@ export default function SignUp() {
     <div>
       <div>
         <div>
-          <button>Back</button>
+          <Link to="/">
+            <button>Back</button>
+          </Link>
         </div>
         <div>
           <form onSubmit={handleSubmit}>

@@ -78,17 +78,14 @@ button:focus-visible {
   box-sizing: border-box;
 }
 
-.allSignUp{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
 
 section{
+    position: relative;
     width: 100%;
+    top: -321px;
+    margin-left: 670px;
     max-width: 420px;
-    min-height: 200px;
+    min-height: 300px;
     font-size: 15px;
     display: flex;
     flex-direction: column;
@@ -190,3 +187,14 @@ button {
     justify-content: flex-start;
     align-items: flex-end;
 }*/
+
+.inputMap{
+  position: relative;
+  margin-right: 580px;
+}
+
+.btnNav{
+  position: relative;
+  top: -360px;
+  margin-left: 790px;
+}
