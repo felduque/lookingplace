@@ -10,10 +10,14 @@ import { Aboutme } from "../../models/aboutme.model.js";
 import { Client } from "../../models/client.model.js";
 import { Tenant } from "../../models/tenant.model.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+const { token } = require("./../../../package.json");
 
 export const createAboutme = async (req, res) => {
   const { description, hobbies, age, from, client_about, tenant_about } =
@@ -61,10 +65,16 @@ export const createAboutme = async (req, res) => {
 export const createClient = async (req, res) => {
   const { fullName, email, password, verify, phone } = req.body;
   // ! Upload Image
-  const img = req.files.img;
-  let pathImage = __dirname + "/../../public/client/" + img.name;
-  img.mv(pathImage);
-  let url = (pathImage = "http://localhost:3000/client/" + img.name);
+  const img = req.files?.img;
+  let pathImage = __dirname + "/../../public/client/" + img?.name;
+  img?.mv(pathImage);
+  let url = (pathImage = "http://localhost:3000/client/" + img?.name);
+  if (!img) url = "google.com";
+  // ! json web token
+  const jsonw = jwt.sign({ id: email }, token, {
+    expiresIn: 60 * 60 * 24,
+  });
+
   // ! Encrypt password
   const salt = await bcrypt.genSalt(10);
   const passwordCrypt = await bcrypt.hash(password, salt);
@@ -98,12 +108,13 @@ export const createClient = async (req, res) => {
       return res.json({
         message: "Client created successfully",
         data: newClient,
+        token: jsonw,
       });
     }
   } catch (error) {
     console.log(error);
     res.status(500).json({
-      message: "Something goes wrong",
+      message: "Error",
       data: {},
     });
   }
@@ -135,6 +146,13 @@ export const getClientById = async (req, res) => {
     let clientId = await Client.findOne({
       where: { id },
       attributes: ["id", "fullName", "email", "avatar"],
+      include: [
+        {
+          model: Aboutme,
+          as: "Aboutmes",
+          attributes: ["id", "description", "hobbies", "age", "from"],
+        },
+      ],
     });
     if (!clientId) return res.status(400).json({ message: "Client not found" });
     if (clientId) {
@@ -217,12 +235,38 @@ export const validateClient = async (req, res) => {
       const validPassword = await bcrypt.compare(password, client.password);
       if (!validPassword)
         return res.status(400).json({ message: "Invalid password" });
+      // ! json web token
+      const jsonw = jwt.sign({ id: email }, token, {
+        expiresIn: 60 * 60 * 24,
+      });
+
       if (validPassword === true) {
         res.json({
           message: validPassword,
           data: client,
+          token: jsonw,
         });
       }
+    }
+  } catch (error) {
+    console.log(error);
+    res.json({
+      message: "Something goes wrong",
+      data: {},
+    });
+  }
+};
+
+export const googleMapCoord = async (req, res) => {
+  const { lat, lng } = req.body;
+  try {
+    let client = await Client.findOne({ where: { lat, lng } });
+    if (!client) return res.status(400).json({ message: "Client not found" });
+    if (client) {
+      res.json({
+        message: "Client found",
+        data: client,
+      });
     }
   } catch (error) {
     console.log(error);
