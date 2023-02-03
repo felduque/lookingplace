@@ -10,6 +10,8 @@ import RequireAuth from "./components/ProtectRoute/RequireAuth";
 import { Outlet } from "react-router-dom";
 import Layout from "./components/ProtectRoute/Layout";
 import FormHostCreate from "./components/FormProperty/FormProperty";
+import PaymentStripe from "./components/Pay/PaymentStripe.jsx";
+
 
 /*function App() {
   const [user, setUser] = useState({});
@@ -24,18 +26,19 @@ import FormHostCreate from "./components/FormProperty/FormProperty";
 function App() {
   return (
     <>
-      <Navbar />
-      <Routes>
+          <Routes>
         <Route path="/" element={<Layout />}>
           {/*Public Routes*/}
           <Route path="/createProperty" element={<FormHostCreate />} />
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<SignUp />} />
-          <Route path="/login" element={<Login user={user} />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/suscribe" element={<PaymentStripe />} />
+
 
           {/*Protect routes*/}
           <Route element={<RequireAuth />}>
-            <Route path="/settings" element={<Admin user={user} />} />
+            <Route path="/settings" element={<Admin />} />
           </Route>
         </Route>
       </Routes>

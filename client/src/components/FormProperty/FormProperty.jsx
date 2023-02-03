@@ -2,21 +2,21 @@ import React from "react";
 import { useEffect } from "react";
 import { useState, useMemo } from "react";
 import axios from "axios";
-import Select from "react-select";
-import CurrencyInput from "react-currency-input-field";
-import makeAnimated, { Input } from "react-select/animated";
+//import Select from "react-select";
+//import CurrencyInput from "react-currency-input-field";
+//import makeAnimated, { Input } from "react-select/animated";
 // Google Maps
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
-import PlacesAutocomplete from "react-places-autocomplete";
-import {
-  geocodeByAddress,
-  geocodeByPlaceId,
-  getLatLng,
-} from "react-places-autocomplete";
+//import PlacesAutocomplete from "react-places-autocomplete";
+//import {
+  //geocodeByAddress,
+  //geocodeByPlaceId,
+  //getLatLng,
+//} from "react-places-autocomplete";
 
 // Fin Google Maps
 
-const animatedComponents = makeAnimated();
+//const animatedComponents = makeAnimated();
 
 // Objeto que se renderiza en Select-React
 const options = [
