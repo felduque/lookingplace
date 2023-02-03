@@ -18,22 +18,19 @@ function App() {
     <div>
       <Navbar />
       <Routes>
-    <>
-          <Routes>
-        <Route path="/" element={<Layout />}>
-          {/*Public Routes*/}
-          <Route path="/" element={<Home />} />
-          <Route path="/register" element={<SignUp />} />
-          <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Layout />} />
+        {/*Public Routes*/}
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
 
-          {/*Protect routes*/}
-          <Route element={<PersistLogin />}>
-            <Route element={<RequireAuth />}>
-              <Route path="/settings" element={<Admin />} />
-              <Route path="/createProperty" element={<FormHostCreate />} />
-            </Route>
+        {/*Protect routes*/}
+        <Route element={<PersistLogin />}>
+          <Route element={<RequireAuth />}>
+            <Route path="/settings" element={<Admin />} />
+            <Route path="/createProperty" element={<FormHostCreate />} />
+          </Route>
           <Route path="/suscribe" element={<PaymentStripe />} />
-
 
           {/*Protect routes*/}
           <Route element={<RequireAuth />}>

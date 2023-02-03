@@ -157,7 +157,7 @@ export default function SignUp() {
               <p>
                 <label>Number phone </label>
                 <input
-                  type="number"
+                  type="text"
                   name="phone"
                   value={inputs.phone}
                   placeholder="Number phone"
