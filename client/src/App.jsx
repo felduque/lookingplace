@@ -11,12 +11,15 @@ import { Outlet } from "react-router-dom";
 import Layout from "./components/ProtectRoute/Layout";
 import FormHostCreate from "./components/FormProperty/FormProperty";
 import PersistLogin from "./components/Acceso/Sign In/PersistLogin";
+import PaymentStripe from "./components/Pay/PaymentStripe.jsx";
 
 function App() {
   return (
     <div>
       <Navbar />
       <Routes>
+    <>
+          <Routes>
         <Route path="/" element={<Layout />}>
           {/*Public Routes*/}
           <Route path="/" element={<Home />} />
@@ -29,6 +32,12 @@ function App() {
               <Route path="/settings" element={<Admin />} />
               <Route path="/createProperty" element={<FormHostCreate />} />
             </Route>
+          <Route path="/suscribe" element={<PaymentStripe />} />
+
+
+          {/*Protect routes*/}
+          <Route element={<RequireAuth />}>
+            <Route path="/settings" element={<Admin />} />
           </Route>
         </Route>
       </Routes>
