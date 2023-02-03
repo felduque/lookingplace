@@ -1,9 +1,12 @@
 import React from "react";
+import LocationMap from "./LocationMap";
 
 function Home(props) {
   return (
     <div>
       <h1>Hola, soy home y soy ruta publica</h1>
+
+      <LocationMap />
     </div>
   );
 }

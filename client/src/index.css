@@ -5,8 +5,8 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: rgba(216, 208, 208, 0.87);
+  background-color: #d8d7cf;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -15,6 +15,15 @@
   -webkit-text-size-adjust: 100%;
 }*/
 
+body{
+  background-image: url("./asdasd.jpg");
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 150vh;
+  width: 100%;
+}
 /*a {
   font-weight: 500;
   color: #646cff;
@@ -67,7 +76,7 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}*/
+}
 
 
 /*Mis cambios*/
@@ -82,8 +91,25 @@ button:focus-visible {
 section{
     position: relative;
     width: 100%;
-    top: -321px;
-    margin-left: 670px;
+    top: 140px;
+    margin-left: 350px;
+    max-width: 420px;
+    min-height: 300px;
+    color: white;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.sectionSignUp{
+  position: relative;
+    width: 100%;
+    top: 10px;
+    color: white;
+    margin-left: 350px;
     max-width: 420px;
     min-height: 300px;
     font-size: 15px;
@@ -181,20 +207,7 @@ button {
   display: inline-block;
 }
 
-/*.flexGrow {
-    flex-grow: 1;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-end;
-}*/
-
 .inputMap{
   position: relative;
   margin-right: 580px;
-}
-
-.btnNav{
-  position: relative;
-  top: -360px;
-  margin-left: 790px;
 }

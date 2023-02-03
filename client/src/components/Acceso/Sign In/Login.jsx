@@ -6,7 +6,7 @@ import axios from "axios";
 //const LOGIN_URL = "/client/login";
 
 export default function Login() {
-  const { setAuth } = useAuth();
+  const { setAuth, persist, setPersist } = useAuth();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -26,16 +26,16 @@ export default function Login() {
 
     try {
       const response = await axios.post(
-        `http://localhost:3000/login`,
+        `http://localhost:3000/client/login`,
         JSON.stringify({ email: email, password: password }),
         {
           headers: { "Content-Type": "application/json" },
-          //withCredentials: true,
+          withCredentials: true,
         }
       );
       console.log(response);
       //console.log(JSON.stringify(response));
-      const accessToken = response?.data?.token;
+      const accessToken = response?.data?.accessToken;
       setAuth({ email, password, accessToken });
       console.log(email, password, accessToken);
       setEmail("");
@@ -53,6 +53,14 @@ export default function Login() {
       }
     }
   };
+
+  const togglePersist = () => {
+    setPersist((prev) => !prev);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("persist", persist);
+  }, [persist]);
 
   return (
     <>
@@ -79,6 +87,15 @@ export default function Login() {
             required
           />
           <button>Sign In</button>
+          <div>
+            <input
+              type="checkbox"
+              id="persist"
+              onChange={togglePersist}
+              checked={persist}
+            />
+            <label>Confias en este servicio</label>
+          </div>
         </form>
         <p>
           Need an Account? <br />

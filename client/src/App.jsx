@@ -10,36 +10,29 @@ import RequireAuth from "./components/ProtectRoute/RequireAuth";
 import { Outlet } from "react-router-dom";
 import Layout from "./components/ProtectRoute/Layout";
 import FormHostCreate from "./components/FormProperty/FormProperty";
+import PersistLogin from "./components/Acceso/Sign In/PersistLogin";
 
-/*function App() {
-  const [user, setUser] = useState({});
-
-  useEffect(() => {
-    const theUser = localStorage.getItem("user");
-
-    if (theUser && !theUser.includes("undefined")) {
-      setUser(JSON.parse(theUser));
-    }
-  }, []);*/
 function App() {
   return (
-    <>
+    <div>
       <Navbar />
       <Routes>
         <Route path="/" element={<Layout />}>
           {/*Public Routes*/}
-          <Route path="/createProperty" element={<FormHostCreate />} />
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<SignUp />} />
-          <Route path="/login" element={<Login user={user} />} />
+          <Route path="/login" element={<Login />} />
 
           {/*Protect routes*/}
-          <Route element={<RequireAuth />}>
-            <Route path="/settings" element={<Admin user={user} />} />
+          <Route element={<PersistLogin />}>
+            <Route element={<RequireAuth />}>
+              <Route path="/settings" element={<Admin />} />
+              <Route path="/createProperty" element={<FormHostCreate />} />
+            </Route>
           </Route>
         </Route>
       </Routes>
-    </>
+    </div>
   );
 }
 

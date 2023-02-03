@@ -3,6 +3,7 @@ import axios from "axios";
 import ReCAPTCHA from "react-google-recaptcha";
 import validateForm from "./validate.js";
 import { Link } from "react-router-dom";
+import "../../../index.css";
 
 export default function SignUp() {
   const [inputs, setInputs] = useState({
@@ -91,19 +92,13 @@ export default function SignUp() {
   }, [inputs]);
 
   return (
-    <div>
+    <div className="sectionSignUp">
       <div>
-        <div>
-          <Link to="/">
-            <button>Back</button>
-          </Link>
-        </div>
         <div>
           <form onSubmit={handleSubmit}>
             <fieldset>
               <legend>SignUp</legend>
               <p>
-                <label>Name </label>
                 <input
                   type="text"
                   name="fullName"
@@ -118,7 +113,6 @@ export default function SignUp() {
                 ) : null}
               </p>
               <p>
-                <label>Password </label>
                 <input
                   type="password"
                   name="password"
@@ -133,7 +127,6 @@ export default function SignUp() {
                 ) : null}
               </p>
               <p>
-                <label>Repeat password </label>
                 <input
                   type="password"
                   name="password2"
@@ -148,7 +141,6 @@ export default function SignUp() {
                 ) : null}
               </p>
               <p>
-                <label>Mail </label>
                 <input
                   type="text"
                   name="email"
@@ -202,6 +194,10 @@ export default function SignUp() {
                   SignUp
                 </button>
               </p>
+              <div>
+                <p>Ya estás registrado?</p>
+                <Link to="/">Logueate</Link>
+              </div>
             </fieldset>
           </form>
         </div>

@@ -120,6 +120,8 @@ export const createClient = async (req, res) => {
   }
 };
 
+/*DDDDDDDDDDDDDDaaaaavidddddddddddddddd*/
+
 export const login = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password)
@@ -128,24 +130,99 @@ export const login = async (req, res) => {
       .json({ message: "emailname and password are required." });
 
   const foundUser = await Client.findOne({ where: { email } });
-  if (!foundUser) return res.sendStatus(401);
-
+  if (!foundUser) return res.sendStatus(401); //Unauthorized
+  //evaluate password
   const match = await bcrypt.compare(password, foundUser.password);
 
   if (match) {
-    try {
-      const token = jwt.sign(
-        { email: email, password: password },
-        "24bfa9d95a7799b7cec3ef56ad0a7c1e49d91c879967eb64e18b1732ffec9a45ad2743648d802ffdd7297793edf64b58c3bf6b080d0280ca469c98854d01ad50",
-        { expiresIn: "3m" }
-      );
-      require("crypto").randomBytes(64).toString("hex");
-      res.status(200).json(token);
-    } catch (err) {
-      console.log(err);
-    }
+    //create JWTS
+    const accessToken = jwt.sign(
+      {
+        userInfo: {
+          email: foundUser.email,
+        },
+      },
+      "5e6fa1b1bfd5a93c5e7ae001e4c96794c0e8f004095074b42608dc3a0acb67574e2821518d6638eef13c9f882408c861f9cc09e603439e9a93aae6a2b9146e44",
+      { expiresIn: "1d" }
+    );
+    const refreshToken = jwt.sign(
+      { email: foundUser.email },
+      "b0b53d04c7f3a2631116667f0786b94a0fea2b668fac2ad776442e786ba1a6cbf92a6f65034bbff1dfb9168567d31a780058856aef566993a894937d44303ec2",
+      {
+        expiresIn: "1d",
+      }
+    );
+
+    //Saving refreshToken with current email
+    foundUser.refreshToken = refreshToken;
+    const result = await foundUser.save();
+    console.log(result);
+
+    //Creaamos cookie segura con refresh token
+    res.cookie("jwt", refreshToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+
+    //Enviamos accessToken
+
+    //require("crypto").randomBytes(64).toString("hex");
+    res.status(200).json({ accessToken });
   }
 };
+
+export const logout = async (req, res) => {
+  const cookies = req.cookies;
+  if (!cookies?.jwt) return res.sendStatus(204); //no content
+  const refreshToken = cookies.jwt;
+
+  //Está refreshtoken en la db?
+  const foundUser = await Client.findOne({ where: { refreshToken } });
+  if (!foundUser) {
+    res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true });
+    return res.sendStatus(204);
+  }
+
+  //Delete refresh token en db
+  foundUser.refreshToken = "";
+  const result = await foundUser.save();
+  //console.log(result);
+
+  res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true });
+  res.sendStatus(204);
+};
+
+export const refreshToken = async (req, res) => {
+  const cookies = req.cookies;
+  if (!cookies?.jwt) return res.sendStatus(401);
+  const refreshToken = cookies.jwt;
+
+  const foundUser = await Client.findOne({ where: { refreshToken } });
+  if (!foundUser) return res.sendStatus(403);
+
+  //evualar jwt
+  jwt.verify(
+    refreshToken,
+    "b0b53d04c7f3a2631116667f0786b94a0fea2b668fac2ad776442e786ba1a6cbf92a6f65034bbff1dfb9168567d31a780058856aef566993a894937d44303ec2",
+    (err, decoded) => {
+      if (err || foundUser.email !== decoded.email) return res.sendStatus(403);
+      const accessToken = jwt.sign(
+        {
+          UserInfo: {
+            email: decoded.email,
+          },
+        },
+        "5e6fa1b1bfd5a93c5e7ae001e4c96794c0e8f004095074b42608dc3a0acb67574e2821518d6638eef13c9f882408c861f9cc09e603439e9a93aae6a2b9146e44",
+        { expiresIn: "15h" }
+      );
+      res.json({ accessToken });
+    }
+  );
+};
+
+/*DDDDDDDDDDDDDDaaaaavidddddddddddddddd*/
 
 export const getClient = async (req, res) => {
   try {
