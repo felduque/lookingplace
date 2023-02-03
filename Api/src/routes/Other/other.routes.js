@@ -6,5 +6,5 @@ import {
 const router = Router();
 
 router.post("/pay/payment", createPayment);
-router.post("/pay/getpayment", getPayment);
+router.get("/pay/getpayment", getPayment);
 export default router;
