@@ -159,10 +159,15 @@ export const validateTenant = async (req, res) => {
     const client = await Tenant.findOne({
       where: { email, password },
     });
+    // ! Json token
+    const jsonw = jwt.sign({ id: email }, token, {
+      expiresIn: 60 * 60 * 24,
+    });
     if (client) {
       return res.json({
         message: "Tenant found successfully",
         data: client,
+        token: jsonw,
       });
     }
   } catch (error) {

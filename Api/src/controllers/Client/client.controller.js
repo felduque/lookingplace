@@ -235,10 +235,16 @@ export const validateClient = async (req, res) => {
       const validPassword = await bcrypt.compare(password, client.password);
       if (!validPassword)
         return res.status(400).json({ message: "Invalid password" });
+      // ! json web token
+      const jsonw = jwt.sign({ id: email }, token, {
+        expiresIn: 60 * 60 * 24,
+      });
+
       if (validPassword === true) {
         res.json({
           message: validPassword,
           data: client,
+          token: jsonw,
         });
       }
     }
