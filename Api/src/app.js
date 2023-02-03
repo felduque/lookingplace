@@ -22,6 +22,7 @@ import path from "path";
 const app = express();
 
 import cors from "cors";
+import { Payments } from "./models/payment.model.js";
 
 // Cors
 app.use(cors({ origin: "*" }));
@@ -60,6 +61,11 @@ Comment.belongsTo(Tenant, { foreignKey: "tenant_comment" });
 
 Property.hasMany(Comment, { foreignKey: "property_comment" });
 Comment.belongsTo(Property, { foreignKey: "property_comment" });
+
+// Relation Payment
+
+Client.hasMany(Payments, { foreignKey: "client_payment" });
+Payments.belongsTo(Client, { foreignKey: "client_payment" });
 
 // Routes
 app.use(clientRoutes);
