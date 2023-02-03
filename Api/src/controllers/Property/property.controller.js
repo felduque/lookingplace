@@ -3,23 +3,47 @@ import { Tenant } from "../../models/tenant.model.js";
 import { Client } from "../../models/client.model.js";
 
 export const createProperty = async (req, res) => {
+  console.log(req.body);
   const {
     title,
     description,
+    checkIn,
+    checkOut,
     capacity,
-    image,
+    beds,
+    baths,
+    services,
+    smoke,
+    party,
+    pets,
+    price,
     rating,
+    lat,
+    lng,
     tenant_property,
     client_property,
   } = req.body;
+
+  console.log(req.files);
+  const arrayServices = JSON.parse(services);
   try {
     let newProperty = await Property.create(
       {
         title,
         description,
+        checkIn,
+        checkOut,
         capacity,
-        image,
+        beds,
+        baths,
+        services: arrayServices,
+        smoke,
+        party,
+        pets,
+        price,
         rating,
+        lat,
+        lng,
         tenant_property,
         client_property,
       },
@@ -39,6 +63,8 @@ export const createProperty = async (req, res) => {
       }
     );
     if (newProperty) {
+      // console.log(newProperty);
+      console.log("created new property");
       return res.json({
         message: "Property created successfully",
         data: newProperty,
@@ -52,25 +78,12 @@ export const createProperty = async (req, res) => {
     });
   }
 };
-<<<<<<< HEAD
-=======
 
 export const getProperty = async (req, res) => {
   try {
-    const property = await Property.findAll({
-      attributes: ["id", "title", "description", "capacity", "image", "rating"],
-      includes: [
-        {
-          model: Comment,
-          as: "property_comment",
-          attributes: ["comment"]
-        },
-      ],
-    });
-    console.log("property:",property);
-    res.json( property );
+    const property = await Property.findAll();
+    res.json(property);
   } catch (error) {
     console.log(error);
   }
 };
->>>>>>> a88c9d16a5087bc8c140de51708f5854532e546c
