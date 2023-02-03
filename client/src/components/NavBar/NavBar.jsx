@@ -1,58 +1,73 @@
-import React, { useState } from "react";
-import { GoogleMap, LoadScript } from "@react-google-maps/api";
-import { Link } from "react-router-dom";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import "../.././index.css";
+import { useContext } from "react";
+import AuthContext from "../context/AuthProvider";
+import useLogout from "../ProtectRoute/useLogout";
 
-export default function Navbar(props) {
-  const [coordinates, setCoordinates] = useState({
-    lat: 0,
-    lng: 0,
-  });
+export default function Navbar() {
+  const { auth, setAuth } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const logout = useLogout();
 
-  const getCoordinates = (address) => {
-    // Use la API de Google Maps para obtener las coordenadas de la dirección
-    fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyBsmMXr7DH4yzpQR-MiIuQeSigE2_mn1rg`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        const { lat, lng } = data.results[0].geometry.location;
-        setCoordinates({ lat, lng });
-      });
+  const signOut = async () => {
+    // if used in more components, this should be in context
+    // axios to /logout endpoint
+    await logout();
+    navigate("/");
   };
-
   return (
-    <>
-      <LoadScript
-        googleMapsApiKey="AIzaSyAm-iCiF6TdNp8kz715Ud_sMd8ywWYDmNg"
-        libraries={["places"]}
-      >
-        <div>
-          <input
-            type="text"
-            className="inputMap"
-            onChange={(e) => getCoordinates(e.target.value)}
-          />
-          <GoogleMap
-            mapContainerStyle={{
-              height: "300px",
-              width: "45%",
-            }}
-            center={{ lat: coordinates.lat, lng: coordinates.lng }}
-            zoom={14}
-          />
-        </div>
-      </LoadScript>
-      <div className="btnNav">
-        <Link to="/login">
-          <button>Login</button>
-        </Link>
-        <Link to="/">
-          <button>Home</button>
-        </Link>
-        <Link to="/register">
-          <button>Register</button>
-        </Link>
+    <nav class="navbar is-info">
+      <div class="navbar-brand">
+        <li class="navbar-item">
+          <Link to="/">
+            <h1>
+              <button>Home</button>
+            </h1>
+          </Link>
+        </li>
+        <li class="navbar-item">
+          <h1 class="title is-3">LookingPlace</h1>
+        </li>
       </div>
-    </>
+
+      {auth?.email ? (
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <button onClick={signOut}>Logout</button>
+          </div>
+        </div>
+      ) : (
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <li class="button is-primary is-inverted">
+                <Link to="/register">
+                  <>Register</>
+                </Link>
+              </li>
+              <li class="button is-info is-inverted">
+                <Link to="/login">Login</Link>
+              </li>
+            </div>
+          </div>
+        </div>
+      )}
+      {auth?.email ? (
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <li class="button is-primary is-inverted">
+              <Link to="/createProperty">Publica una propiedad</Link>
+            </li>
+          </div>
+        </div>
+      ) : (
+        <div class="navbar-item">
+          <li class="button is-primary is-inverted">
+            <Link to="/createProperty">Publica una propiedad</Link>
+          </li>
+        </div>
+      )}
+    </nav>
   );
 }

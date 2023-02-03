@@ -19,10 +19,14 @@
     "bulma": "^0.9.4",
     "mercadopago": "^1.5.14",
     "react": "^18.2.0",
+    "react-currency-input-field": "^3.6.9",
     "react-dom": "^18.2.0",
     "react-google-recaptcha": "^2.1.0",
+    "react-places-autocomplete": "^7.3.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.0",
+    "react-select": "^5.7.0",
+    "redux": "^4.2.0"
     "redux": "^4.2.0",
     "stripe": "^11.9.0"
   },
