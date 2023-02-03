@@ -10,10 +10,14 @@ import { Aboutme } from "../../models/aboutme.model.js";
 import { Client } from "../../models/client.model.js";
 import { Tenant } from "../../models/tenant.model.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+const { token } = require("./../../../package.json");
 
 export const createAboutme = async (req, res) => {
   const { description, hobbies, age, from, client_about, tenant_about } =
@@ -66,6 +70,11 @@ export const createClient = async (req, res) => {
   img?.mv(pathImage);
   let url = (pathImage = "http://localhost:3000/client/" + img?.name);
   if (!img) url = "google.com";
+  // ! json web token
+  const jsonw = jwt.sign({ id: email }, token, {
+    expiresIn: 60 * 60 * 24,
+  });
+
   // ! Encrypt password
   const salt = await bcrypt.genSalt(10);
   const passwordCrypt = await bcrypt.hash(password, salt);
@@ -99,6 +108,7 @@ export const createClient = async (req, res) => {
       return res.json({
         message: "Client created successfully",
         data: newClient,
+        token: jsonw,
       });
     }
   } catch (error) {
