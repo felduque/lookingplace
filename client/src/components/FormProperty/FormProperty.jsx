@@ -16,7 +16,7 @@ import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 
 // Fin Google Maps
 
-const animatedComponents = makeAnimated();
+//const animatedComponents = makeAnimated();
 
 // Objeto que se renderiza en Select-React
 const options = [
