@@ -16,6 +16,7 @@ import { dirname } from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 import { createRequire } from "module";
+import { Payments } from "../../models/payment.model.js";
 const require = createRequire(import.meta.url);
 const { token } = require("./../../../package.json");
 
@@ -258,10 +259,16 @@ export const getClientById = async (req, res) => {
         },
       ],
     });
+
+    const clientSearch = await Payments.findAll({
+      where: { client_payment: id },
+    });
+
     if (!clientId) return res.status(400).json({ message: "Client not found" });
     if (clientId) {
       res.json({
         data: clientId,
+        paymentHistory: clientSearch,
       });
     }
   } catch (err) {

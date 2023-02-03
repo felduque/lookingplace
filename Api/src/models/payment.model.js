@@ -17,6 +17,9 @@ export const Payments = sequelize.define(
     status: {
       type: DataTypes.STRING,
     },
+    type: {
+      type: DataTypes.STRING,
+    },
   },
   {
     timestamps: false,
