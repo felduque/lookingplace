@@ -10,7 +10,7 @@ export const createPayment = async (req, res) => {
         status,
       },
       {
-        fields: ["name", "amount", "status"],
+        fields: ["description", "amount", "status"],
       }
     );
     if (newPayment) {
@@ -31,7 +31,7 @@ export const createPayment = async (req, res) => {
 export const getPayment = async (req, res) => {
   try {
     const payment = await Payments.findAll({
-      attributes: ["id", "amount", "status"],
+      attributes: ["id", "description", "amount", "status"],
     });
     res.json({
       data: payment,
