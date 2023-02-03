@@ -9,8 +9,9 @@ import Navbar from "./components/NavBar/NavBar";
 import RequireAuth from "./components/ProtectRoute/RequireAuth";
 import { Outlet } from "react-router-dom";
 import Layout from "./components/ProtectRoute/Layout";
+import FormHostCreate from "./components/FormProperty/FormProperty";
 
-function App() {
+/*function App() {
   const [user, setUser] = useState({});
 
   useEffect(() => {
@@ -19,15 +20,15 @@ function App() {
     if (theUser && !theUser.includes("undefined")) {
       setUser(JSON.parse(theUser));
     }
-  }, []);
-
+  }, []);*/
+function App() {
   return (
     <>
       <Navbar />
       <Routes>
         <Route path="/" element={<Layout />}>
           {/*Public Routes*/}
-
+          <Route path="/createProperty" element={<FormHostCreate />} />
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<SignUp />} />
           <Route path="/login" element={<Login user={user} />} />

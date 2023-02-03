@@ -81,7 +81,21 @@ export const createProperty = async (req, res) => {
 
 export const getProperty = async (req, res) => {
   try {
+<<<<<<< HEAD
+    const property = await Property.findAll({
+      attributes: ["id", "title", "description", "capacity", "image", "rating"],
+      includes: [
+        {
+          model: Comment,
+          as: "property_comment",
+          attributes: ["comment"],
+        },
+      ],
+    });
+    console.log("property:", property);
+=======
     const property = await Property.findAll();
+>>>>>>> 0948fe008e0a3363d6fd98a521712569e3d0fc2c
     res.json(property);
   } catch (error) {
     console.log(error);
