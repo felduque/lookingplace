@@ -25,7 +25,7 @@ import cors from "cors";
 import { Payments } from "./models/payment.model.js";
 
 // Cors
-app.use(cors({ origin: "*" }));
+//app.use(cors({ origin: "*" }));
 
 // Midelewares
 app.use(bodyParser.json());
@@ -38,6 +38,16 @@ app.use(
 );
 app.use(express.static(path.join(__dirname, "public")));
 app.use(morgan("dev"));
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "http://localhost:5173"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+  next();
+});
 
 // Relation aboutMe and Client & aboutme and Tenant
 Client.hasMany(Aboutme, { foreignKey: "client_about" });
