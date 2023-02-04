@@ -3,7 +3,7 @@ import axios from "axios";
 import ReCAPTCHA from "react-google-recaptcha";
 import validateForm from "./validate.js";
 import { Link } from "react-router-dom";
-import "../../../index.css";
+//import "../../../index.css";
 
 export default function SignUp() {
   const [inputs, setInputs] = useState({
@@ -11,7 +11,7 @@ export default function SignUp() {
     password: "",
     password2: "",
     email: "",
-    phone: 0,
+    phone: null,
   });
 
   const [validCaptcha, setValidCaptcha] = useState(false);
@@ -74,7 +74,7 @@ export default function SignUp() {
         password: "",
         password2: "",
         email: "",
-        phone: 0,
+        phone: null,
       });
     }
   }
@@ -92,18 +92,17 @@ export default function SignUp() {
   }, [inputs]);
 
   return (
-    <div className="sectionSignUp">
+    <div>
       <div>
         <div>
           <form onSubmit={handleSubmit}>
-            <fieldset>
-              <legend>SignUp</legend>
               <p>
                 <input
                   type="text"
                   name="fullName"
+                  class={ errors.name ? 'input is-danger' : 'input is-success' }
                   value={inputs.fullName}
-                  placeholder="Full Name"
+                  placeholder="Nombre completo"
                   onChange={(event) => handleChange(event)}
                 />
                 {errors.name ? (
@@ -116,8 +115,9 @@ export default function SignUp() {
                 <input
                   type="password"
                   name="password"
+                  class={ errors.password ? 'input is-danger' : 'input is-success' }
                   value={inputs.password}
-                  placeholder="Password"
+                  placeholder="Contraseña"
                   onChange={(event) => handleChange(event)}
                 />
                 {errors.password ? (
@@ -130,8 +130,9 @@ export default function SignUp() {
                 <input
                   type="password"
                   name="password2"
+                  class={ errors.password2 ? 'input is-danger' : 'input is-success' }
                   value={inputs.password2}
-                  placeholder="Repeat password"
+                  placeholder="Repetir contraseña"
                   onChange={(event) => handleChange(event)}
                 />
                 {errors.password2 ? (
@@ -144,8 +145,9 @@ export default function SignUp() {
                 <input
                   type="text"
                   name="email"
+                  class={ errors.mail ? 'input is-danger' : 'input is-success' }
                   value={inputs.email}
-                  placeholder="email adress"
+                  placeholder="Correo electrónico"
                   onChange={(event) => handleChange(event)}
                 />
                 {errors.mail ? (
@@ -155,12 +157,13 @@ export default function SignUp() {
                 ) : null}
               </p>
               <p>
-                <label>Number phone </label>
+                <label>Número de teléfono </label>
                 <input
                   type="text"
                   name="phone"
+                  class={ errors.phone ? 'input is-danger' : 'input is-success' }
                   value={inputs.phone}
-                  placeholder="Number phone"
+                  placeholder="Teléfono"
                   onChange={(event) => handleChange(event)}
                 />
                 {errors.phone ? (
@@ -191,16 +194,15 @@ export default function SignUp() {
                     errorsLength !== 0
                   }
                 >
-                  SignUp
+                  Registrarme
                 </button>
               </p>
               <div>
-                <p>Ya estás registrado?</p>
-                <Link to="/">Logueate</Link>
+                <p>¿Ya estás registrado?</p>
+                <Link to="/">Inicia sesión</Link>
               </div>
-            </fieldset>
           </form>
-        </div>
+          </div>
       </div>
     </div>
   );

@@ -1,9 +1,12 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 //import "../.././index.css";
+import "./NavBar.css";
 import { useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 import useLogout from "../ProtectRoute/useLogout";
+import mapIcon from '../../assets/icon-map.png';
+import userIcon from '../../assets/user-default-icon.png';
 
 export default function Navbar() {
   const { auth, setAuth } = useContext(AuthContext);
@@ -18,11 +21,12 @@ export default function Navbar() {
   };
   return (
 <nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item" href="#">
-      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"/>
-    </a>
-
+  <div class="navbar-brand space-margin-left
+">
+  <Link to="" class="navbar-item">
+    <strong>LookingPlace</strong>
+  <img src={mapIcon} width="30" height="20"/>
+  </Link>
     <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
@@ -32,36 +36,13 @@ export default function Navbar() {
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-      <Link to="/" class="navbar-item">
-         Inicio
-      </Link>
-      
 
       <a class="navbar-item">
-        Suscripción
+        <Link to="/suscribe">
+          Suscripción
+        </Link>
       </a>
 
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          Más
-        </a>
-
-        <div class="navbar-dropdown">
-          <a class="navbar-item">
-            Beneficios
-          </a>
-          <a class="navbar-item">
-            Sobre LookingPlace
-          </a>
-          <a class="navbar-item">
-            Contacto
-          </a>
-          <hr class="navbar-divider"/>
-          <a class="navbar-item">
-            Servicios
-          </a>
-        </div>
-      </div>
     </div>
 
     <div class="navbar-end">
@@ -70,17 +51,32 @@ export default function Navbar() {
            
 
           {
+            // Poner ! en auth para testear paneles sin iniciar sesión
           auth?.email ? (
-            <div>
-              <a class="button is-primary" to='/register'>
-                  <Link to="/createProperty">
-                    Publica una propiedad
-                  </Link>
+          <div class="navbar-item has-dropdown is-hoverable space-margin-right
+          ">
+              <a class="navbar-link">
+                 <img src={userIcon} width='30' height='40' />
               </a>
-             <a class="button is-primary" onClick={signOut}>
-                Salir
-             </a>
+
+            <div class="navbar-dropdown">
+               <a class="navbar-item">
+                 Mi perfil
+               </a>
+               <a class="navbar-item">
+                 <Link to="/createProperty">
+                   Publicar propiedad
+                 </Link>
+               </a>
+               <a class="navbar-item">
+                 Favoritos
+               </a>
+               <hr class="navbar-divider"/>
+               <a class="navbar-item" onClick={signOut}>
+                 Salir
+               </a>
             </div>
+          </div>
            ) : (
             <div>
                <a class="button is-primary" to='/register'>

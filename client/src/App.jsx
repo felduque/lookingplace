@@ -13,9 +13,11 @@ import Layout from "./components/ProtectRoute/Layout";
 import FormHostCreate from "./components/FormProperty/FormProperty";
 import PersistLogin from "./components/Acceso/Sign In/PersistLogin";
 import Suscribe from "./components/Pay/Suscribe.jsx";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
+    <div>
     <div>
       <Navbar />
       <Routes>
@@ -39,7 +41,13 @@ function App() {
           </Route>
         </Route>
       </Routes>
+      
     </div>
+    <div>
+    <Footer />
+    </div>
+    </div>
+    
   );
 }
 
