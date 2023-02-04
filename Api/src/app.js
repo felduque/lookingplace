@@ -56,21 +56,30 @@ Tenant.hasMany(Aboutme, { foreignKey: "tenant_about" });
 Aboutme.belongsTo(Tenant, { foreignKey: "tenant_about" });
 
 Tenant.hasMany(Property, { foreignKey: "tenant_property" });
-Property.belongsTo(Tenant, { foreignKey: "tenant_property" });
+Property.belongsTo(Tenant, { as: "p_tenant", foreignKey: "tenant_property" });
 
 Client.hasMany(Property, { foreignKey: "client_property" });
-Property.belongsTo(Client, { foreignKey: "client_property" });
+Property.belongsTo(Client, { as: "p_client", foreignKey: "client_property" });
 
 // Relation Comment
 
 Client.hasMany(Comment, { foreignKey: "client_comment" });
-Comment.belongsTo(Client, { foreignKey: "client_comment" });
+Comment.belongsTo(Client, {
+  as: "client_comment_id",
+  foreignKey: "client_comment",
+});
 
 Tenant.hasMany(Comment, { foreignKey: "tenant_comment" });
-Comment.belongsTo(Tenant, { foreignKey: "tenant_comment" });
+Comment.belongsTo(Tenant, {
+  as: "tenant_comment_id",
+  foreignKey: "tenant_comment",
+});
 
-Property.hasMany(Comment, { foreignKey: "property_comment" });
-Comment.belongsTo(Property, { foreignKey: "property_comment" });
+Property.hasMany(Comment, { as: "p_comment", foreignKey: "property_comment" });
+Comment.belongsTo(Property, {
+  as: "property_comment_id",
+  foreignKey: "property_comment",
+});
 
 // Relation Payment
 
