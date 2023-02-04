@@ -1,7 +1,9 @@
 //Clave Secreta de prueba
-const stripe_accs = require('stripe')('sk_test_51MXFdKJUzXedYgw51LZqfnZyaqn3Vbe2ukdsscxVi4tS8OmHy0JTMbFuShCyNGfYWutQM7882ZKZIgswGdseZROG005msUuZV8');
+import stripe from 'stripe';
+const stripe_accs = stripe("sk_test_51MXFdKJUzXedYgw51LZqfnZyaqn3Vbe2ukdsscxVi4tS8OmHy0JTMbFuShCyNGfYWutQM7882ZKZIgswGdseZROG005msUuZV8");
+
 export const createSubscription = async (req, res) => {
-  const { name, email, paymentMethod, paymentMethod } = req.body;
+  const { name, email, paymentMethod } = req.body;
     // create a stripe customer
     const customer = await stripe_accs.customers.create({
       name: name,
