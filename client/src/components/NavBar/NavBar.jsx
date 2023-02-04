@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "../.././index.css";
+//import "../.././index.css";
 import { useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 import useLogout from "../ProtectRoute/useLogout";
@@ -17,57 +17,89 @@ export default function Navbar() {
     navigate("/");
   };
   return (
-    <nav class="navbar is-info">
-      <div class="navbar-brand">
-        <li class="navbar-item">
-          <Link to="/">
-            <h1>
-              <button>Home</button>
-            </h1>
-          </Link>
-        </li>
-        <li class="navbar-item">
-          <h1 class="title is-3">LookingPlace</h1>
-        </li>
-      </div>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="#">
+      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"/>
+    </a>
 
-      {auth?.email ? (
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <button onClick={signOut}>Logout</button>
-          </div>
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <Link to="/" class="navbar-item">
+         Inicio
+      </Link>
+      
+
+      <a class="navbar-item">
+        Suscripción
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Más
+        </a>
+
+        <div class="navbar-dropdown">
+          <a class="navbar-item">
+            Beneficios
+          </a>
+          <a class="navbar-item">
+            Sobre LookingPlace
+          </a>
+          <a class="navbar-item">
+            Contacto
+          </a>
+          <hr class="navbar-divider"/>
+          <a class="navbar-item">
+            Servicios
+          </a>
         </div>
-      ) : (
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <div class="buttons">
-              <li class="button is-primary is-inverted">
-                <Link to="/register">
-                  <>Register</>
-                </Link>
-              </li>
-              <li class="button is-info is-inverted">
-                <Link to="/login">Login</Link>
-              </li>
+      </div>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+           
+
+          {
+          auth?.email ? (
+            <div>
+              <a class="button is-primary" to='/register'>
+                  <Link to="/createProperty">
+                    Publica una propiedad
+                  </Link>
+              </a>
+             <a class="button is-primary" onClick={signOut}>
+                Salir
+             </a>
             </div>
-          </div>
+           ) : (
+            <div>
+               <a class="button is-primary" to='/register'>
+                <Link to="/register">
+                  <strong>Registrarse</strong>
+                </Link>
+               </a>
+               <a class="button is-light" to='/login'>
+               <Link to="/login">Ingresar</Link>
+               </a>
+            </div>
+           )
+    }
+
+
         </div>
-      )}
-      {auth?.email ? (
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <li class="button is-primary is-inverted">
-              <Link to="/createProperty">Publica una propiedad</Link>
-            </li>
-          </div>
-        </div>
-      ) : (
-        <div class="navbar-item">
-          <li class="button is-primary is-inverted">
-            <Link to="/createProperty">Publica una propiedad</Link>
-          </li>
-        </div>
-      )}
-    </nav>
-  );
+      </div>
+    </div>
+  </div>
+</nav>
+)
 }
