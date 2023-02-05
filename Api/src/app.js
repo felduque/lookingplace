@@ -12,7 +12,6 @@ import clientRoutes from "./routes/Client/client.routes.js";
 import tenantRoutes from "./routes/Tenant/tenant.routes.js";
 import propertyRoutes from "./routes/Property/property.routes.js";
 import commentRoutes from "./routes/Comment/comment.routes.js";
-import suscribeRoutes from "./routes/Pay/suscribe.routes.js";
 import otherRoutes from "./routes/Other/other.routes.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -83,7 +82,6 @@ app.use(clientRoutes);
 app.use(tenantRoutes);
 app.use(propertyRoutes);
 app.use(commentRoutes);
-app.use(suscribeRoutes);
 app.use(otherRoutes);
 
 export default app;

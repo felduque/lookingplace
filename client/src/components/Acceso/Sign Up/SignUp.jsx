@@ -3,7 +3,7 @@ import axios from "axios";
 import ReCAPTCHA from "react-google-recaptcha";
 import validateForm from "./validate.js";
 import { Link } from "react-router-dom";
-//import "../../../index.css";
+import "./SignUp.css";
 
 export default function SignUp() {
   const [inputs, setInputs] = useState({
@@ -93,20 +93,22 @@ export default function SignUp() {
 
   return (
     <div>
-      <div>
-        <div>
+    <div class='container-page'>
+      <div class='container'>
+        <div class='form-container'>
+          <div class='title is-2 is-spaced space-between-title'>Regístrate para comenzar la aventura</div>
           <form onSubmit={handleSubmit}>
               <p>
                 <input
                   type="text"
                   name="fullName"
-                  class={ errors.name ? 'input is-danger' : 'input is-success' }
+                  class={ errors.name ? 'input is-danger' : 'input is-success input-space' }
                   value={inputs.fullName}
                   placeholder="Nombre completo"
                   onChange={(event) => handleChange(event)}
                 />
                 {errors.name ? (
-                  <p>
+                  <p class='space-between-inputs '>
                     <span className="error">{errors.name}</span>
                   </p>
                 ) : null}
@@ -115,13 +117,13 @@ export default function SignUp() {
                 <input
                   type="password"
                   name="password"
-                  class={ errors.password ? 'input is-danger' : 'input is-success' }
+                  class={ errors.password ? 'input is-danger' : 'input is-success input-space' }
                   value={inputs.password}
                   placeholder="Contraseña"
                   onChange={(event) => handleChange(event)}
                 />
                 {errors.password ? (
-                  <p>
+                  <p class='space-between-inputs '>
                     <span className="error">{errors.password}</span>
                   </p>
                 ) : null}
@@ -130,13 +132,13 @@ export default function SignUp() {
                 <input
                   type="password"
                   name="password2"
-                  class={ errors.password2 ? 'input is-danger' : 'input is-success' }
+                  class={ errors.password2 ? 'input is-danger' : 'input is-success input-space' }
                   value={inputs.password2}
                   placeholder="Repetir contraseña"
                   onChange={(event) => handleChange(event)}
                 />
                 {errors.password2 ? (
-                  <p>
+                  <p class='space-between-inputs '>
                     <span className="error">{errors.password2}</span>
                   </p>
                 ) : null}
@@ -145,29 +147,28 @@ export default function SignUp() {
                 <input
                   type="text"
                   name="email"
-                  class={ errors.mail ? 'input is-danger' : 'input is-success' }
+                  class={ errors.mail ? 'input is-danger' : 'input is-success input-space' }
                   value={inputs.email}
                   placeholder="Correo electrónico"
                   onChange={(event) => handleChange(event)}
                 />
                 {errors.mail ? (
-                  <p>
+                  <p class='space-between-inputs '>
                     <span className="error">{errors.mail}</span>
                   </p>
                 ) : null}
               </p>
               <p>
-                <label>Número de teléfono </label>
                 <input
                   type="text"
                   name="phone"
-                  class={ errors.phone ? 'input is-danger' : 'input is-success' }
+                  class={ errors.phone ? 'input is-danger' : 'input is-success input-space' }
                   value={inputs.phone}
                   placeholder="Teléfono"
                   onChange={(event) => handleChange(event)}
                 />
                 {errors.phone ? (
-                  <p>
+                  <p class='space-between-inputs '>
                     <span className="error">{errors.phone}</span>
                   </p>
                 ) : null}
@@ -177,6 +178,7 @@ export default function SignUp() {
                   ref={captcha}
                   sitekey="6Le2F0EkAAAAAPCok1gCfpggSPFK8oKRBI5GDSAE"
                   onChange={onChangeCaptcha}
+                  render
                 />
               </p>
               <p></p>
@@ -184,6 +186,7 @@ export default function SignUp() {
               <p>
                 <button
                   type="submit"
+                  class='button is-link is-rounded space-between-button'
                   disabled={
                     !inputs.fullName ||
                     !inputs.password ||
@@ -199,11 +202,12 @@ export default function SignUp() {
               </p>
               <div>
                 <p>¿Ya estás registrado?</p>
-                <Link to="/">Inicia sesión</Link>
+                <Link to="/login">Inicia sesión</Link>
               </div>
           </form>
           </div>
       </div>
+    </div>
     </div>
   );
 }
