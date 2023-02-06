@@ -121,9 +121,7 @@ export const getProperty = async (req, res) => {
         },
       ],
     });
-    res.json({
-      data: property,
-    });
+    res.json(property);
   } catch (error) {
     console.log(error);
   }
@@ -172,9 +170,7 @@ export const getPropertyById = async (req, res) => {
         },
       ],
     });
-    res.json({
-      data: propertyId,
-    });
+    res.json(propertyId);
   } catch (error) {
     console.log(error);
   }

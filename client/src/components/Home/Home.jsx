@@ -15,14 +15,15 @@ function Home() {
   const statePropertys = useSelector((state) => state.properties.allPropertys);
   console.log(statePropertys);
 
+  if (!statePropertys) return <h1>Loading...</h1>;
   return (
     <div className="box">
-      <div className="section">
-        <div className="columns">
-          {statePropertys.map((property) => {
-            return (
+      <div className="columns is-multiline">
+        {statePropertys?.map((property) => {
+          return (
+            <div className="column is-2">
               <Card
-                className="card"
+                // className="card"
                 key={property.id}
                 id={property.id}
                 title={property.title}
@@ -31,9 +32,9 @@ function Home() {
                 beds={property.beds}
                 rating={property.rating}
               ></Card>
-            );
-          })}
-        </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
