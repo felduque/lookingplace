@@ -35,7 +35,7 @@ const Users = () => {
 
   return (
     <article>
-      <h2>Users List</h2>
+      <h2>Listado de Usuarios</h2>
       {users?.length ? (
         <ul>
           {users.map((user, i) => (
@@ -43,7 +43,7 @@ const Users = () => {
           ))}
         </ul>
       ) : (
-        <p>No users to display</p>
+        <p>No hay usuarios para mostrar</p>
       )}
     </article>
   );

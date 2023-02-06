@@ -20,24 +20,24 @@ export default function Navbar() {
     navigate("/");
   };
   return (
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand space-margin-left
+<nav className="navbar" role="navigation" aria-label="main navigation">
+  <div className="navbar-brand space-margin-left
 ">
-  <Link to="" class="navbar-item">
+  <Link to="" className="navbar-item">
     <strong>LookingPlace</strong>
   <img src={mapIcon} width="30" height="20"/>
   </Link>
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+    <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
     </a>
   </div>
 
-  <div id="navbarBasicExample" class="navbar-menu">
-    <div class="navbar-start">
+  <div id="navbarBasicExample" className="navbar-menu">
+    <div className="navbar-start">
 
-      <a class="navbar-item">
+      <a className="navbar-item">
         <Link to="/suscribe">
           Suscripción
         </Link>
@@ -45,46 +45,46 @@ export default function Navbar() {
 
     </div>
 
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="buttons">
+    <div className="navbar-end">
+      <div className="navbar-item">
+        <div className="buttons">
            
 
           {
             // Poner ! en auth para testear paneles sin iniciar sesión
           auth?.email ? (
-          <div class="navbar-item has-dropdown is-hoverable space-margin-right
+          <div className="navbar-item has-dropdown is-hoverable space-margin-right
           ">
-              <a class="navbar-link">
+              <a className="navbar-link">
                  <img src={userIcon} width='30' height='40' />
               </a>
 
-            <div class="navbar-dropdown">
-               <a class="navbar-item">
+            <div className="navbar-dropdown">
+               <a className="navbar-item">
                  Mi perfil
                </a>
-               <a class="navbar-item">
+               <a className="navbar-item">
                  <Link to="/createProperty">
                    Publicar propiedad
                  </Link>
                </a>
-               <a class="navbar-item">
+               <a className="navbar-item">
                  Favoritos
                </a>
-               <hr class="navbar-divider"/>
-               <a class="navbar-item" onClick={signOut}>
+               <hr className="navbar-divider"/>
+               <a className="navbar-item" onClick={signOut}>
                  Salir
                </a>
             </div>
           </div>
            ) : (
             <div>
-               <a class="button is-primary" to='/register'>
+               <a className="button is-primary" to='/register'>
                 <Link to="/register">
                   <strong>Registrarse</strong>
                 </Link>
                </a>
-               <a class="button is-light" to='/login'>
+               <a className="button is-light" to='/login'>
                <Link to="/login">Ingresar</Link>
                </a>
             </div>

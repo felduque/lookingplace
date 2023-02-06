@@ -93,22 +93,22 @@ export default function SignUp() {
 
   return (
     <div>
-    <div class='container-page'>
-      <div class='container'>
-        <div class='form-container'>
-          <div class='title is-2 is-spaced space-between-title'>Regístrate para comenzar la aventura</div>
+    <div className='container-page'>
+      <div className='container'>
+        <div className='form-container'>
+          <div className='title is-2 is-spaced space-between-title'>Regístrate para comenzar la aventura</div>
           <form onSubmit={handleSubmit}>
               <p>
                 <input
                   type="text"
                   name="fullName"
-                  class={ errors.name ? 'input is-danger' : 'input is-success input-space' }
+                  className={ errors.name ? 'input is-danger' : 'input is-success input-space' }
                   value={inputs.fullName}
                   placeholder="Nombre completo"
                   onChange={(event) => handleChange(event)}
                 />
                 {errors.name ? (
-                  <p class='space-between-inputs '>
+                  <p className='space-between-inputs '>
                     <span className="error">{errors.name}</span>
                   </p>
                 ) : null}
@@ -117,13 +117,13 @@ export default function SignUp() {
                 <input
                   type="password"
                   name="password"
-                  class={ errors.password ? 'input is-danger' : 'input is-success input-space' }
+                  className={ errors.password ? 'input is-danger' : 'input is-success input-space' }
                   value={inputs.password}
                   placeholder="Contraseña"
                   onChange={(event) => handleChange(event)}
                 />
                 {errors.password ? (
-                  <p class='space-between-inputs '>
+                  <p className='space-between-inputs '>
                     <span className="error">{errors.password}</span>
                   </p>
                 ) : null}
@@ -132,13 +132,13 @@ export default function SignUp() {
                 <input
                   type="password"
                   name="password2"
-                  class={ errors.password2 ? 'input is-danger' : 'input is-success input-space' }
+                  className={ errors.password2 ? 'input is-danger' : 'input is-success input-space' }
                   value={inputs.password2}
                   placeholder="Repetir contraseña"
                   onChange={(event) => handleChange(event)}
                 />
                 {errors.password2 ? (
-                  <p class='space-between-inputs '>
+                  <p className='space-between-inputs '>
                     <span className="error">{errors.password2}</span>
                   </p>
                 ) : null}
@@ -147,13 +147,13 @@ export default function SignUp() {
                 <input
                   type="text"
                   name="email"
-                  class={ errors.mail ? 'input is-danger' : 'input is-success input-space' }
+                  className={ errors.mail ? 'input is-danger' : 'input is-success input-space' }
                   value={inputs.email}
                   placeholder="Correo electrónico"
                   onChange={(event) => handleChange(event)}
                 />
                 {errors.mail ? (
-                  <p class='space-between-inputs '>
+                  <p className='space-between-inputs '>
                     <span className="error">{errors.mail}</span>
                   </p>
                 ) : null}
@@ -162,7 +162,7 @@ export default function SignUp() {
                 <input
                   type="text"
                   name="phone"
-                  class={ errors.phone ? 'input is-danger' : 'input is-success input-space' }
+                  className={ errors.phone ? 'input is-danger' : 'input is-success input-space' }
                   value={inputs.phone}
                   placeholder="Teléfono"
                   onChange={(event) => handleChange(event)}
@@ -186,7 +186,7 @@ export default function SignUp() {
               <p>
                 <button
                   type="submit"
-                  class='button is-link is-rounded space-between-button'
+                  className='button is-link is-rounded space-between-button'
                   disabled={
                     !inputs.fullName ||
                     !inputs.password ||
