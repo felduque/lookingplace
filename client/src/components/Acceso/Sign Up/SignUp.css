@@ -1,0 +1,29 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 120vh; /* para ocupar toda la altura de la pantalla */
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border:solid 2px rgb(50, 147, 232);
+    border-radius: 8px;
+    width: 50%
+  }
+.space-between-inputs {
+    margin-bottom: 15px;
+}
+.form-container {
+    width: 450px;
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+.space-between-button {
+    margin-top: 15px;
+}
+.space-between-title {
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+.input-space {
+    margin-bottom: 10px;
+}

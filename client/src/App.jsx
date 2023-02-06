@@ -1,6 +1,7 @@
-import "./App.css";
+//import "./App.css";
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import 'bulma/css/bulma.min.css';
 import Home from "./components/Home/Home";
 import SignUp from "./components/Acceso/Sign Up/SignUp";
 import Login from "./components/Acceso/Sign In/Login";
@@ -11,10 +12,12 @@ import { Outlet } from "react-router-dom";
 import Layout from "./components/ProtectRoute/Layout";
 import FormHostCreate from "./components/FormProperty/FormProperty";
 import PersistLogin from "./components/Acceso/Sign In/PersistLogin";
-import PaymentStripe from "./components/Pay/PaymentStripe.jsx";
+import Suscribe from "./components/Pay/Suscribe.jsx";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
+    <div>
     <div>
       <Navbar />
       <Routes>
@@ -30,7 +33,7 @@ function App() {
             <Route path="/settings" element={<Admin />} />
             <Route path="/createProperty" element={<FormHostCreate />} />
           </Route>
-          <Route path="/suscribe" element={<PaymentStripe />} />
+          <Route path="/suscribe" element={<Suscribe/>}/>
 
           {/*Protect routes*/}
           <Route element={<RequireAuth />}>
@@ -38,7 +41,13 @@ function App() {
           </Route>
         </Route>
       </Routes>
+      
     </div>
+    <div>
+    <Footer />
+    </div>
+    </div>
+    
   );
 }
 
