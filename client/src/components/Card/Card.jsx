@@ -1,23 +1,25 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-function Card({ image, title, capacity, rating }) {
+function Card({ id, image, title, capacity, beds, rating }) {
   return (
-    <div className=" dark:bg-slate-800  max-w-sm mx-auto rounded-xl  overflow-hidden md:max-w-2xl  ">
-      <div className="md:flex text-cyan-100 ">
-        <div className="md:shrink-0">
-          <img
-            className="h-48 w-full object-cover md:h-full md:w-48"
-            src={image}
-            alt="image"
-          />
+    <Link to={`/propertyDetail/${id}`} style={{ textDecoration: "none" }}>
+      <div className="card">
+        <h2 className="title" style={{ color: "black" }}>
+          {title}
+        </h2>
+        <div className="card-image">
+          <figure className="image is-3by3">
+            <img src={image} alt={title} />
+          </figure>
         </div>
-        <div className="p-8">
-          <h2 className="text-lg font-medium  text-right ">titulo:{title}</h2>
-          <p className="mt-2 ">capacidad: {capacity}</p>
-          <p>rating:{rating}</p>
+        <div className="card-content">
+          <p>Capacidad para {capacity} personas</p>
+          <p>Camas {beds}</p>
+          <p>Valoracion : {rating}</p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
