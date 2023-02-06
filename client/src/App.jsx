@@ -22,9 +22,10 @@ function App() {
       <div>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Layout />} />
+          <Route path="/layout" element={<Layout />} />
+          <Route path="/settings" element={<Admin />} />
           {/*Public Routes*/}
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/register" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/createProperty" element={<FormHostCreate />} />
@@ -38,9 +39,8 @@ function App() {
             <Route path="/suscribe" element={<Suscribe />} />
 
             {/*Protect routes*/}
-            <Route element={<RequireAuth />}>
-              <Route path="/settings" element={<Admin />} />
-            </Route>
+            {/* <Route element={<RequireAuth />}>
+            </Route> */}
           </Route>
         </Routes>
       </div>
