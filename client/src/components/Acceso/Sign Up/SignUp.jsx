@@ -94,7 +94,7 @@ export default function SignUp() {
   return (
     <div>
     <div className='container-page'>
-      <div className='container'>
+      <div className='c-reg'>
         <div className='form-container'>
           <div className='title is-2 is-spaced space-between-title'>Regístrate para comenzar la aventura</div>
           <form onSubmit={handleSubmit}>

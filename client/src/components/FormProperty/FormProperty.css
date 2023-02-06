@@ -1,21 +1,23 @@
-.container-general-form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-  }
+.container-property {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+}
+.container-form-property {
+  width: 600px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border: solid 2px rgb(50, 147, 232);
+    border-radius: 8px;
+    padding: 20px 30px;
+}
 .loaded-images {
     width: 10%;
     height: 10%;
 }
-.container-page-property {
-    width: 40%;
-}
-.container-form-property {
-    border: solid 1px rgb(50, 147, 232);
-    margin-left: auto;
-    margin-right: auto;
-}
+
+
 input[type="time"] {
     padding: 0.5em;
     font-size: 1em;

@@ -1,15 +1,12 @@
-.container {
+.c-reg {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 120vh; /* para ocupar toda la altura de la pantalla */
     width: 100vw;
     
   }
-.space-between-inputs {
-    margin-bottom: 15px;
-}
-.form-container {
+  
+  .form-container {
     width: 450px;
     margin-top: 50px;
     margin-bottom: 50px;
@@ -17,6 +14,11 @@
     border-radius: 8px;
     padding: 20px 30px;
 }
+
+.space-between-inputs {
+    margin-bottom: 15px;
+}
+
 .space-between-button {
     margin-top: 15px;
 }

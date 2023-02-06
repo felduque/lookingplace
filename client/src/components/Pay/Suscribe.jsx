@@ -46,12 +46,12 @@ export default function Suscribe() {
             // Poner ! en auth para testear paneles sin iniciar sesión
           auth?.email ? 
           (
-            <div>
+            <div className="center-button-pro-logged">
              <PaymentMP/>
             </div>
           ) : 
             <div>
-               <a className="button is-primary" to='/register'>
+               <a className="button is-primary center-button-pro" to='/register'>
                  <Link to="/register">
                    <strong>Registrarse para ser PRO</strong>
                  </Link>

@@ -156,12 +156,9 @@ export default function FormHostCreate() {
   return (
     <div>
       <div className='container-general'>
-      <Link to={"/home"}>
-        <button className="button is-primary is-outlined">Home</button>
-      </Link>
-      <div className="container-page-property">
+      <div className="container-property">
       <div className="container-form-property">
-      <div className="title is-2">Comencemos la travesia con nuestros viajeros</div>
+      <div className="title is-2">Crea un Place para los viajeros</div>
       <form onSubmit={handleSubmit} encType="multiple" className="box">
         <div className="field">
           <label className="label" htmlFor="title">

@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* para ocupar toda la altura de la pantalla */
     width: 100vw;
   }
 .icon-login {
