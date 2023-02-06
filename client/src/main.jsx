@@ -9,7 +9,6 @@ import { Provider } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
         <AuthProvider>
@@ -19,5 +18,4 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </AuthProvider>
       </Provider>
     </BrowserRouter>
-  </React.StrictMode>
 );
