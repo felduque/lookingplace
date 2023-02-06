@@ -12,6 +12,8 @@ import Layout from "./components/ProtectRoute/Layout";
 import FormHostCreate from "./components/FormProperty/FormProperty";
 import PersistLogin from "./components/Acceso/Sign In/PersistLogin";
 import PaymentStripe from "./components/Pay/PaymentStripe.jsx";
+import CardDetail from "./components/Detail/CardDetail";
+import ButtonMP from "./components/Pay/BotonPrueba";
 
 function App() {
   return (
@@ -23,12 +25,14 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/propertyDetail/:id" element={<CardDetail />} />
+        <Route path="/botonMP" element={<ButtonMP />} />
+        <Route path="/createProperty" element={<FormHostCreate />} />
 
         {/*Protect routes*/}
         <Route element={<PersistLogin />}>
           <Route element={<RequireAuth />}>
             <Route path="/settings" element={<Admin />} />
-            <Route path="/createProperty" element={<FormHostCreate />} />
           </Route>
           <Route path="/suscribe" element={<PaymentStripe />} />
 

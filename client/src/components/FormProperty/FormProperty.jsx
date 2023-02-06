@@ -2,21 +2,23 @@ import React from "react";
 import { useEffect } from "react";
 import { useState, useMemo } from "react";
 import axios from "axios";
-//import Select from "react-select";
-//import CurrencyInput from "react-currency-input-field";
-//import makeAnimated, { Input } from "react-select/animated";
+import Select from "react-select";
+import CurrencyInput from "react-currency-input-field";
+import makeAnimated, { Input } from "react-select/animated";
+import "bulma/css/bulma.min.css";
+import { Link } from "react-router-dom";
 // Google Maps
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
-//import PlacesAutocomplete from "react-places-autocomplete";
-//import {
-  //geocodeByAddress,
-  //geocodeByPlaceId,
-  //getLatLng,
-//} from "react-places-autocomplete";
+import PlacesAutocomplete from "react-places-autocomplete";
+import {
+  geocodeByAddress,
+  geocodeByPlaceId,
+  getLatLng,
+} from "react-places-autocomplete";
 
 // Fin Google Maps
 
-//const animatedComponents = makeAnimated();
+const animatedComponents = makeAnimated();
 
 // Objeto que se renderiza en Select-React
 const options = [
@@ -152,11 +154,17 @@ export default function FormHostCreate() {
   if (!isLoaded) return <div>...Cargando</div>;
   return (
     <div>
-      <h3>Comenzemos la travesia con nuestros viajeros!</h3>
-      <form onSubmit={handleSubmit} encType="multiple">
-        <div>
-          <label htmlFor="title">Titulo del Alojamiento</label>
+      <Link to={"/"}>
+        <button className="button is-primary is-outlined">Home</button>
+      </Link>
+      <h3 className="title">Comenzemos la travesia con nuestros viajeros!</h3>
+      <form onSubmit={handleSubmit} encType="multiple" className="box">
+        <div className="field">
+          <label className="label" htmlFor="title">
+            Titulo del Alojamiento
+          </label>
           <input
+            className="input"
             id="title"
             type="text"
             name="title"
@@ -164,18 +172,24 @@ export default function FormHostCreate() {
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label htmlFor="description">Descripcion del Alojamiento</label>
+        <div className="field">
+          <label className="label" htmlFor="description">
+            Descripcion del Alojamiento
+          </label>
           <textarea
+            className="input"
             id="description"
             name="description"
             value={inputs.description}
             onChange={handleChange}
           ></textarea>
         </div>
-        <div>
-          <label htmlFor="capacity">Capacidad de personas: </label>
+        <div className="field">
+          <label className="label" htmlFor="capacity">
+            Capacidad de personas:{" "}
+          </label>
           <input
+            className="input"
             id="capacity"
             type="number"
             name="capacity"
@@ -185,9 +199,12 @@ export default function FormHostCreate() {
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label htmlFor="beds">Numero de camas</label>
+        <div className="field">
+          <label className="label" htmlFor="beds">
+            Numero de camas
+          </label>
           <input
+            className="input"
             id="beds"
             type="number"
             name="beds"
@@ -197,9 +214,12 @@ export default function FormHostCreate() {
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label htmlFor="baths">Numero de baños</label>
+        <div className="field">
+          <label className="label" htmlFor="baths">
+            Numero de baños
+          </label>
           <input
+            className="input"
             id="baths"
             type="number"
             name="baths"
@@ -209,10 +229,11 @@ export default function FormHostCreate() {
             onChange={handleChange}
           />
         </div>
-        <div>
-          <p>Servicios con los que cuenta el alojamiento</p>
+        <div className="field">
+          <p className="label">Servicios con los que cuenta el alojamiento</p>
         </div>
         <Select
+          className="field "
           components={animatedComponents}
           name="services"
           isMulti
@@ -220,11 +241,13 @@ export default function FormHostCreate() {
           onChange={(e, actionMeta) => handleChange(e, actionMeta)}
           options={options}
         />
-        <div>
-          <p>Reglas del alojamiento</p>
+        <div className="field">
+          <p className="title is-4">Reglas del alojamiento</p>
         </div>
-        <div>
-          <label htmlFor="checkIn">Horario de entrada</label>
+        <div className="field">
+          <label className="label" htmlFor="checkIn">
+            Horario de entrada
+          </label>
           <input
             id="checkIn"
             type="time"
@@ -233,8 +256,10 @@ export default function FormHostCreate() {
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label htmlFor="checkOut">Horario de salida</label>
+        <div className="field">
+          <label className="label" htmlFor="checkOut">
+            Horario de salida
+          </label>
           <input
             id="checkOut"
             type="time"
@@ -243,8 +268,10 @@ export default function FormHostCreate() {
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label htmlFor="smoke">Permitido fumar?</label>
+        <div className="field">
+          <label className="label" htmlFor="smoke">
+            Permitido fumar?
+          </label>
           <input
             id="smoke"
             type="checkbox"
@@ -253,8 +280,10 @@ export default function FormHostCreate() {
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label htmlFor="">Permitido fiestas?</label>
+        <div className="field">
+          <label className="label" htmlFor="">
+            Permitido fiestas?
+          </label>
           <input
             id="party"
             type="checkbox"
@@ -263,8 +292,10 @@ export default function FormHostCreate() {
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label htmlFor="pets">Permitido mascostas?</label>
+        <div className="field">
+          <label className="label" htmlFor="pets">
+            Permitido mascostas?
+          </label>
           <input
             id="pets"
             type="checkbox"
@@ -273,8 +304,10 @@ export default function FormHostCreate() {
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label htmlFor="">Ubicacion</label>
+        <div className="field">
+          <label className="label" htmlFor="">
+            Ubicacion
+          </label>
         </div>
         {/* Gooogle Maps */}
         {/* <p>lat:{coordinates.lat}</p>
@@ -295,7 +328,7 @@ export default function FormHostCreate() {
               <input
                 {...getInputProps({
                   placeholder: "Busca tu dirección ...",
-                  className: "location-search-input",
+                  className: "input",
                 })}
               />
               <div className="autocomplete-dropdown-container">
@@ -325,9 +358,8 @@ export default function FormHostCreate() {
         </PlacesAutocomplete>
 
         {/* Fin Gooogle Maps */}
-
-        <div>
-          <button type="button">
+        <div className="field">
+          <button className="button is-warning is-outlined " type="button">
             <label htmlFor="image">Selecciona las fotos</label>
           </button>
           <input
@@ -349,9 +381,12 @@ export default function FormHostCreate() {
             </div>
           ))}
         </div>
-        <div>
-          <label htmlFor="price">Precio por Noche</label>
+        <div className="field">
+          <label className="label" htmlFor="price">
+            Precio por Noche
+          </label>
           <CurrencyInput
+            className="input"
             id="price"
             name="price"
             placeholder="Please enter a number"
@@ -365,9 +400,10 @@ export default function FormHostCreate() {
               })
             }
           />
-          ;
         </div>
-        <button type="submit">Publicar Alojamiento</button>
+        <button className="button is-primary is-outlined" type="submit">
+          Publicar Alojamiento
+        </button>
       </form>
     </div>
   );

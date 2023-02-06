@@ -17,36 +17,36 @@ export default function Navbar() {
     navigate("/");
   };
   return (
-    <nav class="navbar is-info">
-      <div class="navbar-brand">
-        <li class="navbar-item">
+    <nav className="navbar is-info">
+      <div className="navbar-brand">
+        <li className="navbar-item">
           <Link to="/">
             <h1>
               <button>Home</button>
             </h1>
           </Link>
         </li>
-        <li class="navbar-item">
-          <h1 class="title is-3">LookingPlace</h1>
+        <li className="navbar-item">
+          <h1 className="title is-3">LookingPlace</h1>
         </li>
       </div>
 
       {auth?.email ? (
-        <div class="navbar-end">
-          <div class="navbar-item">
+        <div className="navbar-end">
+          <div className="navbar-item">
             <button onClick={signOut}>Logout</button>
           </div>
         </div>
       ) : (
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <div class="buttons">
-              <li class="button is-primary is-inverted">
+        <div className="navbar-end">
+          <div className="navbar-item">
+            <div className="buttons">
+              <li className="button is-primary is-inverted">
                 <Link to="/register">
                   <>Register</>
                 </Link>
               </li>
-              <li class="button is-info is-inverted">
+              <li className="button is-info is-inverted">
                 <Link to="/login">Login</Link>
               </li>
             </div>
@@ -54,16 +54,16 @@ export default function Navbar() {
         </div>
       )}
       {auth?.email ? (
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <li class="button is-primary is-inverted">
+        <div className="navbar-end">
+          <div className="navbar-item">
+            <li className="button is-primary is-inverted">
               <Link to="/createProperty">Publica una propiedad</Link>
             </li>
           </div>
         </div>
       ) : (
-        <div class="navbar-item">
-          <li class="button is-primary is-inverted">
+        <div className="navbar-item">
+          <li className="button is-primary is-inverted">
             <Link to="/createProperty">Publica una propiedad</Link>
           </li>
         </div>

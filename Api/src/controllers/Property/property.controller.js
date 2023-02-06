@@ -87,3 +87,12 @@ export const getProperty = async (req, res) => {
     console.log(error);
   }
 };
+
+export const getPropertyById = async (req, res) => {
+  try {
+    const property = await Property.findByPk(req.params.id);
+    res.json(property);
+  } catch (error) {
+    console.log(error);
+  }
+};

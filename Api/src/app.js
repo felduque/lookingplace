@@ -13,6 +13,7 @@ import tenantRoutes from "./routes/Tenant/tenant.routes.js";
 import propertyRoutes from "./routes/Property/property.routes.js";
 import commentRoutes from "./routes/Comment/comment.routes.js";
 import otherRoutes from "./routes/Other/other.routes.js";
+import payRoutes from "./routes/Pay/pay.routes.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 const __filename = fileURLToPath(import.meta.url);
@@ -83,5 +84,6 @@ app.use(tenantRoutes);
 app.use(propertyRoutes);
 app.use(commentRoutes);
 app.use(otherRoutes);
+app.use(payRoutes);
 
 export default app;
