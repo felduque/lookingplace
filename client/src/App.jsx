@@ -12,7 +12,7 @@ import { Outlet } from "react-router-dom";
 import Layout from "./components/ProtectRoute/Layout";
 import FormHostCreate from "./components/FormProperty/FormProperty";
 import PersistLogin from "./components/Acceso/Sign In/PersistLogin";
-import Suscribe from "./components/Pay/Suscribe.jsx";
+import Suscribe from "./components/Pay/Suscribe";
 import Footer from "./components/Footer/Footer";
 
 function App() {
