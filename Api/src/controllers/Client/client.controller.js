@@ -16,7 +16,7 @@ import { dirname } from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 import { createRequire } from "module";
-import { Payments } from "../../models/payment.model.js";
+// import { Payments } from "../../models/payment.model.js";
 const require = createRequire(import.meta.url);
 const { token } = require("./../../../package.json");
 
@@ -121,8 +121,6 @@ export const createClient = async (req, res) => {
   }
 };
 
-/*DDDDDDDDDDDDDDaaaaavidddddddddddddddd*/
-
 export const login = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password)
@@ -223,12 +221,10 @@ export const refreshToken = async (req, res) => {
   );
 };
 
-/*DDDDDDDDDDDDDDaaaaavidddddddddddddddd*/
-
 export const getClient = async (req, res) => {
   try {
     const client = await Client.findAll({
-      attributes: ["id", "fullName", "email", "avatar"],
+      attributes: ["id", "fullName", "email", "avatar", "phone"],
       include: [
         {
           model: Aboutme,
@@ -237,9 +233,7 @@ export const getClient = async (req, res) => {
         },
       ],
     });
-    res.json({
-      data: client,
-    });
+    res.json(client);
   } catch (error) {
     console.log(error);
   }
@@ -250,7 +244,7 @@ export const getClientById = async (req, res) => {
   try {
     let clientId = await Client.findOne({
       where: { id },
-      attributes: ["id", "fullName", "email", "avatar"],
+      attributes: ["id", "fullName", "email", "avatar", "phone"],
       include: [
         {
           model: Aboutme,
@@ -260,16 +254,13 @@ export const getClientById = async (req, res) => {
       ],
     });
 
-    const clientSearch = await Payments.findAll({
-      where: { client_payment: id },
-    });
+    // const clientSearch = await Payments.findAll({
+    //   where: { client_payment: id },
+    // });
 
     if (!clientId) return res.status(400).json({ message: "Client not found" });
     if (clientId) {
-      res.json({
-        data: clientId,
-        paymentHistory: clientSearch,
-      });
+      res.json(clientId);
     }
   } catch (err) {
     res.json({
