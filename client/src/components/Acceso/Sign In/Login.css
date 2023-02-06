@@ -1,0 +1,30 @@
+.container-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* para ocupar toda la altura de la pantalla */
+    width: 100vw;
+  }
+.icon-login {
+    width: 60%;
+    height: 60%;
+    margin-left: 8px;
+    margin-top: 5px;
+}
+.error-messg-server {
+    color: rgb(202, 27, 27);
+}
+.form-container-login {
+    width: 450px;
+    margin-top: 15px;
+    margin-bottom: 50px;
+    border: solid 2px rgb(50, 147, 232);
+    border-radius: 8px;
+    padding: 20px 30px;
+}
+.activated-session {
+    margin-top: 8px;
+}
+.new-account {
+    margin-top: 20px;
+}

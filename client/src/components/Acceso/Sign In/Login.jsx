@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../../ProtectRoute/useAuth";
 import axios from "axios";
+import usermailIcon from '../../../assets/usermail-login.png';
+import userPasswordIcon from '../../../assets/key-login.png';
+import "./Login.css";
 
 //const LOGIN_URL = "/client/login";
 
@@ -43,13 +46,13 @@ export default function Login() {
       navigate(from, { replace: true });
     } catch (err) {
       if (!err?.response) {
-        setErrMsg("No Server Response");
+        setErrMsg("Sin respuesta del servidor");
       } else if (err.response?.status === 400) {
-        setErrMsg("Missing email or Password");
+        setErrMsg("Correo o contraseñas incorrecta");
       } else if (err.response?.status === 401) {
-        setErrMsg("Unauthorized");
+        setErrMsg("Bienvenido");
       } else {
-        setErrMsg("Login Failed");
+        setErrMsg("Error al ingresar");
       }
     }
   };
@@ -64,46 +67,69 @@ export default function Login() {
 
   return (
     <>
+    <div className="container-page-login">
+    <div className="container-login">
+    <div className="form-container-login">
       <section>
-        <p>{errMsg}</p>
-        <h1>Sign In</h1>
+        <div className="error-messg-server">{errMsg}</div>
+        
+        <div class='title is-4 is-spaced'>Ingresar a la aventura</div>
         <form onSubmit={handleSubmit}>
+        <div class="field">
+        <p className="control has-icons-left">
           <input
             type="email"
             id="emailname"
-            placeholder="Email"
+            className="input"
+            placeholder="Correo"
             autoComplete="off"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
             required
           />
+          <span className="icon is-small is-left">
+            <i className="fas fa-user"><img src={usermailIcon} className='icon-login' /></i>
+          </span>
+        </p>
+        </div>
+        <div class="field">
+        <p className="control has-icons-left">
           <input
             type="password"
             id="passwordLogin"
-            placeholder="Password"
+            className="input"
+            placeholder="Contraseña"
             autoComplete="off"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
             required
           />
-          <button>Sign In</button>
-          <div>
+          <span className="icon is-small is-left">
+            <i className="fas fa-user"><img src={userPasswordIcon} className='icon-login' /></i>
+          </span>
+        </p>
+        </div>
+          <button class='button is-link is-rounded'>Ingresar</button>
+          <div className="activated-session">
             <input
               type="checkbox"
               id="persist"
               onChange={togglePersist}
               checked={persist}
             />
-            <label>Confias en este servicio</label>
+            <label > Mantener sesión activa</label>
           </div>
         </form>
-        <p>
-          Need an Account? <br />
+        <p className="new-account">
+          ¿No tienes cuenta? <br />
           <span>
-            <Link to="/register">Sign Up</Link>
+            <Link to="/register">Registrarme</Link>
           </span>
         </p>
       </section>
+      </div>
+      </div>
+      </div>
     </>
   );
 }
