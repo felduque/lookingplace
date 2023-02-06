@@ -2,9 +2,12 @@ import { Property } from "../../models/property.model.js";
 import { Tenant } from "../../models/tenant.model.js";
 import { Client } from "../../models/client.model.js";
 import { Comment } from "../../models/comment.model.js";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 export const createProperty = async (req, res) => {
-  console.log(req.body);
   const {
     title,
     description,
@@ -25,7 +28,15 @@ export const createProperty = async (req, res) => {
     client_property,
   } = req.body;
 
+  // ! Upload Image
+  const img = req.files?.image;
   console.log(req.files);
+  console.log(img);
+  // let pathImage = __dirname + "/../../public/client/" + img?.name;
+  // img?.mv(pathImage);
+  // let url = (pathImage = "http://localhost:3000/client/" + img?.name);
+  let url = "no-existe.jpg";
+
   const arrayServices = JSON.parse(services);
   try {
     let newProperty = await Property.create(
@@ -43,6 +54,7 @@ export const createProperty = async (req, res) => {
         pets,
         price,
         rating,
+        image: url,
         lat,
         lng,
         tenant_property,
@@ -66,10 +78,7 @@ export const createProperty = async (req, res) => {
     if (newProperty) {
       // console.log(newProperty);
       console.log("created new property");
-      return res.json({
-        message: "Property created successfully",
-        data: newProperty,
-      });
+      return res.json(newProperty);
     }
   } catch (error) {
     console.log(error);
@@ -121,9 +130,7 @@ export const getProperty = async (req, res) => {
         },
       ],
     });
-    res.json({
-      data: property,
-    });
+    res.json(property);
   } catch (error) {
     console.log(error);
   }
@@ -172,9 +179,7 @@ export const getPropertyById = async (req, res) => {
         },
       ],
     });
-    res.json({
-      data: propertyId,
-    });
+    res.json(propertyId);
   } catch (error) {
     console.log(error);
   }
@@ -257,10 +262,7 @@ export const updateProperty = async (req, res) => {
           where: { id },
         }
       );
-      res.json({
-        message: "Property updated successfully",
-        data: property,
-      });
+      res.json(property);
     }
   } catch (err) {
     res.json({
