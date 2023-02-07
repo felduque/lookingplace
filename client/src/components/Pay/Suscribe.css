@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* para ocupar toda la altura de la pantalla */
     width: 100vw;
 }
 .planes-PRO {
@@ -29,4 +28,10 @@
 .pro-description {
     width: 500px;
     margin-left: 15px;
+}
+.center-button-pro {
+    margin-left: 40%
+}
+.center-button-pro-logged {
+    margin-left: 45%
 }

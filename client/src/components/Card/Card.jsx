@@ -1,34 +1,35 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./Card.css";
+import bedsIcon from '../../assets/beds-icon.png';
+import bathroomIcon from '../../assets/batchroom-icon.png';
+import favoriteIcon from '../../assets/favorite-icon.png';
+import capacityIcon from '../../assets/capacity-icon.png';
 
-function Card({ id, image, title, capacity, beds, rating }) {
+
+function Card({ id, image, price, capacity, beds, baths, rating }) {
   return (
+    <div>
+
     <Link to={`/propertyDetail/${id}`} style={{ textDecoration: "none" }}>
-      <div className="card has-background-grey-dark">
-        <h2
-          className="title has-text-centered is-capitalized is-italic"
-          // style={{ color: "black" }}
-        >
-          {title}
-        </h2>
-        <p className="has-text-centered has-text-white">
-          Valoracion : {rating}
-        </p>
-        <div className="card-image">
+      <div className="container-card">
+        <div>
           <figure className="image is-3by3">
-            <img src={image} alt={title} />
+            <img src={image} className='image-cover-card'/>
           </figure>
         </div>
-        <div className="card-content has-text-centered has-text-white is-italic has-text-weight-medium	 ">
-          <p className="">Capacidad para {capacity} personas</p>
-          {Number(beds) > 1 ? (
-            <p>Contamos con {beds} camas</p>
-          ) : (
-            <p>Contamos con {beds} cama</p>
-          )}
+        <div className="details-card-inline">
+          <div className="inline-element">${price}</div>
+          <div className="inline-element element-fav"><img src={favoriteIcon} className='icon-fav'/></div>
+          <div> {rating}/5</div>
+          <p><img src={capacityIcon} className='icon-capacity'/> {capacity}</p>
+            <p><img src={bedsIcon} className='icon-beds'/> {beds}</p>
+            <p><img src={bathroomIcon} className='icon-bathroom'/> {baths}</p>
         </div>
       </div>
     </Link>
+
+    </div>
   );
 }
 

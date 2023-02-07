@@ -15,7 +15,7 @@ function Home() {
   const statePropertys = useSelector((state) => state.properties.allPropertys);
   console.log(statePropertys);
 
-  if (!statePropertys) return <h1>Loading...</h1>;
+  if (!statePropertys) return <h1>Cargando...</h1>;
   return (
     <div className="box">
       <div className="columns is-multiline">
@@ -26,10 +26,11 @@ function Home() {
                 // className="card"
                 key={property.id}
                 id={property.id}
-                title={property.title}
+                price={property.price}
                 image="https://picsum.photos/200/250"
                 capacity={property.capacity}
                 beds={property.beds}
+                baths={property.baths}
                 rating={property.rating}
               ></Card>
             </div>

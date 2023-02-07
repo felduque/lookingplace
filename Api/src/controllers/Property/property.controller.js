@@ -35,7 +35,6 @@ export const createProperty = async (req, res) => {
   // let pathImage = __dirname + "/../../public/client/" + img?.name;
   // img?.mv(pathImage);
   // let url = (pathImage = "http://localhost:3000/client/" + img?.name);
-  let url = "no-existe.jpg";
 
   const arrayServices = JSON.parse(services);
   try {
@@ -54,7 +53,6 @@ export const createProperty = async (req, res) => {
         pets,
         price,
         rating,
-        image: url,
         lat,
         lng,
         tenant_property,
