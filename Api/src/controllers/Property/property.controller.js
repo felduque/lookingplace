@@ -2,9 +2,12 @@ import { Property } from "../../models/property.model.js";
 import { Tenant } from "../../models/tenant.model.js";
 import { Client } from "../../models/client.model.js";
 import { Comment } from "../../models/comment.model.js";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 export const createProperty = async (req, res) => {
-  console.log(req.body);
   const {
     title,
     description,
@@ -25,7 +28,15 @@ export const createProperty = async (req, res) => {
     client_property,
   } = req.body;
 
+  // ! Upload Image
+  const img = req.files?.image;
   console.log(req.files);
+  console.log(img);
+  // let pathImage = __dirname + "/../../public/client/" + img?.name;
+  // img?.mv(pathImage);
+  // let url = (pathImage = "http://localhost:3000/client/" + img?.name);
+  let url = "no-existe.jpg";
+
   const arrayServices = JSON.parse(services);
   try {
     let newProperty = await Property.create(
@@ -66,10 +77,7 @@ export const createProperty = async (req, res) => {
     if (newProperty) {
       // console.log(newProperty);
       console.log("created new property");
-      return res.json({
-        message: "Property created successfully",
-        data: newProperty,
-      });
+      return res.json(newProperty);
     }
   } catch (error) {
     console.log(error);
@@ -81,6 +89,7 @@ export const createProperty = async (req, res) => {
 };
 
 export const getProperty = async (req, res) => {
+  const { order, rating, price, capacity } = req.query;
   try {
     const property = await Property.findAll({
       attributes: [
@@ -121,7 +130,44 @@ export const getProperty = async (req, res) => {
         },
       ],
     });
-    res.json(property);
+    let result = property;
+    let filteres = "";
+    if (order === "asc") {
+      result.sort((a, b) => a.title.localeCompare(b.title));
+      filteres += " order=asc";
+    }
+    if (order === "desc") {
+      result.sort((a, b) => b.title.localeCompare(a.title));
+      filteres += " order=desc";
+    }
+    if (rating === "min") {
+      result.sort((a, b) => a.rating - b.rating);
+      filteres += " rating=min";
+    }
+    if (rating === "max") {
+      result.sort((a, b) => b.rating - a.rating);
+      filteres += " rating=max";
+    }
+    if (price === "low") {
+      result.sort((a, b) => a.price - b.price);
+      filteres += " price=low";
+    }
+    if (price === "high") {
+      result.sort((a, b) => b.price - a.price);
+      filteres += " price=high";
+    }
+    if (capacity === "lowest") {
+      result.sort((a, b) => a.capacity - b.capacity);
+      filteres += " capacity=lowest";
+    }
+    if (capacity === "highest") {
+      result.sort((a, b) => b.capacity - a.capacity);
+      filteres += " capacity=highest";
+    }
+    return res.status(200).json({
+      msg: `Sucessfully filtered ${filteres}`,
+      result,
+    });
   } catch (error) {
     console.log(error);
   }
@@ -253,10 +299,7 @@ export const updateProperty = async (req, res) => {
           where: { id },
         }
       );
-      res.json({
-        message: "Property updated successfully",
-        data: property,
-      });
+      res.json(property);
     }
   } catch (err) {
     res.json({
