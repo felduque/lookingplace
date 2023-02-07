@@ -64,7 +64,7 @@ export const createAboutme = async (req, res) => {
 };
 
 export const createClient = async (req, res) => {
-  const { fullName, email, password, verify, phone } = req.body;
+  const { fullName, email, password, verify, phone, admin } = req.body;
   // ! Upload Image
   const img = req.files?.img;
   let pathImage = __dirname + "/../../public/client/" + img?.name;
@@ -93,6 +93,7 @@ export const createClient = async (req, res) => {
         verify,
         avatar: url,
         phone,
+        admin,
       }
       // relation aboutMe and create aboutme
       // {
