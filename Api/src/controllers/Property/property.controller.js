@@ -39,7 +39,7 @@ export const createProperty = async (req, res) => {
 
   const arrayServices = JSON.parse(services);
   try {
-    let dnewProperty = await Property.create(
+    let newProperty = await Property.create(
       {
         title,
         description,
