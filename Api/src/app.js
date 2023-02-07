@@ -18,8 +18,7 @@ import adminRoutes from "./routes/Admin/admin.routes.js";
 
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-const __filename = fileURLToPath(
-    import.meta.url);
+const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 import path from "path";
 
@@ -35,22 +34,22 @@ import { Payments } from "./models/payment.model.js";
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
-    fileUpload({
-        useTempFiles: true,
-        tempFileDir: "/tmp/",
-    })
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: "/tmp/",
+  })
 );
 app.use(express.static(path.join(__dirname, "public")));
 app.use(morgan("dev"));
 app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "http://127.0.0.1:5173"); // update to match the domain you will make the request from
-    res.header("Access-Control-Allow-Credentials", "true");
-    res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept"
-    );
-    res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
-    next();
+  res.header("Access-Control-Allow-Origin", "http://127.0.0.1:5173"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+  next();
 });
 
 // Relation aboutMe and Client & aboutme and Tenant
@@ -69,20 +68,20 @@ Property.belongsTo(Client, { as: "p_client", foreignKey: "client_property" });
 
 Client.hasMany(Comment, { foreignKey: "client_comment" });
 Comment.belongsTo(Client, {
-    as: "client_comment_id",
-    foreignKey: "client_comment",
+  as: "client_comment_id",
+  foreignKey: "client_comment",
 });
 
 Tenant.hasMany(Comment, { foreignKey: "tenant_comment" });
 Comment.belongsTo(Tenant, {
-    as: "tenant_comment_id",
-    foreignKey: "tenant_comment",
+  as: "tenant_comment_id",
+  foreignKey: "tenant_comment",
 });
 
 Property.hasMany(Comment, { as: "p_comment", foreignKey: "property_comment" });
 Comment.belongsTo(Property, {
-    as: "property_comment_id",
-    foreignKey: "property_comment",
+  as: "property_comment_id",
+  foreignKey: "property_comment",
 });
 
 // Relation Payment
