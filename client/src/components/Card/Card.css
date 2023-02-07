@@ -1,0 +1,35 @@
+.container-card {
+    border: solid 2px rgb(232, 195, 12);
+    border-radius: 12px;
+    padding: 20px;
+}
+.icon-capacity {
+    width: 12%;
+    height: 12%;
+  }
+.icon-beds {
+    width: 10%;
+    height: 10%;
+  }
+  .icon-bathroom {
+    width: 10%;
+    height: 10%;
+  }
+  .icon-fav {
+    width: 8%;
+    height: 8%;
+  }
+  .image-cover-card {
+    width: 250px;
+    height: 250px;
+    border-radius: 8px;
+  }
+  .inline-element {
+    display: inline;
+  }
+  .element-fav {
+    margin-left: 60%;
+  }
+  .details-card-inline {
+    color: rgb(56, 54, 54);
+  }
