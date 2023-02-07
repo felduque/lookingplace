@@ -69,6 +69,11 @@ export default function Navbar() {
                  </Link>
                </a>
                <a className="navbar-item">
+                 <Link to="/settings">
+                   Dashboard
+                 </Link>
+               </a>
+               <a className="navbar-item">
                  Favoritos
                </a>
                <hr className="navbar-divider"/>

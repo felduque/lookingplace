@@ -15,7 +15,7 @@ export default function Card(prod) {
       <button
         style={{
           color: "white",
-          backgroundColor: "black",
+          backgroundColor: "#F6AB0B",
           padding: "10px",
           borderRadius: "20px",
         }}

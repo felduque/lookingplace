@@ -6,6 +6,7 @@ import Select from "react-select";
 import CurrencyInput from "react-currency-input-field";
 import makeAnimated, { Input } from "react-select/animated";
 import "bulma/css/bulma.min.css";
+import './FormProperty.css';
 import { Link } from "react-router-dom";
 // Google Maps
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
@@ -154,14 +155,14 @@ export default function FormHostCreate() {
   if (!isLoaded) return <div>...Cargando</div>;
   return (
     <div>
-      <Link to={"/home"}>
-        <button className="button is-primary is-outlined">Home</button>
-      </Link>
-      <h3 className="title">Comenzemos la travesia con nuestros viajeros!</h3>
+      <div className='container-general'>
+      <div className="container-property">
+      <div className="container-form-property">
+      <div className="title is-2">Crea un Place para los viajeros</div>
       <form onSubmit={handleSubmit} encType="multiple" className="box">
         <div className="field">
           <label className="label" htmlFor="title">
-            Titulo del Alojamiento
+            Título del Alojamiento
           </label>
           <input
             className="input"
@@ -174,10 +175,10 @@ export default function FormHostCreate() {
         </div>
         <div className="field">
           <label className="label" htmlFor="description">
-            Descripcion del Alojamiento
+            Descripción del alojamiento (Place)
           </label>
           <textarea
-            className="input"
+            className="textarea"
             id="description"
             name="description"
             value={inputs.description}
@@ -201,7 +202,7 @@ export default function FormHostCreate() {
         </div>
         <div className="field">
           <label className="label" htmlFor="beds">
-            Numero de camas
+            Número de camas
           </label>
           <input
             className="input"
@@ -216,7 +217,7 @@ export default function FormHostCreate() {
         </div>
         <div className="field">
           <label className="label" htmlFor="baths">
-            Numero de baños
+            Número de baños
           </label>
           <input
             className="input"
@@ -270,43 +271,48 @@ export default function FormHostCreate() {
         </div>
         <div className="field">
           <label className="label" htmlFor="smoke">
-            Permitido fumar?
-          </label>
-          <input
+            ¿Permitido fumar?&nbsp;
+            <input
             id="smoke"
             type="checkbox"
+            className="checkbox"
             name="smoke"
             value={inputs.smoke}
             onChange={handleChange}
           />
+          </label>
         </div>
         <div className="field">
           <label className="label" htmlFor="">
-            Permitido fiestas?
-          </label>
-          <input
+            ¿Permitido fiestas?&nbsp;
+            <input
             id="party"
             type="checkbox"
+            className="checkbox"
             name="party"
             value={inputs.party}
             onChange={handleChange}
           />
+          </label>
+          
         </div>
         <div className="field">
           <label className="label" htmlFor="pets">
-            Permitido mascostas?
-          </label>
-          <input
+            ¿Permitido mascostas?&nbsp;
+            <input
             id="pets"
             type="checkbox"
+            className="checkbox"
             name="pets"
             value={inputs.pets}
             onChange={handleChange}
           />
+          </label>
+          
         </div>
         <div className="field">
           <label className="label" htmlFor="">
-            Ubicacion
+            Ubicación
           </label>
         </div>
         {/* Gooogle Maps */}
@@ -332,7 +338,7 @@ export default function FormHostCreate() {
                 })}
               />
               <div className="autocomplete-dropdown-container">
-                {loading && <div>Loading...</div>}
+                {loading && <div>Cargando...</div>}
                 {suggestions.map((suggestion) => {
                   const className = suggestion.active
                     ? "suggestion-item--active"
@@ -359,7 +365,10 @@ export default function FormHostCreate() {
 
         {/* Fin Gooogle Maps */}
         <div className="field">
-          <button className="button is-warning is-outlined " type="button">
+        <label className="label">
+            Imágenes del lugar
+          </label>
+          <button className="button is-success" type="button">
             <label htmlFor="image">Selecciona las fotos</label>
           </button>
           <input
@@ -374,7 +383,7 @@ export default function FormHostCreate() {
           />
           {urlImages.map((img, i) => (
             <div key={i}>
-              <img key={i} src={img}></img>
+              <img key={i} src={img} className='is-multiline loaded-images'></img>
               <button id={i} type="button" onClick={handleClickImg}>
                 X
               </button>
@@ -401,10 +410,13 @@ export default function FormHostCreate() {
             }
           />
         </div>
-        <button className="button is-primary is-outlined" type="submit">
+        <button className="button is-link is-rounded" type="submit">
           Publicar Alojamiento
         </button>
       </form>
+      </div>
+      </div>
+      </div>
     </div>
   );
 }

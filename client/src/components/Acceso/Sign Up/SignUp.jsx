@@ -11,10 +11,13 @@ export default function SignUp() {
     password: "",
     password2: "",
     email: "",
-    phone: null,
+    phone: null
   });
 
+  //Estado de Captcha
   const [validCaptcha, setValidCaptcha] = useState(false);
+  //Estado de tipo de cuenta
+  const [typeAccount, setTypeAccount] = useState();
 
   let allDataUser = {
     fullName: inputs.fullName,
@@ -58,7 +61,7 @@ export default function SignUp() {
       !validCaptcha ||
       errorsLength !== 0
     ) {
-      alert("Ups! Fill out the entire form.");
+      alert("Algo salió mal. Intenta de nuevo.");
     } else {
       setErrors(
         validateForm({
@@ -91,10 +94,18 @@ export default function SignUp() {
     setErrors(validateForm(inputs));
   }, [inputs]);
 
+  function userType1() {
+    setTypeAccount(1);
+  }
+
+  function userType2() {
+    setTypeAccount(2);
+  }
+
   return (
     <div>
     <div className='container-page'>
-      <div className='container'>
+      <div className='c-reg'>
         <div className='form-container'>
           <div className='title is-2 is-spaced space-between-title'>Regístrate para comenzar la aventura</div>
           <form onSubmit={handleSubmit}>
@@ -181,8 +192,22 @@ export default function SignUp() {
                   render
                 />
               </p>
-              <p></p>
-
+              <p>
+                <div className="type-acoount-cont">
+                  <div className="type-account">
+                    <div 
+                      className={typeAccount === 1 ? 'button is-info has-tooltip-multiline' : 'button is-info is-outlined has-tooltip-multiline'} 
+                      data-tooltip='Hospedador: Te permite publicar hsopedaje que rentes. Si eres viajero debes crear otra cuenta como Hospedero'
+                      onClick={userType1}>Busco hospedaje
+                    </div>
+                  </div>
+                  <div 
+                    className={typeAccount === 2 ? 'button is-info' : 'button is-info is-outlined has-tooltip-right'} 
+                    data-tooltip="Hospedero: Permite buscar hospedaje a donde vayas. Para publicar hospedajes que rentas debes crear otra cuenta como hospedador"
+                    onClick={userType2}>Ofrezco hospedaje
+                  </div>
+                </div>
+              </p>
               <p>
                 <button
                   type="submit"

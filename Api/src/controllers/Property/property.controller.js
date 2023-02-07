@@ -35,7 +35,7 @@ export const createProperty = async (req, res) => {
   // let pathImage = __dirname + "/../../public/client/" + img?.name;
   // img?.mv(pathImage);
   // let url = (pathImage = "http://localhost:3000/client/" + img?.name);
-  let url = "no-existe.jpg";
+
 
   const arrayServices = JSON.parse(services);
   try {
@@ -50,11 +50,11 @@ export const createProperty = async (req, res) => {
         baths,
         services: arrayServices,
         smoke,
+        image,
         party,
         pets,
         price,
         rating,
-        image: url,
         lat,
         lng,
         tenant_property,
@@ -90,6 +90,7 @@ export const createProperty = async (req, res) => {
 };
 
 export const getProperty = async (req, res) => {
+  const { order, rating, price, capacity } = req.query;
   try {
     const property = await Property.findAll({
       attributes: [
@@ -130,7 +131,44 @@ export const getProperty = async (req, res) => {
         },
       ],
     });
-    res.json(property);
+    let result = property;
+    let filteres = "";
+    if (order === "asc") {
+      result.sort((a, b) => a.title.localeCompare(b.title));
+      filteres += " order=asc";
+    }
+    if (order === "desc") {
+      result.sort((a, b) => b.title.localeCompare(a.title));
+      filteres += " order=desc";
+    }
+    if (rating === "min") {
+      result.sort((a, b) => a.rating - b.rating);
+      filteres += " rating=min";
+    }
+    if (rating === "max") {
+      result.sort((a, b) => b.rating - a.rating);
+      filteres += " rating=max";
+    }
+    if (price === "low") {
+      result.sort((a, b) => a.price - b.price);
+      filteres += " price=low";
+    }
+    if (price === "high") {
+      result.sort((a, b) => b.price - a.price);
+      filteres += " price=high";
+    }
+    if (capacity === "lowest") {
+      result.sort((a, b) => a.capacity - b.capacity);
+      filteres += " capacity=lowest";
+    }
+    if (capacity === "highest") {
+      result.sort((a, b) => b.capacity - a.capacity);
+      filteres += " capacity=highest";
+    }
+    return res.status(200).json({
+      msg: `Sucessfully filtered ${filteres}`,
+      result,
+    });
   } catch (error) {
     console.log(error);
   }

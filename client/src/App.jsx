@@ -1,7 +1,6 @@
 //import "./App.css";
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import "bulma/css/bulma.min.css";
 import Home from "./components/Home/Home";
 import SignUp from "./components/Acceso/Sign Up/SignUp";
 import Login from "./components/Acceso/Sign In/Login";
