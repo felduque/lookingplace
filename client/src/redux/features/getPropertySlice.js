@@ -1,10 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-const url = "http://localhost:3000/properties";
-
 export const getPropertiesAsync = createAsyncThunk(
   "properties/get",
-  async (thunkApi) => {
+  async (url, thunkApi) => {
     return fetch(url)
       .then((response) => response.json())
       .catch((error) => console.log(error));

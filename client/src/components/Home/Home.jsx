@@ -4,32 +4,36 @@ import { useSelector, useDispatch } from "react-redux";
 import { getPropertiesAsync } from "../../redux/features/getPropertySlice";
 import Card from "../Card/Card";
 import "./Home.css";
+import Filters from "../Filters/Filters";
 
 function Home() {
+  const url = "http://localhost:3000/properties";
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getPropertiesAsync());
+    dispatch(getPropertiesAsync(url));
   }, []);
 
   const statePropertys = useSelector((state) => state.properties.allPropertys);
   console.log(statePropertys);
 
-  if (!statePropertys) return <h1>Loading...</h1>;
+  if (!statePropertys) return <h1>Cargando...</h1>;
   return (
     <div className="box">
+      <Filters></Filters>
       <div className="columns is-multiline">
-        {statePropertys?.map((property) => {
+        {statePropertys.result?.map((property) => {
           return (
             <div className="column is-2">
               <Card
                 // className="card"
                 key={property.id}
                 id={property.id}
-                title={property.title}
+                price={property.price}
                 image="https://picsum.photos/200/250"
                 capacity={property.capacity}
                 beds={property.beds}
+                baths={property.baths}
                 rating={property.rating}
               ></Card>
             </div>

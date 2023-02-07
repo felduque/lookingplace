@@ -1,0 +1,32 @@
+.container-property {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+}
+.container-form-property {
+  width: 600px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border: solid 2px rgb(50, 147, 232);
+    border-radius: 8px;
+    padding: 20px 30px;
+}
+.loaded-images {
+    width: 10%;
+    height: 10%;
+}
+
+
+input[type="time"] {
+    padding: 0.5em;
+    font-size: 1em;
+    border-radius: 0.25em;
+    border: 1px solid gray;
+  }
+  
+  input[type="time"]:focus {
+    outline: none;
+    border-color: blue;
+  }
+  

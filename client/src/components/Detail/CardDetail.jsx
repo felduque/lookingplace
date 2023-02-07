@@ -97,7 +97,7 @@ export default function CardDetail() {
                   {" "}
                   Contamos con los siguientes servicios :{" "}
                 </p>
-                {services.map((s) => {
+                {services?.map((s) => {
                   return <span> - {s}</span>;
                 })}
                 <p> Se permite fumar : {smoke ? "Si" : "No"}</p>
