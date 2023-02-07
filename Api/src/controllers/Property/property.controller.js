@@ -36,6 +36,7 @@ export const createProperty = async (req, res) => {
   // img?.mv(pathImage);
   // let url = (pathImage = "http://localhost:3000/client/" + img?.name);
 
+
   const arrayServices = JSON.parse(services);
   try {
     let newProperty = await Property.create(
@@ -49,6 +50,7 @@ export const createProperty = async (req, res) => {
         baths,
         services: arrayServices,
         smoke,
+        image,
         party,
         pets,
         price,
@@ -129,43 +131,44 @@ export const getProperty = async (req, res) => {
         },
       ],
     });
+    let result = property;
+    let filteres = "";
     if (order === "asc") {
-      const propertyOrder = property.sort((a, b) =>
-        a.title.localeCompare(b.title)
-      );
-      return res.json(propertyOrder);
-    } else if (order === "desc") {
-      const propertyOrder = property.sort((a, b) =>
-        b.title.localeCompare(a.title)
-      );
-      return res.json(propertyOrder);
+      result.sort((a, b) => a.title.localeCompare(b.title));
+      filteres += " order=asc";
+    }
+    if (order === "desc") {
+      result.sort((a, b) => b.title.localeCompare(a.title));
+      filteres += " order=desc";
     }
     if (rating === "min") {
-      const propertyOrder = property.sort((a, b) => a.rating - b.rating);
-      return res.json(propertyOrder);
-    } else if (rating === "max") {
-      const propertyOrder = property.sort((a, b) => b.rating - a.rating);
-      return res.json(propertyOrder);
+      result.sort((a, b) => a.rating - b.rating);
+      filteres += " rating=min";
+    }
+    if (rating === "max") {
+      result.sort((a, b) => b.rating - a.rating);
+      filteres += " rating=max";
     }
     if (price === "low") {
-      const propertyOrder = property.sort((a, b) => a.price - b.price);
-      return res.json(propertyOrder);
-    } else if (price === "high") {
-      const propertyOrder = property.sort((a, b) => b.price - a.price);
-      return res.json(propertyOrder);
+      result.sort((a, b) => a.price - b.price);
+      filteres += " price=low";
+    }
+    if (price === "high") {
+      result.sort((a, b) => b.price - a.price);
+      filteres += " price=high";
     }
     if (capacity === "lowest") {
-      const propertyOrder = property.sort((a, b) => a.capacity - b.capacity);
-      return res.json(propertyOrder);
-    } else if (capacity === "highest") {
-      const propertyOrder = property.sort((a, b) => b.capacity - a.capacity);
-      return res.json(propertyOrder);
-    } else {
-      return res.json({
-        message: "No filters",
-        property,
-      });
+      result.sort((a, b) => a.capacity - b.capacity);
+      filteres += " capacity=lowest";
     }
+    if (capacity === "highest") {
+      result.sort((a, b) => b.capacity - a.capacity);
+      filteres += " capacity=highest";
+    }
+    return res.status(200).json({
+      msg: `Sucessfully filtered ${filteres}`,
+      result,
+    });
   } catch (error) {
     console.log(error);
   }
