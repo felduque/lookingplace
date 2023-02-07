@@ -88,6 +88,7 @@ export const createProperty = async (req, res) => {
 };
 
 export const getProperty = async (req, res) => {
+  const { order, rating, price, capacity } = req.query;
   try {
     const property = await Property.findAll({
       attributes: [
@@ -128,7 +129,43 @@ export const getProperty = async (req, res) => {
         },
       ],
     });
-    res.json(property);
+    if (order === "asc") {
+      const propertyOrder = property.sort((a, b) =>
+        a.title.localeCompare(b.title)
+      );
+      return res.json(propertyOrder);
+    } else if (order === "desc") {
+      const propertyOrder = property.sort((a, b) =>
+        b.title.localeCompare(a.title)
+      );
+      return res.json(propertyOrder);
+    }
+    if (rating === "min") {
+      const propertyOrder = property.sort((a, b) => a.rating - b.rating);
+      return res.json(propertyOrder);
+    } else if (rating === "max") {
+      const propertyOrder = property.sort((a, b) => b.rating - a.rating);
+      return res.json(propertyOrder);
+    }
+    if (price === "low") {
+      const propertyOrder = property.sort((a, b) => a.price - b.price);
+      return res.json(propertyOrder);
+    } else if (price === "high") {
+      const propertyOrder = property.sort((a, b) => b.price - a.price);
+      return res.json(propertyOrder);
+    }
+    if (capacity === "lowest") {
+      const propertyOrder = property.sort((a, b) => a.capacity - b.capacity);
+      return res.json(propertyOrder);
+    } else if (capacity === "highest") {
+      const propertyOrder = property.sort((a, b) => b.capacity - a.capacity);
+      return res.json(propertyOrder);
+    } else {
+      return res.json({
+        message: "No filters",
+        property,
+      });
+    }
   } catch (error) {
     console.log(error);
   }
