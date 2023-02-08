@@ -24,6 +24,10 @@ export const createProperty = async (req, res) => {
     rating,
     lat,
     lng,
+    country,
+    state,
+    region,
+    city,
     tenant_property,
     client_property,
   } = req.body;
@@ -57,6 +61,10 @@ export const createProperty = async (req, res) => {
         rating,
         lat,
         lng,
+        country,
+        state,
+        region,
+        city,
         tenant_property,
         client_property,
       },
@@ -90,7 +98,7 @@ export const createProperty = async (req, res) => {
 };
 
 export const getProperty = async (req, res) => {
-  const { order, rating, price, capacity } = req.query;
+  const { country, state, order, rating, price, capacity } = req.query;
   try {
     const property = await Property.findAll({
       attributes: [
@@ -112,6 +120,10 @@ export const getProperty = async (req, res) => {
         "baths",
         "lat",
         "lng",
+        "country",
+        "state",
+        "region",
+        "city",
       ],
       include: [
         {
@@ -133,6 +145,17 @@ export const getProperty = async (req, res) => {
     });
     let result = property;
     let filteres = "";
+    if (country) {
+      result = result.filter((property) => property.country == country);
+      filteres += " country=" + country;
+    }
+    if (state) {
+      let stateFilter = result.filter((property) => property.state == state);
+      if (stateFilter.length > 0) {
+        result = [...stateFilter];
+      }
+      filteres += " state=" + state;
+    }
     if (order === "asc") {
       result.sort((a, b) => a.title.localeCompare(b.title));
       filteres += " order=asc";
@@ -198,6 +221,10 @@ export const getPropertyById = async (req, res) => {
         "baths",
         "lat",
         "lng",
+        "country",
+        "state",
+        "region",
+        "city",
       ],
       include: [
         {

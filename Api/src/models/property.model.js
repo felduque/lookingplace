@@ -125,4 +125,16 @@ export const Property = sequelize.define("Property", {
   lng: {
     type: DataTypes.FLOAT,
   },
+  country: {
+    type: DataTypes.STRING,
+  },
+  state: {
+    type: DataTypes.STRING,
+  },
+  region: {
+    type: DataTypes.STRING,
+  },
+  city: {
+    type: DataTypes.STRING,
+  },
 });
