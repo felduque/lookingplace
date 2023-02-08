@@ -4,6 +4,12 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getPropertiesAsync } from "../../redux/features/getPropertySlice";
 import axios from "axios";
+import './Filters.css';
+import abcfilerIcon from '../../assets/abc-filer-icon.png';
+import ratingfilterIcon from '../../assets/rating-filter-icon.png';
+import pricefilterIcon from '../../assets/price-filter-icon-2.png';
+import capacityfilerIcon from '../../assets/capacity-filter-icon.png';
+import clearfilterIcon from '../../assets/clean-filers-icon.png';
 // Google Maps para Filtrar
 import { useLoadScript } from "@react-google-maps/api";
 import PlacesAutocomplete from "react-places-autocomplete";
@@ -23,18 +29,18 @@ const optionsOrder = [
 ];
 const optionsRating = [
   { value: "", label: "-" },
-  { value: "min", label: "Lowest" },
-  { value: "max", label: "Higher" },
+  { value: "min", label: "Peor puntuados" },
+  { value: "max", label: "Mejor puntuados" },
 ];
 const optionsPrice = [
   { value: "", label: "-" },
-  { value: "low", label: "Lowest" },
-  { value: "high", label: "Higher" },
+  { value: "low", label: "Menor precio" },
+  { value: "high", label: "Mayor precio" },
 ];
 const optionsCapacity = [
   { value: "", label: "-" },
-  { value: "lowest", label: "Lowest" },
-  { value: "highest", label: "Higher" },
+  { value: "lowest", label: "Baja" },
+  { value: "highest", label: "Alta" },
 ];
 
 export default function Filters() {
@@ -116,7 +122,7 @@ export default function Filters() {
   if (!isLoaded) return <h1>Cargando...</h1>;
   return (
     <>
-      <span>Ingresa tu destino</span>
+      <span>Búsqueda por ciudad o país</span>
       <div>
         {/* Se usara para traer datos de la direccion o estado o pais que se ingrese; haciendo geocodeReverse */}
         <PlacesAutocomplete
@@ -133,8 +139,8 @@ export default function Filters() {
             <div>
               <input
                 {...getInputProps({
-                  placeholder: "Busca tu dirección ...",
-                  className: "input",
+                  placeholder: "Busca tu dirección...",
+                  className: "input is-link",
                 })}
               />
               <div className="autocomplete-dropdown-container">
@@ -162,20 +168,24 @@ export default function Filters() {
             </div>
           )}
         </PlacesAutocomplete>
-        <button onClick={handleClickSearch}>Buscar</button>
-
-        <span>Filtros por caracteristicas:</span>
+        <button onClick={handleClickSearch} className='button is-info is-outlined center-button-search'>Buscar</button>
+        
+        <p><span>Filtros por caracteristicas:</span></p>
+        
+        <img src={abcfilerIcon} className='filter-icon-more-small'/><span> Ciudad alfabeticamente</span>
         <Select
-          placeholder="Select order by title"
-          className="field "
+          placeholder="Seleccionar..."
+          className="field"
           components={animatedComponents}
           name="order"
           // defaultValue={filters.order}
           onChange={(e, actionMeta) => handleChange(e, actionMeta)}
           options={optionsOrder}
         />
+
+       <img src={ratingfilterIcon} className='filter-icon-more-small'/> <span> Ordenar por calificación</span>
         <Select
-          placeholder="Select order by rating"
+          placeholder="Seleccionar..."
           className="field "
           components={animatedComponents}
           name="rating"
@@ -183,8 +193,9 @@ export default function Filters() {
           onChange={(e, actionMeta) => handleChange(e, actionMeta)}
           options={optionsRating}
         />
+        <img src={pricefilterIcon} className='filter-icon'/><span> Ordenar por precio</span>
         <Select
-          placeholder="Select order by price"
+          placeholder="Seleccionar..."
           className="field "
           components={animatedComponents}
           name="price"
@@ -192,8 +203,9 @@ export default function Filters() {
           onChange={(e, actionMeta) => handleChange(e, actionMeta)}
           options={optionsPrice}
         />
+        <img src={capacityfilerIcon} className='filter-icon'/><span> Ordenar por capacidad</span>
         <Select
-          placeholder="Select order by capacity"
+          placeholder="Seleccionar..."
           className="field "
           components={animatedComponents}
           name="capacity"
@@ -201,8 +213,10 @@ export default function Filters() {
           onChange={(e, actionMeta) => handleChange(e, actionMeta)}
           options={optionsCapacity}
         />
-        <button onClick={handleClickFilter}>Aplicar Filtros</button>
-        <button onClick={handleSetBaseFilter}>Quitar Filtros</button>
+        <button onClick={handleClickFilter} className='button is-success is-outlined'>Aplicar Filtros</button>
+        <button onClick={handleSetBaseFilter} className='button is-danger is-outlined clear-filters-button'>
+          <img src={clearfilterIcon} className='clear-filters-icon'/>
+        </button>
       </div>
     </>
   );

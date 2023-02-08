@@ -75,9 +75,9 @@ export default function Login() {
             <section>
               <div className="error-messg-server">{errMsg}</div>
 
-              <div class="title is-4 is-spaced">Ingresar a la aventura</div>
+              <div className="title is-4 is-spaced">Ingresar a la aventura</div>
               <form onSubmit={handleSubmit}>
-                <div class="field">
+                <div className="field">
                   <p className="control has-icons-left">
                     <input
                       type="email"
@@ -96,7 +96,7 @@ export default function Login() {
                     </span>
                   </p>
                 </div>
-                <div class="field">
+                <div className="field">
                   <p className="control has-icons-left">
                     <input
                       type="password"
@@ -115,7 +115,7 @@ export default function Login() {
                     </span>
                   </p>
                 </div>
-                <button class="button is-link is-rounded">Ingresar</button>
+                <button className="button is-link is-rounded">Ingresar</button>
                 <p>
                   <Link to="/forgot">Recuperar contraseña</Link>
                 </p>
