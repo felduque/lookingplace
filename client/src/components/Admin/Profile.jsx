@@ -3,19 +3,29 @@ import { getUserById } from "./Api.js";
 
 export const Profile = () => {
   const [users, setUsers] = React.useState([]);
+  const [about, setAbout] = React.useState([]);
 
   useEffect(() => {
     const fetchUsers = async () => {
       const users = await getUserById(1);
+      const about = users.data.Aboutmes;
 
       //accedo a la primera posicion del array
-      console.log(users.data);
+      // console.log(users.data);
+      setAbout(about);
       setUsers(users.data);
     };
     fetchUsers();
   }, []);
 
+  // Mapear array
+
   console.log(users);
+  console.log(about);
+
+  about.forEach((element) => {
+    console.log(element.hobbies);
+  });
 
   const hobbies = [
     { id: 1, name: "Futbol" },
@@ -52,9 +62,9 @@ export const Profile = () => {
           <div className="hobbies-content">
             <h1 className="title-profile">Hobbies</h1>
             <div className="hobbies-profile">
-              {hobbies.map((hobby) => (
-                <li key={hobby.id} className="hobby-profile">
-                  {hobby.name}
+              {about.hobbies?.forEach((hobby, index) => (
+                <li key={index} className="hobby-profile">
+                  {hobby}
                 </li>
               ))}
             </div>

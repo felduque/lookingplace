@@ -1,18 +1,18 @@
 .admin-container {
-  background-color: #292348;
+  /* backgraund repeat */
+  background: #292348;
   display: grid;
   grid-template-columns: 21% 77%;
   grid-template-rows: auto auto auto auto;
   flex-direction: row;
   width: 100%;
-  height: 100vh;
 }
 
 .sidebar-header {
   position: fixed;
-  top: 0;
-  width: 18rem;
-  height: 100%;
+  top: 58px;
+  width: 17rem;
+  height: 90%;
   background-color: #18152E;
   border-right-width: 3px;
   border-right-style: solid;
@@ -85,39 +85,9 @@
 
 /* HEADER */
 
-.header-container {
-  /* position: fixed; */
-  width: 100%;
-  /* background-color: #18152E; */
-  /* padding-left: 2rem; */
-  /* display: flex; */
-  /* align-items: center; */
-  /* justify-content: space-between; */
-}
-
-.header-full {
-  padding-left: 1rem;
-  grid-column: 2;
-  grid-row: 1/2;
-  transition: 0.5s;
-}
-
-.header-reduce {
-  padding-left: 0;
-  transition: 0.5s;
-}
-
-.title {
-  color: #fff;
-  font-size: 1.5rem;
-  font-weight: 400;
-  padding: 1.5rem;
-  margin: 0;
-}
-
   .toggle-btn{
     position: fixed;
-    top: 8px;
+    bottom: 8px;
     right: 8px;
     background-color: #18152E;
     border: none;
@@ -131,11 +101,16 @@
   /*  Main */
 .main-container {
   grid-area: main;
+  width: 100%;
+  min-height: 100vh;
+  max-height: 100%;
   grid-column: 2;
   grid-row: 2/5;
   margin: 20px;
   transition: 0.5s;
 }
+
+/* List user */
 
 .listUser {
   display: flex;
@@ -155,8 +130,7 @@
 /* profile */
 .profile-container {
   font-family: monospace;
-  width: 100%;
-  height: 450px;
+  width: 95%;
   border-radius: 62px;
   display: flex;
 background: linear-gradient(145deg, #272055, #2e2765);
@@ -275,6 +249,19 @@ box-shadow:  35px 35px 70px #161331,
 .detail-profile-text {
   color: #fff;
 }
+
+/* Form property */
+
+.content-form-property {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+
 
 
 
