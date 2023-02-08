@@ -5,8 +5,14 @@ import { getPropertiesAsync } from "../../redux/features/getPropertySlice";
 import Card from "../Card/Card";
 import "./Home.css";
 import Filters from "../Filters/Filters";
+import { useLoadScript } from "@react-google-maps/api";
 
 function Home() {
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: "AIzaSyDrViDX9rfRwIuHnmg19Ss7qT9UgIwD_Ok",
+    libraries: ["places"],
+  });
+
   const url = "http://localhost:3000/properties";
   const dispatch = useDispatch();
 
@@ -16,29 +22,36 @@ function Home() {
 
   const statePropertys = useSelector((state) => state.properties.allPropertys);
   console.log(statePropertys);
-
+  if (!isLoaded) return <h1>Cargando...</h1>;
   if (!statePropertys) return <h1>Cargando...</h1>;
   return (
-    <div className="box">
-      <Filters></Filters>
-      <div className="columns is-multiline">
-        {statePropertys.result?.map((property) => {
-          return (
-            <div className="column is-2">
-              <Card
-                // className="card"
-                key={property.id}
-                id={property.id}
-                price={property.price}
-                image="https://picsum.photos/200/250"
-                capacity={property.capacity}
-                beds={property.beds}
-                baths={property.baths}
-                rating={property.rating}
-              ></Card>
-            </div>
-          );
-        })}
+    <div className="containerHome ">
+      <div className="containerFilters box">
+        <Filters></Filters>
+      </div>
+      <div className="containerCards">
+        <div className="columns is-multiline box">
+          {statePropertys.result?.map((property) => {
+            return (
+              <div className="column is-2">
+                <Card
+                  // className="card"
+                  key={property.id}
+                  id={property.id}
+                  price={property.price}
+                  image="https://picsum.photos/200/250"
+                  capacity={property.capacity}
+                  beds={property.beds}
+                  baths={property.baths}
+                  rating={property.rating}
+                  country={property.country}
+                  state={property.state}
+                  region={property.region}
+                ></Card>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

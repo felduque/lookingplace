@@ -1,0 +1,19 @@
+.containerHome {
+  display: flex;
+  width: auto;
+  min-height: 70vh;
+  max-height: 100%;
+}
+
+.containerFilters {
+  position: fixed;
+  width: 20%;
+  min-height: 100vh;
+  max-height: 100%;
+}
+
+.containerCards {
+  position: relative;
+  left: 21%;
+  width: 78%;
+}
