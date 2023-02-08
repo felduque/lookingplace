@@ -29,11 +29,8 @@ export default function Navbar() {
   };
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
-      <div
-        className="navbar-brand space-margin-left
-"
-      >
-        <Link to="" className="navbar-item">
+      <div className="navbar-brand space-margin-left">
+        <Link to="/" className="navbar-item">
           <strong>LookingPlace</strong>
           <img src={mapIcon} width="30" height="20" />
         </Link>
@@ -52,9 +49,9 @@ export default function Navbar() {
 
       <div id="navbarBasicExample" className="navbar-menu">
         <div className="navbar-start">
-          <a className="navbar-item">
-            <Link to="/suscribe">Suscripción</Link>
-          </a>
+        <Link to="/suscribe" className="navbar-item">
+            Suscripción
+        </Link>
         </div>
 
         <div className="navbar-end">
@@ -64,22 +61,18 @@ export default function Navbar() {
                 // Poner ! en auth para testear paneles sin iniciar sesión
                 auth ? (
                   <div
-                    className="navbar-item has-dropdown is-hoverable space-margin-right
-          "
-                  >
+                    className="navbar-item has-dropdown is-hoverable space-margin-right">
                     <a className="navbar-link">
                       <img src={userIcon} width="30" height="40" />
                     </a>
 
                     <div className="navbar-dropdown">
-                      <a className="navbar-item">Mi perfil</a>
-                      <a className="navbar-item">
-                        <Link to="/createProperty">Publicar propiedad</Link>
-                      </a>
-                      <a className="navbar-item">
-                        <Link to="/settings">Dashboard</Link>
-                      </a>
-                      <a className="navbar-item">Favoritos</a>
+                      <Link to="/createProperty" className="navbar-item">
+                          Publicar propiedad
+                      </Link>
+                      <Link to="/settings" className="navbar-item">
+                          Dashboard
+                      </Link>
                       <hr className="navbar-divider" />
                       <a className="navbar-item" onClick={signOut}>
                         Salir
@@ -88,17 +81,15 @@ export default function Navbar() {
                   </div>
                 ) : (
                   <div>
-                    <a className="button is-primary" to="/register">
-                      <Link to="/register">
-                        <strong>Registrarse</strong>
-                      </Link>
-                    </a>
-                    <a className="button is-light" to="/login">
-                      <Link to="/login">Ingresar</Link>
-                    </a>
-                    <a className="button is-light" to="/createProperty">
-                      <Link to="/createProperty">Publicar propiedad</Link>
-                    </a>
+                    <Link to="/register" className="button is-primary">
+                          <strong>Registrarse</strong>
+                    </Link>
+                    <Link to="/login" className="button is-light">
+                        Ingresar
+                    </Link>
+                    <Link to="/createProperty" className="button is-light">
+                        Publicar propiedad
+                    </Link>
                   </div>
                 )
               }

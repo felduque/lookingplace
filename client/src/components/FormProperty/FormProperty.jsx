@@ -7,6 +7,7 @@ import CurrencyInput from "react-currency-input-field";
 import makeAnimated, { Input } from "react-select/animated";
 import "bulma/css/bulma.min.css";
 import "./FormProperty.css";
+import uploadIcon from '../../assets/upload-icon.png';
 import { Link } from "react-router-dom";
 // Google Maps
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
@@ -158,16 +159,18 @@ export default function FormHostCreate() {
       .postForm("http://localhost:3000/property", inputs)
       .then(function (response) {
         console.log(response);
+        alert('Place publicado con éxito')
       })
       .catch(function (error) {
         console.log(error);
+        alert(':( Algo salió mal, intenta de nuevo')
       });
   };
 
   // console.log(inputs);
   console.log(inputs);
 
-  if (!isLoaded) return <div>...Cargando</div>;
+  if (!isLoaded) return <div>Cargando...</div>;
   return (
     <div>
       <div className="container-general">
@@ -289,40 +292,47 @@ export default function FormHostCreate() {
               <div className="field">
                 <label className="label" htmlFor="smoke">
                   ¿Permitido fumar?&nbsp;
+                  <label class="custom-checkbox">
                   <input
                     id="smoke"
                     type="checkbox"
-                    className="checkbox"
                     name="smoke"
                     value={inputs.smoke}
                     onChange={handleChange}
                   />
+                  <span className="checkmark"></span>
+                  </label>
                 </label>
               </div>
               <div className="field">
+              
                 <label className="label" htmlFor="">
                   ¿Permitido fiestas?&nbsp;
-                  <input
-                    id="party"
-                    type="checkbox"
-                    className="checkbox"
-                    name="party"
-                    value={inputs.party}
-                    onChange={handleChange}
-                  />
+                  <label class="custom-checkbox">
+                <input 
+                  id="party"
+                  type="checkbox"
+                  name="party"
+                  value={inputs.party}
+                  onChange={handleChange}
+                />
+                <span className="checkmark"></span>
+              </label>
                 </label>
               </div>
               <div className="field">
                 <label className="label" htmlFor="pets">
                   ¿Permitido mascostas?&nbsp;
+                  <label class="custom-checkbox">
                   <input
                     id="pets"
                     type="checkbox"
-                    className="checkbox"
                     name="pets"
                     value={inputs.pets}
                     onChange={handleChange}
                   />
+                  <span className="checkmark"></span>
+              </label>
                 </label>
               </div>
               <div className="field">
@@ -382,7 +392,7 @@ export default function FormHostCreate() {
               <div className="field">
                 <label className="label">Imágenes del lugar</label>
                 <button className="button is-success" type="button">
-                  <label htmlFor="image">Selecciona las fotos</label>
+                  <img src={uploadIcon} className='upload-button-place'/><label htmlFor="image">Selecciona las fotos...</label>
                 </button>
                 <input
                   style={{ display: "none" }}
@@ -427,7 +437,7 @@ export default function FormHostCreate() {
                   }
                 />
               </div>
-              <button className="button is-link is-rounded" type="submit">
+              <button className="button is-link is-rounded center-button-publish" type="submit">
                 Publicar Alojamiento
               </button>
             </form>
