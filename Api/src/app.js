@@ -8,6 +8,7 @@ import { Client } from "./models/client.model.js";
 import { Comment } from "./models/comment.model.js";
 import { Property } from "./models/property.model.js";
 import { Tenant } from "./models/tenant.model.js";
+import { ClientRecord } from "./models/clientRecord.model.js";
 import clientRoutes from "./routes/Client/client.routes.js";
 import tenantRoutes from "./routes/Tenant/tenant.routes.js";
 import propertyRoutes from "./routes/Property/property.routes.js";
@@ -48,21 +49,28 @@ app.use((req, res, next) => {
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
   );
-  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, DELETE, PATCH"
+  );
   next();
 });
 
 // Relation aboutMe and Client & aboutme and Tenant
 Client.hasMany(Aboutme, { foreignKey: "client_about" });
 Aboutme.belongsTo(Client, { foreignKey: "client_about" });
+
 Tenant.hasMany(Aboutme, { foreignKey: "tenant_about" });
 Aboutme.belongsTo(Tenant, { foreignKey: "tenant_about" });
 
 Tenant.hasMany(Property, { foreignKey: "tenant_property" });
 Property.belongsTo(Tenant, { as: "p_tenant", foreignKey: "tenant_property" });
 
-Client.hasMany(Property, { as: "client_p", foreignKey: "client_property" });
-Property.belongsTo(Client, { as: "p_client", foreignKey: "client_property" });
+Client.hasMany(Property, {
+  as: "rented_property",
+  foreignKey: "client_property",
+});
+Property.belongsTo(Client, { as: "rented_by", foreignKey: "client_property" });
 
 // Relation Comment
 
@@ -88,6 +96,17 @@ Comment.belongsTo(Property, {
 
 Client.hasMany(Payments, { foreignKey: "client_payment" });
 Payments.belongsTo(Client, { foreignKey: "client_payment" });
+
+// Relation ClientRecord
+
+Client.hasMany(ClientRecord, {
+  as: "client_record_id",
+  foreignKey: "client_record",
+});
+ClientRecord.belongsTo(Client, {
+  as: "record_client",
+  foreignKey: "client_record",
+});
 
 // Routes
 app.use(clientRoutes);
