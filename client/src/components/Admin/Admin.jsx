@@ -10,6 +10,7 @@ import {
   RiGithubFill,
   RiMenuLine,
   RiCloseCircleFill,
+  RiSettings5Fill,
 } from "react-icons/ri";
 import { useState } from "react";
 
@@ -19,12 +20,14 @@ import { ListPublish } from "./ListPublish";
 import { ListUser } from "./ListUser";
 import { Profile } from "./Profile";
 import { Publish } from "./Publish";
+import { Profile_edit } from "./Profile_edit";
 
 const UserSettings = () => {
   const [showMenu, setshowMenu] = useState(true);
   const [component, setComponent] = useState({
     listclient: false,
     listpublish: false,
+
     listuser: false,
     profile: true,
     publish: false,
@@ -41,6 +44,7 @@ const UserSettings = () => {
     setComponent({
       homepanel: false,
       listclient: false,
+      settingpro: false,
       listpublish: false,
       listuser: false,
       profile: false,
@@ -52,7 +56,7 @@ const UserSettings = () => {
 
   return (
     <div className="admin-container">
-      <sidebar
+      <div
         className={`sidebar-header ${showMenu ? "view-menu" : "hidden-menu"}`}
       >
         <div className="sidebar-list">
@@ -65,6 +69,17 @@ const UserSettings = () => {
             >
               <RiFileList3Line />
               Perfil
+            </a>
+          </span>
+          <span className="sidebar-list-item">
+            <a
+              className="side-item"
+              name="settingpro"
+              onClick={handleComponent}
+              href="#"
+            >
+              <RiSettings5Fill />
+              Editar Perfil
             </a>
           </span>
           <span className="sidebar-list-item">
@@ -134,13 +149,14 @@ const UserSettings = () => {
             Github
           </a>
         </div>
-      </sidebar>
+      </div>
       <button className="toggle-btn" onClick={handleShowMenu}>
         {showMenu ? <RiCloseCircleFill /> : <RiMenuLine />}
       </button>
       <main className="main-container">
         <div className="main-content">
           {component.listclient && <ListClient />}
+          {component.settingpro && <Profile_edit />}
           {component.listpublish && <ListPublish />}
           {component.listuser && <ListUser />}
           {component.profile && <Profile />}
