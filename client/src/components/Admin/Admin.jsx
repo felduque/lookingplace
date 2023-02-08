@@ -1,7 +1,6 @@
 import React from "react";
 import "./stylepanel.css";
 import {
-  RiHome4Fill,
   RiWindow2Line,
   RiUser3Fill,
   RiTeamFill,
@@ -20,16 +19,14 @@ import { ListPublish } from "./ListPublish";
 import { ListUser } from "./ListUser";
 import { Profile } from "./Profile";
 import { Publish } from "./Publish";
-import { HomePanel } from "./HomePanel";
 
 const UserSettings = () => {
   const [showMenu, setshowMenu] = useState(true);
   const [component, setComponent] = useState({
-    homepanel: true,
     listclient: false,
     listpublish: false,
     listuser: false,
-    profile: false,
+    profile: true,
     publish: false,
     allpublish: false,
   });
@@ -59,17 +56,6 @@ const UserSettings = () => {
         className={`sidebar-header ${showMenu ? "view-menu" : "hidden-menu"}`}
       >
         <div className="sidebar-list">
-          <span className="sidebar-list-item">
-            <a
-              className="side-item"
-              name="homepanel"
-              onClick={handleComponent}
-              href="#"
-            >
-              <RiHome4Fill />
-              Inicio
-            </a>
-          </span>
           <span className="sidebar-list-item">
             <a
               className="side-item"
@@ -152,18 +138,8 @@ const UserSettings = () => {
       <button className="toggle-btn" onClick={handleShowMenu}>
         {showMenu ? <RiCloseCircleFill /> : <RiMenuLine />}
       </button>
-      <header
-        className={`header-container ${
-          showMenu ? "header-full" : "header-reduce"
-        } `}
-      >
-        <nav>
-          <h1 className="title">LOOKING PLACE</h1>
-        </nav>
-      </header>
       <main className="main-container">
         <div className="main-content">
-          {component.homepanel && <HomePanel />}
           {component.listclient && <ListClient />}
           {component.listpublish && <ListPublish />}
           {component.listuser && <ListUser />}
