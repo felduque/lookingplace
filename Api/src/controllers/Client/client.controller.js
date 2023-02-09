@@ -272,36 +272,59 @@ export const getClientById = async (req, res) => {
 };
 
 export const updateClient = async (req, res) => {
+  //  patch  && avatar upload req.files
   const { id } = req.params;
-  const { fullName, email, password, verify, avatar } = req.body;
+  let { fullName, email, phone, description, hobbies, age, from } = req.body;
+  const img = req.files?.avatar;
+  const imgName = img?.name;
+  console.log(req.files);
+  console.log(id);
+  console.log(fullName, email, phone, description, hobbies, age, from);
   try {
-    let client = await Client.findOne({
+    let pathImage = __dirname + "/../../public/client/" + imgName;
+    img?.mv(pathImage);
+    let url = (pathImage = "http://localhost:3000/client/" + imgName);
+    // setear age a number
+    const ageNumber = parseInt(age);
+
+    // setear hobbie de json a array
+    if (hobbies) hobbies = JSON.parse(hobbies);
+    console.log(typeof hobbies);
+
+    const client = await Client.findOne({
       where: { id },
     });
+    if (!img) url = client.avatar;
     if (!client) return res.status(400).json({ message: "Client not found" });
     if (client) {
       await Client.update(
         {
           fullName,
           email,
-          password,
-          verify,
-          avatar,
+          phone,
+          avatar: url,
         },
         {
           where: { id },
         }
       );
+      await Aboutme.update(
+        {
+          description,
+          hobbies,
+          age: ageNumber,
+          from,
+        },
+        {
+          where: { client_about: id },
+        }
+      );
       res.json({
         message: "Client updated successfully",
-        data: client,
       });
     }
   } catch (err) {
-    res.json({
-      message: "Something goes wrong",
-      data: {},
-    });
+    console.log(err);
   }
 };
 

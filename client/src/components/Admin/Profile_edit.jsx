@@ -1,21 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
-import { updateClient } from "./Api";
+import { getUserById, updateClient } from "./Api";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 
 export const Profile_edit = () => {
   //  Form edit values user edit profile, avatar, name, lastname, email, password, description, hobbies
+  const animatedComponents = makeAnimated();
+  const [avatarupload, setAvatarUpload] = useState("");
+  const [idUser, setIdUser] = useState(0);
+  const [users, setUsers] = useState([]);
   const [form, setForm] = useState({
     avatar: [],
     fullName: "",
-    email: "",
     phone: "",
     from: "",
     age: "",
     description: "",
     hobbies: [],
   });
+
   const opciones = [
     { value: "cocinar", label: "Cocinar" },
     { value: "bailar", label: "Bailar" },
@@ -32,9 +36,18 @@ export const Profile_edit = () => {
     { value: "viajar", label: "Viajar" },
   ];
 
-  const animatedComponents = makeAnimated();
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const storedAuth = JSON.parse(localStorage.getItem("auth") || "{}");
+      const idClient = storedAuth?.idClient;
 
-  const [avatarupload, setAvatarUpload] = useState("");
+      const users = await getUserById(idClient);
+
+      setUsers(users.data);
+      setIdUser(idClient);
+    };
+    fetchUsers();
+  }, []);
 
   const iterarHobbieLabel = (hobbie) => {
     let hobbieLabel = [];
@@ -66,7 +79,6 @@ export const Profile_edit = () => {
     const newForm = {
       avatar: form.avatar,
       fullName: form.fullName,
-      email: form.email,
       phone: form.phone,
       from: form.from,
       age: form.age,
@@ -74,9 +86,18 @@ export const Profile_edit = () => {
       hobbies: hobbies,
     };
 
-    const id = 1;
     // patch info axios send form
-    updateClient(id, newForm);
+    updateClient(idUser, newForm);
+    setForm({
+      ...form,
+      avatar: [],
+      fullName: "",
+      phone: "",
+      from: "",
+      age: "",
+      description: "",
+      hobbies: [],
+    });
   };
 
   // if (form.hobbies.length > 5) {
@@ -97,18 +118,6 @@ export const Profile_edit = () => {
           id="name"
           className="form-control"
           onChange={(e) => setForm({ ...form, fullName: e.target.value })}
-        />
-      </div>
-      <div className="form-group">
-        <label className="title-form-edit-profile" htmlFor="email">
-          Email
-        </label>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          className="form-control"
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
         />
       </div>
       <div className="form-group">
@@ -187,10 +196,17 @@ export const Profile_edit = () => {
         />
       </div>
       <div className="viewAvatarUpload">
-        <img src={avatarupload} alt="e" />
+        <div className="content-avatar-setting">
+          <h2>Nuevo Avatar</h2>
+          <img src={avatarupload} alt="Avatar" />
+        </div>
+        <div className="content-avatar-setting">
+          <h2>Avatar Actual</h2>
+          <img src={users.avatar} alt="ActualAvatar" />
+        </div>
       </div>
       <div className="form-group">
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn-primary">
           Guardar
         </button>
       </div>
