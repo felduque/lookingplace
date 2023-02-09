@@ -31,9 +31,9 @@ function Home() {
       </div>
       <div className="containerCards">
         <div className="columns is-multiline box">
-          {statePropertys.result?.map((property) => {
+          {statePropertys.result?.map((property, i) => {
             return (
-              <div className="column is-2">
+              <div key={i} className="column is-2">
                 <Card
                   // className="card"
                   key={property.id}

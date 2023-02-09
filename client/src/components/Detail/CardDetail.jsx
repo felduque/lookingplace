@@ -46,11 +46,8 @@ export default function CardDetail() {
   if (!isLoaded) return <div>Loading...</div>;
   return (
     <div>
-      <Link to={"/home"}>
-        <button className="button is-primary is-outlined">Home</button>
-      </Link>
-      <h1 className="title box is-size-1 has-background-dark has-text-centered is-capitalized">
-        {title}
+      <h1 className="title box is-size-1 has-background-dark has-text-centered is-capitalized has-text-white">
+        {title.toLowerCase()}
       </h1>
       <p className="has-text-centered "> Calificacion : {rating}</p>
       <div className="box" style={{ display: "flex" }}>
@@ -83,11 +80,11 @@ export default function CardDetail() {
         {description}
       </p>
 
-      <div class="tile is-ancestor">
-        <div class="tile is-vertical is-8">
-          <div class="tile">
-            <div class="tile is-parent is-vertical">
-              <article class="tile is-child notification has-background-light">
+      <div className="tile is-ancestor">
+        <div className="tile is-vertical is-8">
+          <div className="tile">
+            <div className="tile is-parent is-vertical">
+              <article className="tile is-child notification has-background-light">
                 <p className="title has-text-centered">Información General</p>
                 <p className="subtitle">
                   {" "}
@@ -106,7 +103,7 @@ export default function CardDetail() {
                 <p> Se permite fiestas : {party ? "Si" : "No"}</p>
                 <p> Se permite mascotas : {pets ? "Si" : "No"}</p>
               </article>
-              <article class="tile is-child notification has-background-light">
+              <article className="tile is-child notification has-background-light">
                 <p className="title has-text-centered">
                   Reglas de la Hospedador
                 </p>
@@ -122,13 +119,15 @@ export default function CardDetail() {
                 </span>
               </article>
             </div>
-            <div class="tile is-parent">
-              <article class="tile is-child notification has-background-light">
-                <p class="title has-text-centered">Ubicacion del Alojamiento</p>
-                <p class="subtitle">
+            <div className="tile is-parent">
+              <article className="tile is-child notification has-background-light">
+                <p className="title has-text-centered">
+                  Ubicacion del Alojamiento
+                </p>
+                <p className="subtitle">
                   Para una mejor referencia puedes comunicarte con el hospedador
                 </p>
-                <div class="content">
+                <div className="content">
                   <GoogleMap
                     zoom={12}
                     center={{ lat, lng }}
@@ -144,13 +143,13 @@ export default function CardDetail() {
             </div>
           </div>
         </div>
-        <div class="tile is-parent">
-          <article class="tile is-child notification has-background-light">
-            <div class="content">
-              <p class="title has-text-centered">
+        <div className="tile is-parent">
+          <article className="tile is-child notification has-background-light">
+            <div className="content">
+              <p className="title has-text-centered">
                 Calendario de Disponibilidad
               </p>
-              <div class="content">
+              <div className="content">
                 <Calendar propId={id} bookings={bookings} price={price} />
               </div>
             </div>

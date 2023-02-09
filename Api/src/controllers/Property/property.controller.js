@@ -98,7 +98,7 @@ export const createProperty = async (req, res) => {
 };
 
 export const getProperty = async (req, res) => {
-  const { country, state, order, rating, price, capacity } = req.query;
+  const { country, state, order, rating, price, capacity, title } = req.query;
   try {
     const property = await Property.findAll({
       attributes: [
@@ -155,6 +155,13 @@ export const getProperty = async (req, res) => {
         result = [...stateFilter];
       }
       filteres += " state=" + state;
+    }
+    if (title) {
+      result = result.filter((property) => {
+        let propertyLower = property.title.toLowerCase();
+        return propertyLower.includes(title.toLowerCase());
+      });
+      filteres += " title=" + title;
     }
     if (order === "asc") {
       result.sort((a, b) => a.title.localeCompare(b.title));
@@ -338,6 +345,29 @@ export const updateProperty = async (req, res) => {
   }
 };
 
+export const patchBookingsProperty = async (req, res) => {
+  const { id, bookings } = req.body;
+  console.log(id, bookings);
+  try {
+    let searchProperty = await Property.findOne({
+      where: { id },
+    });
+    if (searchProperty.bookings === null) {
+      await searchProperty.update({ bookings: bookings });
+      res.json("funciono");
+    } else {
+      let arrayBookings = [...searchProperty.bookings, ...bookings];
+      await searchProperty.update({ bookings: arrayBookings });
+      res.json(arrayBookings);
+    }
+  } catch (e) {
+    return res.status(404).json({
+      message: "Something goes wrong",
+      error: e,
+    });
+  }
+};
+
 // export const patchBookingsProperty = async (req, res) => {
 //   const { id, bookings } = req.body;
 //   console.log(id, bookings);
@@ -362,23 +392,23 @@ export const updateProperty = async (req, res) => {
 //   }
 // };
 
-export const patchBookingsProperty = async (req, res) => {
-  const { id, bookings } = req.body;
-  console.log(id, bookings);
-  try {
-    let propertyFind = await Property.findByPk(id);
-    console.log("Property  : ", propertyFind.bookings);
+// export const patchBookingsProperty = async (req, res) => {
+//   const { id, bookings } = req.body;
+//   console.log(id, bookings);
+//   try {
+//     let propertyFind = await Property.findByPk(id);
+//     console.log("Property  : ", propertyFind.bookings);
 
-    let arrayBookings = [...propertyFind.bookings, ...bookings];
-    console.log(arrayBookings);
+//     let arrayBookings = [...propertyFind.bookings, ...bookings];
+//     console.log(arrayBookings);
 
-    await propertyFind.update({ bookings: arrayBookings });
-    await propertyFind.save();
-    return res.status(200).json(propertyFind);
-  } catch (e) {
-    return res.status(404).json({
-      message: "Something goes wrong",
-      error: e,
-    });
-  }
-};
+//     await propertyFind.update({ bookings: arrayBookings });
+//     await propertyFind.save();
+//     return res.status(200).json(propertyFind);
+//   } catch (e) {
+//     return res.status(404).json({
+//       message: "Something goes wrong",
+//       error: e,
+//     });
+//   }
+// };
