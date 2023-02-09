@@ -137,4 +137,7 @@ export const Property = sequelize.define("Property", {
   city: {
     type: DataTypes.STRING,
   },
+  bookings: {
+    type: DataTypes.ARRAY(DataTypes.STRING),
+  },
 });

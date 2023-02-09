@@ -225,6 +225,7 @@ export const getPropertyById = async (req, res) => {
         "state",
         "region",
         "city",
+        "bookings",
       ],
       include: [
         {
@@ -333,6 +334,25 @@ export const updateProperty = async (req, res) => {
     res.json({
       message: "Something goes wrong",
       data: {},
+    });
+  }
+};
+
+export const postBookingsProperty = async (req, res) => {
+  const { id, bookings } = req.body;
+  try {
+    let propertyFind = await Property.findByPk(id);
+    console.log(propertyFind.bookings);
+    let arrayBookings = [...propertyFind.bookings, ...bookings];
+    console.log(arrayBookings);
+
+    await propertyFind.update({ bookings: arrayBookings });
+    await propertyFind.save();
+    return res.status(200).json(propertyFind);
+  } catch (e) {
+    return res.status(404).json({
+      message: "Something goes wrong",
+      error: e,
     });
   }
 };
