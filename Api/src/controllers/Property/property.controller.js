@@ -133,7 +133,7 @@ export const getProperty = async (req, res) => {
         },
         {
           model: Client,
-          as: "p_client",
+          as: "rented_by",
           attributes: ["id"],
         },
         {
@@ -235,7 +235,7 @@ export const getPropertyById = async (req, res) => {
         },
         {
           model: Client,
-          as: "p_client",
+          as: "rented_by",
           attributes: ["id"],
         },
         {
@@ -338,11 +338,37 @@ export const updateProperty = async (req, res) => {
   }
 };
 
-export const postBookingsProperty = async (req, res) => {
+// export const patchBookingsProperty = async (req, res) => {
+//   const { id, bookings } = req.body;
+//   console.log(id, bookings);
+//   try {
+//     let propertyFind = await Property.findByPk(id);
+//     console.log(propertyFind.bookings);
+//     if (propertyFind.bookings === null) {
+//       console.log("entre al null");
+//       await propertyFind.update({ bookings: bookings });
+//     } else {
+//       let arrayBookings = [...propertyFind.bookings, ...bookings];
+//       await propertyFind.update({ bookings: arrayBookings });
+//     }
+//     console.log(arrayBookings);
+
+//     return res.status(200).json(propertyFind);
+//   } catch (e) {
+//     return res.status(404).json({
+//       message: "Something goes wrong",
+//       error: e,
+//     });
+//   }
+// };
+
+export const patchBookingsProperty = async (req, res) => {
   const { id, bookings } = req.body;
+  console.log(id, bookings);
   try {
     let propertyFind = await Property.findByPk(id);
-    console.log(propertyFind.bookings);
+    console.log("Property  : ", propertyFind.bookings);
+
     let arrayBookings = [...propertyFind.bookings, ...bookings];
     console.log(arrayBookings);
 
