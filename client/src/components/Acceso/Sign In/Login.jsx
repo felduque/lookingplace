@@ -58,11 +58,13 @@ export default function Login() {
       window.location.reload();
     } catch (err) {
       if (!err?.response) {
-        setErrMsg("Sin respuesta del servidor");
+        setErrMsg("Sin respuesta del servidor(back)");
       } else if (err.response?.status === 400) {
-        setErrMsg("Correo o contraseñas incorrecta");
+        setErrMsg("Creo que escribiste mal la contraseña");
       } else if (err.response?.status === 401) {
-        setErrMsg("No registrado");
+        setErrMsg(
+          "No estás registrado, no vas a poder entrar sin registrarte :)"
+        );
       } else {
         setErrMsg("Error al ingresar");
       }
@@ -119,7 +121,7 @@ export default function Login() {
                 </div>
                 <button className="button is-link is-rounded">Ingresar</button>
                 <p>
-                  <Link to="/forgot">Recuperar contraseña</Link>
+                  <Link to="/forgotpassword">Recuperar contraseña</Link>
                 </p>
               </form>
               <p className="new-account">

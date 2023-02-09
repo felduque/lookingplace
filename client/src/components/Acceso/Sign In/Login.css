@@ -27,3 +27,10 @@
 .new-account {
     margin-top: 20px;
 }
+
+.ForgotPassError{
+    color: red;
+}
+.ForgotPassSuccess{
+    color: green;
+}

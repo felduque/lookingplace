@@ -9,6 +9,9 @@ import {
   login,
   logout,
   refreshToken,
+  forgot,
+  verifyPassword,
+  resetPassword,
 } from "../../controllers/Client/client.controller.js";
 import { Router } from "express";
 
@@ -18,6 +21,9 @@ router.post("/client/createuser", createClient);
 router.post("/client/login", login);
 router.get("/client/logout", logout);
 router.get("/client/refreshToken", refreshToken);
+router.post("/client/forgot", forgot);
+router.get("/reset/:id/:token", verifyPassword);
+router.post("/reset/:id/:token", resetPassword);
 router.get("/client/getuser", getClient);
 router.get("/client/getuser/:id", getClientById);
 router.patch("/client/updateuser/:id", updateClient);

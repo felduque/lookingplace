@@ -30,6 +30,8 @@ import { Payments } from "./models/payment.model.js";
 
 // Cors
 //app.use(cors({ origin: "*" }));
+app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: false }));
 
 // Midelewares
 app.use(bodyParser.json());
