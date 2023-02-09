@@ -187,7 +187,9 @@ export default function FormHostCreate() {
         });
      }
   };
-
+function cancelPublish() {
+    window.history.back();
+}
   // console.log(inputs);
   console.log(inputs);
 
@@ -490,10 +492,13 @@ export default function FormHostCreate() {
                 disabled={ errorsLength !== 0 ? true : false }>
                 Publicar Alojamiento
               </button>
-              <button className="button  is-warning is-rounded center-button-publish">
+              
+            </form>
+            <button 
+                className="button  is-warning is-rounded center-button-cancel"
+                onClick={cancelPublish}>
                 Cancelar
               </button>
-            </form>
           </div>
         </div>
       </div>

@@ -60,8 +60,12 @@ input[type="time"] {
     font-size: 10px;
   }
 .center-button-publish  {
-  margin-left: 10%;
+  margin-left: 30%;
   margin-top: 30px;
+}
+.center-button-cancel {
+  margin-left: 40%;
+  margin-top: 5px
 }
   
   .checkmark::before {
