@@ -156,7 +156,6 @@ export const login = async (req, res) => {
     //Saving refreshToken with current email
     foundUser.refreshToken = refreshToken;
     const result = await foundUser.save();
-    console.log(result);
 
     //Creaamos cookie segura con refresh token
     res.cookie("jwt", refreshToken, {
@@ -167,9 +166,11 @@ export const login = async (req, res) => {
     });
 
     //Enviamos accessToken
+    console.log(foundUser.id);
+    let userId = foundUser.id;
 
     //require("crypto").randomBytes(64).toString("hex");
-    res.status(200).json({ accessToken });
+    res.status(200).json({ accessToken, userId });
   }
 };
 
@@ -274,12 +275,12 @@ export const getClientById = async (req, res) => {
 export const updateClient = async (req, res) => {
   //  patch  && avatar upload req.files
   const { id } = req.params;
-  let { fullName, email, phone, description, hobbies, age, from } = req.body;
+  let { fullName, phone, description, hobbies, age, from } = req.body;
   const img = req.files?.avatar;
   const imgName = img?.name;
   console.log(req.files);
   console.log(id);
-  console.log(fullName, email, phone, description, hobbies, age, from);
+  console.log(fullName, phone, description, hobbies, age, from);
   try {
     let pathImage = __dirname + "/../../public/client/" + imgName;
     img?.mv(pathImage);
@@ -296,11 +297,14 @@ export const updateClient = async (req, res) => {
     });
     if (!img) url = client.avatar;
     if (!client) return res.status(400).json({ message: "Client not found" });
+    const aboutme = await Aboutme.findOne({
+      where: { client_about: id },
+    });
+
     if (client) {
       await Client.update(
         {
           fullName,
-          email,
           phone,
           avatar: url,
         },
@@ -308,17 +312,27 @@ export const updateClient = async (req, res) => {
           where: { id },
         }
       );
-      await Aboutme.update(
-        {
+      if (!aboutme) {
+        await Aboutme.create({
           description,
           hobbies,
           age: ageNumber,
           from,
-        },
-        {
-          where: { client_about: id },
-        }
-      );
+          client_about: id,
+        });
+      } else {
+        await Aboutme.update(
+          {
+            description,
+            hobbies,
+            age: ageNumber,
+            from,
+          },
+          {
+            where: { client_about: id },
+          }
+        );
+      }
       res.json({
         message: "Client updated successfully",
       });
