@@ -44,11 +44,13 @@ export default function Login() {
       console.log(response);
       //console.log(JSON.stringify(response));
       const accessToken = response?.data?.accessToken;
+      const idClient = response?.data?.userId;
+
       setAuth({ email, password, accessToken });
       console.log(email, password, accessToken);
       localStorage.setItem(
         "auth",
-        JSON.stringify({ email, password, accessToken })
+        JSON.stringify({ email, password, idClient, accessToken })
       );
       setEmail("");
       setPassword("");

@@ -269,12 +269,13 @@ box-shadow:  35px 35px 70px #161331,
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  margin-top: 1rem;
   padding: 1rem;
   background: linear-gradient(145deg, #272055, #2e2765);
   box-shadow:  35px 35px 70px #161331,
              -35px -35px 70px #40358b;
 
-border-radius: 10%;
+border-radius: 5%;
 }
 
 .form-group {
@@ -302,6 +303,49 @@ border-radius: 10%;
   font-weight: bold;
   color: #fff;
   background-color: #18152E; 
+}
+
+.viewAvatarUpload {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.content-avatar-setting{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.content-avatar-setting > h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: rgb(2, 255, 175);
+}
+
+.content-avatar-setting > img {
+  width: 250px;
+  border-radius: 10%;
+}
+
+.btn-primary {
+  background-color: rgb(2, 255, 175);
+  color: #fff;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 5px;
+  font-size: 1.5rem;
+}
+
+.btn-primary:hover {
+  background-color: #fff;
+  color: rgb(2, 255, 175);
+  border: 1px solid rgb(2, 255, 175);
 }
 
 

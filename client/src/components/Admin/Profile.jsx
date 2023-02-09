@@ -7,11 +7,12 @@ export const Profile = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const users = await getUserById(1);
+      const storedAuth = JSON.parse(localStorage.getItem("auth") || "{}");
+      const idClient = storedAuth?.idClient;
+
+      const users = await getUserById(idClient);
       const about = users.data.Aboutmes;
 
-      //accedo a la primera posicion del array
-      // console.log(users.data);
       setAbout(about);
       setUsers(users.data);
     };
