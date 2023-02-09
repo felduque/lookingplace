@@ -4,6 +4,7 @@ import { getPropertyByIdAsync } from "../../redux/features/getPropertySlice";
 import { useEffect } from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import { Link } from "react-router-dom";
+import Calendar from "../Calendario/Calendario";
 
 export default function CardDetail() {
   const { isLoaded } = useLoadScript({
@@ -37,6 +38,7 @@ export default function CardDetail() {
     rating,
     lat,
     lng,
+    bookings,
   } = detail;
 
   console.log(typeof lat);
@@ -97,8 +99,8 @@ export default function CardDetail() {
                   {" "}
                   Contamos con los siguientes servicios :{" "}
                 </p>
-                {services?.map((s) => {
-                  return <span> - {s}</span>;
+                {services?.map((s, i) => {
+                  return <span key={i}> - {s}</span>;
                 })}
                 <p> Se permite fumar : {smoke ? "Si" : "No"}</p>
                 <p> Se permite fiestas : {party ? "Si" : "No"}</p>
@@ -137,7 +139,6 @@ export default function CardDetail() {
                   >
                     {lat && lng && <Marker position={{ lat, lng }} />}
                   </GoogleMap>
-                  <p> Precio por día : ${price}</p>
                 </div>
               </article>
             </div>
@@ -149,7 +150,9 @@ export default function CardDetail() {
               <p class="title has-text-centered">
                 Calendario de Disponibilidad
               </p>
-              <div class="content"></div>
+              <div class="content">
+                <Calendar propId={id} bookings={bookings} price={price} />
+              </div>
             </div>
           </article>
         </div>
