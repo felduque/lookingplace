@@ -13,7 +13,7 @@ function Home() {
     libraries: ["places"],
   });
 
-  const url = "http://localhost:3000/properties";
+  const url = "https://looking.fly.dev/properties";
   const dispatch = useDispatch();
 
   useEffect(() => {

@@ -11,7 +11,7 @@ export default function SignUp() {
     password: "",
     password2: "",
     email: "",
-    phone: null
+    phone: null,
   });
 
   //Estado de Captcha
@@ -84,7 +84,7 @@ export default function SignUp() {
 
   async function createUser(dataUser) {
     try {
-      await axios.post("http://localhost:3000/client/createuser", dataUser);
+      await axios.post("https://looking.fly.dev/client/createuser", dataUser);
     } catch (err) {
       console.error(err, "Error create new user");
     }
@@ -104,22 +104,28 @@ export default function SignUp() {
 
   return (
     <div>
-    <div className='container-page'>
-      <div className='c-reg'>
-        <div className='form-container'>
-          <div className='title is-2 is-spaced space-between-title'>Regístrate para comenzar la aventura</div>
-          <form onSubmit={handleSubmit}>
+      <div className="container-page">
+        <div className="c-reg">
+          <div className="form-container">
+            <div className="title is-2 is-spaced space-between-title">
+              Regístrate para comenzar la aventura
+            </div>
+            <form onSubmit={handleSubmit}>
               <p>
                 <input
                   type="text"
                   name="fullName"
-                  className={ errors.name ? 'input is-danger' : 'input is-success input-space' }
+                  className={
+                    errors.name
+                      ? "input is-danger"
+                      : "input is-success input-space"
+                  }
                   value={inputs.fullName}
                   placeholder="Nombre completo"
                   onChange={(event) => handleChange(event)}
                 />
                 {errors.name ? (
-                  <p className='space-between-inputs '>
+                  <p className="space-between-inputs ">
                     <span className="error">{errors.name}</span>
                   </p>
                 ) : null}
@@ -128,13 +134,17 @@ export default function SignUp() {
                 <input
                   type="password"
                   name="password"
-                  className={ errors.password ? 'input is-danger' : 'input is-success input-space' }
+                  className={
+                    errors.password
+                      ? "input is-danger"
+                      : "input is-success input-space"
+                  }
                   value={inputs.password}
                   placeholder="Contraseña"
                   onChange={(event) => handleChange(event)}
                 />
                 {errors.password ? (
-                  <p className='space-between-inputs '>
+                  <p className="space-between-inputs ">
                     <span className="error">{errors.password}</span>
                   </p>
                 ) : null}
@@ -143,13 +153,17 @@ export default function SignUp() {
                 <input
                   type="password"
                   name="password2"
-                  className={ errors.password2 ? 'input is-danger' : 'input is-success input-space' }
+                  className={
+                    errors.password2
+                      ? "input is-danger"
+                      : "input is-success input-space"
+                  }
                   value={inputs.password2}
                   placeholder="Repetir contraseña"
                   onChange={(event) => handleChange(event)}
                 />
                 {errors.password2 ? (
-                  <p className='space-between-inputs '>
+                  <p className="space-between-inputs ">
                     <span className="error">{errors.password2}</span>
                   </p>
                 ) : null}
@@ -158,13 +172,17 @@ export default function SignUp() {
                 <input
                   type="text"
                   name="email"
-                  className={ errors.mail ? 'input is-danger' : 'input is-success input-space' }
+                  className={
+                    errors.mail
+                      ? "input is-danger"
+                      : "input is-success input-space"
+                  }
                   value={inputs.email}
                   placeholder="Correo electrónico"
                   onChange={(event) => handleChange(event)}
                 />
                 {errors.mail ? (
-                  <p className='space-between-inputs '>
+                  <p className="space-between-inputs ">
                     <span className="error">{errors.mail}</span>
                   </p>
                 ) : null}
@@ -173,13 +191,17 @@ export default function SignUp() {
                 <input
                   type="text"
                   name="phone"
-                  className={ errors.phone ? 'input is-danger' : 'input is-success input-space' }
+                  className={
+                    errors.phone
+                      ? "input is-danger"
+                      : "input is-success input-space"
+                  }
                   value={inputs.phone}
                   placeholder="Teléfono"
                   onChange={(event) => handleChange(event)}
                 />
                 {errors.phone ? (
-                  <p class='space-between-inputs '>
+                  <p class="space-between-inputs ">
                     <span className="error">{errors.phone}</span>
                   </p>
                 ) : null}
@@ -195,23 +217,35 @@ export default function SignUp() {
               <p>
                 <div className="type-acoount-cont">
                   <div className="type-account">
-                    <div 
-                      className={typeAccount === 1 ? 'button is-info has-tooltip-multiline' : 'button is-info is-outlined has-tooltip-multiline'} 
-                      data-tooltip='Hospedador: Te permite publicar hsopedaje que rentes. Si eres viajero debes crear otra cuenta como Hospedero'
-                      onClick={userType1}>Busco hospedaje
+                    <div
+                      className={
+                        typeAccount === 1
+                          ? "button is-info has-tooltip-multiline"
+                          : "button is-info is-outlined has-tooltip-multiline"
+                      }
+                      data-tooltip="Hospedador: Te permite publicar hsopedaje que rentes. Si eres viajero debes crear otra cuenta como Hospedero"
+                      onClick={userType1}
+                    >
+                      Busco hospedaje
                     </div>
                   </div>
-                  <div 
-                    className={typeAccount === 2 ? 'button is-info' : 'button is-info is-outlined has-tooltip-right'} 
+                  <div
+                    className={
+                      typeAccount === 2
+                        ? "button is-info"
+                        : "button is-info is-outlined has-tooltip-right"
+                    }
                     data-tooltip="Hospedero: Permite buscar hospedaje a donde vayas. Para publicar hospedajes que rentas debes crear otra cuenta como hospedador"
-                    onClick={userType2}>Ofrezco hospedaje
+                    onClick={userType2}
+                  >
+                    Ofrezco hospedaje
                   </div>
                 </div>
               </p>
               <p>
                 <button
                   type="submit"
-                  className='button is-link is-rounded space-between-button'
+                  className="button is-link is-rounded space-between-button"
                   disabled={
                     !inputs.fullName ||
                     !inputs.password ||
@@ -229,10 +263,10 @@ export default function SignUp() {
                 <p>¿Ya estás registrado?</p>
                 <Link to="/login">Inicia sesión</Link>
               </div>
-          </form>
+            </form>
           </div>
+        </div>
       </div>
-    </div>
     </div>
   );
 }

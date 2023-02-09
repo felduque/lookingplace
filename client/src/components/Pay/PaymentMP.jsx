@@ -21,7 +21,7 @@ export default function Card(prod) {
         }}
         onClick={(e) => {
           axios
-            .post("http://localhost:3000/pago", pagoObj)
+            .post("https://looking.fly.dev/pago", pagoObj)
             .then(
               (res) =>
                 (window.location.href = res.data.response.sandbox_init_point)

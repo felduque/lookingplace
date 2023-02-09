@@ -22,7 +22,7 @@ export default function ResetPassword() {
       return;
     }
 
-    //`http://localhost:3000/reset/${match.params.id}/${match.params.accessToken}`
+    //`https://looking.fly.dev/reset/${match.params.id}/${match.params.accessToken}`
 
     axios
       .post(`/reset/${id}/${token}`, {

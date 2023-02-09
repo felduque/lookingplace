@@ -7,7 +7,7 @@ import CurrencyInput from "react-currency-input-field";
 import makeAnimated, { Input } from "react-select/animated";
 import "bulma/css/bulma.min.css";
 import "./FormProperty.css";
-import uploadIcon from '../../assets/upload-icon.png';
+import uploadIcon from "../../assets/upload-icon.png";
 import { Link } from "react-router-dom";
 // Google Maps
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
@@ -70,9 +70,7 @@ export default function FormHostCreate() {
       region: data.data.address.region,
       city: data.data.address.city ? data.data.address.city : "",
     });
-    setErrors(
-      validateForm({ ...inputs})
-    );
+    setErrors(validateForm({ ...inputs }));
     // console.log(coordinates);
   };
 
@@ -94,7 +92,6 @@ export default function FormHostCreate() {
     rating: 1,
     lat: 0,
     lng: 0,
-
   });
   // estados relacionados con inputs.images para mostrar lo subido
   const [urlImages, setUrlImages] = useState([]);
@@ -125,9 +122,7 @@ export default function FormHostCreate() {
           ...inputs,
           services: JSON.stringify(arrayService),
         });
-        setErrors(
-          validateForm({ ...inputs, services: arrayService })
-        );
+        setErrors(validateForm({ ...inputs, services: arrayService }));
       }
       // Diferenciando los campos booleanos
     } else if (
@@ -151,9 +146,7 @@ export default function FormHostCreate() {
         ...inputs,
         [e.target.name]: e.target.value,
       });
-      setErrors(
-        validateForm({ ...inputs, [e.target.name]: e.target.value })
-      );
+      setErrors(validateForm({ ...inputs, [e.target.name]: e.target.value }));
     }
   };
 
@@ -167,29 +160,30 @@ export default function FormHostCreate() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  if(!inputs.title) {
-    alert(" :( Algo salió mal, intenta de nuevo");
-  } else {
-        setErrors(
-          validateForm({
-            ...inputs,
-            [e.target.name]: e.target.value,
-          })
-        );
-        axios.postForm("http://localhost:3000/property", inputs)
+    if (!inputs.title) {
+      alert(" :( Algo salió mal, intenta de nuevo");
+    } else {
+      setErrors(
+        validateForm({
+          ...inputs,
+          [e.target.name]: e.target.value,
+        })
+      );
+      axios
+        .postForm("https://looking.fly.dev/property", inputs)
         .then(function (response) {
           console.log(response);
-          alert('Place publicado con éxito')
+          alert("Place publicado con éxito");
         })
         .catch(function (error) {
           console.log(error);
-          alert(':( Algo salió mal, intenta de nuevo')
+          alert(":( Algo salió mal, intenta de nuevo");
         });
-     }
+    }
   };
-function cancelPublish() {
+  function cancelPublish() {
     window.history.back();
-}
+  }
   // console.log(inputs);
   console.log(inputs);
 
@@ -212,8 +206,9 @@ function cancelPublish() {
                   name="title"
                   value={inputs.title}
                   onChange={handleChange}
-                />{errors.title ? (
-                    <span className="error">{errors.title}</span>
+                />
+                {errors.title ? (
+                  <span className="error">{errors.title}</span>
                 ) : null}
               </div>
               <div className="field">
@@ -226,9 +221,10 @@ function cancelPublish() {
                   name="description"
                   value={inputs.description}
                   onChange={handleChange}
-                ></textarea>{errors.description ? (
+                ></textarea>
+                {errors.description ? (
                   <span className="error">{errors.description}</span>
-              ) : null}
+                ) : null}
               </div>
               <div className="field">
                 <label className="label" htmlFor="capacity">
@@ -243,9 +239,10 @@ function cancelPublish() {
                   min={1}
                   max={20}
                   onChange={handleChange}
-                />{errors.capacity ? (
+                />
+                {errors.capacity ? (
                   <span className="error">{errors.capacity}</span>
-              ) : null}
+                ) : null}
               </div>
               <div className="field">
                 <label className="label" htmlFor="beds">
@@ -260,9 +257,10 @@ function cancelPublish() {
                   max={20}
                   value={inputs.beds}
                   onChange={handleChange}
-                />{errors.beds ? (
+                />
+                {errors.beds ? (
                   <span className="error">{errors.beds}</span>
-              ) : null}
+                ) : null}
               </div>
               <div className="field">
                 <label className="label" htmlFor="baths">
@@ -292,87 +290,87 @@ function cancelPublish() {
                 defaultValue={inputs.services}
                 onChange={(e, actionMeta) => handleChange(e, actionMeta)}
                 options={options}
-              />{errors.services ? (
+              />
+              {errors.services ? (
                 <span className="error">{errors.services}</span>
-            ) : null}
+              ) : null}
               <div className="field">
                 <p className="title is-4">Reglas del alojamiento</p>
               </div>
-            <div className='clocks-inputs'>
-              <div className="field">
-                <label className="label" htmlFor="checkIn">
-                  Horario de entrada
-                </label>
-                <input
-                  id="checkIn"
-                  type="time"
-                  name="checkIn"
-                  value={inputs.checkIn}
-                  onChange={handleChange}
-                />
+              <div className="clocks-inputs">
+                <div className="field">
+                  <label className="label" htmlFor="checkIn">
+                    Horario de entrada
+                  </label>
+                  <input
+                    id="checkIn"
+                    type="time"
+                    name="checkIn"
+                    value={inputs.checkIn}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div>
+                  <label className="label" htmlFor="checkOut">
+                    Horario de salida
+                  </label>
+                  <input
+                    id="checkOut"
+                    type="time"
+                    name="checkOut"
+                    value={inputs.checkOut}
+                    onChange={handleChange}
+                  />
+                  <p>
+                    {errors.checksTime ? (
+                      <span className="error">{errors.checksTime}</span>
+                    ) : null}
+                  </p>
+                </div>
               </div>
-              <div>
-                <label className="label" htmlFor="checkOut">
-                  Horario de salida
-                </label>
-                <input
-                  id="checkOut"
-                  type="time"
-                  name="checkOut"
-                  value={inputs.checkOut}
-                  onChange={handleChange}
-                />
-                <p>
-                  {errors.checksTime ? (
-                    <span className="error">{errors.checksTime}</span>
-                   ) : null}
-                </p>
-              </div>
-            </div>
               <div className="field">
                 <label className="label" htmlFor="smoke">
                   ¿Permitido fumar?&nbsp;
                   <label class="custom-checkbox">
-                  <input
-                    id="smoke"
-                    type="checkbox"
-                    name="smoke"
-                    value={inputs.smoke}
-                    onChange={handleChange}
-                  />
-                  <span className="checkmark"></span>
+                    <input
+                      id="smoke"
+                      type="checkbox"
+                      name="smoke"
+                      value={inputs.smoke}
+                      onChange={handleChange}
+                    />
+                    <span className="checkmark"></span>
                   </label>
                 </label>
               </div>
               <div className="field">
-              
                 <label className="label" htmlFor="">
                   ¿Permitido fiestas?&nbsp;
                   <label class="custom-checkbox">
-                <input 
-                  id="party"
-                  type="checkbox"
-                  name="party"
-                  value={inputs.party}
-                  onChange={handleChange}
-                />
-                <span className="checkmark"></span>
-              </label>
+                    <input
+                      id="party"
+                      type="checkbox"
+                      name="party"
+                      value={inputs.party}
+                      onChange={handleChange}
+                    />
+                    <span className="checkmark"></span>
+                  </label>
                 </label>
               </div>
               <div className="field">
                 <label className="label" htmlFor="pets">
                   ¿Permitido mascostas?&nbsp;
                   <label class="custom-checkbox">
-                  <input
-                    id="pets"
-                    type="checkbox"
-                    name="pets"
-                    value={inputs.pets}
-                    onChange={handleChange}
-                  />
-                  <span className="checkmark"></span>
-              </label>
+                    <input
+                      id="pets"
+                      type="checkbox"
+                      name="pets"
+                      value={inputs.pets}
+                      onChange={handleChange}
+                    />
+                    <span className="checkmark"></span>
+                  </label>
                 </label>
               </div>
               <div className="field">
@@ -430,12 +428,13 @@ function cancelPublish() {
 
               {/* Fin Gooogle Maps */}
               {errors.geolocation ? (
-                    <span className="error">{errors.geolocation}</span>
-                ) : null}
+                <span className="error">{errors.geolocation}</span>
+              ) : null}
               <div className="field">
                 <label className="label">Imágenes del lugar</label>
                 <button className="button is-success" type="button">
-                  <img src={uploadIcon} className='upload-button-place'/><label htmlFor="image">Selecciona las fotos...</label>
+                  <img src={uploadIcon} className="upload-button-place" />
+                  <label htmlFor="image">Selecciona las fotos...</label>
                 </button>
                 <input
                   style={{ display: "none" }}
@@ -476,29 +475,28 @@ function cancelPublish() {
                     setInputs({
                       ...inputs,
                       [name]: value,
-                    })
-                    setErrors(
-                      validateForm({ ...inputs, [name]: value })
-                    );
-                    }
-                  }
-                />{errors.price ? (
+                    });
+                    setErrors(validateForm({ ...inputs, [name]: value }));
+                  }}
+                />
+                {errors.price ? (
                   <span className="error">{errors.price}</span>
-              ) : null}
+                ) : null}
               </div>
-              <button 
-                className="button is-link is-rounded center-button-publish" 
+              <button
+                className="button is-link is-rounded center-button-publish"
                 type="submit"
-                disabled={ errorsLength !== 0 ? true : false }>
+                disabled={errorsLength !== 0 ? true : false}
+              >
                 Publicar Alojamiento
               </button>
-              
             </form>
-            <button 
-                className="button  is-warning is-rounded center-button-cancel"
-                onClick={cancelPublish}>
-                Cancelar
-              </button>
+            <button
+              className="button  is-warning is-rounded center-button-cancel"
+              onClick={cancelPublish}
+            >
+              Cancelar
+            </button>
           </div>
         </div>
       </div>
