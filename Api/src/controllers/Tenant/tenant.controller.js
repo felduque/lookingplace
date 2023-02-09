@@ -13,10 +13,9 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-import jwt from "jsonwebtoken";
+// import jwt from "jsonwebtoken";
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
-const { token } = require("./../../../package.json");
 
 export const createTenant = async (req, res) => {
   const { fullName, email, password, verify, avatar, phone } = req.body;
@@ -27,10 +26,7 @@ export const createTenant = async (req, res) => {
   img?.mv(pathImage);
   let url = (pathImage = "http://localhost:3000/tenant/" + img?.name);
   if (!img) url = "google.com";
-  // ! Json token
-  const jsonw = jwt.sign({ id: email }, token, {
-    expiresIn: 60 * 60 * 24,
-  });
+
   // ! Encrypt password
   const salt = await bcrypt.genSalt(10);
   const passwordCrypt = await bcrypt.hash(password, salt);
@@ -160,10 +156,7 @@ export const validateTenant = async (req, res) => {
     const client = await Tenant.findOne({
       where: { email, password },
     });
-    // ! Json token
-    const jsonw = jwt.sign({ id: email }, token, {
-      expiresIn: 60 * 60 * 24,
-    });
+
     if (client) {
       return res.json({
         message: "Tenant found successfully",

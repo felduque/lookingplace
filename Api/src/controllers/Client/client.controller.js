@@ -20,7 +20,6 @@ const __dirname = dirname(__filename);
 import { createRequire } from "module";
 // import { Payments } from "../../models/payment.model.js";
 const require = createRequire(import.meta.url);
-const { token } = require("./../../../package.json");
 require("dotenv").config();
 app.set("view engine", "ejs");
 var nodemailer = require("nodemailer");
@@ -79,10 +78,6 @@ export const createClient = async (req, res) => {
   img?.mv(pathImage);
   let url = (pathImage = "http://localhost:3000/client/" + img?.name);
   if (!img) url = "google.com";
-  // ! json web token
-  const jsonw = jwt.sign({ id: email }, token, {
-    expiresIn: 60 * 60 * 24,
-  });
 
   // ! Encrypt password
   const salt = await bcrypt.genSalt(10);
@@ -118,7 +113,6 @@ export const createClient = async (req, res) => {
       return res.json({
         message: "Client created successfully",
         data: newClient,
-        token: jsonw,
       });
     }
   } catch (error) {
@@ -469,57 +463,6 @@ export const deleteClient = async (req, res) => {
       });
     }
   } catch (err) {
-    res.json({
-      message: "Something goes wrong",
-      data: {},
-    });
-  }
-};
-
-export const validateClient = async (req, res) => {
-  const { email, password } = req.body;
-  try {
-    let client = await Client.findOne({ where: { email } });
-    if (!client) return res.status(400).json({ message: "Client not found" });
-    if (client) {
-      const validPassword = await bcrypt.compare(password, client.password);
-      if (!validPassword)
-        return res.status(400).json({ message: "Invalid password" });
-      // ! json web token
-      const jsonw = jwt.sign({ id: email }, token, {
-        expiresIn: 60 * 60 * 24,
-      });
-
-      if (validPassword === true) {
-        res.json({
-          message: validPassword,
-          data: client,
-          token: jsonw,
-        });
-      }
-    }
-  } catch (error) {
-    console.log(error);
-    res.json({
-      message: "Something goes wrong",
-      data: {},
-    });
-  }
-};
-
-export const googleMapCoord = async (req, res) => {
-  const { lat, lng } = req.body;
-  try {
-    let client = await Client.findOne({ where: { lat, lng } });
-    if (!client) return res.status(400).json({ message: "Client not found" });
-    if (client) {
-      res.json({
-        message: "Client found",
-        data: client,
-      });
-    }
-  } catch (error) {
-    console.log(error);
     res.json({
       message: "Something goes wrong",
       data: {},

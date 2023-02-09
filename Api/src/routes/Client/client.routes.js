@@ -5,7 +5,6 @@ import {
   getClient,
   getClientById,
   updateClient,
-  validateClient,
   login,
   logout,
   refreshToken,
@@ -28,7 +27,6 @@ router.get("/client/getuser", getClient);
 router.get("/client/getuser/:id", getClientById);
 router.patch("/client/updateuser/:id", updateClient);
 router.delete("/client/deleteuser/:id", deleteClient);
-router.post("/client/validateuser", validateClient);
 router.delete("/client/deleteuser/:id", deleteClient);
 
 export default router;

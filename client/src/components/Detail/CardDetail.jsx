@@ -47,7 +47,7 @@ export default function CardDetail() {
   return (
     <div>
       <h1 className="title box is-size-1 has-background-dark has-text-centered is-capitalized has-text-white">
-        {title.toLowerCase()}
+        {title}
       </h1>
       <p className="has-text-centered "> Calificacion : {rating}</p>
       <div className="box" style={{ display: "flex" }}>
