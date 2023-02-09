@@ -227,7 +227,7 @@ box-shadow:  35px 35px 70px #161331,
 
 .hobbies-profile {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   list-style: none;
   color: #fff;
@@ -261,7 +261,48 @@ box-shadow:  35px 35px 70px #161331,
   padding: 1rem;
 }
 
+/* Form Settings profile */
 
+.form-profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: linear-gradient(145deg, #272055, #2e2765);
+  box-shadow:  35px 35px 70px #161331,
+             -35px -35px 70px #40358b;
+
+border-radius: 10%;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.title-form-edit-profile {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: rgb(2, 255, 175);
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #18152E; 
+}
 
 
 
