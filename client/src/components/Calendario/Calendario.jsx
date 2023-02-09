@@ -34,7 +34,7 @@ export default function Calendar({ propId, bookings, price }) {
       state.selection1.endDate
     );
     console.log(dataBooking);
-    const bookingProperty = await axios.post(
+    const bookingProperty = await axios.patch(
       "http://localhost:3000/property/update/bookings",
       { id: propId, bookings: dataBooking }
     );

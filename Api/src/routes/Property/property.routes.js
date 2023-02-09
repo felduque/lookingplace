@@ -4,13 +4,13 @@ import {
   getProperty,
   getPropertyById,
   updateProperty,
-  postBookingsProperty,
+  patchBookingsProperty,
 } from "../../controllers/Property/property.controller.js";
 import { Router } from "express";
 
 const router = Router();
 
-router.post("/property/update/bookings", postBookingsProperty);
+router.patch("/property/update/bookings", patchBookingsProperty);
 router.post("/property", createProperty);
 router.get("/properties", getProperty);
 router.get("/property/:id", getPropertyById);
