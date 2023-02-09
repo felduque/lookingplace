@@ -3,24 +3,31 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import usermailIcon from "../../../assets/usermail-login.png";
 import "./Login.css";
-import axios from "axios";
+import axios from "../hooks/axios";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const [errMsg, setErrMsg] = useState("");
-
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
-    axios
-      .post("/client/forgot", email)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (!email.includes("@")) {
+      setErrorMessage("Por favor, ingrese un correo electrónico válido.");
+      return;
+    }
+
+    try {
+      const response = await axios.post("/client/forgot", { email });
+      setSuccessMessage(
+        "Un correo electrónico de recuperación de contraseña ha sido enviado a su dirección de correo electrónico."
+      );
+    } catch (error) {
+      setErrorMessage(
+        "Hubo un problema al enviar el correo electrónico de recuperación de contraseña, intentalo más tarde"
+      );
+    }
 
     // acá debería enviar una solicitud a la API para enviar el correo electrónico de recuperación de contraseña
   }
@@ -31,15 +38,15 @@ export default function ForgotPassword() {
         <div className="container-login">
           <div className="form-container-login">
             <section>
-              <div className="error-messg-server">{errMsg}</div>
-
+              <div className="ForgotPassError">{errorMessage}</div>
+              <div className="ForgotPassSuccess">{successMessage}</div>
               <div class="title is-4 is-spaced">Recuperar contraseña</div>
               <form onSubmit={handleSubmit}>
                 <div class="field">
                   <p className="control has-icons-left">
                     <input
                       type="email"
-                      id="emailname"
+                      id="email"
                       className="input"
                       placeholder="Correo"
                       autoComplete="off"

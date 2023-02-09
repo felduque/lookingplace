@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Restablecer contraseña para <%= email%></title>
+  </head>
+  <body aria-labelledby="resetPasswordHeading">
+    <h1 id="resetPasswordHeading">Restablecer <%= email%></h1>
+    <form action="" method="post">
+      
+      <fieldset>
+      <legend>Ingrese su nueva contraseña</legend>
+      <div>
+        <label for="password">Nueva contraseña:</label>
+        <input type="password" id="password" name="password" placeholder="Password" aria-describedby="passwordDescription" required>
+        <p id="passwordDescription">Por favor, ingrese una contraseña segura que contenga al menos 8 caracteres y una combinación de letras, números y símbolos.</p>
+      </div>
+    
+      <div>
+        <label for="confirmPassword">Confirmar contraseña:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
+      </div>
+      <button type="submit">Guardar</button>
+    </fieldset>
+    </form>
+  </body>
+</html>

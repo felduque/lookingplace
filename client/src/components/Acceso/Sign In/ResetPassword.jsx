@@ -1,39 +1,47 @@
-import React from "react";
-import { useState } from "react";
-import { Link } from "react-router-dom";
 import userPasswordIcon from "../../../assets/key-login.png";
 import "./Login.css";
-import axios from "axios";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useState } from "react";
+import axios from "../hooks/axios";
 
-export default function ResetPassword(props) {
+export default function ResetPassword() {
   const [reset, setReset] = useState(false);
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [errMsg, setErrMsg] = useState("");
+  const navigate = useNavigate();
+
+  const { id, token } = useParams();
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    const data = {
-      token: props.match.params.id,
-      password: password,
-      confirmPassword: passwordConfirm,
-    };
+    if (password !== passwordConfirm) {
+      setErrMsg("Las contraseñas no coinciden");
+      return;
+    }
+
+    //`http://localhost:3000/reset/${match.params.id}/${match.params.accessToken}`
 
     axios
-      .post("/reset", data)
+      .post(`/reset/${id}/${token}`, {
+        password,
+        passwordConfirm,
+      })
       .then((res) => {
-        console.log(res);
-        setReset({ reset: true });
+        setReset(true);
       })
       .catch((err) => {
         console.log(err);
       });
   }
 
-  if (reset) {
-    return <Redirect to={"/login"} />;
-  }
+  useEffect(() => {
+    if (reset) {
+      navigate("/login");
+    }
+  }, [reset]);
 
   return (
     <>
@@ -49,7 +57,8 @@ export default function ResetPassword(props) {
                   <p className="control has-icons-left">
                     <input
                       type="password"
-                      id="passwordLogin"
+                      id="password"
+                      name="password"
                       className="input"
                       placeholder="Contraseña"
                       autoComplete="off"
@@ -68,7 +77,8 @@ export default function ResetPassword(props) {
                   <p className="control has-icons-left">
                     <input
                       type="password"
-                      id="passwordLogin"
+                      id="password2"
+                      name="password2"
                       className="input"
                       placeholder="Confirmar contraseña"
                       autoComplete="off"

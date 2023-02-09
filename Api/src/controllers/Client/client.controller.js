@@ -6,6 +6,7 @@
  * ! get: userinfo por id => id, nombre, email, avatar
  *
  */
+import express from "express";
 import { Aboutme } from "../../models/aboutme.model.js";
 import { Client } from "../../models/client.model.js";
 import { Tenant } from "../../models/tenant.model.js";
@@ -13,12 +14,19 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 import { createRequire } from "module";
 // import { Payments } from "../../models/payment.model.js";
 const require = createRequire(import.meta.url);
 const { token } = require("./../../../package.json");
+require("dotenv").config();
+app.set("view engine", "ejs");
+var nodemailer = require("nodemailer");
+
+const secretjwt =
+  "5e6fa1b1bfd5a93c5e7ae001e4c96794c0e8f004095074b42608dc3a0acb67574e2821518d6638eef13c9f882408c861f9cc09e603439e9a93aae6a2b9146e44";
 
 export const createAboutme = async (req, res) => {
   const { description, hobbies, age, from, client_about, tenant_about } =
@@ -134,6 +142,10 @@ export const login = async (req, res) => {
   //evaluate password
   const match = await bcrypt.compare(password, foundUser.password);
 
+  if (!match) {
+    return res.status(400).json({ message: "Password incorrecta" });
+  }
+
   if (match) {
     //create JWTS
     const accessToken = jwt.sign(
@@ -142,7 +154,7 @@ export const login = async (req, res) => {
           email: foundUser.email,
         },
       },
-      "5e6fa1b1bfd5a93c5e7ae001e4c96794c0e8f004095074b42608dc3a0acb67574e2821518d6638eef13c9f882408c861f9cc09e603439e9a93aae6a2b9146e44",
+      secretjwt,
       { expiresIn: "1d" }
     );
     const refreshToken = jwt.sign(
@@ -215,12 +227,110 @@ export const refreshToken = async (req, res) => {
             email: decoded.email,
           },
         },
-        "5e6fa1b1bfd5a93c5e7ae001e4c96794c0e8f004095074b42608dc3a0acb67574e2821518d6638eef13c9f882408c861f9cc09e603439e9a93aae6a2b9146e44",
+        secretjwt,
         { expiresIn: "15h" }
       );
       res.json({ accessToken });
     }
   );
+};
+
+//Post
+
+function validateEmail(email) {
+  const re =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
+
+export const forgot = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const oldUser = await Client.findOne({ where: { email } });
+    if (!oldUser) {
+      return res.json({ status: "No existe ese usuario" });
+    }
+    const secret = secretjwt + oldUser.password;
+    const token = jwt.sign({ email: oldUser.email, id: oldUser.id }, secret, {
+      expiresIn: "10m",
+    });
+    const link = `http://localhost:3000/reset/${oldUser.id}/${token}`;
+
+    var transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "lookingplace.app.henry@gmail.com",
+        pass: "lrzuyphbebplwmci",
+      },
+    });
+
+    var mailOptions = {
+      from: "youremail@gmail.com",
+      to: email,
+      subject: "Password Reset",
+      text: link,
+    };
+
+    transporter.sendMail(mailOptions, function (err, info) {
+      if (err) {
+        console.error("Ha ocurrido un error:", err);
+      } else {
+        console.log("Email sent: " + info.response);
+        res.status(200).json("El email para la recuperación ha sido enviado");
+      }
+    });
+
+    console.log(link);
+  } catch (error) {
+    res.status(500).send({
+      message: "ha ocurrido un error",
+      error,
+    });
+  }
+};
+//get
+export const verifyPassword = async (req, res) => {
+  const { id, token } = req.params;
+  console.log(req.params);
+  const oldUser = await Client.findOne({ where: { id } });
+  if (!oldUser) {
+    return res.json({ status: "No existe ese usuario" });
+  }
+  const secret = secretjwt + oldUser.password;
+  try {
+    const verify = jwt.verify(token, secret);
+    res.render("index", { email: verify.email });
+  } catch (error) {
+    console.log(error);
+    res.send("Not verified");
+  }
+};
+
+//Debería ser put pero es post xD
+export const resetPassword = async (req, res) => {
+  const { id, token } = req.params;
+  const { password } = req.body;
+  const oldUser = await Client.findOne({ where: { id } });
+  if (!oldUser) {
+    return res.json({ status: "No existe ese usuario" });
+  }
+  const secret = secretjwt + oldUser.password;
+  try {
+    const verify = jwt.verify(token, secret);
+    const encryptedPassword = await bcrypt.hash(password, 10);
+    await Client.update(
+      { password: encryptedPassword },
+      { where: { id: id } }
+    ).then(() => {
+      console.log("Password update succcesfuly");
+    });
+    res.redirect("http://localhost:5173/login");
+    //res.render("index", { email: verify.email });
+  } catch (error) {
+    console.log(error);
+    res.json({ status: "Algo salió mal" });
+  }
 };
 
 export const getClient = async (req, res) => {
