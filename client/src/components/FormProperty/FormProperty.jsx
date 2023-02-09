@@ -18,6 +18,8 @@ import {
   getLatLng,
 } from "react-places-autocomplete";
 
+import validateForm from "./validate.js";
+
 // Fin Google Maps
 
 const animatedComponents = makeAnimated();
@@ -68,6 +70,9 @@ export default function FormHostCreate() {
       region: data.data.address.region,
       city: data.data.address.city ? data.data.address.city : "",
     });
+    setErrors(
+      validateForm({ ...inputs})
+    );
     // console.log(coordinates);
   };
 
@@ -75,8 +80,8 @@ export default function FormHostCreate() {
   const [inputs, setInputs] = useState({
     title: "",
     description: "",
-    checkIn: "10:00",
-    checkOut: "10:00",
+    checkIn: "12:00",
+    checkOut: "12:30",
     capacity: 1,
     beds: 1,
     baths: 1,
@@ -89,13 +94,14 @@ export default function FormHostCreate() {
     rating: 1,
     lat: 0,
     lng: 0,
-    country: "",
-    state: "",
-    region: "",
-    city: "",
+
   });
   // estados relacionados con inputs.images para mostrar lo subido
   const [urlImages, setUrlImages] = useState([]);
+
+  //Errores
+  const [errors, setErrors] = useState({});
+  const errorsLength = Object.entries(errors).length;
 
   useEffect(() => {
     // seteo el array si no hay images, sino creo el array a mostar
@@ -119,6 +125,9 @@ export default function FormHostCreate() {
           ...inputs,
           services: JSON.stringify(arrayService),
         });
+        setErrors(
+          validateForm({ ...inputs, services: arrayService })
+        );
       }
       // Diferenciando los campos booleanos
     } else if (
@@ -142,6 +151,9 @@ export default function FormHostCreate() {
         ...inputs,
         [e.target.name]: e.target.value,
       });
+      setErrors(
+        validateForm({ ...inputs, [e.target.name]: e.target.value })
+      );
     }
   };
 
@@ -155,16 +167,25 @@ export default function FormHostCreate() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .postForm("http://localhost:3000/property", inputs)
-      .then(function (response) {
-        console.log(response);
-        alert('Place publicado con éxito')
-      })
-      .catch(function (error) {
-        console.log(error);
-        alert(':( Algo salió mal, intenta de nuevo')
-      });
+  if(!inputs.title) {
+    alert(" :( Algo salió mal, intenta de nuevo");
+  } else {
+        setErrors(
+          validateForm({
+            ...inputs,
+            [e.target.name]: e.target.value,
+          })
+        );
+        axios.postForm("http://localhost:3000/property", inputs)
+        .then(function (response) {
+          console.log(response);
+          alert('Place publicado con éxito')
+        })
+        .catch(function (error) {
+          console.log(error);
+          alert(':( Algo salió mal, intenta de nuevo')
+        });
+     }
   };
 
   // console.log(inputs);
@@ -189,7 +210,9 @@ export default function FormHostCreate() {
                   name="title"
                   value={inputs.title}
                   onChange={handleChange}
-                />
+                />{errors.title ? (
+                    <span className="error">{errors.title}</span>
+                ) : null}
               </div>
               <div className="field">
                 <label className="label" htmlFor="description">
@@ -201,7 +224,9 @@ export default function FormHostCreate() {
                   name="description"
                   value={inputs.description}
                   onChange={handleChange}
-                ></textarea>
+                ></textarea>{errors.description ? (
+                  <span className="error">{errors.description}</span>
+              ) : null}
               </div>
               <div className="field">
                 <label className="label" htmlFor="capacity">
@@ -216,7 +241,9 @@ export default function FormHostCreate() {
                   min={1}
                   max={20}
                   onChange={handleChange}
-                />
+                />{errors.capacity ? (
+                  <span className="error">{errors.capacity}</span>
+              ) : null}
               </div>
               <div className="field">
                 <label className="label" htmlFor="beds">
@@ -231,7 +258,9 @@ export default function FormHostCreate() {
                   max={20}
                   value={inputs.beds}
                   onChange={handleChange}
-                />
+                />{errors.beds ? (
+                  <span className="error">{errors.beds}</span>
+              ) : null}
               </div>
               <div className="field">
                 <label className="label" htmlFor="baths">
@@ -261,10 +290,13 @@ export default function FormHostCreate() {
                 defaultValue={inputs.services}
                 onChange={(e, actionMeta) => handleChange(e, actionMeta)}
                 options={options}
-              />
+              />{errors.services ? (
+                <span className="error">{errors.services}</span>
+            ) : null}
               <div className="field">
                 <p className="title is-4">Reglas del alojamiento</p>
               </div>
+            <div className='clocks-inputs'>
               <div className="field">
                 <label className="label" htmlFor="checkIn">
                   Horario de entrada
@@ -277,7 +309,7 @@ export default function FormHostCreate() {
                   onChange={handleChange}
                 />
               </div>
-              <div className="field">
+              <div>
                 <label className="label" htmlFor="checkOut">
                   Horario de salida
                 </label>
@@ -288,7 +320,13 @@ export default function FormHostCreate() {
                   value={inputs.checkOut}
                   onChange={handleChange}
                 />
+                <p>
+                  {errors.checksTime ? (
+                    <span className="error">{errors.checksTime}</span>
+                   ) : null}
+                </p>
               </div>
+            </div>
               <div className="field">
                 <label className="label" htmlFor="smoke">
                   ¿Permitido fumar?&nbsp;
@@ -389,6 +427,9 @@ export default function FormHostCreate() {
               </PlacesAutocomplete>
 
               {/* Fin Gooogle Maps */}
+              {errors.geolocation ? (
+                    <span className="error">{errors.geolocation}</span>
+                ) : null}
               <div className="field">
                 <label className="label">Imágenes del lugar</label>
                 <button className="button is-success" type="button">
@@ -429,16 +470,28 @@ export default function FormHostCreate() {
                   prefix="$"
                   defaultValue={inputs.price}
                   decimalsLimit={2}
-                  onValueChange={(value, name) =>
+                  onValueChange={(value, name) => {
                     setInputs({
                       ...inputs,
                       [name]: value,
                     })
+                    setErrors(
+                      validateForm({ ...inputs, [name]: value })
+                    );
+                    }
                   }
-                />
+                />{errors.price ? (
+                  <span className="error">{errors.price}</span>
+              ) : null}
               </div>
-              <button className="button is-link is-rounded center-button-publish" type="submit">
+              <button 
+                className="button is-link is-rounded center-button-publish" 
+                type="submit"
+                disabled={ errorsLength !== 0 ? true : false }>
                 Publicar Alojamiento
+              </button>
+              <button className="button  is-warning is-rounded center-button-publish">
+                Cancelar
               </button>
             </form>
           </div>
