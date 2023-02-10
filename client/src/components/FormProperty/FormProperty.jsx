@@ -8,7 +8,7 @@ import makeAnimated, { Input } from "react-select/animated";
 import "bulma/css/bulma.min.css";
 import "./FormProperty.css";
 import uploadIcon from "../../assets/upload-icon.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 // Google Maps
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import PlacesAutocomplete from "react-places-autocomplete";
@@ -46,6 +46,10 @@ export default function FormHostCreate() {
     lat: null,
     lng: null,
   });
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const handleSelect = async (value) => {
     setAddress(value);
@@ -170,10 +174,12 @@ export default function FormHostCreate() {
         })
       );
       axios
-        .postForm("https://looking.fly.dev/property", inputs)
+        .postForm("http://localhost:3000/property", inputs)
         .then(function (response) {
           console.log(response);
           alert("Place publicado con éxito");
+          navigate(from, { replace: true });
+          window.location.reload();
         })
         .catch(function (error) {
           console.log(error);

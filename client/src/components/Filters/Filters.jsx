@@ -44,7 +44,7 @@ const optionsCapacity = [
 ];
 
 export default function Filters() {
-  const urlbase = "https://looking.fly.dev/properties";
+  const urlbase = "http://localhost:3000/properties";
 
   const dispatch = useDispatch();
 

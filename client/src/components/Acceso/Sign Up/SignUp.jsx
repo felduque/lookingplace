@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import ReCAPTCHA from "react-google-recaptcha";
 import validateForm from "./validate.js";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./SignUp.css";
 
 export default function SignUp() {
@@ -13,6 +13,11 @@ export default function SignUp() {
     email: "",
     phone: null,
   });
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/login";
+
 
   //Estado de Captcha
   const [validCaptcha, setValidCaptcha] = useState(false);
@@ -71,7 +76,9 @@ export default function SignUp() {
       );
       //ENVÍO
       createUser(allDataUser);
-      alert("SignUp Sucess");
+      alert("Registro realizado con éxito");
+      navigate(from, { replace: true });
+      window.location.reload();
       setInputs({
         fullName: "",
         password: "",
@@ -84,7 +91,7 @@ export default function SignUp() {
 
   async function createUser(dataUser) {
     try {
-      await axios.post("https://looking.fly.dev/client/createuser", dataUser);
+      await axios.post("http://localhost:3000/client/createuser", dataUser);
     } catch (err) {
       console.error(err, "Error create new user");
     }
