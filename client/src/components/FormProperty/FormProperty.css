@@ -89,7 +89,7 @@ input[type="time"] {
     font-size: 15px;
   }
   .clocks-inputs {
-    display:flexbox;
+    display:inline-block;
   }
   .error {
     color: rgb(182, 150, 24);

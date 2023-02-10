@@ -4,8 +4,9 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./NavBar.css";
 
 import useLogout from "../Acceso/Sign In/useLogout";
-import mapIcon from "../../assets/icon-map.png";
+import logoIcon from "../../assets/logo-icon.png";
 import userIcon from "../../assets/user-default-icon.png";
+import searchIcon from "../../assets/search-icon-2.png";
 
 export default function Navbar() {
   const [auth, setAuth] = useState(null);
@@ -31,8 +32,9 @@ export default function Navbar() {
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="navbar-brand space-margin-left">
         <Link to="/" className="navbar-item">
+          <img src={logoIcon} width="30" height="20" />
           <strong>LookingPlace</strong>
-          <img src={mapIcon} width="30" height="20" />
+          
         </Link>
         <a
           role="button"
@@ -53,6 +55,16 @@ export default function Navbar() {
             Suscripción
         </Link>
         </div>
+        
+        <div className="search-input-bar">
+          <input type='text' className="input is-rounded is-small input-search" placeholder="Buscar por título..."/>
+          <div className="container-search-button">
+            <div className='button is-info is-outlined is-small is-rounded '>
+              <img src={searchIcon} className='search-button'/>
+            </div>
+          </div>
+          
+        </div>
 
         <div className="navbar-end">
           <div className="navbar-item">
@@ -61,12 +73,12 @@ export default function Navbar() {
                 // Poner ! en auth para testear paneles sin iniciar sesión
                 auth ? (
                   <div
-                    className="navbar-item has-dropdown is-hoverable space-margin-right">
+                    className="navbar-item has-dropdown is-hoverable">
                     <a className="navbar-link">
                       <img src={userIcon} width="30" height="40" />
                     </a>
 
-                    <div className="navbar-dropdown">
+                    <div className="navbar-dropdown is-right">
                       <Link to="/createProperty" className="navbar-item">
                           Publicar propiedad
                       </Link>
@@ -84,10 +96,10 @@ export default function Navbar() {
                     <Link to="/register" className="button is-primary">
                           <strong>Registrarse</strong>
                     </Link>
-                    <Link to="/login" className="button is-light">
+                    <Link to="/login" className="button is-info is-outlined">
                         Ingresar
                     </Link>
-                    <Link to="/createProperty" className="button is-light">
+                    <Link to="/createProperty" className="button is-link is-outlined">
                         Publicar propiedad
                     </Link>
                   </div>
