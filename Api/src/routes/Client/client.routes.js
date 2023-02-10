@@ -12,11 +12,20 @@ import {
   verifyPassword,
   resetPassword,
 } from "../../controllers/Client/client.controller.js";
+
+import multer from "multer";
+import { uploadImageClient } from "../../firebase/firebase.js";
 import { Router } from "express";
+const upload = multer({ storage: multer.memoryStorage() });
 
 const router = Router();
 router.post("/client/aboutme", createAboutme);
-router.post("/client/createuser", createClient);
+router.post(
+  "/client/createuser",
+  upload.single("image"),
+  uploadImageClient,
+  createClient
+);
 router.post("/client/login", login);
 router.get("/client/logout", logout);
 router.get("/client/refreshToken", refreshToken);

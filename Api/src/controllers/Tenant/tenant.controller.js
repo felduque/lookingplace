@@ -9,23 +9,13 @@
 import { Tenant } from "../../models/tenant.model.js";
 import { Aboutme } from "../../models/aboutme.model.js";
 import bcrypt from "bcrypt";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-// import jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 
 export const createTenant = async (req, res) => {
-  const { fullName, email, password, verify, avatar, phone } = req.body;
-  // ! Upload Image
-  const img = req.files?.img;
-  console.log(req.files);
-  let pathImage = __dirname + "/../../public/tenant/" + img?.name;
-  img?.mv(pathImage);
-  let url = (pathImage = "http://localhost:3000/tenant/" + img?.name);
-  if (!img) url = "google.com";
+  const { firebaseUrl } = req.file ? req.file : "";
+  const { fullName, email, password, verify, phone } = req.body;
 
   // ! Encrypt password
   const salt = await bcrypt.genSalt(10);
@@ -41,7 +31,7 @@ export const createTenant = async (req, res) => {
       email,
       password: passwordCrypt,
       verify,
-      avatar: url,
+      avatar: firebaseUrl,
       phone,
     });
     if (newClient) {
@@ -103,6 +93,7 @@ export const getTenantById = async (req, res) => {
 };
 
 export const updateTenant = async (req, res) => {
+  const { firebaseUrl } = req.file ? req.file : "";
   const { id } = req.params;
   const { fullName, email, password, verify, avatar, phone } = req.body;
   try {
@@ -117,7 +108,7 @@ export const updateTenant = async (req, res) => {
           email,
           password,
           verify,
-          avatar,
+          avatar: firebaseUrl,
           phone,
         });
       });

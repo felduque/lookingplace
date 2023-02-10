@@ -17,12 +17,6 @@ import payRoutes from "./routes/Pay/pay.routes.js";
 import otherRoutes from "./routes/Other/other.routes.js";
 import adminRoutes from "./routes/Admin/admin.routes.js";
 
-import { fileURLToPath } from "url";
-import { dirname } from "path";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-import path from "path";
-
 const app = express();
 
 import cors from "cors";
@@ -36,12 +30,6 @@ app.use(express.urlencoded({ extended: false }));
 // Midelewares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(
-  fileUpload({
-    useTempFiles: true,
-    tempFileDir: "/tmp/",
-  })
-);
 app.use(express.static(path.join(__dirname, "public")));
 app.use(morgan("dev"));
 app.use((req, res, next) => {

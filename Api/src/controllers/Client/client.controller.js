@@ -11,13 +11,9 @@ import { Aboutme } from "../../models/aboutme.model.js";
 import { Client } from "../../models/client.model.js";
 import { Tenant } from "../../models/tenant.model.js";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
 const app = express();
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 import { createRequire } from "module";
+import jwt from "jsonwebtoken";
 // import { Payments } from "../../models/payment.model.js";
 const require = createRequire(import.meta.url);
 require("dotenv").config();
@@ -71,13 +67,9 @@ export const createAboutme = async (req, res) => {
 };
 
 export const createClient = async (req, res) => {
+  const { firebaseUrl } = req.file ? req.file : "";
+
   const { fullName, email, password, verify, phone, admin } = req.body;
-  // ! Upload Image
-  const img = req.files?.img;
-  let pathImage = __dirname + "/../../public/client/" + img?.name;
-  img?.mv(pathImage);
-  let url = (pathImage = "http://localhost:3000/client/" + img?.name);
-  if (!img) url = "google.com";
 
   // ! Encrypt password
   const salt = await bcrypt.genSalt(10);
@@ -94,7 +86,7 @@ export const createClient = async (req, res) => {
         email,
         password: passwordCrypt,
         verify,
-        avatar: url,
+        avatar: firebaseUrl,
         phone,
         admin,
       }
@@ -113,6 +105,7 @@ export const createClient = async (req, res) => {
       return res.json({
         message: "Client created successfully",
         data: newClient,
+        token: jsonw,
       });
     }
   } catch (error) {
@@ -123,7 +116,6 @@ export const createClient = async (req, res) => {
     });
   }
 };
-
 export const login = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password)
@@ -378,6 +370,7 @@ export const getClientById = async (req, res) => {
 
 export const updateClient = async (req, res) => {
   //  patch  && avatar upload req.files
+  const { firebaseUrl } = req.file ? req.file : "";
   const { id } = req.params;
   let { fullName, phone, description, hobbies, age, from } = req.body;
   const img = req.files?.avatar;
@@ -410,7 +403,7 @@ export const updateClient = async (req, res) => {
         {
           fullName,
           phone,
-          avatar: url,
+          avatar: firebaseUrl,
         },
         {
           where: { id },

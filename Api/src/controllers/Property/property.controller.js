@@ -2,12 +2,17 @@ import { Property } from "../../models/property.model.js";
 import { Tenant } from "../../models/tenant.model.js";
 import { Client } from "../../models/client.model.js";
 import { Comment } from "../../models/comment.model.js";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 export const createProperty = async (req, res) => {
+  // si files es un array lo iteramos y agregamos a nuestro array cada uno a nuestro array que usaremos en la propiedad
+  const { files } = req; // extraemos files de la solicitud req, esto nos permite acceder a cualquier propiedad req.files en el resto del codigo en este caso en firebase.js
+  const firebaseUrls = [];
+  if (files && Array.isArray(files)) {
+    files.forEach((file) => {
+      firebaseUrls.push(file.firebaseUrl);
+    });
+  }
+
   const {
     title,
     description,
@@ -24,24 +29,12 @@ export const createProperty = async (req, res) => {
     rating,
     lat,
     lng,
-    country,
-    state,
-    region,
-    city,
     tenant_property,
     client_property,
   } = req.body;
 
-  // ! Upload Image
-  const img = req.files?.image;
-  console.log(req.files);
-  console.log(img);
-  // let pathImage = __dirname + "/../../public/client/" + img?.name;
-  // img?.mv(pathImage);
-  // let url = (pathImage = "http://localhost:3000/client/" + img?.name);
-  let url = ["image"];
-
   const arrayServices = JSON.parse(services);
+
   try {
     let newProperty = await Property.create(
       {
@@ -54,17 +47,13 @@ export const createProperty = async (req, res) => {
         baths,
         services: arrayServices,
         smoke,
-        image: url,
+        image: firebaseUrls,
         party,
         pets,
         price,
         rating,
         lat,
         lng,
-        country,
-        state,
-        region,
-        city,
         tenant_property,
         client_property,
       },
