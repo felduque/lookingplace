@@ -170,7 +170,7 @@ export default function FormHostCreate() {
         })
       );
       axios
-        .postForm("https://looking.fly.dev/property", inputs)
+        .postForm("http://localhost:3000/property", inputs)
         .then(function (response) {
           console.log(response);
           alert("Place publicado con éxito");

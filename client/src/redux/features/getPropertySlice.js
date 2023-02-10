@@ -12,7 +12,7 @@ export const getPropertiesAsync = createAsyncThunk(
 export const getPropertyByIdAsync = createAsyncThunk(
   "properties/getId",
   async (id, thunkApi) => {
-    return fetch(`https://looking.fly.dev/property/${id}`)
+    return fetch(`http://localhost:3000/property/${id}`)
       .then((response) => response.json())
       .catch((error) => console.log(error));
   }

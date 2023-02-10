@@ -84,7 +84,7 @@ export default function SignUp() {
 
   async function createUser(dataUser) {
     try {
-      await axios.post("https://looking.fly.dev/client/createuser", dataUser);
+      await axios.post("http://localhost:3000/client/createuser", dataUser);
     } catch (err) {
       console.error(err, "Error create new user");
     }

@@ -34,7 +34,7 @@ export default function Login() {
 
     try {
       const response = await axios.post(
-        `https://looking.fly.dev/client/login`,
+        `http://localhost:3000/client/login`,
         JSON.stringify({ email: email, password: password }),
         {
           headers: { "Content-Type": "application/json" },
