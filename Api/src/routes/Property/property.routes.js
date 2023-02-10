@@ -10,8 +10,18 @@ import { Router } from "express";
 
 const router = Router();
 
+import multer from "multer";
+import { uploadImageProperty } from "../../firebase/firebase.js";
+
+const upload = multer({ storage: multer.memoryStorage() });
+
+router.post(
+  "/property",
+  upload.array("image", 5),
+  uploadImageProperty,
+  createProperty
+);
 router.patch("/property/update/bookings", patchBookingsProperty);
-router.post("/property", createProperty);
 router.get("/properties", getProperty);
 router.get("/property/:id", getPropertyById);
 router.delete("/property/delete/:id", deleteProperty);

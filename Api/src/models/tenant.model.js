@@ -56,9 +56,9 @@ export const Tenant = sequelize.define("Tenant", {
     allowNull: false,
     unique: true,
     validate: {
-      isAlphanumeric: {
+      isInt: {
         args: true,
-        msg: "Only alphanumeric values",
+        msg: "Only numeric value",
       },
       len: {
         args: [9, 15],
