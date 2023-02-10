@@ -1,11 +1,12 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getPropertiesAsync } from "../../redux/features/getPropertySlice";
 import Card from "../Card/Card";
 import "./Home.css";
 import Filters from "../Filters/Filters";
 import { useLoadScript } from "@react-google-maps/api";
+import { Pagination } from "../Pagination/Pagination";
 
 function Home() {
   const { isLoaded } = useLoadScript({
@@ -20,10 +21,23 @@ function Home() {
     dispatch(getPropertiesAsync(url));
   }, []);
 
+  //----------------------Pagintado--------------------------------
+  const [propertyPerPage, setPropertyPerAge] = useState(6);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const lastIndex = currentPage * propertyPerPage;
+  const firstIndex = lastIndex - propertyPerPage;
+  //---------------------------------------------------------------
+
   const statePropertys = useSelector((state) => state.properties.allPropertys);
-  console.log(statePropertys);
+  console.log("statePropertys:", statePropertys.result?.length);
   if (!isLoaded) return <h1>Cargando...</h1>;
   if (!statePropertys) return <h1>Cargando...</h1>;
+
+  const totalProperty = statePropertys.result?.length;
+  console.log("totalProperty:", totalProperty);
+
+  
   return (
     <div className="containerHome ">
       <div className="containerFilters box">
@@ -31,27 +45,35 @@ function Home() {
       </div>
       <div className="containerCards">
         <div className="columns is-multiline box">
-          {statePropertys.result?.map((property, i) => {
-            return (
-              <div key={i} className="column is-2">
-                <Card
-                  // className="card"
-                  key={property.id}
-                  id={property.id}
-                  price={property.price}
-                  image="https://picsum.photos/200/250"
-                  capacity={property.capacity}
-                  beds={property.beds}
-                  baths={property.baths}
-                  rating={property.rating}
-                  country={property.country}
-                  state={property.state}
-                  region={property.region}
-                ></Card>
-              </div>
-            );
-          })}
+          {statePropertys.result
+            ?.map((property, i) => {
+              return (
+                <div key={i} className="column is-2">
+                  <Card
+                    // className="card"
+                    key={property.id}
+                    id={property.id}
+                    price={property.price}
+                    image="https://picsum.photos/200/250"
+                    capacity={property.capacity}
+                    beds={property.beds}
+                    baths={property.baths}
+                    rating={property.rating}
+                    country={property.country}
+                    state={property.state}
+                    region={property.region}
+                  ></Card>
+                </div>
+              );
+            })
+            .slice(firstIndex, lastIndex)}
         </div>
+        <Pagination
+          propertyPerPage={propertyPerPage}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalProperty={totalProperty}
+        />
       </div>
     </div>
   );
