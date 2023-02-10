@@ -1,0 +1,62 @@
+[
+  {
+    "title": "juandiiiiii",
+    "description": "juandiiiiii",
+    "checkIn": "12:00",
+    "checkOut": "13:00",
+    "capacity": 3,
+    "beds": 5,
+    "baths": 2,
+    "services": ["wifi", "cocina", "lavadora", "plancha", "zona de trabajo"],
+    "smoke": false,
+    "image": [
+      "https://storage.googleapis.com/lookingplace-7c14f.appspot.com/files/properties/1676065805000.webp",
+      "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/casa-de-diseno-contemporaneo26-1637602658.jpg?crop=1.00xw:0.809xh;0,0.0749xh&resize=1200:*"
+    ],
+    "party": false,
+    "pets": true,
+    "price": 125,
+    "rating": "5.0",
+    "lat": -32.8894955,
+    "lng": -68.8458644,
+    "tenant_property": 1,
+    "country": "Argentina",
+    "state": "Mendoza",
+    "city": "Ciudad de Mendoza",
+    "region": "1",
+    "updatedAt": "2023-02-10T21:50:06.174Z",
+    "createdAt": "2023-02-10T21:50:06.174Z",
+    "bookings": null,
+    "client_property": null
+  },
+  {
+    "title": "joel",
+    "description": "joel",
+    "checkIn": "12:00",
+    "checkOut": "13:00",
+    "capacity": 3,
+    "beds": 5,
+    "baths": 2,
+    "services": ["wifi", "cocina", "lavadora", "plancha", "zona de trabajo"],
+    "smoke": false,
+    "image": [
+      "https://storage.googleapis.com/lookingplace-7c14f.appspot.com/files/properties/1676065805000.webp",
+      "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/casa-de-diseno-contemporaneo26-1637602658.jpg?crop=1.00xw:0.809xh;0,0.0749xh&resize=1200:*"
+    ],
+    "party": false,
+    "pets": true,
+    "price": 125,
+    "rating": "5.0",
+    "lat": -32.8894955,
+    "lng": -68.8458644,
+    "tenant_property": 1,
+    "country": "Argentina",
+    "state": "Mendoza",
+    "city": "Ciudad de Mendoza",
+    "region": "1",
+    "updatedAt": "2023-02-10T21:50:06.174Z",
+    "createdAt": "2023-02-10T21:50:06.174Z",
+    "bookings": null,
+    "client_property": null
+  }
+]

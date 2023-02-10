@@ -1,4 +1,5 @@
 import React from "react";
+import "./Pagination.css";
 
 export const Pagination = ({
   propertyPerPage,
@@ -24,43 +25,52 @@ export const Pagination = ({
   };
 
   return (
-    <nav
-      className="pagination is-centered mb-6"
-      role="navigation"
-      aria-label="pagination"
-    >
-      <button
-        disabled={currentPage === 1 ? true : false}
-        className={`pagination-previous ${
-          currentPage === 1 ? "is-disabled" : ""
-        }`}
-        onClick={onPreviusPage}
+    <div>
+      <div className="center-pagination-next">
+        <p>{`${
+          currentPage * propertyPerPage < totalProperty
+            ? currentPage * propertyPerPage
+            : totalProperty
+        } / ${totalProperty} propiedades`}</p>
+      </div>
+      <nav
+        className="pagination is-centered mb-6"
+        role="navigation"
+        aria-label="pagination"
       >
-        Anterior
-      </button>
-      <button
-        disabled={currentPage >= pageNumber.length ? true : false}
-        className={`pagination-next ${
-          currentPage >= pageNumber.length ? "is-disabled" : ""
-        }`}
-        onClick={onNextPage}
-      >
-        Siguiente
-      </button>
-      <ul className="pagination-list">
-        {pageNumber.map((noPage) => (
-          <li key={noPage}>
-            <button
-              className={`pagination-link ${
-                noPage === currentPage ? "is-current" : ""
-              }`}
-              onClick={() => onSpecificPage(noPage)}
-            >
-              {noPage}
-            </button>
-          </li>
-        ))}
-      </ul>
-    </nav>
+        <button
+          disabled={currentPage === 1 ? true : false}
+          className={`pagination-previous button is-info is-outlined ${
+            currentPage === 1 ? "is-disabled" : ""
+          }`}
+          onClick={onPreviusPage}
+        >
+          Anterior
+        </button>
+        <button
+          disabled={currentPage >= pageNumber.length ? true : false}
+          className={`pagination-next button is-info is-outlined  ${
+            currentPage >= pageNumber.length ? "is-disabled" : ""
+          }`}
+          onClick={onNextPage}
+        >
+          Siguiente
+        </button>
+        <ul className="pagination-list">
+          {pageNumber.map((noPage) => (
+            <li key={noPage}>
+              <button
+                className={`pagination-link button is-outlined${
+                  noPage === currentPage ? "button is-info" : ""
+                }`}
+                onClick={() => onSpecificPage(noPage)}
+              >
+                {noPage}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
   );
 };

@@ -14,7 +14,8 @@ import CardDetail from "./components/Detail/CardDetail";
 import Suscribe from "./components/Pay/Suscribe";
 import Footer from "./components/Footer/Footer";
 import ForgotPassword from "./components/Acceso/Sign In/ForgotPass";
-//import ResetPassword from "./components/Acceso/Sign In/ResetPassword";
+import ResetPassword from "./components/Acceso/Sign In/ResetPassword";
+import AboutUs from "./components/AboutUs/AboutUs";
 
 function App() {
   const [user, setUser] = useState({});
@@ -35,6 +36,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="propertyDetail/:id" element={<CardDetail />} />
+            <Route path="/aboutUs" element={<AboutUs />} />
 
             {user.email ? (
               <Route element={<WithOutAuth isLogued={user} />}>

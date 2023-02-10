@@ -5,6 +5,7 @@ import {
   getPropertyById,
   updateProperty,
   patchBookingsProperty,
+  createBulkProperty,
 } from "../../controllers/Property/property.controller.js";
 import { Router } from "express";
 
@@ -26,5 +27,6 @@ router.get("/properties", getProperty);
 router.get("/property/:id", getPropertyById);
 router.delete("/property/delete/:id", deleteProperty);
 router.patch("/property/edit/:id", updateProperty);
+router.post("/bulk/create", createBulkProperty);
 
 export default router;
