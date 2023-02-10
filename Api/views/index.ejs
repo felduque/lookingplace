@@ -1,26 +1,68 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Restablecer contraseña para <%= email%></title>
+    <style>
+      .form-container-login {
+        width: 450px;
+        margin-top: 15px;
+        margin-bottom: 50px;
+        border: solid 2px rgb(50, 147, 232);
+        border-radius: 8px;
+        padding: 20px 30px;
+    }
+    .container-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    width: 100vw;
+  }
+  .icon-login {
+    width: 60%;
+    height: 60%;
+    margin-left: 8px;
+    margin-top: 55px;
+}
+    </style>
+    <title>Restablecer: contraseña para <%= email%></title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
   </head>
   <body aria-labelledby="resetPasswordHeading">
-    <h1 id="resetPasswordHeading">Restablecer <%= email%></h1>
+    <div class="container-login">
+    <div class="form-container-login">
+    <h1 id="resetPasswordHeading" class="title is-4 is-spaced" >Restablecer <%= email%></h1>
     <form action="" method="post">
       
       <fieldset>
-      <legend>Ingrese su nueva contraseña</legend>
-      <div>
+      <legend class="title is-4 is-spaced">Ingrese su nueva contraseña</legend>
+      <div class="field">
+        <p class="control has-icons-left">
         <label for="password">Nueva contraseña:</label>
-        <input type="password" id="password" name="password" placeholder="Password" aria-describedby="passwordDescription" required>
+        <input type="password" class="input" id="password" name="password" placeholder="Password" aria-describedby="passwordDescription" required>
+        <span class="icon is-small is-left">
+          <i class="fas fa-user">
+            <img src="https://cdn-icons-png.flaticon.com/512/2556/2556639.png" class="icon-login" />
+          </i>
+        </span>
+      </p>
         <p id="passwordDescription">Por favor, ingrese una contraseña segura que contenga al menos 8 caracteres y una combinación de letras, números y símbolos.</p>
       </div>
     
-      <div>
+      <div class="field">
+        <p class="control has-icons-left">
         <label for="confirmPassword">Confirmar contraseña:</label>
-        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
+        <input type="password"  class="input" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
+        <span class="icon is-small is-left">
+          <i class="fas fa-user">
+            <img src="https://cdn-icons-png.flaticon.com/512/2556/2556639.png" class="icon-login" />
+          </i>
+        </span>
+      </p>
       </div>
-      <button type="submit">Guardar</button>
+      <button type="submit" class="button is-link is-rounded">Guardar</button>
     </fieldset>
     </form>
+  </div>
+</div>
   </body>
 </html>

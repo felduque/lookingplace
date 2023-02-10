@@ -34,3 +34,20 @@
 .ForgotPassSuccess{
     color: green;
 }
+
+.btnBackLogin{
+    position: absolute;
+    margin-left: 25px;
+    top: 125px;
+    cursor: pointer;
+}
+
+.opacityimg:hover .btnBackLogin{
+    opacity: 1;
+}
+
+#loginDiv{
+    position: relative;
+    left: -10px;
+    width: 200px;
+}

@@ -1,7 +1,8 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import usermailIcon from "../../../assets/usermail-login.png";
+import leftarrow from "../../../assets/flecha-izquierda.png";
 import "./Login.css";
 import axios from "../hooks/axios";
 
@@ -9,6 +10,10 @@ export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -21,7 +26,7 @@ export default function ForgotPassword() {
     try {
       const response = await axios.post("/client/forgot", { email });
       setSuccessMessage(
-        "Un correo electrónico de recuperación de contraseña ha sido enviado a su dirección de correo electrónico."
+        "Un correo con las instrucciones para recuperar su contraseña ha sido enviado a su buzón. Si no lo encuentra revise en la carpeta spam."
       );
     } catch (error) {
       setErrorMessage(
@@ -32,8 +37,15 @@ export default function ForgotPassword() {
     // acá debería enviar una solicitud a la API para enviar el correo electrónico de recuperación de contraseña
   }
 
+  function back() {
+    navigate(from, { replace: true });
+  }
+
   return (
     <>
+      <div className="hoverimg">
+        <img src={leftarrow} alt="" className="btnBackLogin" onClick={back} />
+      </div>
       <div className="container-page-login">
         <div className="container-login">
           <div className="form-container-login">
@@ -65,9 +77,10 @@ export default function ForgotPassword() {
                 <button class="button is-link is-rounded">Enviar</button>
               </form>
               <p className="new-account">
-                ¿No tienes cuenta? <br />
                 <span>
-                  <Link to="/register">Registrarme</Link>
+                  <Link to="/login">Inicia sesión</Link>
+                  <br />
+                  <Link to="/register">Registrate</Link>
                 </span>
               </p>
             </section>
