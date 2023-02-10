@@ -22,17 +22,17 @@ export const getAllComments = async (req, res) => {
       include: [
         {
           model: Client,
-          as: "client_comment_id",
+          as: "Client",
           attributes: ["id"],
         },
         {
           model: Tenant,
-          as: "tenant_comment_id",
+          as: "Tenant",
           attributes: ["id"],
         },
         {
           model: Property,
-          as: "property_comment_id",
+          as: "Property",
           attributes: ["id"],
         },
       ],
@@ -54,17 +54,17 @@ export const getCommentById = async (req, res) => {
       include: [
         {
           model: Client,
-          as: "client_comment_id",
+          as: "client_comment",
           attributes: ["id"],
         },
         {
           model: Tenant,
-          as: "tenant_comment_id",
+          as: "tentant_comment",
           attributes: ["id"],
         },
         {
           model: Property,
-          as: "property_comment_id",
+          as: "property_comment",
           attributes: ["id"],
         },
       ],

@@ -128,17 +128,17 @@ export const getProperty = async (req, res) => {
       include: [
         {
           model: Comment,
-          as: "p_comment",
+          as: "Comments",
           attributes: ["id", "comment"],
         },
         {
           model: Client,
-          as: "rented_by",
+          as: "Client",
           attributes: ["id"],
         },
         {
           model: Tenant,
-          as: "p_tenant",
+          as: "Tenant",
           attributes: ["id"],
         },
       ],
@@ -237,17 +237,17 @@ export const getPropertyById = async (req, res) => {
       include: [
         {
           model: Comment,
-          as: "p_comment",
+          as: "Comments",
           attributes: ["id", "comment"],
         },
         {
           model: Client,
-          as: "rented_by",
+          as: "Client",
           attributes: ["id"],
         },
         {
           model: Tenant,
-          as: "p_tenant",
+          as: "Tenant",
           attributes: ["id"],
         },
       ],
