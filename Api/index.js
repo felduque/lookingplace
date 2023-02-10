@@ -1,6 +1,6 @@
 import sequelize from "./src/database/db.js";
 import app from "./src/app.js";
-const port = "8080";
+const port = 3000;
 
 async function start() {
   try {
