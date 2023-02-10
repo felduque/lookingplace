@@ -96,6 +96,10 @@ export default function FormHostCreate() {
     rating: 1,
     lat: 0,
     lng: 0,
+    country: "",
+    state: "",
+    region: "",
+    city: "",
   });
   // estados relacionados con inputs.images para mostrar lo subido
   const [urlImages, setUrlImages] = useState([]);

@@ -30,7 +30,10 @@ export const createProperty = async (req, res) => {
     lat,
     lng,
     tenant_property,
-    client_property,
+    country,
+    state,
+    city,
+    region,
   } = req.body;
 
   const arrayServices = JSON.parse(services);
@@ -55,18 +58,16 @@ export const createProperty = async (req, res) => {
         lat,
         lng,
         tenant_property,
-        client_property,
+        country,
+        state,
+        city,
+        region,
       },
       {
         includes: [
           {
             model: Tenant,
             as: "tenant_property",
-            attributes: ["id"],
-          },
-          {
-            model: Client,
-            as: "client_property",
             attributes: ["id"],
           },
         ],
@@ -292,6 +293,10 @@ export const updateProperty = async (req, res) => {
     lng,
     tenant_property,
     client_property,
+    country,
+    state,
+    city,
+    region,
   } = req.body;
   try {
     let property = await Property.findOne({
@@ -319,6 +324,10 @@ export const updateProperty = async (req, res) => {
           lng,
           tenant_property,
           client_property,
+          country,
+          state,
+          city,
+          region,
         },
         {
           where: { id },
@@ -355,6 +364,11 @@ export const patchBookingsProperty = async (req, res) => {
       error: e,
     });
   }
+};
+
+export const createBulkProperty = async (req, res) => {
+  await Property.bulkCreate(req.body);
+  res.status(200).send("bulk creado");
 };
 
 // export const patchBookingsProperty = async (req, res) => {
