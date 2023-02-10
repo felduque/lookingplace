@@ -4,7 +4,9 @@ import useAuth from "../hooks/useAuth";
 import axios from "axios";
 import usermailIcon from "../../../assets/usermail-login.png";
 import userPasswordIcon from "../../../assets/key-login.png";
+import leftarrow from "../../../assets/flecha-izquierda.png";
 import "./Login.css";
+//import LoginGoogle from "./LoginGoogle";
 
 //const LOGIN_URL = "/client/login";
 
@@ -34,7 +36,7 @@ export default function Login() {
 
     try {
       const response = await axios.post(
-        `http://localhost:3000/client/login`,
+        `http://127.0.0.1:3000/client/login`,
         JSON.stringify({ email: email, password: password }),
         {
           headers: { "Content-Type": "application/json" },
@@ -71,8 +73,15 @@ export default function Login() {
     }
   };
 
+  function back() {
+    navigate(from, { replace: true });
+  }
+
   return (
     <>
+      <div className="opacityimg">
+        <img src={leftarrow} alt="" className="btnBackLogin" onClick={back} />
+      </div>
       <div className="container-page-login">
         <div className="container-login">
           <div className="form-container-login">

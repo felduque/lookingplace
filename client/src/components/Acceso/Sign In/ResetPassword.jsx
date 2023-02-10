@@ -94,9 +94,6 @@ export default function ResetPassword() {
                 </div>
 
                 <button class="button is-link is-rounded">Submit</button>
-                <p>
-                  <Link to="/forgot">Recuperar contraseña</Link>
-                </p>
               </form>
               <p className="new-account">
                 ¿No tienes cuenta? <br />
