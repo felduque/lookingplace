@@ -1,9 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
-<<<<<<< HEAD
-=======
 
->>>>>>> f3f1f758262ff2a72328c539dabf3e51d9de3306
 import morgan from "morgan";
 import { Aboutme } from "./models/aboutme.model.js";
 import { Character } from "./models/characteristics.model.js";
@@ -33,10 +30,7 @@ app.use(express.urlencoded({ extended: false }));
 // Midelewares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-<<<<<<< HEAD
-=======
 
->>>>>>> f3f1f758262ff2a72328c539dabf3e51d9de3306
 app.use(morgan("dev"));
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "http://127.0.0.1:5173"); // update to match the domain you will make the request from
