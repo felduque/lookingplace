@@ -128,7 +128,7 @@ export default function Filters() {
   if (!isLoaded) return <h1>Cargando...</h1>;
   return (
     <>
-      <span>Búsqueda titulo</span>
+      {/* <span>Búsqueda titulo</span>
       <input
         className="input"
         type="text"
@@ -146,7 +146,7 @@ export default function Filters() {
         className="button is-info is-outlined center-button-search"
       >
         Buscar
-      </button>
+      </button> */}
       <span>Búsqueda por ciudad o país</span>
       <div>
         {/* Se usara para traer datos de la direccion o estado o pais que se ingrese; haciendo geocodeReverse */}

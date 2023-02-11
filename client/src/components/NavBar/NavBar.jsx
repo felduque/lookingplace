@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 //import "../.././index.css";
 import "./NavBar.css";
 
+import SearchBar from './SearchBar/SearchBar'
+
 import useLogout from "../Acceso/Sign In/useLogout";
 import logoIcon from "../../assets/logo-icon.png";
 import userIcon from "../../assets/user-default-icon.png";
-import searchIcon from "../../assets/search-icon-2.png";
 
 export default function Navbar({ isLogued }) {
   const [auth, setAuth] = useState(null);
@@ -52,6 +53,11 @@ export default function Navbar({ isLogued }) {
             Suscripción
           </Link>
         </div>
+<<<<<<< HEAD
+        
+        {location.pathname === '/' ? <SearchBar /> : null}
+          
+=======
 
         <div className="search-input-bar">
           <input
@@ -64,6 +70,7 @@ export default function Navbar({ isLogued }) {
               <img src={searchIcon} className="search-button" />
             </div>
           </div>
+>>>>>>> f3f1f758262ff2a72328c539dabf3e51d9de3306
         </div>
 
         <div className="navbar-end">
@@ -110,7 +117,6 @@ export default function Navbar({ isLogued }) {
             </div>
           </div>
         </div>
-      </div>
     </nav>
   );
 }
