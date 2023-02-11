@@ -19,9 +19,26 @@ const require = createRequire(import.meta.url);
 require("dotenv").config();
 app.set("view engine", "ejs");
 var nodemailer = require("nodemailer");
+//import { OAuth2Client } from "google-auth-library";
 
 const secretjwt =
   "5e6fa1b1bfd5a93c5e7ae001e4c96794c0e8f004095074b42608dc3a0acb67574e2821518d6638eef13c9f882408c861f9cc09e603439e9a93aae6a2b9146e44";
+
+/*const GOOGLE_CLIENT_ID =
+  "778898809008-ivfhum2r8jiuhsaqh8f86ba8ua0q2vu4.apps.googleusercontent.com";
+const client = new OAuth2Client(GOOGLE_CLIENT_ID);
+
+async function verifyGoogleToken(token) {
+  try {
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: GOOGLE_CLIENT_ID,
+    });
+    return { payload: ticket.getPayload() };
+  } catch (error) {
+    return { error: "Intentalo de nuevo" };
+  }
+}*/
 
 export const createAboutme = async (req, res) => {
   const { description, hobbies, age, from, client_about, tenant_about } =
@@ -241,7 +258,7 @@ export const forgot = async (req, res) => {
     const token = jwt.sign({ email: oldUser.email, id: oldUser.id }, secret, {
       expiresIn: "10m",
     });
-    const link = `http://localhost:3000/reset/${oldUser.id}/${token}`;
+    const link = `http://127.0.0.1:3000/reset/${oldUser.id}/${token}`;
 
     var transporter = nodemailer.createTransport({
       service: "gmail",
@@ -311,13 +328,55 @@ export const resetPassword = async (req, res) => {
     ).then(() => {
       console.log("Password update succcesfuly");
     });
-    res.redirect("http://localhost:5173/login");
+    res.redirect("http://127.0.0.1:5173/login");
     //res.render("index", { email: verify.email });
   } catch (error) {
     console.log(error);
     res.json({ status: "Algo salió mal" });
   }
 };
+
+//Google
+
+/*export const loginGoogle = async (req, res) => {
+  try {
+    if (req.body.credential) {
+      const verificationResponse = await verifyGoogleToken(req.body.credential);
+      if (verificationResponse.error) {
+        return res.status(400).json({
+          message: verificationResponse.error,
+        });
+      }
+
+      const profile = verificationResponse?.payload;
+
+      /*const existsInDB = DB.find((person) => person?.email === profile?.email);
+
+      if (!existsInDB) {
+        return res.status(400).json({
+          message: "Tenés que registrarte antes, clickeame",
+        });
+      }*/
+
+/*res.status(201).json({
+        message: "Login con exito",
+        user: {
+          firstName: profile?.given_name,
+          lastName: profile?.family_name,
+          picture: profile?.picture,
+          email: profile?.email,
+          token: jwt.sign({ email: profile?.email }, secretjwt, {
+            expiresIn: "1d",
+          }),
+        },
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      message: error?.message || error,
+    });
+  }
+};*/
 
 export const getClient = async (req, res) => {
   try {

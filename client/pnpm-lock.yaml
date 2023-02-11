@@ -7,6 +7,7 @@ specifiers:
   '@mui/material': ^5.11.7
   '@mui/x-data-grid': ^5.17.22
   '@react-google-maps/api': ^2.18.1
+  '@react-oauth/google': ^0.7.0
   '@reduxjs/toolkit': ^1.9.2
   '@stripe/react-stripe-js': ^1.16.4
   '@stripe/stripe-js': ^1.46.0
@@ -37,6 +38,7 @@ dependencies:
   '@mui/material': 5.11.7_rqh7qj4464ntrqrt6banhaqg4q
   '@mui/x-data-grid': 5.17.22_juhrskmuvyorwpajghq6zhdw2q
   '@react-google-maps/api': 2.18.1_biqbaboplfbrettd7655fr4n2y
+  '@react-oauth/google': 0.7.0_biqbaboplfbrettd7655fr4n2y
   '@reduxjs/toolkit': 1.9.2_k4ae6lp43ej6mezo3ztvx6pykq
   '@stripe/react-stripe-js': 1.16.4_keartrz7uyerl3wkpjpue4xbhy
   '@stripe/stripe-js': 1.46.0
@@ -869,6 +871,16 @@ packages:
 
   /@react-google-maps/marker-clusterer/2.16.1:
     resolution: {integrity: sha512-jOuyqzWLeXvQcoAu6TCVWHAuko+sDt0JjawNHBGqUNLywMtTCvYP0L0PiqJZOUCUeRYGdUy0AKxQ+30vAkvwag==}
+    dev: false
+
+  /@react-oauth/google/0.7.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-KLLYlLYYpXf1zmcrsJPAxImvoq2b0Rs0Pi/6GYfdwjmTh66Pf6jkZ4fpO10tuJuUPWvEeqloPEC/i4BySgbYVQ==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /@reduxjs/toolkit/1.9.2_k4ae6lp43ej6mezo3ztvx6pykq:

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 //import "../.././index.css";
 import "./NavBar.css";
 
@@ -9,11 +9,8 @@ import useLogout from "../Acceso/Sign In/useLogout";
 import logoIcon from "../../assets/logo-icon.png";
 import userIcon from "../../assets/user-default-icon.png";
 
-export default function Navbar() {
+export default function Navbar({ isLogued }) {
   const [auth, setAuth] = useState(null);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
   const logout = useLogout();
 
   useEffect(() => {
@@ -26,8 +23,9 @@ export default function Navbar() {
   const signOut = async () => {
     await logout();
     localStorage.removeItem("auth");
-    navigate(from, { replace: true });
+    localStorage.removeItem("user");
     window.location.reload();
+    setAuth(null);
   };
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
@@ -35,7 +33,6 @@ export default function Navbar() {
         <Link to="/" className="navbar-item">
           <img src={logoIcon} width="30" height="20" />
           <strong>LookingPlace</strong>
-          
         </Link>
         <a
           role="button"
@@ -52,13 +49,28 @@ export default function Navbar() {
 
       <div id="navbarBasicExample" className="navbar-menu">
         <div className="navbar-start">
-        <Link to="/suscribe" className="navbar-item">
+          <Link to="/suscribe" className="navbar-item">
             Suscripción
-        </Link>
+          </Link>
         </div>
+<<<<<<< HEAD
         
         {location.pathname === '/' ? <SearchBar /> : null}
           
+=======
+
+        <div className="search-input-bar">
+          <input
+            type="text"
+            className="input is-rounded is-small input-search"
+            placeholder="Buscar por título..."
+          />
+          <div className="container-search-button">
+            <div className="button is-info is-outlined is-small is-rounded ">
+              <img src={searchIcon} className="search-button" />
+            </div>
+          </div>
+>>>>>>> f3f1f758262ff2a72328c539dabf3e51d9de3306
         </div>
 
         <div className="navbar-end">
@@ -66,19 +78,18 @@ export default function Navbar() {
             <div className="buttons">
               {
                 // Poner ! en auth para testear paneles sin iniciar sesión
-                auth ? (
-                  <div
-                    className="navbar-item has-dropdown is-hoverable">
+                auth || isLogued.email ? (
+                  <div className="navbar-item has-dropdown is-hoverable">
                     <a className="navbar-link">
                       <img src={userIcon} width="30" height="40" />
                     </a>
 
                     <div className="navbar-dropdown is-right">
                       <Link to="/createProperty" className="navbar-item">
-                          Publicar propiedad
+                        Publicar propiedad
                       </Link>
                       <Link to="/settings" className="navbar-item">
-                          Dashboard
+                        Dashboard
                       </Link>
                       <hr className="navbar-divider" />
                       <a className="navbar-item" onClick={signOut}>
@@ -89,13 +100,16 @@ export default function Navbar() {
                 ) : (
                   <div>
                     <Link to="/register" className="button is-primary">
-                          <strong>Registrarse</strong>
+                      <strong>Registrarse</strong>
                     </Link>
                     <Link to="/login" className="button is-info is-outlined">
-                        Ingresar
+                      Ingresar
                     </Link>
-                    <Link to="/createProperty" className="button is-link is-outlined">
-                        Publicar propiedad
+                    <Link
+                      to="/createProperty"
+                      className="button is-link is-outlined"
+                    >
+                      Publicar propiedad
                     </Link>
                   </div>
                 )

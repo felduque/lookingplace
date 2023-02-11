@@ -2,7 +2,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
 //import useAuth from "../../apii/useAuth";
 
-const WithOutAuth = () => {
+const WithOutAuth = ({ isLogued }) => {
   const [auth, setAuth] = useState(null);
 
   useEffect(() => {
@@ -12,7 +12,7 @@ const WithOutAuth = () => {
     }
   }, []);
 
-  return auth?.email ? <Navigate to="/" /> : <Outlet />;
+  return auth?.email || isLogued ? <Navigate to="/" /> : <Outlet />;
 };
 
 export default WithOutAuth;
