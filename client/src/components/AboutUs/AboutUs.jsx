@@ -13,7 +13,7 @@ export default function AboutUs() {
           Somos el Equipo de LookingPlace, un gusto conocerlos 👋. Pueden
           conectar con nosotros por nuestras redes!
         </p>
-        <div className="containerCards">
+        <div className="containerCards-about">
           <div className="cardAbout rgb">
             <div className="cardImage1">
               <p className="cardText">Joel Gonzales</p>
