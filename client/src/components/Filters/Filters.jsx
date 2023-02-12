@@ -10,6 +10,7 @@ import ratingfilterIcon from "../../assets/rating-filter-icon.png";
 import pricefilterIcon from "../../assets/price-filter-icon-2.png";
 import capacityfilerIcon from "../../assets/capacity-filter-icon.png";
 import clearfilterIcon from "../../assets/clean-filers-icon.png";
+import filterIcon from "../../assets/filter-button.png"
 // Google Maps para Filtrar
 import { useLoadScript } from "@react-google-maps/api";
 import PlacesAutocomplete from "react-places-autocomplete";
@@ -19,6 +20,9 @@ import {
   getLatLng,
 } from "react-places-autocomplete";
 // Fin de Google Maps
+
+
+
 
 const animatedComponents = makeAnimated();
 
@@ -125,10 +129,44 @@ export default function Filters() {
 
   console.log(filters);
 
+
+  window.onload = function () {
+    (document.querySelectorAll(".js-modal-trigger") || []).forEach(($trigger) => {
+      const modal = $trigger.dataset.target;
+      const $target = document.getElementById(modal);
+
+      $trigger.addEventListener("click", () => {
+        openModal($target);
+      });
+    });
+    const modalTrigger = document.querySelector('.js-modal-trigger');
+    const modal = document.querySelector('#modal');
+
+    modalTrigger.addEventListener('click', function () {
+      modal.classList.add('is-active');
+    });
+
+    modal.querySelector('.modal-close, .modal-background', ".modal-background", ".modal-close", ".modal-card-head", ".delete", ".modal-card-foot", ".cerrar").addEventListener('click', function () {
+      modal.classList.remove('is-active');
+    });
+  }
+
   if (!isLoaded) return <h1>Cargando...</h1>;
   return (
-    <>
-      {/* <span>Búsqueda titulo</span>
+    <div>
+      <button class="js-modal-trigger no-style" data-target="modal-filter">
+        <img src={filterIcon} className='filter-button' />
+      </button>
+      <div id="modal" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Modal title</p>
+            <button class="modal-close" aria-label="close"></button>
+          </header>
+          <section class="modal-card-body">
+            <>
+              {/* <span>Búsqueda titulo</span>
       <input
         className="input"
         type="text"
@@ -147,118 +185,127 @@ export default function Filters() {
       >
         Buscar
       </button> */}
-      <span>Búsqueda por ciudad o país</span>
-      <div>
-        {/* Se usara para traer datos de la direccion o estado o pais que se ingrese; haciendo geocodeReverse */}
-        <PlacesAutocomplete
-          value={address}
-          onChange={setAddress}
-          onSelect={handleSelect}
-        >
-          {({
-            getInputProps,
-            suggestions,
-            getSuggestionItemProps,
-            loading,
-          }) => (
-            <div>
-              <input
-                {...getInputProps({
-                  placeholder: "Busca tu dirección...",
-                  className: "input is-link",
-                })}
-              />
-              <div className="autocomplete-dropdown-container">
-                {loading && <div>Cargando...</div>}
-                {suggestions.map((suggestion) => {
-                  const className = suggestion.active
-                    ? "suggestion-item--active"
-                    : "suggestion-item";
-                  // inline style for demonstration purpose
-                  const style = suggestion.active
-                    ? { backgroundColor: "#fafafa", cursor: "pointer" }
-                    : { backgroundColor: "#ffffff", cursor: "pointer" };
-                  return (
-                    <div
-                      {...getSuggestionItemProps(suggestion, {
-                        className,
-                        style,
-                      })}
-                    >
-                      <span>{suggestion.description}</span>
+              <span>Búsqueda por ciudad o país</span>
+              <div>
+                {/* Se usara para traer datos de la direccion o estado o pais que se ingrese; haciendo geocodeReverse */}
+                <PlacesAutocomplete
+                  value={address}
+                  onChange={setAddress}
+                  onSelect={handleSelect}
+                >
+                  {({
+                    getInputProps,
+                    suggestions,
+                    getSuggestionItemProps,
+                    loading,
+                  }) => (
+                    <div>
+                      <input
+                        {...getInputProps({
+                          placeholder: "Busca tu dirección...",
+                          className: "input is-link",
+                        })}
+                      />
+                      <div className="autocomplete-dropdown-container">
+                        {loading && <div>Cargando...</div>}
+                        {suggestions.map((suggestion) => {
+                          const className = suggestion.active
+                            ? "suggestion-item--active"
+                            : "suggestion-item";
+                          // inline style for demonstration purpose
+                          const style = suggestion.active
+                            ? { backgroundColor: "#fafafa", cursor: "pointer" }
+                            : { backgroundColor: "#ffffff", cursor: "pointer" };
+                          return (
+                            <div
+                              {...getSuggestionItemProps(suggestion, {
+                                className,
+                                style,
+                              })}
+                            >
+                              <span>{suggestion.description}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
-                  );
-                })}
+                  )}
+                </PlacesAutocomplete>
+                <button
+                  onClick={handleClickSearch}
+                  className="button is-info is-outlined center-button-search"
+                >
+                  Buscar
+                </button>
+                <p>
+                  <span>Filtros por caracteristicas:</span>
+                </p>
+                <img src={abcfilerIcon} className="filter-icon-more-small" />
+                <span> Ciudad alfabeticamente</span>
+                <Select
+                  placeholder="Seleccionar..."
+                  className="field"
+                  components={animatedComponents}
+                  name="order"
+                  // defaultValue={filters.order}
+                  onChange={(e, actionMeta) => handleChange(e, actionMeta)}
+                  options={optionsOrder}
+                />
+                <img src={ratingfilterIcon} className="filter-icon-more-small" />{" "}
+                <span> Ordenar por calificación</span>
+                <Select
+                  placeholder="Seleccionar..."
+                  className="field "
+                  components={animatedComponents}
+                  name="rating"
+                  //   defaultValue={inputs.services}
+                  onChange={(e, actionMeta) => handleChange(e, actionMeta)}
+                  options={optionsRating}
+                />
+                <img src={pricefilterIcon} className="filter-icon" />
+                <span> Ordenar por precio</span>
+                <Select
+                  placeholder="Seleccionar..."
+                  className="field "
+                  components={animatedComponents}
+                  name="price"
+                  //   defaultValue={inputs.services}
+                  onChange={(e, actionMeta) => handleChange(e, actionMeta)}
+                  options={optionsPrice}
+                />
+                <img src={capacityfilerIcon} className="filter-icon" />
+                <span> Ordenar por capacidad</span>
+                <Select
+                  placeholder="Seleccionar..."
+                  className="field "
+                  components={animatedComponents}
+                  name="capacity"
+                  //   defaultValue={inputs.services}
+                  onChange={(e, actionMeta) => handleChange(e, actionMeta)}
+                  options={optionsCapacity}
+                />
+                <button
+                  onClick={handleClickFilter}
+                  className="button is-success is-outlined"
+                >
+                  Aplicar Filtros
+                </button>
+                <button
+                  onClick={handleSetBaseFilter}
+                  className="button is-danger is-outlined clear-filters-button"
+                >
+                  <img src={clearfilterIcon} className="clear-filters-icon" />
+                </button>
               </div>
-            </div>
-          )}
-        </PlacesAutocomplete>
-        <button
-          onClick={handleClickSearch}
-          className="button is-info is-outlined center-button-search"
-        >
-          Buscar
-        </button>
-        <p>
-          <span>Filtros por caracteristicas:</span>
-        </p>
-        <img src={abcfilerIcon} className="filter-icon-more-small" />
-        <span> Ciudad alfabeticamente</span>
-        <Select
-          placeholder="Seleccionar..."
-          className="field"
-          components={animatedComponents}
-          name="order"
-          // defaultValue={filters.order}
-          onChange={(e, actionMeta) => handleChange(e, actionMeta)}
-          options={optionsOrder}
-        />
-        <img src={ratingfilterIcon} className="filter-icon-more-small" />{" "}
-        <span> Ordenar por calificación</span>
-        <Select
-          placeholder="Seleccionar..."
-          className="field "
-          components={animatedComponents}
-          name="rating"
-          //   defaultValue={inputs.services}
-          onChange={(e, actionMeta) => handleChange(e, actionMeta)}
-          options={optionsRating}
-        />
-        <img src={pricefilterIcon} className="filter-icon" />
-        <span> Ordenar por precio</span>
-        <Select
-          placeholder="Seleccionar..."
-          className="field "
-          components={animatedComponents}
-          name="price"
-          //   defaultValue={inputs.services}
-          onChange={(e, actionMeta) => handleChange(e, actionMeta)}
-          options={optionsPrice}
-        />
-        <img src={capacityfilerIcon} className="filter-icon" />
-        <span> Ordenar por capacidad</span>
-        <Select
-          placeholder="Seleccionar..."
-          className="field "
-          components={animatedComponents}
-          name="capacity"
-          //   defaultValue={inputs.services}
-          onChange={(e, actionMeta) => handleChange(e, actionMeta)}
-          options={optionsCapacity}
-        />
-        <button
-          onClick={handleClickFilter}
-          className="button is-success is-outlined"
-        >
-          Aplicar Filtros
-        </button>
-        <button
-          onClick={handleSetBaseFilter}
-          className="button is-danger is-outlined clear-filters-button"
-        >
-          <img src={clearfilterIcon} className="clear-filters-icon" />
-        </button>
+            </>
+          </section>
+          <footer class="modal-card-foot">
+            <button class="button is-success">Save changes</button>
+            <button class="button cerrar">Cerrar</button>
+          </footer>
+        </div>
       </div>
-    </>
-  );
+    </div>
+  )
 }
+
