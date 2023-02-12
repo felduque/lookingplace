@@ -15,7 +15,10 @@ const TenantAccess = () => {
   return auth?.role == "Tenant" || auth.role == "Admin" ? (
     <Outlet />
   ) : (
-    <Navigate to="/" />
+    (alert(
+      "Eres cliente, debes registrarte como tenant para poder publicar una propiedad"
+    ),
+    (<Navigate to="/" />))
   );
 };
 

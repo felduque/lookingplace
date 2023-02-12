@@ -42,13 +42,9 @@ export const Client = sequelize.define("Clients", {
   },
   avatar: {
     type: DataTypes.STRING,
-<<<<<<< HEAD
     allowNull: false,
     defaultValue:
       "https://img.asmedia.epimg.net/resizer/lOsBquRkmQ0wwhs_Vda4olIUINM=/1952x1098/cloudfront-eu-central-1.images.arcpublishing.com/diarioas/ZD6DKSW2NFKNFN2UYVVA4C6G6E.jpg",
-=======
-    defaultValue: "https://i.imgur.com/1Q9ZQ9r.png",
->>>>>>> 8630664a97b85855fcb3b4dbfc0024c9111cd72f
   },
   password: {
     type: DataTypes.STRING,
@@ -77,9 +73,8 @@ export const Client = sequelize.define("Clients", {
   refreshToken: {
     type: DataTypes.STRING,
   },
-  admin: {
-    type: DataTypes.BOOLEAN,
+  role: {
+    type: DataTypes.STRING,
     allowNull: false,
-    defaultValue: false,
   },
 });
