@@ -73,4 +73,8 @@ export const Tenant = sequelize.define("Tenant", {
     type: DataTypes.ARRAY(DataTypes.STRING),
     allowNull: true,
   },
+  role: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
 });

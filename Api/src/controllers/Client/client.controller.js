@@ -183,9 +183,10 @@ export const login = async (req, res) => {
     //Enviamos accessToken
     console.log(foundUser.id);
     let userId = foundUser.id;
+    let role = foundUser.role;
 
     //require("crypto").randomBytes(64).toString("hex");
-    res.status(200).json({ accessToken, userId });
+    res.status(200).json({ accessToken, userId, role });
   }
 };
 
@@ -381,7 +382,7 @@ export const resetPassword = async (req, res) => {
 export const getClient = async (req, res) => {
   try {
     const client = await Client.findAll({
-      attributes: ["id", "fullName", "email", "avatar", "phone"],
+      attributes: ["id", "fullName", "email", "avatar", "phone", "role"],
       include: [
         {
           model: Aboutme,
