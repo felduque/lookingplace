@@ -1,23 +1,41 @@
 import React, { useEffect } from "react";
+import useAuth from "../Acceso/hooks/useAuth.jsx";
 import { getUserById } from "./Api.js";
 
 export const Profile = () => {
   const [users, setUsers] = React.useState([]);
   const [about, setAbout] = React.useState([]);
+  const { auth, setAuth } = useAuth();
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const storedAuth = JSON.parse(localStorage.getItem("auth") || "{}");
-      const idClient = storedAuth?.idClient;
+  if (auth.role === "Client") {
+    useEffect(() => {
+      const fetchUsers = async () => {
+        //const storedAuth = JSON.parse(localStorage.getItem("auth") || "{}");
+        const idClient = auth.idClient;
 
-      const users = await getUserById(idClient);
-      const about = users.data.Aboutmes;
+        const users = await getUserById(idClient);
+        const about = users.data.Aboutmes;
 
-      setAbout(about);
-      setUsers(users.data);
-    };
-    fetchUsers();
-  }, []);
+        setAbout(about);
+        setUsers(users.data);
+      };
+      fetchUsers();
+    }, []);
+  } else if (auth.role === "Tenant") {
+    useEffect(() => {
+      const fetchUsers = async () => {
+        //const storedAuth = JSON.parse(localStorage.getItem("auth") || "{}");
+        const idTenant = auth.idTenant;
+
+        const users = await getUserById(idTenant);
+        const about = users.data.Aboutmes;
+
+        setAbout(about);
+        setUsers(users.data);
+      };
+      fetchUsers();
+    }, []);
+  }
 
   const hobbie = about[0]?.hobbies;
   const aboutMe = about[0];

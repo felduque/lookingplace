@@ -257,7 +257,7 @@ export const resetPassword = async (req, res) => {
 export const getTenant = async (req, res) => {
   try {
     const client = await Tenant.findAll({
-      attributes: ["id", "fullName", "email", "avatar"],
+      attributes: ["id", "fullName", "email", "avatar", "phone", "role"],
       include: [
         {
           model: Aboutme,
