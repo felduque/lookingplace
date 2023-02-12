@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 //import useAuth from "../../apii/useAuth";
 
 const WithOutAuth = ({ isLogued }) => {
-  const [auth, setAuth] = useState(null);
+  const [auth, setAuth] = useState("");
 
   useEffect(() => {
     const storedAuth = JSON.parse(localStorage.getItem("auth"));

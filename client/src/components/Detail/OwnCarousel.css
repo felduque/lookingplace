@@ -1,0 +1,58 @@
+.container-imgPrin {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  width: 95%;
+  height: 400px;
+  margin: 5px auto;
+  background-color: rgb(27, 27, 27);
+}
+
+.imgPrin {
+  width: 95%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  /* transition: 1.5s; */
+}
+
+/* .imgPrin:active {
+  transform: scale(1.25);
+} */
+
+.btnNp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  height: 100%;
+  text-align: center;
+  margin: 0;
+  border: none;
+  width: 3.5%;
+  color: white;
+  background-color: rgba(54, 54, 54, 0.731);
+}
+
+.container-mini-cards {
+  display: flex;
+  margin: 10px auto;
+  width: 40%;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  flex-wrap: no-wrap;
+  gap: 10px 25px;
+}
+
+.container-thum {
+  width: 80px;
+  height: 80px;
+  cursor: zoom-in;
+}
+
+.img-thum {
+  width: 100%;
+  height: 100%;
+}
