@@ -92,10 +92,18 @@ export default function SignUp() {
   }
 
   async function createUser(dataUser) {
-    try {
-      await axios.post("http://localhost:3000/client/createuser", dataUser);
-    } catch (err) {
-      console.error(err, "Error create new user");
+    if (typeAccount === "Client") {
+      try {
+        await axios.post("http://localhost:3000/client/createuser", dataUser);
+      } catch (err) {
+        console.error(err, "Error create new user");
+      }
+    } else if (typeAccount === "Tenant") {
+      try {
+        await axios.post("http://localhost:3000/tenant/createtenant", dataUser);
+      } catch (err) {
+        console.error(err, "Error create new tenant");
+      }
     }
   }
 

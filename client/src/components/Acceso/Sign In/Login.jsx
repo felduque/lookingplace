@@ -11,7 +11,7 @@ import "./Login.css";
 //const LOGIN_URL = "/client/login";
 
 export default function Login() {
-  const { setAuth } = useAuth();
+  const { auth, setAuth } = useAuth();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -19,7 +19,7 @@ export default function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
+  //const [role, setRole] = useState("");
 
   const [errMsg, setErrMsg] = useState("");
 
@@ -42,48 +42,90 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await axios.post(
-        `http://127.0.0.1:3000/client/login`,
-        JSON.stringify({ email: email, password: password }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
-      console.log(response);
-      //console.log(JSON.stringify(response));
-      const accessToken = response?.data?.accessToken;
-      const idClient = response?.data?.userId;
-      const role = response?.data?.role;
-      //const role = roleMapping[email] || "default";
-
-      setAuth({ email, password, accessToken, role });
-      console.log(email, password, accessToken);
-      localStorage.setItem(
-        "auth",
-        JSON.stringify({ email, password, idClient, accessToken, role })
-      );
-      setEmail("");
-      setPassword("");
-      setRole("");
-      navigate(from, { replace: true });
-      window.location.reload();
-    } catch (err) {
-      if (!err?.response) {
-        setErrMsg("Sin respuesta del servidor(back)");
-      } else if (err.response?.status === 400) {
-        setErrMsg("Creo que escribiste mal la contraseña");
-      } else if (err.response?.status === 401) {
-        setErrMsg(
-          "No estás registrado, no vas a poder entrar sin registrarte :)"
+    if (auth.role === "Client") {
+      try {
+        const response = await axios.post(
+          `http://127.0.0.1:3000/client/login`,
+          JSON.stringify({ email: email, password: password }),
+          {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true,
+          }
         );
-      } else {
-        setErrMsg("Error al ingresar");
+        console.log(response);
+        //console.log(JSON.stringify(response));
+        const accessToken = response?.data?.accessToken;
+        const idClient = response?.data?.userId;
+        const role = response?.data?.role;
+        //const role = roleMapping[email] || "default";
+
+        setAuth({ email, password, accessToken, role });
+        console.log(email, password, accessToken);
+        localStorage.setItem(
+          "auth",
+          JSON.stringify({ email, password, idClient, accessToken, role })
+        );
+        setEmail("");
+        setPassword("");
+        //setRole("");
+        navigate(from, { replace: true });
+        window.location.reload();
+      } catch (err) {
+        if (!err?.response) {
+          setErrMsg("Sin respuesta del servidor(back)");
+        } else if (err.response?.status === 400) {
+          setErrMsg("Creo que escribiste mal la contraseña");
+        } else if (err.response?.status === 401) {
+          setErrMsg(
+            "No estás registrado, no vas a poder entrar sin registrarte :)"
+          );
+        } else {
+          setErrMsg("Error al ingresar");
+        }
+      }
+    } else {
+      try {
+        const response = await axios.post(
+          `http://127.0.0.1:3000/tenant/login`,
+          JSON.stringify({ email: email, password: password }),
+          {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true,
+          }
+        );
+        console.log(response);
+        //console.log(JSON.stringify(response));
+        const accessToken = response?.data?.accessToken;
+        const idTenant = response?.data?.userId;
+        const role = response?.data?.role;
+        //const role = roleMapping[email] || "default";
+
+        setAuth({ email, password, accessToken, role });
+        console.log(email, password, accessToken);
+        localStorage.setItem(
+          "auth",
+          JSON.stringify({ email, password, idTenant, accessToken, role })
+        );
+        setEmail("");
+        setPassword("");
+        //setRole("");
+        navigate(from, { replace: true });
+        window.location.reload();
+      } catch (err) {
+        if (!err?.response) {
+          setErrMsg("Sin respuesta del servidor(back)");
+        } else if (err.response?.status === 400) {
+          setErrMsg("Creo que escribiste mal la contraseña");
+        } else if (err.response?.status === 401) {
+          setErrMsg(
+            "No estás registrado, no vas a poder entrar sin registrarte :)"
+          );
+        } else {
+          setErrMsg("Error al ingresar");
+        }
       }
     }
   };
-
   function back() {
     navigate(from, { replace: true });
   }
