@@ -22,7 +22,7 @@ function Home() {
   }, []);
 
   //----------------------Pagintado--------------------------------
-  const [propertyPerPage, setPropertyPerAge] = useState(6);
+  const [propertyPerPage, setPropertyPerAge] = useState(24);
   const [currentPage, setCurrentPage] = useState(1);
 
   const lastIndex = currentPage * propertyPerPage;
@@ -39,16 +39,14 @@ function Home() {
 
   
   return (
-    <div className="containerHome ">
-      <div className="containerFilters box">
-        <Filters></Filters>
-      </div>
+    <div>
+    
       <div className="containerCards">
         <div className="columns is-multiline box">
           {statePropertys.result
             ?.map((property, i) => {
               return (
-                <div key={i} className="column is-2">
+                <div key={i}>
                   <Card
                     // className="card"
                     key={property.id}
@@ -75,6 +73,8 @@ function Home() {
           totalProperty={totalProperty}
         />
       </div>
+
+      
     </div>
   );
 }
