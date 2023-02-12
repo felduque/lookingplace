@@ -21,7 +21,8 @@ export default function SignUp() {
   //Estado de Captcha
   const [validCaptcha, setValidCaptcha] = useState(false);
   //Estado de tipo de cuenta
-  const [typeAccount, setTypeAccount] = useState("");
+  const [typeAccount, setTypeAccount] = useState('');
+
 
   let allDataUser = {
     fullName: inputs.fullName,
@@ -108,7 +109,9 @@ export default function SignUp() {
 
   function userType2() {
     setTypeAccount("Tenant");
+
   }
+
 
   return (
     <div>
