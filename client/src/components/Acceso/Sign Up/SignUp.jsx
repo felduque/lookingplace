@@ -21,14 +21,14 @@ export default function SignUp() {
   //Estado de Captcha
   const [validCaptcha, setValidCaptcha] = useState(false);
   //Estado de tipo de cuenta
-  const [typeAccount, setTypeAccount] = useState();
+  const [typeAccount, setTypeAccount] = useState('');
 
   let allDataUser = {
     fullName: inputs.fullName,
     password: inputs.password,
     email: inputs.email,
     phone: inputs.phone,
-    typeAccount: typeAccount,
+    role: typeAccount
   };
 
   const [errors, setErrors] = useState({});
@@ -103,11 +103,11 @@ export default function SignUp() {
   }, [inputs]);
 
   function userType1() {
-    setTypeAccount(1);
+    setTypeAccount('Client');
   }
 
   function userType2() {
-    setTypeAccount(2);
+    setTypeAccount('Tenand');
   }
 
   return (
