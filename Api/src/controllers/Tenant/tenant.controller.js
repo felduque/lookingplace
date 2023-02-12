@@ -23,7 +23,7 @@ const secretjwt =
 
 export const createTenant = async (req, res) => {
   const { firebaseUrl } = req.file ? req.file : "";
-  const { fullName, email, password, verify, phone } = req.body;
+  const { fullName, email, password, verify, phone, role } = req.body;
 
   // ! Encrypt password
   const salt = await bcrypt.genSalt(10);
@@ -41,6 +41,7 @@ export const createTenant = async (req, res) => {
       verify,
       avatar: firebaseUrl,
       phone,
+      role,
     });
     if (newClient) {
       return res.json({
@@ -108,9 +109,10 @@ export const login = async (req, res) => {
     //Enviamos accessToken
     console.log(foundUser.id);
     let userId = foundUser.id;
+    let role = foundUser.role;
 
     //require("crypto").randomBytes(64).toString("hex");
-    res.status(200).json({ accessToken, userId });
+    res.status(200).json({ accessToken, userId, role });
   }
 };
 

@@ -73,9 +73,8 @@ export const Client = sequelize.define("Clients", {
   refreshToken: {
     type: DataTypes.STRING,
   },
-  admin: {
-    type: DataTypes.BOOLEAN,
+  role: {
+    type: DataTypes.STRING,
     allowNull: false,
-    defaultValue: false,
   },
 });
