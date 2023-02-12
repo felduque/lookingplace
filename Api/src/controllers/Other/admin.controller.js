@@ -240,6 +240,33 @@ export const updatePropertyById = async (req, res) => {
   }
 };
 
+export const getPropertyTenant = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const property = await Property.findOne({
+      where: { id },
+      attributes: [
+        "id",
+        "title",
+        "description",
+        "checkIn",
+        "checkOut",
+        "price",
+      ],
+      include: [
+        {
+          model: Tenant,
+          as: "tenant_property",
+          attributes: ["id", "fullName", "email", "phone"],
+        },
+      ],
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: "Error en el servidor" });
+  }
+};
+
 // export const getAllClients = async (req, res) => {
 //   try {
 //     const client = await Client.findAll({

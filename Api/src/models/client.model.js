@@ -42,14 +42,13 @@ export const Client = sequelize.define("Clients", {
   },
   avatar: {
     type: DataTypes.STRING,
-    allowNull: false,
+    defaultValue: "https://i.imgur.com/1Q9ZQ9r.png",
   },
   password: {
     type: DataTypes.STRING,
   },
   phone: {
     type: DataTypes.STRING,
-    allowNull: false,
     unique: true,
     validate: {
       isInt: {
