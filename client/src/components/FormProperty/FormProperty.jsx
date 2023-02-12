@@ -147,7 +147,7 @@ export default function FormHostCreate() {
       // console.log(Array.isArray(e.target.files));
       setInputs({
         ...inputs,
-        [e.target.name]: [...e.target.files],
+        [e.target.name]: [...inputs.image, ...e.target.files],
       });
     } else {
       setInputs({
@@ -178,7 +178,9 @@ export default function FormHostCreate() {
         })
       );
       axios
-        .postForm("http://localhost:3000/property", inputs)
+        .postForm("http://localhost:3000/property", inputs, {
+          "Content-Type": "multipart/form-data",
+        })
         .then(function (response) {
           console.log(response);
           alert("Place publicado con éxito");
