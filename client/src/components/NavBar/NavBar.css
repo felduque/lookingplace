@@ -6,22 +6,3 @@
 {
   margin-right: 100px;
 }
-.search-input-bar {
- width: 40%;
-  margin-top: 10px;
-  display: inline-flex;
-}
-.input-search {
-  width: 40%;
-}
-.input-search:focus {
-  width: 70%;
-}
-.container-search-button {
-  margin-left: 5px;
-}
-.search-button {
-  width: 20px;
-  height: 20px;
-  display: inline-flex;
-}

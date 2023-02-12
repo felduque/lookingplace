@@ -16,6 +16,7 @@ specifiers:
   '@vitejs/plugin-react': ^3.1.0
   axios: ^1.3.2
   bulma: ^0.9.4
+  bulma-tooltip: ^3.0.2
   date-fns: ^2.29.3
   react: ^18.2.0
   react-currency-input-field: ^3.6.10
@@ -44,6 +45,7 @@ dependencies:
   '@stripe/stripe-js': 1.46.0
   axios: 1.3.2
   bulma: 0.9.4
+  bulma-tooltip: 3.0.2
   date-fns: 2.29.3
   react: 18.2.0
   react-currency-input-field: 3.6.10_react@18.2.0
@@ -1027,6 +1029,10 @@ packages:
       electron-to-chromium: 1.4.286
       node-releases: 2.0.9
       update-browserslist-db: 1.0.10_browserslist@4.21.5
+
+  /bulma-tooltip/3.0.2:
+    resolution: {integrity: sha512-CsT3APjhlZScskFg38n8HYL8oYNUHQtcu4sz6ERarxkUpBRbk9v0h/5KAvXeKapVSn2dp9l7bOGit5SECP8EWQ==}
+    dev: false
 
   /bulma/0.9.4:
     resolution: {integrity: sha512-86FlT5+1GrsgKbPLRRY7cGDg8fsJiP/jzTqXXVqiUZZ2aZT8uemEOHlU1CDU+TxklPEZ11HZNNWclRBBecP4CQ==}
