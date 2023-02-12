@@ -98,18 +98,12 @@ export default function Calendar({ propId, bookings, price }) {
   //   console.log("arr3:", arr3);
   // console.log("arr3:", arr3)
 
-  const [noches, setNoches] = useState(0);
   function itemSelection(item) {
     setState({
       ...state,
       ...item,
     });
 
-    setNoches(
-      getDatesInRange(state.selection1.startDate, state.selection1.endDate)
-        .length
-    );
-    console.log(noches);
     // console.log("item is:", item);
   }
 
@@ -129,41 +123,44 @@ export default function Calendar({ propId, bookings, price }) {
         />
       </div>
       <div>
-        <p className="subtitle has-text-centered">
-          Precio por noche : USD$:{price}
+        <p className="">
+          Precio por noche : <strong> USD$:{price}</strong>{" "}
         </p>
       </div>
       <div>
-        <p className="subtitle">Resumen de Reserva</p>
-        {noches === 0 ? (
-          <div>
-            <span>Noches a hospedarse : 0 </span>
-          </div>
-        ) : (
-          <div>
-            <span>Noches a hospedarse : {noches} </span>
-          </div>
-        )}
+        <p className="subTitleData">Resumen de la reserva</p>
 
-        <span>Precio total a pagar : USD$:{noches * price} </span>
+        <div>
+          <p>
+            Noches a hospedarse :
+            {state.selection1.endDate.getDate() -
+              state.selection1.startDate.getDate()}
+          </p>
+        </div>
+
+        <p>
+          Precio total a pagar : USD$:
+          {(state.selection1.endDate.getDate() -
+            state.selection1.startDate.getDate()) *
+            price}{" "}
+        </p>
       </div>
       <div
         style={{
           display: "flex",
           justifyContent: "center",
-          gap: "1rem",
+          gap: "2rem",
           margin: "20px 0",
         }}
       >
+        <button className="button is-large is-warning" onClick={reset}>
+          Reset
+        </button>
         <button
-          className="button is-primary is-outlined is-active"
+          className="button is-large is-primary is-outlined is-active"
           onClick={select}
         >
           Reservar
-        </button>
-
-        <button className="button is-warning" onClick={reset}>
-          Reset
         </button>
       </div>
     </div>
