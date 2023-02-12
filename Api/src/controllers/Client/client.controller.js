@@ -86,9 +86,8 @@ export const createAboutme = async (req, res) => {
 export const createClient = async (req, res) => {
   const { firebaseUrl } = req.file ? req.file : "";
 
-  const { fullName, email, password, verify, phone, admin } = req.body;
-  console.log(req.file);
-  console.log(req.files);
+  const { fullName, email, password, verify, phone, role } = req.body;
+
   // ! Encrypt password
   const salt = await bcrypt.genSalt(10);
   const passwordCrypt = await bcrypt.hash(password, salt);
@@ -106,7 +105,7 @@ export const createClient = async (req, res) => {
         verify,
         avatar: firebaseUrl,
         phone,
-        admin,
+        role,
       }
       // relation aboutMe and create aboutme
       // {

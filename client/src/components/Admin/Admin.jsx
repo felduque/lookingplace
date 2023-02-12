@@ -12,7 +12,7 @@ import {
   RiCloseCircleFill,
   RiSettings5Fill,
 } from "react-icons/ri";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { AllPublish } from "./AllPublish";
 import { ListClient } from "./ListClient";
@@ -33,6 +33,15 @@ const UserSettings = () => {
     publish: false,
     allpublish: false,
   });
+
+  const [auth, setAuth] = useState("");
+
+  useEffect(() => {
+    const storedAuth = JSON.parse(localStorage.getItem("auth"));
+    if (storedAuth) {
+      setAuth(storedAuth);
+    }
+  }, []);
 
   console.log(component);
   const handleShowMenu = () => {
@@ -55,116 +64,262 @@ const UserSettings = () => {
   };
 
   return (
-    <div className="admin-container">
-      <div
-        className={`sidebar-header ${showMenu ? "view-menu" : "hidden-menu"}`}
-      >
-        <div className="sidebar-list">
-          <span className="sidebar-list-item">
-            <a
-              className="side-item"
-              name="profile"
-              onClick={handleComponent}
-              href="#"
-            >
-              <RiFileList3Line />
-              Perfil
-            </a>
-          </span>
-          <span className="sidebar-list-item">
-            <a
-              className="side-item"
-              name="settingpro"
-              onClick={handleComponent}
-              href="#"
-            >
-              <RiSettings5Fill />
-              Editar Perfil
-            </a>
-          </span>
-          <span className="sidebar-list-item">
-            <a
-              className="side-item"
-              name="publish"
-              onClick={handleComponent}
-              href="#"
-            >
-              <RiFileChartFill />
-              Publicar
-            </a>
-          </span>
-          <span className="sidebar-list-item">
-            <a
-              className="side-item"
-              name="listclient"
-              onClick={handleComponent}
-              href="#"
-            >
-              <RiWindow2Line />
-              Clientes
-            </a>
-          </span>
-          <span className="sidebar-list-item">
-            <a
-              className="side-item"
-              name="listpublish"
-              onClick={handleComponent}
-              href="#"
-            >
-              <RiUser3Fill />
-              Publicaciones
-            </a>
-          </span>
-          <span className="sidebar-list-item">
-            <a
-              className="side-item"
-              name="listuser"
-              onClick={handleComponent}
-              href="#"
-            >
-              <RiTeamFill />
-              Usuarios
-            </a>
-          </span>
-
-          <span className="sidebar-list-item">
-            <a
-              className="side-item"
-              name="allpublish"
-              onClick={handleComponent}
-              href="#"
-            >
-              <RiDatabase2Fill />
-              Todas las publicaciones
-            </a>
-          </span>
-        </div>
-        <div className="sidebar-footer">
-          <a
-            className="side-item"
-            href="https://github.com/felduque/lookingplace"
-            target="_blank"
+    <>
+      {auth.role == "Client" ? (
+        <div className="admin-container">
+          <div
+            className={`sidebar-header ${
+              showMenu ? "view-menu" : "hidden-menu"
+            }`}
           >
-            <RiGithubFill />
-            Github
-          </a>
+            <div className="sidebar-list">
+              <span className="sidebar-list-item">
+                <a
+                  className="side-item"
+                  name="profile"
+                  onClick={handleComponent}
+                  href="#"
+                >
+                  <RiFileList3Line />
+                  Perfil
+                </a>
+              </span>
+              <span className="sidebar-list-item">
+                <a
+                  className="side-item"
+                  name="settingpro"
+                  onClick={handleComponent}
+                  href="#"
+                >
+                  <RiSettings5Fill />
+                  Editar Perfil
+                </a>
+              </span>
+            </div>
+            <div className="sidebar-footer">
+              <a
+                className="side-item"
+                href="https://github.com/felduque/lookingplace"
+                target="_blank"
+              >
+                <RiGithubFill />
+                Github
+              </a>
+            </div>
+          </div>
+          <button className="toggle-btn" onClick={handleShowMenu}>
+            {showMenu ? <RiCloseCircleFill /> : <RiMenuLine />}
+          </button>
+          <main className="main-container">
+            <div className="main-content">
+              {component.settingpro && <Profile_edit />}
+              {component.profile && <Profile />}
+            </div>
+          </main>
         </div>
-      </div>
-      <button className="toggle-btn" onClick={handleShowMenu}>
-        {showMenu ? <RiCloseCircleFill /> : <RiMenuLine />}
-      </button>
-      <main className="main-container">
-        <div className="main-content">
-          {component.listclient && <ListClient />}
-          {component.settingpro && <Profile_edit />}
-          {component.listpublish && <ListPublish />}
-          {component.listuser && <ListUser />}
-          {component.profile && <Profile />}
-          {component.publish && <Publish />}
-          {component.allpublish && <AllPublish />}
+      ) : auth.role == "Tenant" ? (
+        <div className="admin-container">
+          <div
+            className={`sidebar-header ${
+              showMenu ? "view-menu" : "hidden-menu"
+            }`}
+          >
+            <div className="sidebar-list">
+              <span className="sidebar-list-item">
+                <a
+                  className="side-item"
+                  name="profile"
+                  onClick={handleComponent}
+                  href="#"
+                >
+                  <RiFileList3Line />
+                  Perfil
+                </a>
+              </span>
+              <span className="sidebar-list-item">
+                <a
+                  className="side-item"
+                  name="settingpro"
+                  onClick={handleComponent}
+                  href="#"
+                >
+                  <RiSettings5Fill />
+                  Editar Perfil
+                </a>
+              </span>
+              <span className="sidebar-list-item">
+                <a
+                  className="side-item"
+                  name="publish"
+                  onClick={handleComponent}
+                  href="#"
+                >
+                  <RiFileChartFill />
+                  Publicar
+                </a>
+              </span>
+              <span className="sidebar-list-item">
+                <a
+                  className="side-item"
+                  name="listclient"
+                  onClick={handleComponent}
+                  href="#"
+                >
+                  <RiWindow2Line />
+                  Clientes
+                </a>
+              </span>
+              <span className="sidebar-list-item">
+                <a
+                  className="side-item"
+                  name="listpublish"
+                  onClick={handleComponent}
+                  href="#"
+                >
+                  <RiUser3Fill />
+                  Publicaciones
+                </a>
+              </span>
+            </div>
+            <div className="sidebar-footer">
+              <a
+                className="side-item"
+                href="https://github.com/felduque/lookingplace"
+                target="_blank"
+              >
+                <RiGithubFill />
+                Github
+              </a>
+            </div>
+          </div>
+          <button className="toggle-btn" onClick={handleShowMenu}>
+            {showMenu ? <RiCloseCircleFill /> : <RiMenuLine />}
+          </button>
+          <main className="main-container">
+            <div className="main-content">
+              {component.listclient && <ListClient />}
+              {component.settingpro && <Profile_edit />}
+              {component.listpublish && <ListPublish />}
+              {component.profile && <Profile />}
+              {component.publish && <Publish />}
+            </div>
+          </main>
         </div>
-      </main>
-    </div>
+      ) : (
+        <div className="admin-container">
+          <div
+            className={`sidebar-header ${
+              showMenu ? "view-menu" : "hidden-menu"
+            }`}
+          >
+            <div className="sidebar-list">
+              <span className="sidebar-list-item">
+                <a
+                  className="side-item"
+                  name="profile"
+                  onClick={handleComponent}
+                  href="#"
+                >
+                  <RiFileList3Line />
+                  Perfil
+                </a>
+              </span>
+              <span className="sidebar-list-item">
+                <a
+                  className="side-item"
+                  name="settingpro"
+                  onClick={handleComponent}
+                  href="#"
+                >
+                  <RiSettings5Fill />
+                  Editar Perfil
+                </a>
+              </span>
+              <span className="sidebar-list-item">
+                <a
+                  className="side-item"
+                  name="publish"
+                  onClick={handleComponent}
+                  href="#"
+                >
+                  <RiFileChartFill />
+                  Publicar
+                </a>
+              </span>
+              <span className="sidebar-list-item">
+                <a
+                  className="side-item"
+                  name="listclient"
+                  onClick={handleComponent}
+                  href="#"
+                >
+                  <RiWindow2Line />
+                  Clientes
+                </a>
+              </span>
+              <span className="sidebar-list-item">
+                <a
+                  className="side-item"
+                  name="listpublish"
+                  onClick={handleComponent}
+                  href="#"
+                >
+                  <RiUser3Fill />
+                  Publicaciones
+                </a>
+              </span>
+              :
+              <span className="sidebar-list-item">
+                <a
+                  className="side-item"
+                  name="listuser"
+                  onClick={handleComponent}
+                  href="#"
+                >
+                  <RiTeamFill />
+                  Usuarios
+                </a>
+              </span>
+              <span className="sidebar-list-item">
+                <a
+                  className="side-item"
+                  name="allpublish"
+                  onClick={handleComponent}
+                  href="#"
+                >
+                  <RiDatabase2Fill />
+                  Todas las publicaciones
+                </a>
+              </span>
+            </div>
+            <div className="sidebar-footer">
+              <a
+                className="side-item"
+                href="https://github.com/felduque/lookingplace"
+                target="_blank"
+              >
+                <RiGithubFill />
+                Github
+              </a>
+            </div>
+          </div>
+          <button className="toggle-btn" onClick={handleShowMenu}>
+            {showMenu ? <RiCloseCircleFill /> : <RiMenuLine />}
+          </button>
+          <main className="main-container">
+            <div className="main-content">
+              {component.listclient && <ListClient />}
+              {component.settingpro && <Profile_edit />}
+              {component.listpublish && <ListPublish />}
+              {component.listuser && <ListUser />}
+              {component.profile && <Profile />}
+              {component.publish && <Publish />}
+              {component.allpublish && <AllPublish />}
+            </div>
+          </main>
+        </div>
+      )}
+    </>
   );
 };
 
