@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 //import "../.././index.css";
 import "./NavBar.css";
 
-import SearchBar from './SearchBar/SearchBar'
+import SearchBar from "./SearchBar/SearchBar";
 
 import useLogout from "../Acceso/Sign In/useLogout";
 import logoIcon from "../../assets/logo-icon.png";
@@ -55,55 +55,52 @@ export default function Navbar({ isLogued }) {
         </div>
       </div>
 
-        
-        {location.pathname === '/' ? <SearchBar /> : null}
-          
+      {location.pathname === "/" ? <SearchBar /> : null}
 
+      <div className="navbar-end">
+        <div className="navbar-item">
+          <div className="buttons">
+            {
+              // Poner ! en auth para testear paneles sin iniciar sesión
+              auth || isLogued.email ? (
+                <div className="navbar-item has-dropdown is-hoverable">
+                  <a className="navbar-link">
+                    <img src={userIcon} width="30" height="40" />
+                  </a>
 
-        <div className="navbar-end">
-          <div className="navbar-item">
-            <div className="buttons">
-              {
-                // Poner ! en auth para testear paneles sin iniciar sesión
-                auth || isLogued.email ? (
-                  <div className="navbar-item has-dropdown is-hoverable">
-                    <a className="navbar-link">
-                      <img src={userIcon} width="30" height="40" />
-                    </a>
-
-                    <div className="navbar-dropdown is-right">
-                      <Link to="/createProperty" className="navbar-item">
-                        Publicar propiedad
-                      </Link>
-                      <Link to="/settings" className="navbar-item">
-                        Dashboard
-                      </Link>
-                      <hr className="navbar-divider" />
-                      <a className="navbar-item" onClick={signOut}>
-                        Salir
-                      </a>
-                    </div>
-                  </div>
-                ) : (
-                  <div>
-                    <Link to="/register" className="button is-primary">
-                      <strong>Registrarse</strong>
-                    </Link>
-                    <Link to="/login" className="button is-info is-outlined">
-                      Ingresar
-                    </Link>
-                    <Link
-                      to="/createProperty"
-                      className="button is-link is-outlined"
-                    >
+                  <div className="navbar-dropdown is-right">
+                    <Link to="/createProperty" className="navbar-item">
                       Publicar propiedad
                     </Link>
+                    <Link to="/settings" className="navbar-item">
+                      Dashboard
+                    </Link>
+                    <hr className="navbar-divider" />
+                    <a className="navbar-item" onClick={signOut}>
+                      Salir
+                    </a>
                   </div>
-                )
-              }
-            </div>
+                </div>
+              ) : (
+                <div>
+                  <Link to="/register" className="button is-primary">
+                    <strong>Registrarse</strong>
+                  </Link>
+                  <Link to="/login" className="button is-info is-outlined">
+                    Ingresar
+                  </Link>
+                  <Link
+                    to="/createProperty"
+                    className="button is-link is-outlined"
+                  >
+                    Publicar propiedad
+                  </Link>
+                </div>
+              )
+            }
           </div>
         </div>
+      </div>
     </nav>
   );
 }

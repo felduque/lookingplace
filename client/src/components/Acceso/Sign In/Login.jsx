@@ -31,6 +31,13 @@ export default function Login() {
     }
   }, []);
 
+  const roleMapping = {
+    "davidezfl3prueba@gmail.com": "Client",
+    "felipederuque@gmail.com": "Admin",
+    "davidezflogin@gmail.com": "Admin",
+    "davidezflprueba2@gmail.com": "Tenant",
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -48,11 +55,13 @@ export default function Login() {
       const accessToken = response?.data?.accessToken;
       const idClient = response?.data?.userId;
 
-      setAuth({ email, password, accessToken });
+      const role = roleMapping[email] || "default";
+
+      setAuth({ email, password, accessToken, role });
       console.log(email, password, accessToken);
       localStorage.setItem(
         "auth",
-        JSON.stringify({ email, password, idClient, accessToken })
+        JSON.stringify({ email, password, idClient, accessToken, role })
       );
       setEmail("");
       setPassword("");

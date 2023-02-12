@@ -18,7 +18,6 @@ export default function SignUp() {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/login";
 
-
   //Estado de Captcha
   const [validCaptcha, setValidCaptcha] = useState(false);
   //Estado de tipo de cuenta
@@ -65,6 +64,7 @@ export default function SignUp() {
       !inputs.email ||
       !inputs.phone ||
       !validCaptcha ||
+      !typeAccount ||
       errorsLength !== 0
     ) {
       alert("Algo salió mal. Intenta de nuevo.");
@@ -234,7 +234,7 @@ export default function SignUp() {
                       data-tooltip="Hospedador: Te permite publicar hsopedaje que rentes. Si eres viajero debes crear otra cuenta como Hospedero"
                       onClick={userType1}
                     >
-                      Busco hospedaje
+                      Ofrezco hospedaje
                     </div>
                   </div>
                   <div
@@ -246,7 +246,7 @@ export default function SignUp() {
                     data-tooltip="Hospedero: Permite buscar hospedaje a donde vayas. Para publicar hospedajes que rentas debes crear otra cuenta como hospedador"
                     onClick={userType2}
                   >
-                    Ofrezco hospedaje
+                    Busco hospedaje
                   </div>
                 </div>
               </p>
