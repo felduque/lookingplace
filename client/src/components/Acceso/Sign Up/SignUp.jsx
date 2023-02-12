@@ -18,17 +18,18 @@ export default function SignUp() {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/login";
 
-
   //Estado de Captcha
   const [validCaptcha, setValidCaptcha] = useState(false);
   //Estado de tipo de cuenta
-  const [typeAccount, setTypeAccount] = useState();
+  const [typeAccount, setTypeAccount] = useState('');
+
 
   let allDataUser = {
     fullName: inputs.fullName,
     password: inputs.password,
     email: inputs.email,
     phone: inputs.phone,
+    role: typeAccount,
   };
 
   const [errors, setErrors] = useState({});
@@ -64,6 +65,7 @@ export default function SignUp() {
       !inputs.email ||
       !inputs.phone ||
       !validCaptcha ||
+      !typeAccount ||
       errorsLength !== 0
     ) {
       alert("Algo salió mal. Intenta de nuevo.");
@@ -102,12 +104,14 @@ export default function SignUp() {
   }, [inputs]);
 
   function userType1() {
-    setTypeAccount(1);
+    setTypeAccount("Client");
   }
 
   function userType2() {
-    setTypeAccount(2);
+    setTypeAccount("Tenant");
+
   }
+
 
   return (
     <div>
@@ -226,26 +230,26 @@ export default function SignUp() {
                   <div className="type-account">
                     <div
                       className={
-                        typeAccount === 1
+                        typeAccount === "Tenant"
                           ? "button is-info has-tooltip-multiline"
                           : "button is-info is-outlined has-tooltip-multiline"
                       }
                       data-tooltip="Hospedador: Te permite publicar hsopedaje que rentes. Si eres viajero debes crear otra cuenta como Hospedero"
-                      onClick={userType1}
+                      onClick={userType2}
                     >
-                      Busco hospedaje
+                      Ofrezco hospedaje
                     </div>
                   </div>
                   <div
                     className={
-                      typeAccount === 2
+                      typeAccount === "Client"
                         ? "button is-info"
                         : "button is-info is-outlined has-tooltip-right"
                     }
                     data-tooltip="Hospedero: Permite buscar hospedaje a donde vayas. Para publicar hospedajes que rentas debes crear otra cuenta como hospedador"
-                    onClick={userType2}
+                    onClick={userType1}
                   >
-                    Ofrezco hospedaje
+                    Busco hospedaje
                   </div>
                 </div>
               </p>

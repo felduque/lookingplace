@@ -86,7 +86,7 @@ export const createAboutme = async (req, res) => {
 export const createClient = async (req, res) => {
   const { firebaseUrl } = req.file ? req.file : "";
 
-  const { fullName, email, password, verify, phone, admin } = req.body;
+  const { fullName, email, password, verify, phone, role } = req.body;
 
   // ! Encrypt password
   const salt = await bcrypt.genSalt(10);
@@ -105,7 +105,7 @@ export const createClient = async (req, res) => {
         verify,
         avatar: firebaseUrl,
         phone,
-        admin,
+        role,
       }
       // relation aboutMe and create aboutme
       // {
@@ -122,7 +122,7 @@ export const createClient = async (req, res) => {
       return res.json({
         message: "Client created successfully",
         data: newClient,
-        token: jsonw,
+        token: secretjwt,
       });
     }
   } catch (error) {
@@ -183,9 +183,10 @@ export const login = async (req, res) => {
     //Enviamos accessToken
     console.log(foundUser.id);
     let userId = foundUser.id;
+    let role = foundUser.role;
 
     //require("crypto").randomBytes(64).toString("hex");
-    res.status(200).json({ accessToken, userId });
+    res.status(200).json({ accessToken, userId, role });
   }
 };
 
@@ -381,7 +382,7 @@ export const resetPassword = async (req, res) => {
 export const getClient = async (req, res) => {
   try {
     const client = await Client.findAll({
-      attributes: ["id", "fullName", "email", "avatar", "phone"],
+      attributes: ["id", "fullName", "email", "avatar", "phone", "role"],
       include: [
         {
           model: Aboutme,
@@ -429,21 +430,12 @@ export const getClientById = async (req, res) => {
 
 export const updateClient = async (req, res) => {
   //  patch  && avatar upload req.files
-  const { firebaseUrl } = req.file ? req.file : "";
   const { id } = req.params;
   let { fullName, phone, description, hobbies, age, from } = req.body;
-  const img = req.files?.avatar;
-  const imgName = img?.name;
-  console.log(req.files);
-  console.log(id);
-  console.log(fullName, phone, description, hobbies, age, from);
   try {
-    let pathImage = __dirname + "/../../public/client/" + imgName;
-    img?.mv(pathImage);
-    let url = (pathImage = "http://localhost:3000/client/" + imgName);
     // setear age a number
-    const ageNumber = parseInt(age);
-
+    if (age) parseInt(age);
+    console.log(typeof age);
     // setear hobbie de json a array
     if (hobbies) hobbies = JSON.parse(hobbies);
     console.log(typeof hobbies);
@@ -451,7 +443,7 @@ export const updateClient = async (req, res) => {
     const client = await Client.findOne({
       where: { id },
     });
-    if (!img) url = client.avatar;
+
     if (!client) return res.status(400).json({ message: "Client not found" });
     const aboutme = await Aboutme.findOne({
       where: { client_about: id },
@@ -462,7 +454,6 @@ export const updateClient = async (req, res) => {
         {
           fullName,
           phone,
-          avatar: firebaseUrl,
         },
         {
           where: { id },
@@ -472,7 +463,7 @@ export const updateClient = async (req, res) => {
         await Aboutme.create({
           description,
           hobbies,
-          age: ageNumber,
+          age,
           from,
           client_about: id,
         });
@@ -481,7 +472,7 @@ export const updateClient = async (req, res) => {
           {
             description,
             hobbies,
-            age: ageNumber,
+            age,
             from,
           },
           {
@@ -489,6 +480,35 @@ export const updateClient = async (req, res) => {
           }
         );
       }
+      res.json({
+        message: "Client updated successfully",
+      });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const updateAvatar = async (req, res) => {
+  const { firebaseUrl } = req.file ? req.file : "";
+  const { id } = req.params;
+
+  try {
+    const client = await Client.findOne({
+      where: { id },
+    });
+
+    if (!client) return res.status(400).json({ message: "Client not found" });
+    if (client) {
+      await Client.update(
+        {
+          avatar: firebaseUrl,
+        },
+        {
+          where: { id },
+        }
+      );
+
       res.json({
         message: "Client updated successfully",
       });

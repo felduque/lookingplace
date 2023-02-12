@@ -11,6 +11,7 @@ import {
   forgot,
   verifyPassword,
   resetPassword,
+  updateAvatar,
   // loginGoogle,
 } from "../../controllers/Client/client.controller.js";
 
@@ -37,6 +38,12 @@ router.post("/reset/:id/:token", resetPassword);
 router.get("/client/getuser", getClient);
 router.get("/client/getuser/:id", getClientById);
 router.patch("/client/updateuser/:id", updateClient);
+router.patch(
+  "/client/updateavatar/:id",
+  upload.single("image"),
+  uploadImageClient,
+  updateAvatar
+);
 router.delete("/client/deleteuser/:id", deleteClient);
 router.delete("/client/deleteuser/:id", deleteClient);
 

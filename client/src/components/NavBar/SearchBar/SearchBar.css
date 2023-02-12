@@ -1,0 +1,27 @@
+.search-input-bar {
+    width: 50%;
+     margin-top: 10px;
+     display: inline-flex;
+     margin-right: 250px;
+     display: inline-block;
+   }
+   .input-search {
+     width: 60%;
+   }
+   /*.input-search:focus {
+     width: 20%;
+   } */
+   .container-search-button {
+     margin-left: 5px;
+     display: inline-block;
+   }
+   .search-button {
+     width: 20px;
+     height: 20px
+   }
+
+   .display-button1{
+    margin-right: 6px;
+   }
+
+ 

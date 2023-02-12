@@ -18,6 +18,21 @@
     height:9%;
 }
 .select-dispaly-icon {
-    display: inline;
     width: 250px;
 }
+.container-search {
+}
+.search-direction-container {
+    width: 270px;
+}
+
+.no-style{
+    all: unset;
+    cursor: pointer;
+ }
+
+ .filter-button {
+    width: 20px;
+    height: 20px;
+    margin-top: 5px;
+  }

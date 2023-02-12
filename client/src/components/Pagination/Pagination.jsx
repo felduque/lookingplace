@@ -57,18 +57,27 @@ export const Pagination = ({
           Siguiente
         </button>
         <ul className="pagination-list">
-          {pageNumber.map((noPage) => (
-            <li key={noPage}>
-              <button
-                className={`pagination-link button is-outlined${
-                  noPage === currentPage ? "button is-info" : ""
-                }`}
-                onClick={() => onSpecificPage(noPage)}
-              >
-                {noPage}
-              </button>
-            </li>
-          ))}
+          <li>
+            {/* <span class="pagination-ellipsis">&hellip;</span> */}
+          </li>
+          {pageNumber.map((noPage) => {
+            return noPage < currentPage - 2 ||
+              noPage > currentPage + 2 ? null : (
+              <li key={noPage}>
+                <button
+                  className={`pagination-link button is-outlined${
+                    noPage === currentPage ? "button is-info" : ""
+                  }`}
+                  onClick={() => onSpecificPage(noPage)}
+                >
+                  {noPage}
+                </button>
+              </li>
+            );
+          })}
+          <li>
+            {/* <span class="pagination-ellipsis">&hellip;</span> */}
+          </li>
         </ul>
       </nav>
     </div>
