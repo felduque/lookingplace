@@ -1,0 +1,169 @@
+.containerTitle {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+}
+.containerTitleUbicacion {
+  display: flex;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.titlePrin {
+  width: 80%;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 0 20px;
+  margin-bottom: 5px;
+  color: black;
+}
+
+.ubicacionCon {
+  width: 20%;
+}
+
+.iconsRes {
+  margin: 0 20px;
+  margin-bottom: 10px;
+  width: 96%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+}
+
+.precio {
+  width: auto;
+}
+strong {
+  font-size: 1.5rem;
+}
+
+.containerImgDes {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.containerCarousel {
+  width: 60%;
+}
+
+.cotainerData {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.subtitleCardDe {
+  font-size: 23px;
+  font-weight: bolder;
+  margin-bottom: 5px;
+}
+
+.subTitleData {
+  font-size: 15px;
+  font-weight: 650;
+  margin: 2px 0;
+}
+
+.infoD {
+  font-style: italic;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+.containerCalMap {
+  margin: 0 20px;
+  margin: 0 auto;
+  display: flex;
+  width: 96%;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.containerMap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 60%;
+}
+
+.containerCalendar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 40%;
+}
+
+.containerComents {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 96%;
+}
+
+.contImgComentPrin {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  min-height: 50px;
+  max-height: auto;
+}
+
+.contImgComents {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 5%;
+  height: 100%;
+}
+
+.imgCom {
+  width: 100%;
+  height: 100%;
+  border-radius: 50px;
+}
+.contFeCom {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+}
+
+.fecha {
+  font-size: smaller;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.comenCont {
+  width: 100%;
+  border-color: rgba(52, 52, 52, 0.648);
+  border-width: 1px;
+  border-style: solid;
+  height: 100%;
+  border-radius: 12px;
+}
+
+.comentText {
+  padding: 5px;
+  font-size: medium;
+  font-style: italic;
+}
