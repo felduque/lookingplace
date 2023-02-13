@@ -30,7 +30,8 @@
     "city": "Danbury",
     "region": "Norteamérica",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":1
   },
   {
     "title": "Casa en el bosque",
@@ -62,7 +63,8 @@
     "city": "Nueva York",
     "region": "2",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":2
   },
   {
     "title": "Casa en la playa",
@@ -95,7 +97,8 @@
     "city": "San Francisco",
     "region": "3",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":3
   },
   {
     "title": "Lujosa villa en la playa",
@@ -128,7 +131,8 @@
     "city": "Akumal",
     "region": "2",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":4
   },
 
   {
@@ -156,7 +160,8 @@
     "city": "Rawson",
     "region": "2",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":1
   },
   {
     "title": "Casa de campo con jardín",
@@ -183,7 +188,8 @@
     "city": "Zonda",
     "region": "3",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":2
   },
   {
     "title": "Chalet de lujo",
@@ -210,7 +216,8 @@
     "city": "San Francisco",
     "region": "Bay Area",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":3
   },
   {
     "title": "Vivienda de ensueño",
@@ -237,7 +244,8 @@
     "city": "Oviedo",
     "region": "Costa Verde",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":4
   },
   {
     "title": "Casa en la montaña",
@@ -270,7 +278,8 @@
     "city": "San Francisco",
     "region": "Bay Area",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":1
   },
   {
     "title": "Casa en las montañas",
@@ -303,7 +312,8 @@
     "city": "Villa Carlos Paz",
     "region": "5",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":2
   },
   {
     "title": "Chalet en la playa",
@@ -336,7 +346,8 @@
     "city": "Mar del Plata",
     "region": "2",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":3
   },
   {
     "title": "Casa de lujo en la montaña",
@@ -369,7 +380,8 @@
     "city": "Barcelona",
     "region": "Costa Brava",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":4
   },
   {
     "title": "Casa frente al mar",
@@ -402,7 +414,8 @@
     "city": "Viña del Mar",
     "region": "Costa del Pacífico",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":3
   },
   {
     "title": "Casa costera",
@@ -435,7 +448,8 @@
     "city": "Santiago",
     "region": "2",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":2
   },
   {
     "title": "Lujosa Villa en las montañas",
@@ -468,7 +482,8 @@
     "city": "Tlalpan",
     "region": "2",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":1
   },
   {
     "title": "Casa Moderna en el Centro de la Ciudad",
@@ -501,7 +516,8 @@
     "city": "Coyoacán",
     "region": "2",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":4
   },
   {
     "title": "Vivienda con vistas impresionantes",
@@ -534,7 +550,8 @@
     "city": "Barcelona",
     "region": "2",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":3
   },
   {
     "title": "Chalet de lujo en la playa costera",
@@ -567,7 +584,8 @@
     "city": "Bilbao",
     "region": "3",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":2
   },
   {
     "title": "Villa con vistas al mar",
@@ -600,7 +618,8 @@
     "city": "Monterey",
     "region": "Central Coast",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":1
   },
   {
     "title": "Chalet con vistas al bosque",
@@ -633,7 +652,8 @@
     "city": "Lenzerheide",
     "region": "Alpes Suizos",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":4
   },
   {
     "title": "Refugio en la montaña",
@@ -660,7 +680,8 @@
     "city": "Nueva York",
     "region": "Norteamérica",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":3
   },
   {
     "title": "Villa frente al mar",
@@ -687,7 +708,8 @@
     "city": "Valencia",
     "region": "Europa",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":2
   },
   {
     "title": "Chalet acogedor en el bosque",
@@ -718,7 +740,8 @@
     "state": "California",
     "city": "San Francisco",
     "region": "Noreste",
-    "bookings": null
+    "bookings": null,
+    "id_tenant":1
   },
   {
     "title": "Elegante casa en el campo",
@@ -745,7 +768,8 @@
     "city": "Rawson",
     "region": "2",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":4
   },
   {
     "title": "Casa con vista al mar",
@@ -778,7 +802,8 @@
     "city": "Rincón",
     "region": "Oeste",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":3
   },
   {
     "title": "Casa moderna en el campo",
@@ -811,7 +836,8 @@
     "city": "Viña del Mar",
     "region": "Región de Valparaíso",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":2
   },
   {
     "title": "Estudio en el corazón de la ciudad",
@@ -844,7 +870,8 @@
     "city": "Londres",
     "region": "Gran Londres",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":1
   },
   {
     "title": "Lujosa casa en el corazón de la ciudad",
@@ -876,7 +903,8 @@
     "city": "Ciudad de Buenos Aires",
     "region": "1",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":4
   },
   {
     "title": "Penthouse en el Centro de la Ciudad",
@@ -909,7 +937,8 @@
     "city": "Nueva York",
     "region": "Manhattan",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":3
   },
   {
     "title": "Lujoso departamento en el corazón de la ciudad",
@@ -942,7 +971,8 @@
     "city": "Capital Federal",
     "region": "Centro",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":2
   },
   {
     "title": "Apartamento moderno en el barrio de Palermo",
@@ -974,7 +1004,8 @@
     "city": "Buenos Aires",
     "region": "Barrio de Palermo",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":1
   },
   {
     "title": "Lujoso penthouse en el barrio de Palermo",
@@ -1006,7 +1037,8 @@
     "city": "Ciudad de Buenos Aires",
     "region": "Barrio de Palermo",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":4
   },
   {
     "title": "Lujoso apartamento en el barrio Soho",
@@ -1039,7 +1071,8 @@
     "city": "Nueva York",
     "region": "Soho",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":3
   },
   {
     "title": "Penthouse en el barrio de Recoleta",
@@ -1072,7 +1105,8 @@
     "city": "Buenos Aires",
     "region": "Recoleta",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":2
   },
   {
     "title": "Departamento en el barrio de Marais, París",
@@ -1104,7 +1138,8 @@
     "city": "París",
     "region": "Marais",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":1
   },
   {
     "title": "Casa en el barrio de La Boca, Buenos Aires",
@@ -1131,7 +1166,8 @@
     "city": "Buenos Aires",
     "region": "La Boca",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":4
   },
   {
     "title": "Departamento en el barrio de La Condesa",
@@ -1164,7 +1200,8 @@
     "city": "Ciudad de México",
     "region": "La Condesa",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":3
   },
   {
     "title": "Lujosa casa en el barrio de Roma Norte",
@@ -1197,7 +1234,8 @@
     "city": "Ciudad de México",
     "region": "Roma Norte",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":2
   },
   {
     "title": "Elegante departamento en el barrio de Polanco",
@@ -1230,7 +1268,8 @@
     "city": "Ciudad de México",
     "region": "Polanco",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":1
   },
   {
     "title": "Departamento en el barrio de La Macarena",
@@ -1262,7 +1301,8 @@
     "city": "Bogotá",
     "region": "La Macarena",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":4
   },
 
   {
@@ -1295,7 +1335,8 @@
     "city": "Bogotá",
     "region": "Chapinero",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":3
   },
   {
     "title": "Apartamento moderno en el barrio de Chapinero",
@@ -1328,7 +1369,8 @@
     "city": "Bogotá",
     "region": "Chapinero",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":2
   },
   {
     "title": "Casa colonial en el barrio de La Candelaria",
@@ -1361,6 +1403,7 @@
     "city": "Bogotá",
     "region": "La Candelaria",
     "bookings": null,
-    "client_property": null
+    "client_property": null,
+    "id_tenant":1
   }
 ]

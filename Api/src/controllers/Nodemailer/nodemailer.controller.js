@@ -2,6 +2,8 @@
 import nodemailer from "nodemailer"
 import { defaultHtml } from "../../Templates/default.js";
 import { loginHtml } from "../../Templates/login.js";
+import { tenantHtml } from "../../Templates/tenantHtml.js";
+import { clientHtml } from "../../Templates/clientHtml.js";
 // require("dotenv").config();
 // const { NODEMAILER_PASS } = process.env;
 
@@ -12,7 +14,7 @@ import { loginHtml } from "../../Templates/login.js";
 
 
 // export async function sendEmail(newClient, type, id)
-export async function sendEmail (client, type, id) {
+export async function sendEmail (client, role, id) {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     host: "smtp.gmail.email",
@@ -25,10 +27,10 @@ export async function sendEmail (client, type, id) {
 
 	const urlValidation = "https://api.gmail.com/"
   var htmlSend;
-  if (type === "default") {
-    htmlSend = defaultHtml
-  } else if (type === "login") {
-    htmlSend = loginHtml
+  if (role === "Client") {
+    htmlSend = clientHtml
+  } else if (role === "Tenant") {
+    htmlSend = tenantHtml
 		htmlSend = htmlSend?.replace("*url-generator-key*", urlValidation); //LLENAR CON CODIGO LA CLAVE DE JWT
   }
 
