@@ -10,12 +10,12 @@ export const Profile = () => {
       const storedAuth = JSON.parse(localStorage.getItem("auth") || "{}");
       const idClient = storedAuth?.idClient;
       const idTenant = storedAuth?.idTenant;
-      if (storedAuth.role === "Client" || storedAuth.role === "Admin") {
+      if (storedAuth.role === "Client") {
         const users = await getUserById(idClient);
         const about = users.data.Aboutmes;
         setAbout(about);
         setUsers(users.data);
-      } else if (storedAuth.role === "Tenant") {
+      } else if (storedAuth.role === "Tenant" || storedAuth.role === "Admin") {
         const users = await getTenantById(idTenant);
         const about = users.data.Aboutmes;
         setAbout(about);

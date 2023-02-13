@@ -50,12 +50,11 @@ export const Profile_edit = () => {
       const idClient = storedAuth?.idClient;
       const idTenant = storedAuth?.idTenant;
       setStore(storedAuth);
-
-      if (storedAuth.role === "Client" || storedAuth.role === "Admin") {
+      if (storedAuth.role === "Client") {
         const users = await getUserById(idClient);
         setUsers(users.data);
         setIdUser(idClient);
-      } else if (storedAuth.role === "Tenant") {
+      } else if (storedAuth.role === "Tenant" || storedAuth.role === "Admin") {
         const users = await getTenantById(idTenant);
         setUsers(users.data);
         setIdUser(idTenant);
@@ -102,10 +101,10 @@ export const Profile_edit = () => {
       image: form.avatar,
     };
     // patch info axios send form
-    if (store.role === "Client" || store.role === "Admin") {
+    if (store.role === "Client") {
       updateClient(idUser, newForm);
       updateAvatar(idUser, images);
-    } else if (store.role === "Tenant") {
+    } else if (store.role === "Tenant" || store.role === "Admin") {
       updateTenant(idUser, newForm);
       updateAvatarTenant(idUser, images);
     } else {
