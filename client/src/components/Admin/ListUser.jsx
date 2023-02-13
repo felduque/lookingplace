@@ -41,9 +41,6 @@ export const ListUser = () => {
     }
   };
 
-  console.log(tenant);
-  console.log(users);
-
   if (viewList.listUser === true) {
     return (
       <>

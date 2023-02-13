@@ -10,6 +10,7 @@ import {
   forgot,
   verifyPassword,
   resetPassword,
+  updateAvatar,
 } from "../../controllers/Tenant/tenant.controller.js";
 import { Router } from "express";
 import multer from "multer";
@@ -34,5 +35,11 @@ router.post("/tenant/reset/:id/:token", resetPassword);
 router.get("/tenant/gettenant", getTenant);
 router.get("/tenant/gettenant/:id", getTenantById);
 router.patch("/tenant/updatetenant/:id", updateTenant);
+router.patch(
+  "/tenant/updateavatar/:id",
+  upload.single("image"),
+  uploadImageTenant,
+  updateAvatar
+);
 router.post("/tenant/validatetenant", validateTenant);
 export default router;

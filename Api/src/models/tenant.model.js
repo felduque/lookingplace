@@ -9,25 +9,6 @@ export const Tenant = sequelize.define("Tenant", {
   },
   fullName: {
     type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      is: {
-        args: /^[A-Za-z ]+$/,
-        msg: "solo letras",
-      },
-      min: {
-        args: 3,
-        msg: "the name at least needs 3 characters",
-      },
-      max: {
-        args: 60,
-        msg: "max characters are 60",
-      },
-      notNull: {
-        args: true,
-        msg: "cannot be null",
-      },
-    },
   },
   email: {
     type: DataTypes.STRING,
@@ -55,18 +36,6 @@ export const Tenant = sequelize.define("Tenant", {
   },
   phone: {
     type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-    validate: {
-      isInt: {
-        args: true,
-        msg: "Only numeric value",
-      },
-      len: {
-        args: [9, 15],
-        msg: "The maximum number of numbers are 15",
-      },
-    },
   },
   verify: {
     type: DataTypes.BOOLEAN,
