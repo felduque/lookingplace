@@ -299,7 +299,7 @@ export const getTenantById = async (req, res) => {
 export const updateTenant = async (req, res) => {
   //  patch  && avatar upload req.files
   const { id } = req.params;
-  let { fullName, phone, description, hobbies, age, from } = req.body;
+  let { fullName, phone, description, hobbies, age, from, role } = req.body;
   try {
     // setear age a number
     if (age) parseInt(age);
@@ -320,6 +320,7 @@ export const updateTenant = async (req, res) => {
         {
           fullName,
           phone,
+          role,
         },
         {
           where: { id },

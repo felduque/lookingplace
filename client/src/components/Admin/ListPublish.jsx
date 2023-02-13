@@ -9,7 +9,7 @@ export const ListPublish = () => {
     const fetchAllPropierties = async () => {
       const storedAuth = JSON.parse(localStorage.getItem("auth") || "{}");
       const idTenant = storedAuth?.idTenant;
-      if (storedAuth.role === "Tenant") {
+      if (storedAuth.role === "Tenant" || storedAuth.role === "Admin") {
         const allPropierte = await getTenantById(idTenant);
         const prop = allPropierte.data.Properties;
         setAllPropiertie(prop);
