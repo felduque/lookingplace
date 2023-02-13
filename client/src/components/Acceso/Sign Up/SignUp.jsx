@@ -12,7 +12,6 @@ export default function SignUp() {
     password2: "",
     email: "",
     phone: null,
-    type: "login"
   });
 
   const navigate = useNavigate();
@@ -31,7 +30,6 @@ export default function SignUp() {
     email: inputs.email,
     phone: inputs.phone,
     role: typeAccount,
-    type: inputs.type
   };
 
   const [errors, setErrors] = useState({});
