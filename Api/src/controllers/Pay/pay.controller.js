@@ -3,7 +3,10 @@ import mercadopago from "mercadopago";
 
 mercadopago.configure({
   access_token:
-    "TEST-2972272992436948-012819-2a80a6af95d80301b59beeceef162274-350969416",
+    // USUARIO DE PRUEBA, CRED DE PROD
+    "APP_USR-1508461661866484-021319-e57a84d03a4c8f08bfb6c9fbe7584dad-1309803015",
+  //DE USUARIO NORMAL PERO CON CRED DE PRUEBA
+  // "TEST-2972272992436948-012819-2a80a6af95d80301b59beeceef162274-350969416",
 });
 
 export const paySuscription = async (req, res) => {
@@ -25,7 +28,7 @@ export const paySuscription = async (req, res) => {
       email: "prueba1@gmail.com",
       phone: {
         area_code: "11",
-        number: 950781859,
+        number: 123456789,
       },
       identification: {
         number: "12345678",

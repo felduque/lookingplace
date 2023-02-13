@@ -37,10 +37,8 @@ function Home() {
   const totalProperty = statePropertys.result?.length;
   console.log("totalProperty:", totalProperty);
 
-  
   return (
     <div>
-    
       <div className="containerCards">
         <div className="columns is-multiline box">
           {statePropertys.result
@@ -52,7 +50,7 @@ function Home() {
                     key={property.id}
                     id={property.id}
                     price={property.price}
-                    image="https://picsum.photos/200/250"
+                    image={property.image}
                     capacity={property.capacity}
                     beds={property.beds}
                     baths={property.baths}
@@ -73,8 +71,6 @@ function Home() {
           totalProperty={totalProperty}
         />
       </div>
-
-      
     </div>
   );
 }

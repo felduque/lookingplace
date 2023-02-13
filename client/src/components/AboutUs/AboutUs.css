@@ -57,7 +57,12 @@ ul {
   );
   /* background-color: rgba(12, 6, 6, 0.395); */
 }
-
+.containerCards-about {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+}
 .containerCards1 {
   height: auto;
   margin: 15px 10px;

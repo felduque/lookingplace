@@ -10,7 +10,7 @@ export default function OwnCarousel({ images, id }) {
     if (images?.length > 0) {
       setCurrent(images[Number(index)]);
     }
-  }, [id]);
+  }, [id, images]);
 
   const handleNext = () => {
     if (Number(index) + 1 < total) {
