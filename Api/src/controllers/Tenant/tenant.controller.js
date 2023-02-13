@@ -9,6 +9,7 @@
 import express from "express";
 import { Tenant } from "../../models/tenant.model.js";
 import { Aboutme } from "../../models/aboutme.model.js";
+import { Property } from "../../models/property.model.js";
 import bcrypt from "bcrypt";
 const app = express();
 import jwt from "jsonwebtoken";
@@ -266,9 +267,7 @@ export const getTenant = async (req, res) => {
         },
       ],
     });
-    res.json({
-      data: client,
-    });
+    res.json(client);
   } catch (error) {
     console.log(error);
   }
@@ -285,6 +284,9 @@ export const getTenantById = async (req, res) => {
           model: Aboutme,
           as: "Aboutmes",
           attributes: ["id", "description", "hobbies", "age", "from"],
+        },
+        {
+          model: Property,
         },
       ],
     });

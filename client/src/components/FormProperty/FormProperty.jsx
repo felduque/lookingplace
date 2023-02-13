@@ -22,6 +22,8 @@ import validateForm from "./validate.js";
 
 // Fin Google Maps
 
+import useAuth from "../Acceso/hooks/useAuth";
+
 const animatedComponents = makeAnimated();
 
 // Objeto que se renderiza en Select-React
@@ -34,6 +36,9 @@ const options = [
 ];
 
 export default function FormHostCreate() {
+  const { auth } = useAuth();
+  console.log(auth.idTenant);
+
   // Google Maps
   const libraries = ["places"];
   const { isLoaded } = useLoadScript({
@@ -100,6 +105,7 @@ export default function FormHostCreate() {
     state: "",
     region: "",
     city: "",
+    id_tenant: auth.idTenant,
   });
   // estados relacionados con inputs.images para mostrar lo subido
   const [urlImages, setUrlImages] = useState([]);

@@ -62,8 +62,6 @@ export default function Calendar({ propId, bookings, price }) {
       endDate: addDays(new Date(), 0),
       key: "selection_selected",
     });
-
-    setNoches(0);
   }
 
   const getDatesInRange = (checkIn, checkOut) => {

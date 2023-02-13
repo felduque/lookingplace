@@ -34,7 +34,10 @@ export const createProperty = async (req, res) => {
     state,
     city,
     region,
+    id_tenant,
   } = req.body;
+
+  console.log(id_tenant);
 
   const arrayServices = JSON.parse(services);
 
@@ -73,6 +76,18 @@ export const createProperty = async (req, res) => {
         ],
       }
     );
+
+    // console.log(newProperty);
+    // console.log(newProperty.id);
+
+    let tenantSearch = await Tenant.findOne({
+      where: {
+        id: id_tenant,
+      },
+    });
+
+    await tenantSearch.addProperty(newProperty.id);
+
     if (newProperty) {
       // console.log(newProperty);
       console.log("created new property");
