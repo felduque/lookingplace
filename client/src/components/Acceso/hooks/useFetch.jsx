@@ -1,4 +1,4 @@
-/*import { useState } from "react";
+import { useState } from "react";
 
 const useFetch = (url) => {
   const [loading, setLoading] = useState(false);
@@ -36,4 +36,3 @@ const useFetch = (url) => {
 };
 
 export default useFetch;
-*/
