@@ -34,9 +34,16 @@ import Filters from "../../Filters/Filters";
 
 export default function SearchBar() {
 
+
+
   const dispatch = useDispatch();
   const [title, setTitle] = useState('');
   const urlbase = "http://localhost:3000/properties";
+
+
+  const [isActive, setIsActive] = useState(false);
+
+
 
   const handleClickSearchTitle = (e) => {
     e.preventDefault();
@@ -66,11 +73,17 @@ export default function SearchBar() {
             >
               <img src={searchIcon} className='search-button' />
             </button>
-            <button className="button is-info is-outlined is-small is-rounded display-button" >
-              {<Filters />}
+            <button
+              className="button is-info is-outlined is-small is-rounded display-button"
+              onClick={() => setIsActive(true)}
+            >
+              <img src={filterIcon} className="search-button" />
             </button>
           </div>
         </form>
+        {isActive && (
+          <Filters closeModal={() => setIsActive(false)} />
+        )}
       </div>
     </>
   )
