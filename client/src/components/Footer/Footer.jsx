@@ -1,17 +1,17 @@
-import githubIcon from '../../assets/github-icon-footer.png'
-
+import githubIcon from "../../assets/github-icon-footer.png";
 
 export default function Footer() {
-    return (
-    <footer className="footer">
+  return (
+    <footer className="footer" style={{ padding: "0" }}>
       <div className="content has-text-centered">
         <p>
-          <strong>LookingPlace ©</strong> hecho por equipo 5 de SoyHenry Cohorte FT-32B - 2023
+          <strong>LookingPlace ©</strong> hecho por equipo 5 de SoyHenry Cohorte
+          FT-32B - 2023
         </p>
-        <a href='https://github.com/felduque/lookingplace' target='_blank'>
-          <img src={githubIcon} width='2%' height='2%' />
-        </a> 
+        <a href="https://github.com/felduque/lookingplace" target="_blank">
+          <img src={githubIcon} width="2%" height="2%" />
+        </a>
       </div>
-   </footer>
-    )
+    </footer>
+  );
 }

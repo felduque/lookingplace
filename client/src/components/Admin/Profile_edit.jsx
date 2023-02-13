@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { getUserById, updateClient } from "./Api";
+import { getUserById, updateAvatar, updateClient } from "./Api";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 
@@ -77,7 +77,6 @@ export const Profile_edit = () => {
     console.log(typeof hobbies);
 
     const newForm = {
-      avatar: form.avatar,
       fullName: form.fullName,
       phone: form.phone,
       from: form.from,
@@ -86,18 +85,23 @@ export const Profile_edit = () => {
       hobbies: hobbies,
     };
 
+    const images = {
+      image: form.avatar,
+    };
+
     // patch info axios send form
     updateClient(idUser, newForm);
-    setForm({
-      ...form,
-      avatar: [],
-      fullName: "",
-      phone: "",
-      from: "",
-      age: "",
-      description: "",
-      hobbies: [],
-    });
+    updateAvatar(idUser, images);
+    // setForm({
+    //   ...form,
+    //   avatar: [],
+    //   fullName: "",
+    //   phone: "",
+    //   from: "",
+    //   age: "",
+    //   description: "",
+    //   hobbies: [],
+    // });
   };
 
   // if (form.hobbies.length > 5) {

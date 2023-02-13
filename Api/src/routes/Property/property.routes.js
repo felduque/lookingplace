@@ -18,7 +18,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 router.post(
   "/property",
-  upload.array("image", 5),
+  upload.any("image", 5),
   uploadImageProperty,
   createProperty
 );

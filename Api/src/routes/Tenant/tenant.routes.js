@@ -25,7 +25,7 @@ router.post(
   uploadImageTenant,
   createTenant
 );
-router.post("/login", login);
+router.post("/tenant/login", login);
 router.get("/logout", logout);
 router.get("/refreshToken", refreshToken);
 router.post("/forgot", forgot);

@@ -47,6 +47,8 @@ export const Tenant = sequelize.define("Tenant", {
   avatar: {
     type: DataTypes.STRING,
     allowNull: false,
+    defaultValue:
+      "https://img.asmedia.epimg.net/resizer/lOsBquRkmQ0wwhs_Vda4olIUINM=/1952x1098/cloudfront-eu-central-1.images.arcpublishing.com/diarioas/ZD6DKSW2NFKNFN2UYVVA4C6G6E.jpg",
   },
   password: {
     type: DataTypes.STRING,
