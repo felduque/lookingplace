@@ -66,13 +66,9 @@ export default function SearchBar() {
             >
               <img src={searchIcon} className='search-button' />
             </button>
-
-
             <button className="button is-info is-outlined is-small is-rounded display-button" >
               {<Filters />}
             </button>
-
-
           </div>
         </form>
       </div>

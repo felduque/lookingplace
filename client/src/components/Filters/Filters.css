@@ -1,7 +1,25 @@
+.container-filters-global{
+    color: black;
+}
+
+.container-search-button{
+    margin-left: 5px;
+    display: inline-block;
+}
+
+
+
 .center-button-search {
     margin-left: 30%;
     margin-top: 8px;
 }
+
+.search-button {
+    width: 20px;
+    height: 20px
+  }
+
+  
 .clear-filters-button {
     margin-left: 10px;
 }
@@ -20,8 +38,7 @@
 .select-dispaly-icon {
     width: 250px;
 }
-.container-search {
-}
+
 .search-direction-container {
     width: 270px;
 }
@@ -40,3 +57,5 @@
   .select-style{
     color: black;
   }
+
+  

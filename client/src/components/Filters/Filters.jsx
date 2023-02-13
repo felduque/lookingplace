@@ -131,14 +131,7 @@ export default function Filters() {
 
 
   window.onload = function () {
-    (document.querySelectorAll(".js-modal-trigger") || []).forEach(($trigger) => {
-      const modal = $trigger.dataset.target;
-      const $target = document.getElementById(modal);
 
-      $trigger.addEventListener("click", () => {
-        openModal($target);
-      });
-    });
     const modalTrigger = document.querySelector('.js-modal-trigger');
     const modal = document.querySelector('#modal');
 
@@ -146,7 +139,19 @@ export default function Filters() {
       modal.classList.add('is-active');
     });
 
-    modal.querySelector(".modal-close", ".modal-background", ".modal-background", ".modal-card-head", ".delete", ".modal-card-foot", ".cerrar").addEventListener('click', function () {
+    modal.querySelector(".modal-close").addEventListener('click', function () {
+      modal.classList.remove('is-active');
+    });
+
+    modal.querySelector(".modal-background").addEventListener('click', function () {
+      modal.classList.remove('is-active');
+    });
+
+    modal.querySelector(".modal-card-head .delete").addEventListener('click', function () {
+      modal.classList.remove('is-active');
+    });
+
+    modal.querySelector(".modal-card-foot .cerrar").addEventListener('click', function () {
       modal.classList.remove('is-active');
     });
   }
@@ -154,19 +159,20 @@ export default function Filters() {
   if (!isLoaded) return <h1>Cargando...</h1>;
   return (
     <div>
-      <button class="js-modal-trigger no-style" data-target="modal-filter">
-        <img src={filterIcon} className='filter-button' />
-      </button>
-      <div id="modal" class="modal">
-        <div class="modal-background"></div>
-        <div class="modal-card">
-          <header class="modal-card-head">
-            <p class="modal-card-title">Modal title</p>
-            <button class="modal-close" aria-label="close"></button>
-          </header>
-          <section class="modal-card-body">
-            <>
-              {/* <span>Búsqueda titulo</span>
+      <div className="container-filters-global">
+        <button className="js-modal-trigger no-style" data-target="modal-filter">
+          <img src={filterIcon} className='filter-button' />
+        </button>
+        <div id="modal" class="modal">
+          <div class="modal-background"></div>
+          <div class="modal-card">
+            <header class="modal-card-head">
+              <p class="modal-card-title">Filtrar propiedades</p>
+              <button class="modal-close" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+              <>
+                {/* <span>Búsqueda titulo</span>
       <input
         className="input"
         type="text"
@@ -185,123 +191,122 @@ export default function Filters() {
       >
         Buscar
       </button> */}
-              <span>Búsqueda por ciudad o país</span>
-              <div className=".select-style">
-                {/* Se usara para traer datos de la direccion o estado o pais que se ingrese; haciendo geocodeReverse */}
-                <PlacesAutocomplete
-                  value={address}
-                  onChange={setAddress}
-                  onSelect={handleSelect}
-                >
-                  {({
-                    getInputProps,
-                    suggestions,
-                    getSuggestionItemProps,
-                    loading,
-                  }) => (
-                    <div>
-                      <input
-                        {...getInputProps({
-                          placeholder: "Busca tu dirección...",
-                          className: "input is-link",
-                        })}
-                      />
-                      <div className="autocomplete-dropdown-container">
-                        {loading && <div>Cargando...</div>}
-                        {suggestions.map((suggestion) => {
-                          const className = suggestion.active
-                            ? "suggestion-item--active"
-                            : "suggestion-item";
-                          // inline style for demonstration purpose
-                          const style = suggestion.active
-                            ? { backgroundColor: "#fafafa", cursor: "pointer" }
-                            : { backgroundColor: "#ffffff", cursor: "pointer" };
-                          return (
-                            <div
-                              {...getSuggestionItemProps(suggestion, {
-                                className,
-                                style,
-                              })}
-                            >
-                              <span>{suggestion.description}</span>
-                            </div>
-                          );
-                        })}
+                <span>Búsqueda por ciudad o país</span>
+                <div className=".select-style">
+                  {/* Se usara para traer datos de la direccion o estado o pais que se ingrese; haciendo geocodeReverse */}
+                  <PlacesAutocomplete
+                    value={address}
+                    onChange={setAddress}
+                    onSelect={handleSelect}
+                  >
+                    {({
+                      getInputProps,
+                      suggestions,
+                      getSuggestionItemProps,
+                      loading,
+                    }) => (
+                      <div class="field is-grouped">
+                        <p class="control is-expanded">
+                          <input
+                            {...getInputProps({
+                              placeholder: "Busca tu dirección...",
+                              className: "input is-link",
+                            })}
+                          />
+                        </p>
+                        <div className="autocomplete-dropdown-container">
+                          {loading && <div>Cargando...</div>}
+                          {suggestions.map((suggestion) => {
+                            const className = suggestion.active
+                              ? "suggestion-item--active"
+                              : "suggestion-item";
+                            // inline style for demonstration purpose
+                            const style = suggestion.active
+                              ? { backgroundColor: "#fafafa", cursor: "pointer" }
+                              : { backgroundColor: "#ffffff", cursor: "pointer" };
+                            return (
+                              <div
+                                {...getSuggestionItemProps(suggestion, {
+                                  className,
+                                  style,
+                                })}
+                              >
+                                <span>{suggestion.description}</span>
+                              </div>
+                            );
+                          })}
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </PlacesAutocomplete>
-                <button
-                  onClick={handleClickSearch}
-                  className="button is-info is-outlined center-button-search"
-                >
-                  Buscar
-                </button>
-                <p>
-                  <span>Filtros por caracteristicas:</span>
-                </p>
-                <img src={abcfilerIcon} className="filter-icon-more-small" />
-                <span> Ciudad alfabeticamente</span>
-                <Select
-                  placeholder="Seleccionar..."
-                  className="field"
-                  components={animatedComponents}
-                  name="order"
-                  // defaultValue={filters.order}
-                  onChange={(e, actionMeta) => handleChange(e, actionMeta)}
-                  options={optionsOrder}
-                />
-                <img src={ratingfilterIcon} className="filter-icon-more-small" />{" "}
-                <span> Ordenar por calificación</span>
-                <Select
-                  placeholder="Seleccionar..."
-                  className="field "
-                  components={animatedComponents}
-                  name="rating"
-                  //   defaultValue={inputs.services}
-                  onChange={(e, actionMeta) => handleChange(e, actionMeta)}
-                  options={optionsRating}
-                />
-                <img src={pricefilterIcon} className="filter-icon" />
-                <span> Ordenar por precio</span>
-                <Select
-                  placeholder="Seleccionar..."
-                  className="field "
-                  components={animatedComponents}
-                  name="price"
-                  //   defaultValue={inputs.services}
-                  onChange={(e, actionMeta) => handleChange(e, actionMeta)}
-                  options={optionsPrice}
-                />
-                <img src={capacityfilerIcon} className="filter-icon" />
-                <span> Ordenar por capacidad</span>
-                <Select
-                  placeholder="Seleccionar..."
-                  className="field "
-                  components={animatedComponents}
-                  name="capacity"
-                  //   defaultValue={inputs.services}
-                  onChange={(e, actionMeta) => handleChange(e, actionMeta)}
-                  options={optionsCapacity}
-                />
+                    )}
+                  </PlacesAutocomplete>
+                  <div>
+                  </div>
+                  <p>
+                    <span>Filtros por caracteristicas:</span>
+                  </p>
+                  <img src={abcfilerIcon} className="filter-icon-more-small" />
+                  <span> Ciudad alfabeticamente</span>
+                  <Select
+                    placeholder="Seleccionar..."
+                    className="field"
+                    components={animatedComponents}
+                    name="order"
+                    // defaultValue={filters.order}
+                    onChange={(e, actionMeta) => handleChange(e, actionMeta)}
+                    options={optionsOrder}
+                  />
+                  <img src={ratingfilterIcon} className="filter-icon-more-small" />{" "}
+                  <span> Ordenar por calificación</span>
+                  <Select
+                    placeholder="Seleccionar..."
+                    className="field "
+                    components={animatedComponents}
+                    name="rating"
+                    //   defaultValue={inputs.services}
+                    onChange={(e, actionMeta) => handleChange(e, actionMeta)}
+                    options={optionsRating}
+                  />
+                  <img src={pricefilterIcon} className="filter-icon" />
+                  <span> Ordenar por precio</span>
+                  <Select
+                    placeholder="Seleccionar..."
+                    className="field "
+                    components={animatedComponents}
+                    name="price"
+                    //   defaultValue={inputs.services}
+                    onChange={(e, actionMeta) => handleChange(e, actionMeta)}
+                    options={optionsPrice}
+                  />
+                  <img src={capacityfilerIcon} className="filter-icon" />
+                  <span> Ordenar por capacidad</span>
+                  <Select
+                    placeholder="Seleccionar..."
+                    className="field "
+                    components={animatedComponents}
+                    name="capacity"
+                    //   defaultValue={inputs.services}
+                    onChange={(e, actionMeta) => handleChange(e, actionMeta)}
+                    options={optionsCapacity}
+                  />
 
-              </div>
-            </>
-          </section>
-          <footer class="modal-card-foot">
-            <button
-              onClick={handleClickFilter}
-              className="button is-success is-outlined"
-            >
-              Aplicar Filtros
-            </button>
-            <button
-              onClick={handleSetBaseFilter}
-              className="button is-danger is-outlined clear-filters-button"
-            >
-              <img src={clearfilterIcon} className="clear-filters-icon" />
-            </button>
-          </footer>
+                </div>
+              </>
+            </section>
+            <footer class="modal-card-foot">
+              <button
+                onClick={handleClickFilter}
+                className="button is-success is-outlined"
+              >
+                Aplicar Filtros
+              </button>
+              <button
+                onClick={handleSetBaseFilter}
+                className="button is-danger is-outlined clear-filters-button"
+              >
+                <img src={clearfilterIcon} className="clear-filters-icon" />
+              </button>
+            </footer>
+          </div>
         </div>
       </div>
     </div>
