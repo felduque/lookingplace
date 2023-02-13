@@ -1,0 +1,54 @@
+.h1ResumenPay {
+  width: 100%;
+  text-align: center;
+  font-size: 25px;
+  margin: 20px 5px;
+  font-weight: bolder;
+}
+
+.containerResumenPay {
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 60%;
+  height: 400px;
+  border: solid 1px #f5f5f5;
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 50px;
+}
+
+.imgContainerResumenPay {
+  width: 60%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imgResumenPay {
+  height: 100%;
+  border-radius: 40px;
+}
+
+.textResumePay {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 40%;
+}
+
+.hResumePay {
+  width: 95%;
+  font-size: large;
+  font-weight: 900;
+  margin: 10px;
+  margin-bottom: 10px;
+}
+
+.pResumePay {
+  width: 95%;
+  margin: 10px;
+  font-size: medium;
+}
