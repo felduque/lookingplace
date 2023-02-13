@@ -1,6 +1,13 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { getUserById, updateAvatar, updateClient } from "./Api";
+import {
+  getTenantById,
+  getUserById,
+  updateAvatar,
+  updateAvatarTenant,
+  updateClient,
+  updateTenant,
+} from "./Api";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 
@@ -8,6 +15,7 @@ export const Profile_edit = () => {
   //  Form edit values user edit profile, avatar, name, lastname, email, password, description, hobbies
   const animatedComponents = makeAnimated();
   const [avatarupload, setAvatarUpload] = useState("");
+  const [store, setStore] = useState([]);
   const [idUser, setIdUser] = useState(0);
   const [users, setUsers] = useState([]);
   const [form, setForm] = useState({
@@ -40,11 +48,18 @@ export const Profile_edit = () => {
     const fetchUsers = async () => {
       const storedAuth = JSON.parse(localStorage.getItem("auth") || "{}");
       const idClient = storedAuth?.idClient;
+      const idTenant = storedAuth?.idTenant;
+      setStore(storedAuth);
 
-      const users = await getUserById(idClient);
-
-      setUsers(users.data);
-      setIdUser(idClient);
+      if (storedAuth.role === "Client" || storedAuth.role === "Admin") {
+        const users = await getUserById(idClient);
+        setUsers(users.data);
+        setIdUser(idClient);
+      } else if (storedAuth.role === "Tenant") {
+        const users = await getTenantById(idTenant);
+        setUsers(users.data);
+        setIdUser(idTenant);
+      }
     };
     fetchUsers();
   }, []);
@@ -74,8 +89,6 @@ export const Profile_edit = () => {
     // Se convierte array a cadena json
     const hobbies = JSON.stringify(form.hobbies);
 
-    console.log(typeof hobbies);
-
     const newForm = {
       fullName: form.fullName,
       phone: form.phone,
@@ -88,10 +101,16 @@ export const Profile_edit = () => {
     const images = {
       image: form.avatar,
     };
-
     // patch info axios send form
-    updateClient(idUser, newForm);
-    updateAvatar(idUser, images);
+    if (store.role === "Client" || store.role === "Admin") {
+      updateClient(idUser, newForm);
+      updateAvatar(idUser, images);
+    } else if (store.role === "Tenant") {
+      updateTenant(idUser, newForm);
+      updateAvatarTenant(idUser, images);
+    } else {
+      alert("No se pudo actualizar el perfil");
+    }
     // setForm({
     //   ...form,
     //   avatar: [],
@@ -206,7 +225,7 @@ export const Profile_edit = () => {
         </div>
         <div className="content-avatar-setting">
           <h2>Avatar Actual</h2>
-          <img src={users.avatar} alt="ActualAvatar" />
+          <img src={users?.avatar} alt="ActualAvatar" />
         </div>
       </div>
       <div className="form-group">

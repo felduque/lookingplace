@@ -278,7 +278,7 @@ export const getTenantById = async (req, res) => {
   try {
     const client = await Tenant.findOne({
       where: { id },
-      attributes: ["id", "fullName", "email", "avatar"],
+      attributes: ["id", "fullName", "email", "avatar", "phone"],
       include: [
         {
           model: Aboutme,
@@ -290,45 +290,102 @@ export const getTenantById = async (req, res) => {
         },
       ],
     });
-    res.json({
-      data: client,
-    });
+    res.json(client);
   } catch (error) {
     console.log(error);
   }
 };
 
 export const updateTenant = async (req, res) => {
-  const { firebaseUrl } = req.file ? req.file : "";
+  //  patch  && avatar upload req.files
   const { id } = req.params;
-  const { fullName, email, password, verify, avatar, phone } = req.body;
+  let { fullName, phone, description, hobbies, age, from } = req.body;
   try {
-    const client = await Tenant.findAll({
-      attributes: ["id", "fullName", "email", "avatar"],
+    // setear age a number
+    if (age) parseInt(age);
+    // setear hobbie de json a array
+    if (hobbies) hobbies = JSON.parse(hobbies);
+
+    const client = await Tenant.findOne({
       where: { id },
     });
-    if (client.length > 0) {
-      client.forEach(async (client) => {
-        await client.update({
+
+    if (!client) return res.status(400).json({ message: "Client not found" });
+    const aboutme = await Aboutme.findOne({
+      where: { tenant_about: id },
+    });
+
+    if (client) {
+      await Tenant.update(
+        {
           fullName,
-          email,
-          password,
-          verify,
-          avatar: firebaseUrl,
           phone,
+        },
+        {
+          where: { id },
+        }
+      );
+      if (!aboutme) {
+        await Aboutme.create({
+          description,
+          hobbies,
+          age,
+          from,
+          tenant_about: id,
         });
+      } else {
+        await Aboutme.update(
+          {
+            description,
+            hobbies,
+            age,
+            from,
+          },
+          {
+            where: { tenant_about: id },
+          }
+        );
+      }
+      res.json({
+        message: "Client updated successfully",
       });
     }
-    return res.json({
-      message: "Tenant updated successfully",
-      data: client,
-    });
   } catch (error) {
     console.log(error);
     res.status(500).json({
       message: "Something goes wrong",
       data: {},
     });
+  }
+};
+
+export const updateAvatar = async (req, res) => {
+  const { firebaseUrl } = req.file ? req.file : "";
+  const { id } = req.params;
+  console.log(firebaseUrl);
+
+  try {
+    const client = await Tenant.findOne({
+      where: { id },
+    });
+
+    if (!client) return res.status(400).json({ message: "Client not found" });
+    if (client) {
+      await Tenant.update(
+        {
+          avatar: firebaseUrl,
+        },
+        {
+          where: { id },
+        }
+      );
+
+      res.json({
+        message: "Client updated successfully",
+      });
+    }
+  } catch (err) {
+    console.log(err);
   }
 };
 
