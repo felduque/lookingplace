@@ -1,4 +1,4 @@
-/*import React, { useEffect } from "react";
+import React, { useEffect } from "react";
 import useFetch from "../hooks/useFetch";
 import "./Login.css";
 
@@ -9,10 +9,10 @@ const LoginGoogle = () => {
 
   useEffect(() => {
     /* global google */
-/*if (window.google) {
+    if (window.google) {
       google.accounts.id.initialize({
         client_id:
-          "778898809008-ivfhum2r8jiuhsaqh8f86ba8ua0q2vu4.apps.googleusercontent.com",
+          "660345247825-98lejr83tl8hbsvse19jrnj8dbc0tvus.apps.googleusercontent.com",
         callback: handleGoogle,
       });
 
@@ -40,4 +40,4 @@ const LoginGoogle = () => {
   );
 };
 
-export default LoginGoogle;*/
+export default LoginGoogle;

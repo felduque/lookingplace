@@ -14,19 +14,19 @@ import bcrypt from "bcrypt";
 const app = express();
 import { createRequire } from "module";
 import jwt from "jsonwebtoken";
-import {sendEmail} from "../Nodemailer/nodemailer.controller.js"
+import { sendEmail } from "../Nodemailer/nodemailer.controller.js";
 // import { Payments } from "../../models/payment.model.js";
 const require = createRequire(import.meta.url);
 require("dotenv").config();
 app.set("view engine", "ejs");
 var nodemailer = require("nodemailer");
-//import { OAuth2Client } from "google-auth-library";
+import { OAuth2Client } from "google-auth-library";
 
 const secretjwt =
   "5e6fa1b1bfd5a93c5e7ae001e4c96794c0e8f004095074b42608dc3a0acb67574e2821518d6638eef13c9f882408c861f9cc09e603439e9a93aae6a2b9146e44";
 
-/*const GOOGLE_CLIENT_ID =
-  "778898809008-ivfhum2r8jiuhsaqh8f86ba8ua0q2vu4.apps.googleusercontent.com";
+const GOOGLE_CLIENT_ID =
+  "660345247825-98lejr83tl8hbsvse19jrnj8dbc0tvus.apps.googleusercontent.com";
 const client = new OAuth2Client(GOOGLE_CLIENT_ID);
 
 async function verifyGoogleToken(token) {
@@ -39,7 +39,7 @@ async function verifyGoogleToken(token) {
   } catch (error) {
     return { error: "Intentalo de nuevo" };
   }
-}*/
+}
 
 export const createAboutme = async (req, res) => {
   const { description, hobbies, age, from, client_about, tenant_about } =
@@ -278,7 +278,7 @@ export const forgot = async (req, res) => {
       subject: "Password Reset",
       text: link,
     };
- 
+
     transporter.sendMail(mailOptions, function (err, info) {
       if (err) {
         console.error("Ha ocurrido un error:", err);
@@ -342,7 +342,7 @@ export const resetPassword = async (req, res) => {
 
 //Google
 
-/*export const loginGoogle = async (req, res) => {
+export const loginGoogle = async (req, res) => {
   try {
     if (req.body.credential) {
       const verificationResponse = await verifyGoogleToken(req.body.credential);
@@ -362,7 +362,7 @@ export const resetPassword = async (req, res) => {
         });
       }*/
 
-/*res.status(201).json({
+      res.status(201).json({
         message: "Login con exito",
         user: {
           firstName: profile?.given_name,
@@ -380,7 +380,7 @@ export const resetPassword = async (req, res) => {
       message: error?.message || error,
     });
   }
-};*/
+};
 
 export const getClient = async (req, res) => {
   try {

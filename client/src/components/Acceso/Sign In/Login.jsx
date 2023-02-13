@@ -6,7 +6,7 @@ import usermailIcon from "../../../assets/usermail-login.png";
 import userPasswordIcon from "../../../assets/key-login.png";
 import leftarrow from "../../../assets/flecha-izquierda.png";
 import "./Login.css";
-//import LoginGoogle from "./LoginGoogle";
+import LoginGoogle from "./LoginGoogle";
 
 //const LOGIN_URL = "/client/login";
 
@@ -191,6 +191,7 @@ export default function Login() {
                 <span>
                   <Link to="/register">Registrarme</Link>
                 </span>
+                <LoginGoogle />
               </p>
             </section>
           </div>
