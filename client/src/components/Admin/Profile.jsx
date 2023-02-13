@@ -1,46 +1,36 @@
 import React, { useEffect } from "react";
-import useAuth from "../Acceso/hooks/useAuth.jsx";
-import { getUserById } from "./Api.js";
+import { getTenantById, getUserById } from "./Api.js";
 
 export const Profile = () => {
   const [users, setUsers] = React.useState([]);
   const [about, setAbout] = React.useState([]);
-  const { auth, setAuth } = useAuth();
 
-  if (auth.role === "Client") {
-    useEffect(() => {
-      const fetchUsers = async () => {
-        //const storedAuth = JSON.parse(localStorage.getItem("auth") || "{}");
-        const idClient = auth.idClient;
-
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const storedAuth = JSON.parse(localStorage.getItem("auth") || "{}");
+      const idClient = storedAuth?.idClient;
+      const idTenant = storedAuth?.idTenant;
+      if (storedAuth.role === "Client") {
         const users = await getUserById(idClient);
         const about = users.data.Aboutmes;
-
         setAbout(about);
         setUsers(users.data);
-      };
-      fetchUsers();
-    }, []);
-  } else if (auth.role === "Tenant") {
-    useEffect(() => {
-      const fetchUsers = async () => {
-        //const storedAuth = JSON.parse(localStorage.getItem("auth") || "{}");
-        const idTenant = auth.idTenant;
-
-        const users = await getUserById(idTenant);
+      } else if (storedAuth.role === "Tenant" || storedAuth.role === "Admin") {
+        const users = await getTenantById(idTenant);
         const about = users.data.Aboutmes;
-
         setAbout(about);
         setUsers(users.data);
-      };
-      fetchUsers();
-    }, []);
-  }
+      }
+    };
+    fetchUsers();
+  }, []);
 
   const hobbie = about[0]?.hobbies;
   const aboutMe = about[0];
 
-  console.log(aboutMe);
+  console.log(users);
+  console.log(users?.phone);
+
   return (
     <div className="profile-container">
       <div className="profile-header">
@@ -80,14 +70,11 @@ export const Profile = () => {
                 {aboutMe ? aboutMe.from : "No hay pais"}
               </p>
             </div>
-            <div className="detail-profile">
-              <h2 className="detail-profile-title">Ciudad</h2>
-              <p className="detail-profile-text">Medellin</p>
-            </div>
+
             <div className="detail-profile">
               <h2 className="detail-profile-title">Telefono</h2>
               <p className="detail-profile-text">
-                {aboutMe ? users.phone : "No hay telefono"}
+                {aboutMe ? users?.phone : "No hay telefono"}
               </p>
             </div>
             <div className="detail-profile">

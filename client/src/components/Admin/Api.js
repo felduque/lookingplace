@@ -1,8 +1,10 @@
 import axios from "axios";
 
+const url = "http://localhost:3000";
+
 export function getAllUsers() {
   try {
-    const result = axios.get("http://localhost:3000/client/getuser");
+    const result = axios.get(`${url}/client/getuser`);
     return result;
   } catch (error) {
     console.log(error);
@@ -15,6 +17,15 @@ export function updateClient(id, data) {
       `http://localhost:3000/client/updateuser/${id}`,
       data
     );
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function allPropierties() {
+  try {
+    const result = axios.get("http://localhost:3000/properties");
     return result;
   } catch (error) {
     console.log(error);
@@ -38,9 +49,56 @@ export function updateAvatar(id, data) {
   }
 }
 
+export function getAllTenants() {
+  try {
+    const result = axios.get("http://localhost:3000/tenant/gettenant");
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export function getUserById(id) {
   try {
     const result = axios.get(`http://localhost:3000/client/getuser/${id}`);
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function getTenantById(id) {
+  try {
+    const result = axios.get(`http://localhost:3000/tenant/gettenant/${id}`);
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function updateTenant(id, data) {
+  try {
+    const result = axios.patch(
+      `http://localhost:3000/tenant/updatetenant/${id}`,
+      data
+    );
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function updateAvatarTenant(id, data) {
+  try {
+    const result = axios.patch(
+      `http://localhost:3000/tenant/updateavatar/${id}`,
+      data,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
     return result;
   } catch (error) {
     console.log(error);

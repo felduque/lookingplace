@@ -51,7 +51,7 @@ export default function CardDetail() {
   } = detail;
 
   // console.log(typeof lat);
-
+  if (!Calendar) return <div>Cargando Calendario</div>;
   if (!isLoaded) return <div>Loading...</div>;
   if (!detail) return <div>Loading...</div>;
   return (
@@ -67,7 +67,7 @@ export default function CardDetail() {
           </div>
         </div>
         <div className="iconsRes">
-          <div className="icons">
+          <div className="iconsMyClass">
             <CapacityIcon width="35px" height="35px"></CapacityIcon>
             {capacity}
             <BedIcon width="35px" height="35px"></BedIcon>
@@ -78,7 +78,7 @@ export default function CardDetail() {
             {rating}
           </div>
           <div className="precio">
-            <strong>$USD {price}</strong> noche
+            <strong className="classMyStrong">$USD {price}</strong> noche
           </div>
         </div>
       </div>
@@ -158,7 +158,13 @@ export default function CardDetail() {
           <p className="subtitleCardDe">Calendario de Disponibilidad</p>
           <p>Verifica en el calendario la disponibilidad del alojamiento.</p>
           <div className="content">
-            <Calendar propId={id} bookings={bookings} price={price} />
+            <Calendar
+              propId={id}
+              bookings={bookings}
+              price={price}
+              title={title}
+              description={description}
+            />
           </div>
         </div>
       </div>

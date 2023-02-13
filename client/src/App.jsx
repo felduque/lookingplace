@@ -24,6 +24,7 @@ import CardDetail from "./components/Detail/CardDetail";
 import Suscribe from "./components/Pay/Suscribe";
 import Footer from "./components/Footer/Footer";
 import AboutUs from "./components/AboutUs/AboutUs";
+import ResumePay from "./components/ResumePay/ResumePay";
 
 function App() {
   /*User Google*/
@@ -58,6 +59,7 @@ function App() {
           <Route path="propertyDetail/:id" element={<CardDetail />} />
           <Route path="/aboutUs" element={<AboutUs />} />
           <Route path="suscribe" element={<Suscribe />} />
+          <Route path="/ResumePay" element={<ResumePay />} />
           <Route path="*" element={<Home />} />
 
           {/*si quieren agregar rutas publicas arriba de este mensaje*/}

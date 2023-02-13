@@ -5,9 +5,17 @@ import { es } from "react-date-range/dist/locale";
 import { DateRange } from "react-date-range";
 import { addDays, subDays } from "date-fns";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-export default function Calendar({ propId, bookings, price }) {
+export default function Calendar({
+  propId,
+  bookings,
+  price,
+  title,
+  description,
+}) {
   //  const dateDiary = useSelector -----> va al store
+  const navigate = useNavigate();
 
   const [state, setState] = useState({
     selection1: {
@@ -45,6 +53,14 @@ export default function Calendar({ propId, bookings, price }) {
       endDate: state.selection1.endDate,
       key: "selection_selected",
     });
+
+    const nochesNum =
+      state.selection1.endDate.getDate() - state.selection1.startDate.getDate();
+    const total = nochesNum * price;
+
+    navigate(
+      `/resumePay?title=${title}&description=${description}&price=${price}&nigths=${nochesNum}&total=${total}`
+    );
   }
 
   function reset() {
@@ -62,8 +78,6 @@ export default function Calendar({ propId, bookings, price }) {
       endDate: addDays(new Date(), 0),
       key: "selection_selected",
     });
-
-    setNoches(0);
   }
 
   const getDatesInRange = (checkIn, checkOut) => {

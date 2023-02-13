@@ -57,3 +57,57 @@ export const paySuscription = async (req, res) => {
       return res.status(404).send(error);
     });
 };
+
+export const payProperty = async (req, res) => {
+  const { property, client } = req.body;
+  console.log(property, client);
+
+  let preference = {
+    binary_mode: true,
+    items: [
+      {
+        title: property.title,
+        description: property.description,
+        picture_url: property.url,
+        // category_id: prod.category,
+        unit_price: Number(property.price),
+        quantity: 1,
+      },
+    ],
+    payer: {
+      name: client.name,
+      surname: client.surname,
+      email: client.email,
+      // phone: {
+      //   // area_code: "11",
+      //   number: client.number,
+      // },
+      // identification: {
+      //   number: "12345678",
+      //   type: "DNI",
+      // },
+      // address: {
+      //   zip_code: "1111",
+      //   street_name: "False",
+      //   street_number: 123,
+      // },
+    },
+    back_urls: {
+      success: "http://127.0.0.1:5173/",
+      failure: "http://127.0.0.1:5173/",
+      pending: "http://127.0.0.1:5173/",
+    },
+    auto_return: "approved",
+    // pagos que se solucionan en el momento
+  };
+
+  mercadopago.preferences
+    .create(preference)
+    .then(function (response) {
+      res.status(200).json(response);
+    })
+    .catch((error) => {
+      console.log(error);
+      return res.status(404).send(error);
+    });
+};
