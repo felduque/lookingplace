@@ -14,6 +14,7 @@ import bcrypt from "bcrypt";
 const app = express();
 import { createRequire } from "module";
 import jwt from "jsonwebtoken";
+import {sendEmail} from "../Nodemailer/nodemailer.controller.js"
 // import { Payments } from "../../models/payment.model.js";
 const require = createRequire(import.meta.url);
 require("dotenv").config();
@@ -86,7 +87,7 @@ export const createAboutme = async (req, res) => {
 export const createClient = async (req, res) => {
   const { firebaseUrl } = req.file ? req.file : "";
 
-  const { fullName, email, password, verify, phone, role } = req.body;
+  const { fullName, email, password, verify, phone, role, type } = req.body;
 
   // ! Encrypt password
   const salt = await bcrypt.genSalt(10);
@@ -119,6 +120,7 @@ export const createClient = async (req, res) => {
       // }
     );
     if (newClient) {
+      sendEmail(newClient, type);
       return res.json({
         message: "Client created successfully",
         data: newClient,
@@ -276,7 +278,7 @@ export const forgot = async (req, res) => {
       subject: "Password Reset",
       text: link,
     };
-
+ 
     transporter.sendMail(mailOptions, function (err, info) {
       if (err) {
         console.error("Ha ocurrido un error:", err);
