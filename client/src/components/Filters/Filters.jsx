@@ -146,7 +146,7 @@ export default function Filters() {
       modal.classList.add('is-active');
     });
 
-    modal.querySelector('.modal-close, .modal-background', ".modal-background", ".modal-close", ".modal-card-head", ".delete", ".modal-card-foot", ".cerrar").addEventListener('click', function () {
+    modal.querySelector(".modal-close", ".modal-background", ".modal-background", ".modal-card-head", ".delete", ".modal-card-foot", ".cerrar").addEventListener('click', function () {
       modal.classList.remove('is-active');
     });
   }
@@ -186,7 +186,7 @@ export default function Filters() {
         Buscar
       </button> */}
               <span>Búsqueda por ciudad o país</span>
-              <div>
+              <div className=".select-style">
                 {/* Se usara para traer datos de la direccion o estado o pais que se ingrese; haciendo geocodeReverse */}
                 <PlacesAutocomplete
                   value={address}
@@ -284,24 +284,23 @@ export default function Filters() {
                   onChange={(e, actionMeta) => handleChange(e, actionMeta)}
                   options={optionsCapacity}
                 />
-                <button
-                  onClick={handleClickFilter}
-                  className="button is-success is-outlined"
-                >
-                  Aplicar Filtros
-                </button>
-                <button
-                  onClick={handleSetBaseFilter}
-                  className="button is-danger is-outlined clear-filters-button"
-                >
-                  <img src={clearfilterIcon} className="clear-filters-icon" />
-                </button>
+
               </div>
             </>
           </section>
           <footer class="modal-card-foot">
-            <button class="button is-success">Save changes</button>
-            <button class="button cerrar">Cerrar</button>
+            <button
+              onClick={handleClickFilter}
+              className="button is-success is-outlined"
+            >
+              Aplicar Filtros
+            </button>
+            <button
+              onClick={handleSetBaseFilter}
+              className="button is-danger is-outlined clear-filters-button"
+            >
+              <img src={clearfilterIcon} className="clear-filters-icon" />
+            </button>
           </footer>
         </div>
       </div>
