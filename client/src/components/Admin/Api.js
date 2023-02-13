@@ -21,6 +21,15 @@ export function updateClient(id, data) {
   }
 }
 
+export function allPropierties() {
+  try {
+    const result = axios.get("http://localhost:3000/properties");
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export function updateAvatar(id, data) {
   try {
     const result = axios.patch(
@@ -32,6 +41,15 @@ export function updateAvatar(id, data) {
         },
       }
     );
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function getAllTenants() {
+  try {
+    const result = axios.get("http://localhost:3000/tenant/gettenant");
     return result;
   } catch (error) {
     console.log(error);

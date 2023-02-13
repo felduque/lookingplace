@@ -43,7 +43,6 @@ const UserSettings = () => {
     }
   }, []);
 
-  console.log(component);
   const handleShowMenu = () => {
     setshowMenu(!showMenu);
   };
@@ -268,7 +267,7 @@ const UserSettings = () => {
                   Publicaciones
                 </a>
               </span>
-              :
+
               <span className="sidebar-list-item">
                 <a
                   className="side-item"
