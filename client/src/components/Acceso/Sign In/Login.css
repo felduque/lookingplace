@@ -36,9 +36,11 @@
 }
 
 .btnBackLogin{
+    width: 70px;
+    height: 70px;
     position: absolute;
     margin-left: 25px;
-    top: 125px;
+    top: 80px;
     cursor: pointer;
 }
 

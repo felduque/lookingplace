@@ -53,29 +53,43 @@ const containerStyles = {
             {/* <div>{region}</div> */}
             <div>${price}</div>
             <div className="details-icons">
-            <div className="columns">
+            <div className="columns is-gapless">
+
               <div className="column">
-              <img src={starIcon} className="icon-star" />
-                {rating}/5
+                <img src={starIcon} className="icon-star" />
               </div>
+              <div className="column">
+                <span>{rating}/5</span>
+              </div>
+
               <div className="column">
                 <img src={capacityIcon} className="icon-capacity" />
-                  {capacity}
               </div>
+              <div className="column">
+                <span>{capacity}</span>
+              </div>
+
               <div className="column">
                 <img src={bedsIcon} className="icon-beds" />
-                  {beds}
               </div>
               <div className="column">
-                <img src={bathroomIcon} className="icon-bathroom"/>
-                  {baths}
+                <span>{beds}</span>
               </div>
+
+              <div className="column">
+                <img src={bathroomIcon} className="icon-bathroom"/>
+              </div>
+              <div className="column">
+                  <span>{baths}</span>
+              </div>
+
+              </div>
+
             </div>
             </div>
-          </div>
           </Link>
-        </div>
       
+    </div>
     </div>
   );
 }
