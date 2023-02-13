@@ -49,7 +49,7 @@ export const Pagination = ({
         </button>
         <button
           disabled={currentPage >= pageNumber.length ? true : false}
-          className={`pagination-next button is-info is-outlined  ${
+          className={`pagination-next button is-info is-outlined space-right-next ${
             currentPage >= pageNumber.length ? "is-disabled" : ""
           }`}
           onClick={onNextPage}

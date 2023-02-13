@@ -30,6 +30,7 @@ specifiers:
   react-router-dom: ^6.8.0
   react-select: ^5.7.0
   redux: ^4.2.1
+  sweetalert2: ^11.7.1
   vite: ^4.1.0
 
 dependencies:
@@ -59,6 +60,7 @@ dependencies:
   react-router-dom: 6.8.0_biqbaboplfbrettd7655fr4n2y
   react-select: 5.7.0_57czaiyk6rdr5iy5tfs5pior4u
   redux: 4.2.1
+  sweetalert2: 11.7.1
 
 devDependencies:
   '@types/react': 18.0.27
@@ -1681,6 +1683,10 @@ packages:
   /supports-preserve-symlinks-flag/1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
+
+  /sweetalert2/11.7.1:
+    resolution: {integrity: sha512-+1bnkbqBl64FnZmi3g4SzAi4F3pL3S2jF1YQvrysv4GbgizfeFqGkJopxR3FnV/eJm6w2SQ2oAmCxSIBjgP/ag==}
+    dev: false
 
   /to-fast-properties/2.0.0:
     resolution: {integrity: sha512-/OaKK0xYrs3DmxRYqL/yDc+FxFUVYhDlXMhRmv3z915w2HF1tnN1omB354j8VUGO/hbRzyD6Y3sA7v7GS/ceog==}

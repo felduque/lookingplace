@@ -3,32 +3,40 @@
     height: auto;
     border-radius: 12px;
     padding: 30px 0;
-    margin: 15px 5px 30px;
+    margin: 15px 5px 5px;
     border: solid 2px rgb(14, 147, 223);
 }
 .details-card {
   width: auto;
-  margin-top: 30px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 25px;
 }
 /*Iconos de las Cards*/
 .details-before-icons {
-  border: solid 1px red;
   border-bottom: 25px;
   
 }
 .icon-star {
-  width: 22px;
-  height: 22px;
+  width: 25px;
+  height: 20px;
+  margin-left: 10px;
 }
 .icon-capacity {
   width: 25px;
-  height: 25px;
+  height: 22px;
+  margin-left: 10px;
 }
 .icon-beds {
   width: 30px;
-  height: 25px;
+  height: 22px;
+  margin-left: 5px;
 }
 .icon-bathroom {
   width: 25px;
   height: 20px;
+  margin-left: 10px;
+}
+.number-info-icon {
+  font-size: 16px;
 }

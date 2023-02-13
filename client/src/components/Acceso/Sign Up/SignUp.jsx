@@ -3,7 +3,11 @@ import axios from "axios";
 import ReCAPTCHA from "react-google-recaptcha";
 import validateForm from "./validate.js";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import Swal from 'sweetalert2';
 import "./SignUp.css";
+
+import leftarrow from '../../../assets/flecha-izquierda.png';
+import welcomeUser from '../../../assets/welcome-user.png';
 
 export default function SignUp() {
   const [inputs, setInputs] = useState({
@@ -16,7 +20,7 @@ export default function SignUp() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/login";
+  const from = location.state?.from?.pathname || "/";
 
   //Estado de Captcha
   const [validCaptcha, setValidCaptcha] = useState(false);
@@ -68,7 +72,13 @@ export default function SignUp() {
       !typeAccount ||
       errorsLength !== 0
     ) {
-      alert("Algo salió mal. Intenta de nuevo.");
+      Swal.fire({
+        title: 'Registro fallido',
+        text: 'Algo salió mal, intenta de nuevo.',
+        icon: 'error',
+        confirmButtonText: 'Entendido',
+        timer: 4000,
+      })
     } else {
       setErrors(
         validateForm({
@@ -78,9 +88,20 @@ export default function SignUp() {
       );
       //ENVÍO
       createUser(allDataUser);
-      alert("Registro realizado con éxito");
-      navigate(from, { replace: true });
+      Swal.fire({
+        title: 'Registrado con éxito',
+        text: 'Te has registrado con éxito. Ahora puedes iniciar sesión.',
+        imageUrl: welcomeUser,
+        imageWidth: 200,
+        imageHeight: 180,
+        confirmButtonText: 'Entendido',
+        timer: 4000,
+      })
+      setTimeout(() => {
+        navigate(from, { replace: true });
       window.location.reload();
+      }, 4000);
+      
       setInputs({
         fullName: "",
         password: "",
@@ -119,10 +140,15 @@ export default function SignUp() {
     setTypeAccount("Tenant");
 
   }
-
+  function back() {
+    navigate(from, { replace: true });
+  }
 
   return (
     <div>
+      <div>
+        <img src={leftarrow} alt="" className="btnBackSignup" onClick={back} />
+      </div>
       <div className="container-page">
         <div className="c-reg">
           <div className="form-container">
@@ -272,6 +298,7 @@ export default function SignUp() {
                     !inputs.email ||
                     !inputs.phone ||
                     !validCaptcha ||
+                    !typeAccount ||
                     errorsLength !== 0
                   }
                 >
