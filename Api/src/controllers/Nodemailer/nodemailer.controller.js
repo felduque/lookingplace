@@ -1,11 +1,14 @@
 // const nodemailer = require("nodemailer");
 import nodemailer from "nodemailer"
+import { defaultHtml } from "../../Templates/default.js";
+import { loginHtml } from "../../Templates/login.js";
 // require("dotenv").config();
 // const { NODEMAILER_PASS } = process.env;
 
 
 // const fs = require("fs/promises");
-import fs from "fs/promises"
+// import * as fs from 'fs';
+
 
 
 // export async function sendEmail(newClient, type, id)
@@ -21,19 +24,13 @@ export async function sendEmail (client, type, id) {
   });
 
 	const urlValidation = "https://api.gmail.com/"
-
   var htmlSend;
   if (type === "default") {
-    htmlSend = await fs.readFile(__dirname + "/templates/default.html", {
-      encoding: "utf8",
-    });
+    htmlSend = defaultHtml
   } else if (type === "login") {
-    htmlSend = await fs.readFile(__dirname + "/templates/login.html", {
-      encoding: "utf8",
-    });
+    htmlSend = loginHtml
 		htmlSend = htmlSend?.replace("*url-generator-key*", urlValidation); //LLENAR CON CODIGO LA CLAVE DE JWT
   }
-  // AGREGANDO TEMPLATES
 
   htmlSend = htmlSend?.replace("*fullName*", client.fullName);
 //   htmlSend = htmlSend?.replace("*lastname*", client.lastname);
