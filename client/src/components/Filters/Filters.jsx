@@ -1,6 +1,6 @@
 import Select from "react-select";
 import makeAnimated, { Input } from "react-select/animated";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getPropertiesAsync } from "../../redux/features/getPropertySlice";
 import axios from "axios";
@@ -19,6 +19,7 @@ import {
   geocodeByPlaceId,
   getLatLng,
 } from "react-places-autocomplete";
+
 // Fin de Google Maps
 
 
@@ -47,10 +48,23 @@ const optionsCapacity = [
   { value: "highest", label: "Alta" },
 ];
 
-export default function Filters() {
+export default function Filters({ closeModal }) {
   const urlbase = "http://localhost:3000/properties";
 
   const dispatch = useDispatch();
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Escape") {
+      closeModal();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   const places = ["places"];
   // Inicializando google maps places
@@ -130,69 +144,25 @@ export default function Filters() {
   console.log(filters);
 
 
-  window.onload = function () {
 
-    const modalTrigger = document.querySelector('.js-modal-trigger');
-    const modal = document.querySelector('#modal');
 
-    modalTrigger.addEventListener('click', function () {
-      modal.classList.add('is-active');
-    });
 
-    modal.querySelector(".modal-close").addEventListener('click', function () {
-      modal.classList.remove('is-active');
-    });
-
-    modal.querySelector(".modal-background").addEventListener('click', function () {
-      modal.classList.remove('is-active');
-    });
-
-    modal.querySelector(".modal-card-head .delete").addEventListener('click', function () {
-      modal.classList.remove('is-active');
-    });
-
-    modal.querySelector(".modal-card-foot .cerrar").addEventListener('click', function () {
-      modal.classList.remove('is-active');
-    });
-  }
 
   if (!isLoaded) return <h1>Cargando...</h1>;
   return (
     <div>
       <div className="container-filters-global">
-        <button className="js-modal-trigger no-style" data-target="modal-filter">
-          <img src={filterIcon} className='filter-button' />
-        </button>
-        <div id="modal" class="modal">
-          <div class="modal-background"></div>
-          <div class="modal-card">
+        <div class="modal is-active">
+          <div class="modal-background" onClick={closeModal}></div>
+          <div class="modal-card is-rounded" >
             <header class="modal-card-head">
               <p class="modal-card-title">Filtrar propiedades</p>
-              <button class="modal-close" aria-label="close"></button>
+              <button class="modal-close" onClick={closeModal} aria-label="close"></button>
             </header>
             <section class="modal-card-body">
               <>
-                {/* <span>Búsqueda titulo</span>
-      <input
-        className="input"
-        type="text"
-        name="title"
-        onChange={(e) => {
-          setFilters({
-            ...filters,
-            title: e.target.value,
-          });
-        }}
-        value={filters.title}
-      />
-      <button
-        onClick={handleClickSearchTitle}
-        className="button is-info is-outlined center-button-search"
-      >
-        Buscar
-      </button> */}
                 <span>Búsqueda por ciudad o país</span>
-                <div className=".select-style">
+                <div className="select-style">
                   {/* Se usara para traer datos de la direccion o estado o pais que se ingrese; haciendo geocodeReverse */}
                   <PlacesAutocomplete
                     value={address}
@@ -255,7 +225,7 @@ export default function Filters() {
                     onChange={(e, actionMeta) => handleChange(e, actionMeta)}
                     options={optionsOrder}
                   />
-                  <img src={ratingfilterIcon} className="filter-icon-more-small" />{" "}
+                  <img src={ratingfilterIcon} className=" filter-icon-more-small" />{" "}
                   <span> Ordenar por calificación</span>
                   <Select
                     placeholder="Seleccionar..."
@@ -266,7 +236,7 @@ export default function Filters() {
                     onChange={(e, actionMeta) => handleChange(e, actionMeta)}
                     options={optionsRating}
                   />
-                  <img src={pricefilterIcon} className="filter-icon" />
+                  <img src={pricefilterIcon} className=" filter-icon" />
                   <span> Ordenar por precio</span>
                   <Select
                     placeholder="Seleccionar..."
@@ -301,9 +271,9 @@ export default function Filters() {
               </button>
               <button
                 onClick={handleSetBaseFilter}
-                className="button is-danger is-outlined clear-filters-button"
+                className="button is-danger is-outlined clear-filters-button is-small"
               >
-                <img src={clearfilterIcon} className="clear-filters-icon" />
+                <img src={clearfilterIcon} className="is-small clear-filters-icon" />
               </button>
             </footer>
           </div>
@@ -312,4 +282,6 @@ export default function Filters() {
     </div>
   )
 }
+
+
 
