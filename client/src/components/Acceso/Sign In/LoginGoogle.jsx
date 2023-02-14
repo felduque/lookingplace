@@ -1,43 +1,17 @@
 import React, { useEffect } from "react";
-import useFetch from "../hooks/useFetch";
+
 import "./Login.css";
+import { UserAuth } from "../../../service/AuthContext";
 
-const LoginGoogle = () => {
-  const { handleGoogle, loading, error } = useFetch(
-    "http://127.0.0.1:3000/loginGoogle"
-  );
-
-  useEffect(() => {
-    /* global google */
-    if (window.google) {
-      google.accounts.id.initialize({
-        client_id:
-          "660345247825-98lejr83tl8hbsvse19jrnj8dbc0tvus.apps.googleusercontent.com",
-        callback: handleGoogle,
-      });
-
-      google.accounts.id.renderButton(document.getElementById("loginDiv"), {
-        type: "standard",
-        theme: "filled_black",
-        size: "medium",
-
-        text: "signin_with",
-        shape: "pill",
-      });
-
-      // google.accounts.id.prompt()
+export default function LoginGoogle() {
+  const { googleSignIn } = UserAuth();
+  const init = async () => {
+    try {
+      await googleSignIn();
+    } catch (error) {
+      console.log(error);
     }
-  }, [handleGoogle]);
+  };
 
-  return (
-    <>
-      <main>
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        {loading ? <div>Loading....</div> : <div id="loginDiv"></div>}
-      </main>
-      <footer></footer>
-    </>
-  );
-};
-
-export default LoginGoogle;
+  return <button onClick={init}>Google</button>;
+}
