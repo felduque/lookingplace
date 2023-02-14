@@ -7,7 +7,6 @@ import userPasswordIcon from "../../../assets/key-login.png";
 import leftarrow from "../../../assets/flecha-izquierda.png";
 import "./Login.css";
 import LoginGoogle from "./LoginGoogle";
-import Swal from "sweetalert2";
 
 //const LOGIN_URL = "/client/login";
 
@@ -17,6 +16,10 @@ export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+  const [setType, setSetType] = useState({
+    client: false,
+    tenant: false,
+  });
   const [setType, setSetType] = useState({
     client: false,
     tenant: false,
@@ -101,6 +104,7 @@ export default function Login() {
       try {
         const response = await axios.post(
           `http://localhost:3000/tenant/login`,
+          `http://localhost:3000/tenant/login`,
           JSON.stringify({ email: email, password: password }),
           {
             headers: { "Content-Type": "application/json" },
@@ -138,6 +142,14 @@ export default function Login() {
           setErrMsg("Error al ingresar");
         }
       }
+    } else {
+      Swal.fire({
+        title: "Login fallido",
+        text: "Algo salió mal, Marca tipo de usuario.",
+        icon: "error",
+        confirmButtonText: "Entendido",
+        timer: 4000,
+      });
     } else {
       Swal.fire({
         title: "Login fallido",
@@ -216,6 +228,7 @@ export default function Login() {
                 <span>
                   <Link to="/register">Registrarme</Link>
                 </span>
+                {/* <LoginGoogle /> */}
               </p>
               <button
                 name="client"
