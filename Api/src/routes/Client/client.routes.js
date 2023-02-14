@@ -12,7 +12,6 @@ import {
   verifyPassword,
   resetPassword,
   updateAvatar,
-  loginGoogle,
 } from "../../controllers/Client/client.controller.js";
 
 import multer from "multer";
@@ -32,9 +31,8 @@ router.post("/client/login", login);
 router.get("/client/logout", logout);
 router.get("/client/refreshToken", refreshToken);
 router.post("/client/forgot", forgot);
-router.get("/reset/:id/:token", verifyPassword);
+router.get("/client/reset/:id/:token", verifyPassword);
 router.post("/reset/:id/:token", resetPassword);
-router.post("/loginGoogle", loginGoogle);
 router.get("/client/getuser", getClient);
 router.get("/client/getuser/:id", getClientById);
 router.patch("/client/updateuser/:id", updateClient);
