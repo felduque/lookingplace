@@ -20,10 +20,6 @@ export default function Login() {
     client: false,
     tenant: false,
   });
-  const [setType, setSetType] = useState({
-    client: false,
-    tenant: false,
-  });
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -142,14 +138,6 @@ export default function Login() {
           setErrMsg("Error al ingresar");
         }
       }
-    } else {
-      Swal.fire({
-        title: "Login fallido",
-        text: "Algo salió mal, Marca tipo de usuario.",
-        icon: "error",
-        confirmButtonText: "Entendido",
-        timer: 4000,
-      });
     } else {
       Swal.fire({
         title: "Login fallido",
