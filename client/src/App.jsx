@@ -28,6 +28,7 @@ import ResumePay from "./components/ResumePay/ResumePay";
 
 import { AuthContextProvider } from "./service/AuthContext";
 import { UserAuth } from "./service/AuthContext";
+import LandingPage from "./components/LandingPage/LandingPage.jsx";
 //import { MyRoutes } from "./components/ProtectRoute/routes";
 
 function App() {
@@ -54,10 +55,12 @@ function App() {
     <div>
       <div>
         <AuthContextProvider>
-          <Navbar />
+          {location.pathname !== "/welcome" ? <Navbar /> : null}
+          
           <Routes>
             {/*Public Routes*/}
             <Route path="/layout" element={<Layout />} />
+            <Route path="/welcome" element={<LandingPage />} />
             <Route path="/" element={<Home />} />
             <Route path="propertyDetail/:id" element={<CardDetail />} />
             <Route path="/aboutUs" element={<AboutUs />} />
