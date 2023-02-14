@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "./NavBar.css";
 
 import SearchBar from "./SearchBar/SearchBar";
-
+import { UserAuth } from "../../service/AuthContext";
 import useLogout from "../Acceso/Sign In/useLogout";
 import logoIcon from "../../assets/logo-icon.png";
 import userIcon from "../../assets/user-default-icon.png";
@@ -12,6 +12,7 @@ import userIcon from "../../assets/user-default-icon.png";
 export default function Navbar({ isLogued }) {
   const [auth, setAuth] = useState(null);
   const logout = useLogout();
+  const { user, logOut } = UserAuth();
 
   useEffect(() => {
     const storedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -20,10 +21,18 @@ export default function Navbar({ isLogued }) {
     }
   }, []);
 
+  const signOutGoogle = async () => {
+    try {
+      await logOut();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const signOut = async () => {
     await logout();
+    await signOutGoogle();
     localStorage.removeItem("auth");
-    localStorage.removeItem("user");
     window.location.reload();
     setAuth(null);
   };
@@ -62,7 +71,7 @@ export default function Navbar({ isLogued }) {
           <div className="buttons">
             {
               // Poner ! en auth para testear paneles sin iniciar sesión
-              auth || isLogued.email ? (
+              auth || user ? (
                 <div className="navbar-item has-dropdown is-hoverable">
                   <a className="navbar-link">
                     <img src={userIcon} width="30" height="40" />
