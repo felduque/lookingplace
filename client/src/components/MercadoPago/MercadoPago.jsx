@@ -1,12 +1,20 @@
 import { useEffect } from "react";
 import useScript from "./useScrip";
 
-export default function MPButton({ title, description, price }) {
+export default function MPButton({
+  id,
+  title,
+  description,
+  price,
+  picture_url,
+}) {
   const dataPropClien = {
     property: {
+      id: id,
       title: title,
       description: description,
       price: price,
+      picture_url: picture_url,
     },
     client: {
       name: "Felipe",

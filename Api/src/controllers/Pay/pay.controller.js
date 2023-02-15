@@ -69,9 +69,10 @@ export const payProperty = async (req, res) => {
     binary_mode: true,
     items: [
       {
+        id: property.id,
         title: property.title,
         description: property.description,
-        picture_url: property.url,
+        picture_url: property.picture_url,
         // category_id: prod.category,
         unit_price: Number(property.price),
         quantity: 1,
@@ -96,8 +97,8 @@ export const payProperty = async (req, res) => {
       // },
     },
     back_urls: {
-      success: "http://127.0.0.1:5173/",
-      failure: "http://127.0.0.1:5173/",
+      success: "http://127.0.0.1:5173/Pay/Success",
+      failure: "http://127.0.0.1:5173/Pay/Failure",
       pending: "http://127.0.0.1:5173/",
     },
     auto_return: "approved",

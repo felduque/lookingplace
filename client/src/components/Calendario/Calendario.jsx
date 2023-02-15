@@ -13,6 +13,7 @@ export default function Calendar({
   price,
   title,
   description,
+  url,
 }) {
   //  const dateDiary = useSelector -----> va al store
   const navigate = useNavigate();
@@ -42,11 +43,13 @@ export default function Calendar({
       state.selection1.endDate
     );
     console.log(dataBooking);
-    const bookingProperty = await axios.patch(
-      "http://localhost:3000/property/update/bookings",
-      { id: propId, bookings: dataBooking }
-    );
-    console.log(bookingProperty);
+    // RESTRINGIENDO FECHAS DE CALENDARIO, SE REALIZARA UNA VEZ REALIZADO EL PAGO
+    // const bookingProperty = await axios.patch(
+    //   "http://localhost:3000/property/update/bookings",
+    //   { id: propId, bookings: dataBooking }
+    // );
+    // console.log(bookingProperty);
+    // RESTRINGIENDO FECHAS DE CALENDARIO
     // aca vamos a despachar una funcion que me va a guardar los datos de la agenda de este cliente en de tal propiedad
     setSelected({
       startDate: state.selection1.startDate,
@@ -59,7 +62,11 @@ export default function Calendar({
     const total = nochesNum * price;
 
     navigate(
-      `/resumePay?title=${title}&description=${description}&price=${price}&nigths=${nochesNum}&total=${total}`
+      `/resumePay?id=${propId}&title=${title}&bookings=${JSON.stringify(
+        dataBooking
+      )}&description=${description}&price=${price}&nigths=${nochesNum}&total=${total}&url=${JSON.stringify(
+        url
+      )}`
     );
   }
 
@@ -98,6 +105,9 @@ export default function Calendar({
     }
   };
 
+  console.log(
+    getDatesInRange(state.selection1.startDate, state.selection1.endDate)
+  );
   //   console.log(
   //     "funciton:",
   //     getDatesInRange(state.selection1.startDate, state.selection1.endDate)
