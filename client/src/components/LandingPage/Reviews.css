@@ -1,0 +1,168 @@
+.container-reviews {
+    width:900px;
+    margin:0 auto;
+    position:relative;
+    padding-bottom:30px;
+    overflow:hidden;
+    margin-top: 50px;
+    margin-bottom: 50px;
+
+  }
+  
+  .container-reviews blockquote {
+    background-color: rgb(14, 147, 223);
+    border-radius: 12px;
+    box-shadow: 0 5px 2px rgba(210, 20, 20, 0.1);
+    color:white;
+    margin:0;
+    padding:30px;
+    position:relative;
+    transition: background-color 0.6s linear;
+  }
+  
+  .container-reviews blockquote:after { 
+    border: solid transparent; 
+    border-left-color:rgb(14, 147, 223);
+    border-top-color: rgb(14, 147, 223);
+    border-width: 10px; 
+    content: " "; 
+    height: 0; 
+    left: 10%; 
+    position: absolute; 
+    top: 100%; 
+    width: 0;
+  }
+  
+  .container-reviews #second:checked ~ .two blockquote {
+    background-color:rgb(14, 147, 223);
+  }
+  
+  .two blockquote:after{
+    border: solid transparent; 
+    border-top-color: rgb(14, 147, 223);;
+    border-left-color:rgb(14, 147, 223);;
+    border-width: 10px;
+  }
+  
+  .container-reviews #third:checked ~ .three blockquote{
+    background-color:rgb(14, 147, 223);
+  }
+  
+  .container-reviews .three blockquote:after{
+    border: solid transparent; 
+    border-top-color: rgb(14, 147, 223);
+    border-left-color: rgb(14, 147, 223);
+    border-width: 10px;
+  }
+  
+  .container-reviews .quotes{
+    position:absolute;
+    color:rgba(241, 236, 236, 0.5);
+    font-size:3em;
+  }
+  
+  .container-reviews .leftq{
+    top:-23px;
+    left:2px;
+  }
+  
+  .container-reviews .rightq{
+    bottom:-10px;
+    right:5px;
+  }
+  
+  .container-reviews img{
+    float:left;
+    margin-right: 20px;
+    max-width: 130px;
+    width: 98%;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  .container-reviews .slide{
+    position:absolute;
+    transform: translateX(-100%);
+    opacity:0;
+    top: 0;
+    transition: transform 0.6s ease-in, opacity 0.6s ease-in;
+  }
+  
+  .container-reviews #first:checked ~ div.one {
+    position: relative;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .container-reviews #second:checked ~ div.two {
+    position: relative;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .container-reviews #third:checked ~ div.three {
+    position: relative;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* -------------------------------------------------------------- 
+  
+      3. Controls (input) - Controles (input)
+  
+  ------------------------------------------------------------- */
+  .container-reviews input[type="radio"] {
+  position: absolute;
+  padding: 0;
+  border: 0;
+  left: -100%;
+  }
+  
+  .container-reviews label {
+    display:block;
+    width:31%;
+    border: 4px solid rgb(186, 186, 186);
+    border-radius: 8px;
+    position:absolute;
+    bottom:5px;
+    cursor: pointer;
+    transition: border-color 0.3s linear;
+  }
+  
+  .container-reviews label.second {
+    left:34%;
+  }
+  
+  .container-reviews label.third {
+    left:68%;
+  }
+  
+  .container-reviews #first:checked ~ label.first {
+    border-width:6px;
+    border-color:rgb(14, 147, 223);
+    border-radius: 8px;
+  }
+  
+  .container-reviews #second:checked ~ label.second {
+    border-width:6px; border-color:rgb(14, 147, 223);
+    border-radius: 8px;
+  }
+  
+  .container-reviews #third:checked ~ label.third {
+    border:6px solid rgb(14, 147, 223);
+    border-radius: 8px;
+  }
+  
+  /* -------------------------------------------------------------- 
+  
+      4. View article link - Link para ver el artículo
+  
+  ------------------------------------------------------------- */
+  .eb-logo {
+    float: right;
+  }
+  
+  .eb-logo img {
+    width: 65px;
+  }
+  
