@@ -5,8 +5,10 @@ import usermailIcon from "../../../assets/usermail-login.png";
 import leftarrow from "../../../assets/flecha-izquierda.png";
 import "./Login.css";
 import axios from "../hooks/axios";
+import useAuth from "../hooks/useAuth";
 
 export default function ForgotPassword() {
+  const { auth, setAuth } = useAuth();
   const [email, setEmail] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -23,15 +25,28 @@ export default function ForgotPassword() {
       return;
     }
 
-    try {
-      const response = await axios.post("/client/forgot", { email });
-      setSuccessMessage(
-        "Un correo con las instrucciones para recuperar su contraseña ha sido enviado a su buzón. Si no lo encuentra revise en la carpeta spam."
-      );
-    } catch (error) {
-      setErrorMessage(
-        "Hubo un problema al enviar el correo electrónico de recuperación de contraseña, intentalo más tarde"
-      );
+    if (auth.role === "Client") {
+      try {
+        const response = await axios.post("/client/forgot", { email });
+        setSuccessMessage(
+          "Un correo con las instrucciones para recuperar su contraseña ha sido enviado a su buzón. Si no lo encuentra revise en la carpeta spam."
+        );
+      } catch (error) {
+        setErrorMessage(
+          "Hubo un problema al enviar el correo electrónico de recuperación de contraseña, intentalo más tarde"
+        );
+      }
+    } else if (auth.role === "Tenant") {
+      try {
+        const response = await axios.post("/tenant/forgot", { email });
+        setSuccessMessage(
+          "Un correo con las instrucciones para recuperar su contraseña ha sido enviado a su buzón. Si no lo encuentra revise en la carpeta spam."
+        );
+      } catch (error) {
+        setErrorMessage(
+          "Hubo un problema al enviar el correo electrónico de recuperación de contraseña, intentalo más tarde"
+        );
+      }
     }
 
     // acá debería enviar una solicitud a la API para enviar el correo electrónico de recuperación de contraseña

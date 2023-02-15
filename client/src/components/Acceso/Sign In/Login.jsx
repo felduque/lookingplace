@@ -16,12 +16,25 @@ export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+  const [setType, setSetType] = useState({
+    client: false,
+    tenant: false,
+  });
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   //const [role, setRole] = useState("");
 
   const [errMsg, setErrMsg] = useState("");
+
+  const handleChangeType = (e) => {
+    const { name } = e.target;
+    setSetType({
+      client: false,
+      tenant: false,
+      [name]: true,
+    });
+  };
 
   useEffect(() => {
     setErrMsg("");
@@ -42,10 +55,10 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (auth.role === "Client") {
+    if (setType.client === true) {
       try {
         const response = await axios.post(
-          `http://127.0.0.1:3000/client/login`,
+          `http://localhost:3000/client/login`,
           JSON.stringify({ email: email, password: password }),
           {
             headers: { "Content-Type": "application/json" },
@@ -83,10 +96,11 @@ export default function Login() {
           setErrMsg("Error al ingresar");
         }
       }
-    } else {
+    } else if (setType.tenant === true) {
       try {
         const response = await axios.post(
-          `http://127.0.0.1:3000/tenant/login`,
+          `http://localhost:3000/tenant/login`,
+          `http://localhost:3000/tenant/login`,
           JSON.stringify({ email: email, password: password }),
           {
             headers: { "Content-Type": "application/json" },
@@ -124,6 +138,14 @@ export default function Login() {
           setErrMsg("Error al ingresar");
         }
       }
+    } else {
+      Swal.fire({
+        title: "Login fallido",
+        text: "Algo salió mal, Marca tipo de usuario.",
+        icon: "error",
+        confirmButtonText: "Entendido",
+        timer: 4000,
+      });
     }
   };
   function back() {
@@ -186,13 +208,30 @@ export default function Login() {
                   <Link to="/forgotpassword">Recuperar contraseña</Link>
                 </p>
               </form>
+              <p>
+                <LoginGoogle />
+              </p>
               <p className="new-account">
                 ¿No tienes cuenta? <br />
                 <span>
                   <Link to="/register">Registrarme</Link>
                 </span>
-                <LoginGoogle />
+                {/* <LoginGoogle /> */}
               </p>
+              <button
+                name="client"
+                onClick={handleChangeType}
+                className="button is-link is-rounded"
+              >
+                soy Cliente
+              </button>
+              <button
+                name="tenant"
+                onClick={handleChangeType}
+                className="button is-link is-rounded"
+              >
+                Soy Arrendatario
+              </button>
             </section>
           </div>
         </div>

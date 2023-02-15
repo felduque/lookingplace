@@ -1,6 +1,6 @@
 //import "./App.css";
 import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import useAuth from "./components/Acceso/hooks/useAuth";
 
 /*Access components*/
@@ -26,17 +26,20 @@ import Footer from "./components/Footer/Footer";
 import AboutUs from "./components/AboutUs/AboutUs";
 import ResumePay from "./components/ResumePay/ResumePay";
 
+import { AuthContextProvider } from "./service/AuthContext";
+import { UserAuth } from "./service/AuthContext";
+import LandingPage from "./components/LandingPage/LandingPage.jsx";
+//import { MyRoutes } from "./components/ProtectRoute/routes";
+
 function App() {
   /*User Google*/
-  const [user, setUser] = useState({});
 
-  useEffect(() => {
-    const theUser = localStorage.getItem("user");
-
-    if (theUser && !theUser.includes("undefined")) {
-      setUser(JSON.parse(theUser));
+  const RequireAuthGoogle = () => {
+    const { user } = UserAuth();
+    if (user) {
+      return <Outlet />;
     }
-  }, []);
+  };
 
   /*User Normal*/
   const { auth, setAuth } = useAuth();
@@ -51,57 +54,47 @@ function App() {
   return (
     <div>
       <div>
-        <Navbar isLogued={user} />
-        <Routes>
-          {/*Public Routes*/}
-          <Route path="/layout" element={<Layout />} />
-          <Route path="/" element={<Home />} />
-          <Route path="propertyDetail/:id" element={<CardDetail />} />
-          <Route path="/aboutUs" element={<AboutUs />} />
-          <Route path="suscribe" element={<Suscribe />} />
-          <Route path="/ResumePay" element={<ResumePay />} />
-          <Route path="*" element={<Home />} />
+        <AuthContextProvider>
+          {location.pathname !== "/welcome" ? <Navbar /> : null}
+          
+          <Routes>
+            {/*Public Routes*/}
+            <Route path="/layout" element={<Layout />} />
+            <Route path="/welcome" element={<LandingPage />} />
+            <Route path="/" element={<Home />} />
+            <Route path="propertyDetail/:id" element={<CardDetail />} />
+            <Route path="/aboutUs" element={<AboutUs />} />
+            <Route path="suscribe" element={<Suscribe />} />
+            <Route path="/ResumePay" element={<ResumePay />} />
+            <Route path="*" element={<Home />} />
 
-          {/*si quieren agregar rutas publicas arriba de este mensaje*/}
+            {/*si quieren agregar rutas publicas arriba de este mensaje*/}
 
-          {user.email ? (
-            <Route element={<WithOutAuth isLogued={user} />}>
-              <Route path="register" element={<SignUp />} />
-              <Route path="login" element={<Login />} />
-              <Route path="/forgotpassword" element={<ForgotPassword />} />
-            </Route>
-          ) : (
             <Route element={<WithOutAuth />}>
               <Route path="register" element={<SignUp />} />
               <Route path="login" element={<Login />} />
               <Route path="/forgotpassword" element={<ForgotPassword />} />
             </Route>
-          )}
 
-          {/*Protect routes*/}
+            {/*Protect routes*/}
 
-          {user.email ? (
-            <Route element={<RequireAuth isLogued={user} />}>
-              <Route path="settings" element={<Admin />} />
-            </Route>
-          ) : (
             <Route element={<RequireAuth />}>
               <Route path="settings" element={<Admin />} />
             </Route>
-          )}
 
-          {/*Tenant Access*/}
+            {/*Tenant Access*/}
 
-          <Route element={<TenantAccess />}>
-            <Route path="/createProperty" element={<FormHostCreate />} />
-          </Route>
-        </Routes>
+            <Route element={<TenantAccess />}>
+              <Route path="/createProperty" element={<FormHostCreate />} />
+            </Route>
+          </Routes>
+        </AuthContextProvider>
       </div>
+
       <div>
         <Footer />
       </div>
     </div>
   );
 }
-
 export default App;

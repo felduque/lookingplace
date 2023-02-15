@@ -27,9 +27,9 @@ router.post(
   createTenant
 );
 router.post("/tenant/login", login);
-router.get("/logout", logout);
-router.get("/refreshToken", refreshToken);
-router.post("/forgot", forgot);
+router.get("/tenant/logout", logout);
+router.get("/tenant/refreshToken", refreshToken);
+router.post("/tenant/forgot", forgot);
 router.get("/tenant/reset/:id/:token", verifyPassword);
 router.post("/tenant/reset/:id/:token", resetPassword);
 router.get("/tenant/gettenant", getTenant);
