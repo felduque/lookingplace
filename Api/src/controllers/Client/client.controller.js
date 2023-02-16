@@ -10,6 +10,8 @@ import express from "express";
 import { Aboutme } from "../../models/aboutme.model.js";
 import { Client } from "../../models/client.model.js";
 import { Tenant } from "../../models/tenant.model.js";
+import { Property } from "../../models/property.model.js";
+import { Booking } from "../../models/booking.model.js";
 import bcrypt from "bcrypt";
 const app = express();
 import { createRequire } from "module";
@@ -358,6 +360,12 @@ export const getClientById = async (req, res) => {
           model: Aboutme,
           as: "Aboutmes",
           attributes: ["id", "description", "hobbies", "age", "from"],
+        },
+        {
+          model: Property,
+        },
+        {
+          model: Booking,
         },
       ],
     });

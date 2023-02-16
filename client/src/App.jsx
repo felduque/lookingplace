@@ -29,6 +29,9 @@ import ResumePay from "./components/ResumePay/ResumePay";
 import { AuthContextProvider } from "./service/AuthContext";
 import { UserAuth } from "./service/AuthContext";
 import LandingPage from "./components/LandingPage/LandingPage.jsx";
+import PaySuccess from "./components/MercadoPago/MPSuccess/MPSuccess";
+import PayFailure from "./components/MercadoPago/MPSuccess/MPSuccess";
+
 //import { MyRoutes } from "./components/ProtectRoute/routes";
 
 function App() {
@@ -56,7 +59,7 @@ function App() {
       <div>
         <AuthContextProvider>
           {location.pathname !== "/welcome" ? <Navbar /> : null}
-          
+
           <Routes>
             {/*Public Routes*/}
             <Route path="/layout" element={<Layout />} />
@@ -66,6 +69,7 @@ function App() {
             <Route path="/aboutUs" element={<AboutUs />} />
             <Route path="suscribe" element={<Suscribe />} />
             <Route path="/ResumePay" element={<ResumePay />} />
+
             <Route path="*" element={<Home />} />
 
             {/*si quieren agregar rutas publicas arriba de este mensaje*/}
@@ -79,6 +83,8 @@ function App() {
             {/*Protect routes*/}
 
             <Route element={<RequireAuth />}>
+              <Route path="/Pay/Success" element={<PaySuccess />} />
+              <Route path="/Pay/Failure" element={<PayFailure />} />
               <Route path="settings" element={<Admin />} />
             </Route>
 

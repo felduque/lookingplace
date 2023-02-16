@@ -9,6 +9,7 @@ import { Comment } from "./models/comment.model.js";
 import { Property } from "./models/property.model.js";
 import { Tenant } from "./models/tenant.model.js";
 import { ClientRecord } from "./models/clientRecord.model.js";
+import { Booking } from "./models/booking.model.js";
 import clientRoutes from "./routes/Client/client.routes.js";
 import tenantRoutes from "./routes/Tenant/tenant.routes.js";
 import propertyRoutes from "./routes/Property/property.routes.js";
@@ -16,6 +17,7 @@ import commentRoutes from "./routes/Comment/comment.routes.js";
 import payRoutes from "./routes/Pay/pay.routes.js";
 import otherRoutes from "./routes/Other/other.routes.js";
 import adminRoutes from "./routes/Admin/admin.routes.js";
+import bookingRoutes from "./routes/Booking/booking.routes.js";
 
 const app = express();
 
@@ -92,6 +94,16 @@ ClientRecord.belongsTo(Client, {
   foreignKey: "client_record",
 });
 
+// Relation Booking to Property
+Booking.belongsTo(Property, { foreignKey: "booking_property" });
+Property.hasMany(Booking, { foreignKey: "booking_property" });
+// Relation Booking to Client
+Booking.belongsTo(Client, { foreignKey: "booking_client" });
+Client.hasMany(Booking, { foreignKey: "booking_client" });
+// Relation Booking to Tenant
+Booking.belongsTo(Tenant, { foreignKey: "booking_tenant" });
+Tenant.hasMany(Booking, { foreignKey: "booking_tenant" });
+
 // Routes
 app.use(clientRoutes);
 app.use(tenantRoutes);
@@ -100,5 +112,6 @@ app.use(commentRoutes);
 app.use(otherRoutes);
 app.use(payRoutes);
 app.use(adminRoutes);
+app.use(bookingRoutes);
 
 export default app;
