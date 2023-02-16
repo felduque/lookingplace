@@ -93,9 +93,26 @@ video {
 .bottom-container {
     border: solid 2px rgb(14, 147, 223);
     border-radius: 8px;
-    margin: 0px 5px 30px 5px
+    margin: 0px 5px 7px 5px
 }
 .into-home-button {
     margin-left: 45%;
     margin-bottom: 30px;
+}
+.text-planes {
+   display: flex;
+   margin-bottom: 10px;
+}
+
+.conteiner-planes{
+    border: solid 2px rgb(14, 147, 223);
+    border-radius: 8px;
+    margin: 0px 5px 7px 5px;
+    
+}
+
+.container-inf {
+    border: solid 2px rgb(14, 147, 223);
+    border-radius: 8px;
+    margin: 0px 5px 7px 5px; 
 }

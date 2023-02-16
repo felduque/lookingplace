@@ -1,0 +1,98 @@
+.modal-container-form{
+  /* ubicar modal en el medio de la pagina */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  
+}
+
+.modal-container-inputs{
+  background: linear-gradient(145deg, #272055, #2e2765);
+  box-shadow:  35px 35px 70px #161331;
+  display: flex;
+  border-radius: 5%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid rgb(0, 247, 255);
+  width: 30%;
+}
+
+.modal-container-form-input{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.modal-container-form-input > label {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: rgb(2, 255, 175);
+}
+
+.content-modal-form-button{
+  display: flex;
+  width: 100%;
+  justify-content: end;
+}
+
+.modal-container-inputs > button{
+  background-color: #18152E;
+  color: #fff;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 5px;
+  font-size: 1.5rem;
+}
+
+.modal-container-inputs > h2 {
+  font-size: 1rem;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+}
+.modal-container-form-close {
+  color: #aaa;
+  float: right;
+  cursor: pointer;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.modal-container-form-input input{
+  width: 100%;
+  height: 2rem;
+  border-radius: 10px;
+  border: none;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #18152E;
+}
+
+.modal-container-form-input textarea{
+  width: 100%;
+  height: 5rem;
+  border-radius: 10px;
+  border: none;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #18152E;
+}
