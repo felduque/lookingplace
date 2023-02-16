@@ -30,11 +30,11 @@ const animatedComponents = makeAnimated();
 
 // Objeto que se renderiza en Select-React
 const options = [
-  { value: "wifi", label: "wifi" },
-  { value: "cocina", label: "cocina" },
-  { value: "lavadora", label: "lavadora" },
-  { value: "plancha", label: "plancha" },
-  { value: "zona de trabajo", label: "zona de trabajo" },
+  { value: "Wi-fi", label: "Wi-Fi" },
+  { value: "Cocina", label: "Cocina" },
+  { value: "Lavadora", label: "Lavadora" },
+  { value: "Plancha", label: "Plancha" },
+  { value: "Zona de trabajo", label: "Zona de trabajo" },
 ];
 
 export default function FormHostCreate() {
@@ -124,10 +124,10 @@ export default function FormHostCreate() {
       inputs.image.forEach((img) => newArrayUrl.push(URL.createObjectURL(img)));
       setUrlImages(newArrayUrl);
     }
-  
+
     setErrors(validateForm(inputs));
   }, [inputs]);
-  
+
 
   const handleChange = (e, actionMeta = false) => {
     // Select no tiene name en el evento, usa ActionMeta
@@ -188,7 +188,7 @@ export default function FormHostCreate() {
       !inputs.baths ||
       inputs.services.length < 1 ||
       !inputs.price
-      ) {
+    ) {
       Swal.fire({
         title: 'Error al publicar Place',
         text: 'Algo salió mal, intenta de nuevo.',
@@ -523,6 +523,8 @@ export default function FormHostCreate() {
                   name="price"
                   placeholder="Please enter a number"
                   prefix="$"
+                  min={0}
+                  max={300}
                   defaultValue={inputs.price}
                   decimalsLimit={2}
                   onValueChange={(value, name) => {

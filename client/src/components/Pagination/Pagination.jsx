@@ -1,5 +1,6 @@
 import React from "react";
 import "./Pagination.css";
+import Swal from "sweetalert2";
 
 export const Pagination = ({
   propertyPerPage,
@@ -7,6 +8,13 @@ export const Pagination = ({
   setCurrentPage,
   totalProperty,
 }) => {
+  if (totalProperty === 0) {
+    return (
+      <div className="notification is-warning">
+        <h1>No hay propiedades que mostrar. Al parecer NINGUNA propiedad tiene las caracteristicas que elegiste en los filtros</h1>
+      </div>
+    );
+  }
   const pageNumber = [];
 
   for (let i = 1; i <= Math.ceil(totalProperty / propertyPerPage); i++) {
@@ -27,11 +35,10 @@ export const Pagination = ({
   return (
     <div>
       <div className="center-pagination-next">
-        <p>{`${
-          currentPage * propertyPerPage < totalProperty
-            ? currentPage * propertyPerPage
-            : totalProperty
-        } / ${totalProperty} propiedades`}</p>
+        <p>{`${currentPage * propertyPerPage < totalProperty
+          ? currentPage * propertyPerPage
+          : totalProperty
+          } / ${totalProperty} propiedades`}</p>
       </div>
       <nav
         className="pagination is-centered mb-6"
@@ -40,18 +47,16 @@ export const Pagination = ({
       >
         <button
           disabled={currentPage === 1 ? true : false}
-          className={`pagination-previous button is-info is-outlined ${
-            currentPage === 1 ? "is-disabled" : ""
-          }`}
+          className={`pagination-previous button is-info is-outlined ${currentPage === 1 ? "is-disabled" : ""
+            }`}
           onClick={onPreviusPage}
         >
           Anterior
         </button>
         <button
           disabled={currentPage >= pageNumber.length ? true : false}
-          className={`pagination-next button is-info is-outlined space-right-next ${
-            currentPage >= pageNumber.length ? "is-disabled" : ""
-          }`}
+          className={`pagination-next button is-info is-outlined space-right-next ${currentPage >= pageNumber.length ? "is-disabled" : ""
+            }`}
           onClick={onNextPage}
         >
           Siguiente
@@ -65,9 +70,8 @@ export const Pagination = ({
               noPage > currentPage + 2 ? null : (
               <li key={noPage}>
                 <button
-                  className={`pagination-link button is-outlined${
-                    noPage === currentPage ? "button is-info" : ""
-                  }`}
+                  className={`pagination-link button is-outlined${noPage === currentPage ? "button is-info" : ""
+                    }`}
                   onClick={() => onSpecificPage(noPage)}
                 >
                   {noPage}

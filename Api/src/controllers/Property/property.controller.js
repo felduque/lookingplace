@@ -103,7 +103,22 @@ export const createProperty = async (req, res) => {
 };
 
 export const getProperty = async (req, res) => {
-  const { country, state, order, rating, price, capacity, title } = req.query;
+  const {
+    country,
+    state,
+    order,
+    rating,
+    capacity,
+    title,
+    beds,
+    priceMin,
+    priceMax,
+    baths,
+    smoking,
+    pets,
+    party,
+    services,
+  } = req.query;
   try {
     const property = await Property.findAll({
       attributes: [
@@ -149,59 +164,103 @@ export const getProperty = async (req, res) => {
       ],
     });
     let result = property;
-    let filteres = "";
+    let filters = "";
     if (country) {
       result = result.filter((property) => property.country == country);
-      filteres += " country=" + country;
+      filters += " country=" + country;
     }
     if (state) {
       let stateFilter = result.filter((property) => property.state == state);
       if (stateFilter.length > 0) {
         result = [...stateFilter];
       }
-      filteres += " state=" + state;
+      filters += " state=" + state;
     }
     if (title) {
       result = result.filter((property) => {
         let propertyLower = property.title.toLowerCase();
         return propertyLower.includes(title.toLowerCase());
       });
-      filteres += " title=" + title;
+      filters += " title=" + title;
     }
     if (order === "asc") {
       result.sort((a, b) => a.title.localeCompare(b.title));
-      filteres += " order=asc";
+      filters += " order=asc";
     }
     if (order === "desc") {
       result.sort((a, b) => b.title.localeCompare(a.title));
-      filteres += " order=desc";
+      filters += " order=desc";
     }
-    if (rating === "min") {
+    if (rating === "lowest") {
       result.sort((a, b) => a.rating - b.rating);
-      filteres += " rating=min";
+      filters += " rating=lowest";
     }
-    if (rating === "max") {
+    if (rating === "highest") {
       result.sort((a, b) => b.rating - a.rating);
-      filteres += " rating=max";
+      filters += " rating=highest";
     }
-    if (price === "low") {
-      result.sort((a, b) => a.price - b.price);
-      filteres += " price=low";
+    if (parseFloat(rating)) {
+      result = result.filter(
+        (property) => Math.abs(property.rating - parseFloat(rating)) < 0.1
+      );
+      filters += ` rating=${rating}`;
     }
-    if (price === "high") {
-      result.sort((a, b) => b.price - a.price);
-      filteres += " price=high";
-    }
-    if (capacity === "lowest") {
-      result.sort((a, b) => a.capacity - b.capacity);
-      filteres += " capacity=lowest";
-    }
-    if (capacity === "highest") {
+    if (capacity) {
+      const capacityValue = parseInt(capacity);
+      result = result.filter((property) => property.capacity <= capacityValue);
       result.sort((a, b) => b.capacity - a.capacity);
-      filteres += " capacity=highest";
+      filters += ` capacity=${capacityValue}`;
+    }
+    if (beds) {
+      const bedsValue = parseInt(beds);
+      result = result.filter((property) => property.beds <= bedsValue);
+      result.sort((a, b) => b.beds - a.beds);
+      filters += ` beds<=${bedsValue}`;
+    }
+    if (baths) {
+      const bathsValue = parseInt(baths);
+      result = result.filter((property) => property.baths <= bathsValue);
+      result.sort((a, b) => b.baths - a.baths);
+      filters += ` baths<=${bathsValue}`;
+    }
+    if (priceMin) {
+      result = result.filter((property) => property.price >= priceMin);
+      filters += ` priceMin=${priceMin}`;
+    }
+    if (priceMax) {
+      result = result.filter((property) => property.price <= priceMax);
+      filters += ` priceMax=${priceMax}`;
+    }
+    if (smoking) {
+      const smokingAllowed = smoking === "true";
+      result = result.filter((property) => property.smoke === smokingAllowed);
+      filters += ` smoking=${smokingAllowed}`;
+    }
+    if (pets) {
+      const petsAllowed = pets === "true";
+      result = result.filter((property) => property.pets === petsAllowed);
+      filters += ` pets=${petsAllowed}`;
+    }
+    if (party) {
+      const partyAllowed = party === "true";
+      result = result.filter((property) => property.party === partyAllowed);
+      filters += ` party=${partyAllowed}`;
+    }
+    if (services) {
+      const selectedServices = services.split(",").map((s) => s.toUpperCase());
+      result = result.filter((property) => {
+        const propertyServices = property.services.map((s) => s.toUpperCase());
+        for (let i = 0; i < selectedServices.length; i++) {
+          if (propertyServices.includes(selectedServices[i])) {
+            return true;
+          }
+        }
+        return false;
+      });
+      filters += ` services=${services}`;
     }
     return res.status(200).json({
-      msg: `Sucessfully filtered ${filteres}`,
+      msg: `Sucessfully filtered ${filters}`,
       result,
     });
   } catch (error) {
@@ -359,18 +418,26 @@ export const updateProperty = async (req, res) => {
 };
 
 export const patchBookingsProperty = async (req, res) => {
-  const { id, bookings } = req.body;
-  console.log(id, bookings);
+  console.log(req.body);
+  const { id, bookings, idClient } = req.body;
+  console.log("Soy Id", id, bookings, "Soy IdCliente", idClient);
   try {
     let searchProperty = await Property.findOne({
       where: { id },
     });
+    let clientSearch = await Client.findOne({
+      where: {
+        id: idClient,
+      },
+    });
     if (searchProperty.bookings === null) {
       await searchProperty.update({ bookings: bookings });
+      await clientSearch.addProperty(id);
       res.json("funciono");
     } else {
       let arrayBookings = [...searchProperty.bookings, ...bookings];
       await searchProperty.update({ bookings: arrayBookings });
+      await clientSearch.addProperty(id);
       res.json(arrayBookings);
     }
   } catch (e) {
