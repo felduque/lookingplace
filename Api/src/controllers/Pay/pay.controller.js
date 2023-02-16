@@ -4,7 +4,7 @@ import mercadopago from "mercadopago";
 mercadopago.configure({
   access_token:
     // USUARIO DE PRUEBA, CRED DE PROD
-    "APP_USR-1508461661866484-021319-e57a84d03a4c8f08bfb6c9fbe7584dad-1309803015",
+    "APP_USR-7093203553956018-021319-da934253043f73fa0fbbc4cae73616d7-1309803015",
   //DE USUARIO NORMAL PERO CON CRED DE PRUEBA
   // "TEST-2972272992436948-012819-2a80a6af95d80301b59beeceef162274-350969416",
 });
@@ -69,7 +69,7 @@ export const payProperty = async (req, res) => {
     binary_mode: true,
     items: [
       {
-        id: property.id,
+        id: Number(property.id),
         title: property.title,
         description: property.description,
         picture_url: property.picture_url,
@@ -79,8 +79,9 @@ export const payProperty = async (req, res) => {
       },
     ],
     payer: {
-      name: client.name,
-      surname: client.surname,
+      // id: client.id,
+      name: JSON.stringify(client.id),
+      // surname: client.surname,
       email: client.email,
       // phone: {
       //   // area_code: "11",
@@ -108,6 +109,7 @@ export const payProperty = async (req, res) => {
   mercadopago.preferences
     .create(preference)
     .then(function (response) {
+      console.log(response);
       res.status(200).json(response);
     })
     .catch((error) => {

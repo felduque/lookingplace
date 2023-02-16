@@ -11,6 +11,7 @@ import { Aboutme } from "../../models/aboutme.model.js";
 import { Client } from "../../models/client.model.js";
 import { Tenant } from "../../models/tenant.model.js";
 import { Property } from "../../models/property.model.js";
+import { Booking } from "../../models/booking.model.js";
 import bcrypt from "bcrypt";
 const app = express();
 import { createRequire } from "module";
@@ -362,6 +363,9 @@ export const getClientById = async (req, res) => {
         },
         {
           model: Property,
+        },
+        {
+          model: Booking,
         },
       ],
     });

@@ -14,6 +14,8 @@ export default function ResumePay() {
   const bookings = params.get("bookings");
   const url = params.get("url");
 
+  console.log(id, title, description, nigths, price, total, bookings, url);
+
   if (!MPButton) return <div>...Cargando</div>;
   return (
     <>

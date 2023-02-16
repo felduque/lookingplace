@@ -8,6 +8,14 @@ export default function MPButton({
   price,
   picture_url,
 }) {
+  const auth = JSON.parse(localStorage.getItem("auth"));
+  // console.log(JSON.parse(auth));
+  console.log(auth);
+  const idClient = auth.idClient;
+  const emailClient = auth.email;
+
+  console.log(id, title, description, price, picture_url);
+
   const dataPropClien = {
     property: {
       id: id,
@@ -17,9 +25,10 @@ export default function MPButton({
       picture_url: picture_url,
     },
     client: {
-      name: "Felipe",
-      surname: "Felipe",
-      email: "felipe@gmail.com",
+      id: idClient,
+      // name: "Felipe",
+      // surname: "Felipe",
+      email: emailClient,
     },
   };
 
@@ -58,7 +67,7 @@ export default function MPButton({
           // CRED DE PUEBA CON CUENTA NORMAL
           // "TEST-137b6be0-b064-4d95-98b8-077723d4ebb1",
           // CRED DE PROD CON USUARIO DE PRUEBA
-          "APP_USR-347d2437-f5bc-4464-af36-bf91159d9f33",
+          "APP_USR-41cc642e-f6ee-41eb-a48c-adce822c53eb",
           {
             locale: "es-PE",
           }
