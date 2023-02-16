@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;700&display=swap');
+
+
+
+
 .container-filters-global{
     color: black;
 }
@@ -7,9 +12,17 @@
     display: inline-block;
 }
 
+.title{
+  font-family: 'Quicksand', sans-serif;
+}
+
+.button{
+  font-family: 'Quicksand', sans-serif;
+}
 
 .modal-card-title{
    text-align: center;
+   font-family: 'Quicksand', sans-serif;
 }
 
 .modal-card{
@@ -34,9 +47,12 @@
     width: 100%;
     height: 100%;
 }
+
 .filter-icon {
     width: 13%;
     height: 13%;
+    display: flex;
+    justify-content: space-between;
 }
 .filter-icon-more-small {
     width: 9%;
@@ -50,19 +66,92 @@
     width: 270px;
 }
 
-.no-style{
-    all: unset;
-    cursor: pointer;
+.map-icon{
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+}
+
+ .rating-icon{
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    margin-bottom: 20px;
  }
 
- .filter-button {
-    width: 20px;
-    height: 20px;
-    margin-top: 5px;
+ .price-icon{
+    width: 40px;
+    height: 40px;
+    margin-bottom: 20px;
+ }
+
+ .capacity-icon{
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+ }
+
+ .beds-icon{
+    width: 35px;
+    height: 35px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+ }
+
+ .baths-icon{
+    width: 30px;
+    height: 30px;
+    margin-top: 8px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+ }
+  .services-icon {
+    width: 40px;
+    height: 40px;
+    margin-left: 1px;
+    margin-bottom: 20px;
   }
 
   .select-style{
     color: black;
   }
 
+  .capacity-button-active {
+    background-color: #2a9d8f;
+    color: white;
+  }
+
+
+  .derecha{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+  }
+
+  .rating-container{
+    display: flex;
+    width: 100%;
+  }
+
+  .title-rating{
+    width: 70%;
+  }
+
   
+  .image-rating{
+    width: 30%;
+  }
+
+  .imagen-rating{
+    width: 50%;
+    height:50%;
+}
+
+
+.my-modal{
+  width: 720px;
+  height: 840px;
+}
