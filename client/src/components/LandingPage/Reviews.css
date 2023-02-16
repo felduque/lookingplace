@@ -1,168 +1,156 @@
-.container-reviews {
-    width:900px;
-    margin:0 auto;
-    position:relative;
-    padding-bottom:30px;
-    overflow:hidden;
-    margin-top: 50px;
-    margin-bottom: 50px;
+blockquote {
+	color: #ffffff;
+}
 
-  }
-  
-  .container-reviews blockquote {
-    background-color: rgb(14, 147, 223);
-    border-radius: 12px;
-    box-shadow: 0 5px 2px rgba(210, 20, 20, 0.1);
-    color:white;
-    margin:0;
-    padding:30px;
-    position:relative;
-    transition: background-color 0.6s linear;
-  }
-  
-  .container-reviews blockquote:after { 
-    border: solid transparent; 
-    border-left-color:rgb(14, 147, 223);
-    border-top-color: rgb(14, 147, 223);
-    border-width: 10px; 
-    content: " "; 
-    height: 0; 
-    left: 10%; 
-    position: absolute; 
-    top: 100%; 
-    width: 0;
-  }
-  
-  .container-reviews #second:checked ~ .two blockquote {
-    background-color:rgb(14, 147, 223);
-  }
-  
-  .two blockquote:after{
-    border: solid transparent; 
-    border-top-color: rgb(14, 147, 223);;
-    border-left-color:rgb(14, 147, 223);;
-    border-width: 10px;
-  }
-  
-  .container-reviews #third:checked ~ .three blockquote{
-    background-color:rgb(14, 147, 223);
-  }
-  
-  .container-reviews .three blockquote:after{
-    border: solid transparent; 
-    border-top-color: rgb(14, 147, 223);
-    border-left-color: rgb(14, 147, 223);
-    border-width: 10px;
-  }
-  
-  .container-reviews .quotes{
-    position:absolute;
-    color:rgba(241, 236, 236, 0.5);
-    font-size:3em;
-  }
-  
-  .container-reviews .leftq{
-    top:-23px;
-    left:2px;
-  }
-  
-  .container-reviews .rightq{
-    bottom:-10px;
-    right:5px;
-  }
-  
-  .container-reviews img{
-    float:left;
-    margin-right: 20px;
-    max-width: 130px;
-    width: 98%;
-    height: auto;
-    border-radius: 10px;
-  }
-  
-  .container-reviews .slide{
-    position:absolute;
-    transform: translateX(-100%);
-    opacity:0;
-    top: 0;
-    transition: transform 0.6s ease-in, opacity 0.6s ease-in;
-  }
-  
-  .container-reviews #first:checked ~ div.one {
-    position: relative;
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  .container-reviews #second:checked ~ div.two {
-    position: relative;
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  .container-reviews #third:checked ~ div.three {
-    position: relative;
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  /* -------------------------------------------------------------- 
-  
-      3. Controls (input) - Controles (input)
-  
-  ------------------------------------------------------------- */
-  .container-reviews input[type="radio"] {
-  position: absolute;
-  padding: 0;
-  border: 0;
-  left: -100%;
-  }
-  
-  .container-reviews label {
-    display:block;
-    width:31%;
-    border: 4px solid rgb(186, 186, 186);
-    border-radius: 8px;
-    position:absolute;
-    bottom:5px;
-    cursor: pointer;
-    transition: border-color 0.3s linear;
-  }
-  
-  .container-reviews label.second {
-    left:34%;
-  }
-  
-  .container-reviews label.third {
-    left:68%;
-  }
-  
-  .container-reviews #first:checked ~ label.first {
-    border-width:6px;
-    border-color:rgb(14, 147, 223);
-    border-radius: 8px;
-  }
-  
-  .container-reviews #second:checked ~ label.second {
-    border-width:6px; border-color:rgb(14, 147, 223);
-    border-radius: 8px;
-  }
-  
-  .container-reviews #third:checked ~ label.third {
-    border:6px solid rgb(14, 147, 223);
-    border-radius: 8px;
-  }
-  
-  /* -------------------------------------------------------------- 
-  
-      4. View article link - Link para ver el artículo
-  
-  ------------------------------------------------------------- */
-  .eb-logo {
-    float: right;
-  }
-  
-  .eb-logo img {
-    width: 65px;
-  }
-  
+/* Utility Classes */
+.container {
+	max-width: 1300px;
+	margin: 0 auto;
+	padding: 0 30px;
+}
+
+.small {
+	font-size: 14px;
+}
+
+/* Grid */
+#grid {
+	padding: 80px 0;
+}
+
+#grid .container {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 20px;
+}
+
+/* Grid Box */
+.grid-box {
+	padding: 30px;
+	border-radius: 20px;
+}
+
+.grid-box-author {
+	display: flex;
+	align-items: center;
+}
+
+.grid-box-author img {
+	border-radius: 50%;
+	height: 50px;
+	margin-right: 10px;
+}
+
+.grid-box-author-title p:first-child {
+	font-weight: 500;
+	color: #fff;
+}
+
+.grid-box-author-title p:nth-child(2) {
+	color: #cfcfcf;
+}
+
+.grid-box h4 {
+	color: #fff;
+	padding: 15px 0;
+}
+
+.grid-box-purple {
+	background: #7541c8;
+	background-image: url('/images/bg-pattern-quotation.svg');
+	background-repeat: no-repeat;
+	background-position: top right 50px;
+}
+.grid-box-gray {
+	background: #48556a;
+}
+.grid-box-navy {
+	background: #19212e;
+}
+.grid-box-white {
+	background: #ffffff;
+}
+
+.grid-box-white p:first-child {
+	color: #48556a;
+}
+
+.grid-box-white h4 {
+  /*Color texto cabezeras tajetas laterales*/
+	color: #ffffff;
+}
+
+.grid-box-white p:nth-child(2),
+.grid-box-white blockquote {
+   /*Color texto tajetas laterales*/
+	color: #ffffff;
+	/*opacity: 60%; */
+}
+
+.grid-box-daniel {
+	grid-row: 1;
+	grid-column: 1/3;
+  background-color: rgb(212, 114, 86);
+}
+.grid-box-jonathan {
+	grid-row: 1;
+	grid-column: 3/4;
+  background-color: rgb(163, 102, 169);
+}
+.grid-box-kira {
+	grid-row: 1/3;
+	grid-column: 4/5;
+  background-color: rgb(206, 136, 167);
+}
+.grid-box-jeanette {
+	grid-row: 2/3;
+	grid-column: 1/2;
+  background-color: rgb(120, 141, 183);
+
+}
+.grid-box-patrick {
+	grid-row: 2/3;
+	grid-column: 2/4;
+  background-color: rgb(90, 167, 143);
+}
+
+/* Attribution */
+.attribution {
+	padding-bottom: 30px;
+	text-align: center;
+}
+
+.attribution a {
+	color: #ffffff;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+	#grid .container {
+		grid-template-columns: 1fr;
+	}
+
+	.grid-box-daniel,
+	.grid-box-jonathan,
+	.grid-box-kira,
+	.grid-box-jeanette,
+	.grid-box-patrick {
+		grid-column: 1;
+	}
+
+	.grid-box-daniel {
+		grid-row: 1;
+	}
+	.grid-box-jonathan {
+		grid-row: 2;
+	}
+	.grid-box-kira {
+		grid-row: 3;
+	}
+	.grid-box-jeanette {
+		grid-row: 4;
+	}
+	.grid-box-patrick {
+		grid-row: 5;
+	}
+}

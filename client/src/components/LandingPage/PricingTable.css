@@ -53,6 +53,7 @@
     color: hsl(233, 13%, 49%);
     border-radius: 0.8rem;
     margin-left: 35px;
+    height: 500px;
   }
   .card.active:hover{
     box-shadow: rgba(255, 188, 0, 0.8) 0px 0px 0px 3px;
@@ -91,9 +92,10 @@
 }
   .shadow {
     box-shadow: -5px 5px 15px 1px rgba(0, 0, 0, 0.1);
+    height: 550px;
   }
   
-  .card.active .price {
+  .card .active .price {
     color: #fff;
   }
   
