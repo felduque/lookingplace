@@ -104,3 +104,24 @@ export function updateAvatarTenant(id, data) {
     console.log(error);
   }
 }
+
+export function deleteProperty(id) {
+  try {
+    const result = axios.delete(`http://localhost:3000/property/delete/${id}`);
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function updatePropery(id, data) {
+  try {
+    const result = axios.patch(
+      `http://localhost:3000/property/edit/${id}`,
+      data
+    );
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+}

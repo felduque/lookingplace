@@ -112,16 +112,27 @@ export const ListClient = () => {
   ];
 
   return (
-    <div className="listUser">
-      <div className="listuserall">
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          pageSize={8}
-          rowsPerPageOptions={[5]}
-          checkboxSelection
-        />
+    <>
+      <div className="container-title-section-panel">
+        <h2 className="title-profile-container">TUS CLIENTES </h2>
       </div>
-    </div>
+      <div className="listUser">
+        <div className="listuserall">
+          <DataGrid
+            style={{
+              height: 400,
+              width: "100%",
+              color: "white",
+              fontWeight: "bold",
+            }}
+            rows={rows}
+            columns={columns}
+            pageSize={8}
+            rowsPerPageOptions={[5]}
+            checkboxSelection
+          />
+        </div>
+      </div>
+    </>
   );
 };
