@@ -8,6 +8,7 @@
 
 import express from "express";
 import { Tenant } from "../../models/tenant.model.js";
+import { Client } from "../../models/client.model.js";
 import { Aboutme } from "../../models/aboutme.model.js";
 import { Property } from "../../models/property.model.js";
 import bcrypt from "bcrypt";
@@ -26,6 +27,10 @@ export const createTenant = async (req, res) => {
   const { firebaseUrl } = req.file ? req.file : "";
   const { fullName, email, password, verify, phone, role } = req.body;
 
+  const searchEmailClient = await Client.findOne({ where: { email } });
+  if (searchEmailClient) {
+    return res.status(400).json({ message: "email exist" });
+  }
   // ! Encrypt password
   const salt = await bcrypt.genSalt(10);
   const passwordCrypt = await bcrypt.hash(password, salt);
@@ -166,9 +171,17 @@ export const refreshToken = async (req, res) => {
   );
 };
 
+function validateEmail(email) {
+  const re =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
+
 export const forgot = async (req, res) => {
   const { email } = req.body;
 
+  if (!validateEmail)
+    return res.status(400).send({ message: "email no valido" });
   try {
     const oldUser = await Tenant.findOne({ where: { email } });
     if (!oldUser) {
@@ -178,7 +191,7 @@ export const forgot = async (req, res) => {
     const token = jwt.sign({ email: oldUser.email, id: oldUser.id }, secret, {
       expiresIn: "10m",
     });
-    const link = `http://127.0.0.1:3000/reset/${oldUser.id}/${token}`;
+    const link = `http://127.0.0.1:3000/tenant/reset/${oldUser.id}/${token}`;
 
     var transporter = nodemailer.createTransport({
       service: "gmail",

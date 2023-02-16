@@ -1,0 +1,118 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.video-landing {
+    width: 100%;
+    height: 70%;
+}
+
+video {
+    width: 100%;
+    height: 70vh;
+    object-fit: cover;
+}
+
+/*
+.button-home {
+  position: absolute;
+    width: 250px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+    z-index: 1;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+
+}
+.button-home a {
+  text-decoration: none;
+  color: azure;
+  font-size:100%;
+  border: 2px solid rgb(230, 64, 14);
+  padding: 5px 25px;
+  border-radius: 3px;
+}
+*/
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70%;
+    background-color: rgb(0,0,0,.2);
+    z-index: 99;
+}
+
+.container-header {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+    z-index: 1;
+    color: rgb(255, 255, 255);
+}
+.descrption-lookingplace {
+    background-color: rgb(0,0,0,.4);
+    color: aliceblue;
+    padding: 30px 60px;
+    border-radius: 12px;
+}
+.backpack-lookingplace {
+    width: 350px;
+    display: flex;
+    align-items: center;
+}
+.backpack-logo {
+    width: 50px;
+    height: 60px;
+    margin-left: 50px;
+}
+.carrusel-cards {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    justify-content: center;
+    
+}
+.carrusel-left {
+    padding-right: 20px;
+}
+.carrusel-right {
+    padding-left: 20px;
+}
+.center-text {
+    margin-left: 35%;
+    margin-top: 30px;
+    color: rgb(125, 125, 125)
+}
+.bottom-container {
+    border: solid 2px rgb(14, 147, 223);
+    border-radius: 8px;
+    margin: 0px 5px 7px 5px
+}
+.into-home-button {
+    margin-left: 45%;
+    margin-bottom: 30px;
+}
+.text-planes {
+   display: flex;
+   margin-bottom: 10px;
+}
+
+.conteiner-planes{
+    border: solid 2px rgb(14, 147, 223);
+    border-radius: 8px;
+    margin: 0px 5px 7px 5px;
+    
+}
+
+.container-inf {
+    border: solid 2px rgb(14, 147, 223);
+    border-radius: 8px;
+    margin: 0px 5px 7px 5px; 
+}

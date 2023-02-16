@@ -44,8 +44,11 @@ export const ListUser = () => {
   if (viewList.listUser === true) {
     return (
       <>
+        <div className="container-title-section-panel">
+          <h2 className="title-profile-container">LISTADO DE USUARIOS </h2>
+        </div>
         <button
-          className="button  is-link is-outlined is-centered is-rounded  "
+          className="button is-link"
           value="listTenant"
           onClick={changeViewList}
         >
@@ -53,14 +56,27 @@ export const ListUser = () => {
         </button>
         <div className="listUser">
           <div className="listuserall">
-            <h2>Lista de Clientes</h2>
             <DataGrid
+              style={{
+                height: 400,
+                width: "100%",
+                color: "white",
+                fontWeight: "bold",
+              }}
               rows={users}
               loading={users.length === 0}
               columns={columns}
               pageSize={8}
               rowsPerPageOptions={[5]}
-              checkboxSelection
+              // checkboxSelection
+              // obtener el id selecctionada
+              // onSelectionModelChange={(newSelection) => {
+              //   const selectedIds = newSelection.selectionModel;
+              //   const selectedRowData = selectedIds.map(
+              //     (selectedId) => users[selectedId]
+              //   );
+              //   console.log(selectedRowData);
+              // }}
             />
           </div>
         </div>
@@ -69,6 +85,9 @@ export const ListUser = () => {
   } else if (viewList.listTenant === true) {
     return (
       <>
+        <div className="container-title-section-panel">
+          <h2 className="title-profile-container">LISTADO DE ARRENDATARIOS</h2>
+        </div>
         <button
           className="button is-link"
           value="listUser"
@@ -78,14 +97,26 @@ export const ListUser = () => {
         </button>
         <div className="listUser">
           <div className="listuserall">
-            <h2>Lista de Arrendatarios</h2>
             <DataGrid
+              style={{
+                height: 400,
+                width: "100%",
+                color: "white",
+                fontWeight: "bold",
+              }}
               rows={tenant}
               loading={tenant.length === 0}
               columns={columns}
               pageSize={8}
               rowsPerPageOptions={[5]}
-              checkboxSelection
+              // obtener el id selecctionada
+              // onSelectionModelChange={(newSelection) => {
+              //   const selectedIds = newSelection.selectionModel;
+              //   const selectedRowData = selectedIds.map(
+              //     (selectedId) => users[selectedId]
+              //   );
+              //   console.log(selectedRowData);
+              // }}
             />
           </div>
         </div>
