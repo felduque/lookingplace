@@ -13,6 +13,7 @@ import "./CardDetail.css";
 import useAuth from "../Acceso/hooks/useAuth";
 import axios from "axios";
 import { UserAuth } from "../../service/AuthContext";
+import Swal from "sweetalert2";
 
 export default function CardDetail() {
   const { isLoaded } = useLoadScript({
@@ -109,6 +110,49 @@ axios
   const { user } = UserAuth();
   const [comentarios, setComentarios] = useState([]);
   const [nuevoComentario, setNuevoComentario] = useState("");
+
+  /* edittttttttt*/
+  const [editComment, setEditComment] = useState({
+    commentId: null,
+    commentText: "",
+  });
+
+  const handleEditComment = (id, text) => {
+    setEditComment({ commentId: id, commentText: text });
+  };
+
+  const handleUpdateComment = (event) => {
+    event.preventDefault();
+
+    const editCommento = {
+      comment: editComment.commentText,
+    };
+
+    axios
+      .patch(
+        `http://localhost:3000/comment/edit/${editComment.commentId}`,
+        editCommento
+      )
+      .then((response) => {
+        console.log(response.data);
+        return response.data;
+      })
+      .then((data) => {
+        const updatedComments = comentarios.map((commentId) =>
+          commentId === editComment.commentId
+            ? { ...comentarios, comentarios: editComment.commentText }
+            : comentarios
+        );
+        setComentarios(updatedComments);
+        setEditComment({ commentId: null, commentText: "" });
+      })
+      .catch((error) => console.log(error));
+  };
+
+  console.log(editComment);
+
+  /* Agregar comentario*/
+
   console.log(detail);
 
   const commentsArray = Comments ? Object.values(Comments) : [];
@@ -137,9 +181,10 @@ axios
           setComentarios([...comentarios, comentario]);
           setNuevoComentario("");
           commentsArray;
-
-          alert(
-            "Tu comentario ha sido agregado con éxito, recargue la página para verlo reflejado"
+          Swal.fire(
+            "Tu comentario ha sido agregado con éxito, recargue la página para verlo reflejado",
+            "",
+            "success"
           );
         }
       })
@@ -283,20 +328,36 @@ axios
       <div className="containerComents">
         <div className="subtitleCardDe">Comentarios</div>
         {auth?.email ? (
-          <form onSubmit={handleSubmit}>
-            <label>Nuevo comentario</label>
-            <input
-              className="hola"
-              type="text"
-              value={nuevoComentario}
-              onChange={(event) => setNuevoComentario(event.target.value)}
-            />
+          <div>
+            <form onSubmit={handleSubmit}>
+              <label>Nuevo comentario</label>
+              <input
+                className="hola"
+                type="text"
+                value={nuevoComentario}
+                onChange={(event) => setNuevoComentario(event.target.value)}
+              />
 
-            <button type="submit">Enviar comentario</button>
-          </form>
+              <button type="submit">Enviar comentario</button>
+            </form>
+          </div>
         ) : (
           <h1>Debes Registrarte Para poder comentar</h1>
         )}
+        <form onSubmit={handleUpdateComment}>
+          <input
+            type="text"
+            placeholder="Editar comentario"
+            value={editComment.commentText}
+            onChange={(event) =>
+              setEditComment({
+                ...editComment,
+                commentText: event.target.value,
+              })
+            }
+          />
+          <button type="submit">Guardar cambios</button>
+        </form>
         {commentsArray.length > 0 ? (
           <div className="comment">
             {commentsArray.map((comentario) => (
@@ -316,6 +377,13 @@ axios
                   ""
                 )}
                 {<button className="response-button">Responder</button>}
+                <button
+                  onClick={() =>
+                    handleEditComment(comentario.id, comentario.comment)
+                  }
+                >
+                  Editar
+                </button>
 
                 <p className="commentFecha">{comentario.fecha?.toString()}</p>
                 <hr />
@@ -328,6 +396,7 @@ axios
 
                 <p className="authorComment">{comentario.author}</p>
                 <h1 className="comentarioComment">{comentario.comment}</h1>
+                <p>{comentario.id}</p>
                 <hr />
               </div>
             ))}
