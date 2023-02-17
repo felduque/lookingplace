@@ -1,6 +1,6 @@
 export default function Loader() {
     return (
-        <progress class="progress is-large is-info" max="100">16%</progress>
+        <progress class="progress is-large is-info" max="60">60%</progress>
     )
 }
 

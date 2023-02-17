@@ -12,7 +12,7 @@ export default function AboutUs() {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 5000);
+    }, 3400);
   }, []);
 
   return (

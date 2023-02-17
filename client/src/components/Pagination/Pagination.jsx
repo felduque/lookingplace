@@ -1,6 +1,7 @@
 import React from "react";
 import "./Pagination.css";
 import Swal from "sweetalert2";
+import Loader from "../Loader/Loader";
 
 export const Pagination = ({
   propertyPerPage,
@@ -14,6 +15,10 @@ export const Pagination = ({
         <h1>No hay propiedades que mostrar. Al parecer NINGUNA propiedad tiene las caracteristicas que elegiste en los filtros</h1>
       </div>
     );
+  } else if (!totalProperty) {
+    return (
+      <Loader />
+    )
   }
   const pageNumber = [];
 
