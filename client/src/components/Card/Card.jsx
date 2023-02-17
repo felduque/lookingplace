@@ -33,7 +33,7 @@ function Card({
   // ];
 
   const containerStyles = {
-    width: "300px",
+    width: "280px",
     height: "250px",
     margin: "0 auto",
     zIndex: 10,
@@ -57,28 +57,28 @@ function Card({
                   <img src={starIcon} className="icon-star" />
                 </div>
                 <div className="column">
-                  <span>{rating}/5</span>
+                  <span className="number-card">{rating}/5</span>
                 </div>
 
                 <div className="column">
                   <img src={capacityIcon} className="icon-capacity" />
                 </div>
                 <div className="column">
-                  <span>{capacity}</span>
+                  <span className="number-card">{capacity}</span>
                 </div>
 
                 <div className="column">
                   <img src={bedsIcon} className="icon-beds" />
                 </div>
                 <div className="column">
-                  <span>{beds}</span>
+                  <span className="number-card">{beds}</span>
                 </div>
 
                 <div className="column">
                   <img src={bathroomIcon} className="icon-bathroom" />
                 </div>
-                <div className="column">
-                  <span>{baths}</span>
+                <div className="column ">
+                  <span className="number-card">{baths}</span>
                 </div>
               </div>
             </div>
