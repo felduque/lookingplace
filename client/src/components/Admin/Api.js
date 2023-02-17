@@ -105,9 +105,40 @@ export function updateAvatarTenant(id, data) {
   }
 }
 
+export function deleteClient(id) {
+  try {
+    const result = axios.delete(
+      `http://localhost:3000/client/deleteuser/${id}`
+    );
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export function deleteProperty(id) {
   try {
     const result = axios.delete(`http://localhost:3000/property/delete/${id}`);
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function deleteTenant(id) {
+  try {
+    const result = axios.delete(
+      `http://localhost:3000/tenant/deletetenant/${id}`
+    );
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function getPropertyByid(id) {
+  try {
+    const result = axios.get(`http://localhost:3000/property/${id}`);
     return result;
   } catch (error) {
     console.log(error);
@@ -120,6 +151,15 @@ export function updatePropery(id, data) {
       `http://localhost:3000/property/edit/${id}`,
       data
     );
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function deleteComment(id) {
+  try {
+    const result = axios.delete(`http://localhost:3000/comment/delete/${id}`);
     return result;
   } catch (error) {
     console.log(error);
