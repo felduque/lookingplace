@@ -43,6 +43,5 @@ router.patch(
   updateAvatar
 );
 router.delete("/client/deleteuser/:id", deleteClient);
-router.delete("/client/deleteuser/:id", deleteClient);
 
 export default router;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { deleteProperty, getTenantById } from "./Api";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import { RiEditBoxFill } from "react-icons/ri";
+import { GrEdit } from "react-icons/gr";
 import { ModalForm } from "./ModalForm";
 
 export const ListPublish = () => {
@@ -75,16 +75,14 @@ export const ListPublish = () => {
               </div> */}
 
               <div className="container-list-publish-tenant__list__item__image">
-                <button
-                  // activar funcion y setear el id de la propiedad
+                <GrEdit
                   onClick={() => {
                     handleChangeModal();
                     setId(item.id);
                   }}
                   className="btn-edit-publish"
-                >
-                  <RiEditBoxFill />
-                </button>
+                />
+
                 <img src={item.image[0]} alt={item.title} />
               </div>
               <Link to={`/propertyDetail/${item.id}`}>
