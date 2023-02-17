@@ -103,8 +103,8 @@ export const deleteComment = async (req, res) => {
 
 export const updateComment = async (req, res) => {
   const { id } = req.params;
-  const { comment, property_comment, client_comment, tenant_comment } =
-    req.body;
+  const { comment, property_comment } = req.body;
+  console.log(req.body);
   try {
     let commentUpd = await Comment.findOne({
       where: { id },
@@ -116,8 +116,6 @@ export const updateComment = async (req, res) => {
         {
           comment,
           property_comment,
-          client_comment,
-          tenant_comment,
         },
         {
           where: { id },
