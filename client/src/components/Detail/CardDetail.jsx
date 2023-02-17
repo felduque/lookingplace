@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPropertyByIdAsync } from "../../redux/features/getPropertySlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import Calendar from "../Calendario/Calendario";
 import OwnCarousel from "./OwnCarousel";
@@ -10,6 +10,9 @@ import BedIcon from "./Icons/Bed";
 import BathIcon from "./Icons/Bath";
 import StarIcon from "./Icons/Star";
 import "./CardDetail.css";
+import useAuth from "../Acceso/hooks/useAuth";
+import axios from "axios";
+import { UserAuth } from "../../service/AuthContext";
 
 export default function CardDetail() {
   const { isLoaded } = useLoadScript({
@@ -24,7 +27,7 @@ export default function CardDetail() {
   }, [id, dispatch]);
 
   const detail = useSelector((state) => state.properties.propertyDetail);
-  console.log(detail);
+  //console.log(detail);
 
   const {
     title,
@@ -45,10 +48,117 @@ export default function CardDetail() {
     lng,
     bookings,
     Comments,
+    Tenant,
+    Client,
     country,
     region,
     state,
   } = detail;
+
+  /* David */
+
+  //const comentariosArray = comentarios ? Object.values(comentarios) : [];
+  //console.log(typeof comentarios);
+  //console.log(comentarios);
+  /*const handleDeleteComment = (id) => {
+axios
+  .delete(`http://localhost:3000/comment/delete/${id}`)
+  .then((response) => {
+    if (response.status === 200) {
+      const deletedComments = comentarios
+      .map((comentario) => comentario.id)
+      .filter((c) => c.id !== id);
+      setComentarios(deletedComments);
+    }
+  })
+  .catch((error) => console.log(error));
+};*/
+  //console.log(Tenant);
+  /*useEffect(() => {
+    const fetchComentarios = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/comments");
+        if (Array.isArray(response.data)) {
+          const comentarios = response.data.map((comentario) => {
+            const fecha = comentario.fecha ? new Date(comentario.fecha) : "";
+            return { ...comentario, fecha };
+          });
+          setComentarios(comentarios);
+        } else if (
+          typeof response.data === "object" &&
+          response.data !== null
+        ) {
+          const comentarios = Object.keys(response.data).map((key) => {
+            const comentario = response.data[key];
+            const fecha = comentario.fecha ? new Date(comentario.fecha) : "";
+            return { ...comentario, fecha };
+          });
+          setComentarios(comentarios);
+        } else {
+          console.log("Response data is not an array or object.");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchComentarios();
+  }, []);*/
+
+  const { auth } = useAuth();
+  const { user } = UserAuth();
+  const [comentarios, setComentarios] = useState([]);
+  const [nuevoComentario, setNuevoComentario] = useState("");
+  console.log(detail);
+
+  const commentsArray = Comments ? Object.values(Comments) : [];
+
+  //console.log(commentsArray);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const fecha = new Date();
+
+    const comentario = {
+      comment: nuevoComentario,
+      property_comment: id,
+      author: auth.email,
+      avatar: auth.avatar,
+      fecha: fecha,
+    };
+
+    fetch("http://localhost:3000/comment/createcomment", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(comentario),
+    })
+      .then((response) => {
+        if (response.ok) {
+          setComentarios([...comentarios, comentario]);
+          setNuevoComentario("");
+          commentsArray;
+
+          alert(
+            "Tu comentario ha sido agregado con éxito, recargue la página para verlo reflejado"
+          );
+        }
+      })
+      .catch((error) => console.log(error));
+  };
+
+  function deleteComment(id) {
+    fetch(`http://localhost:3000/comment/delete/${id}`, { method: "DELETE" })
+      .then((response) => {
+        if (response.ok) {
+          // Si la respuesta del servidor es satisfactoria, eliminamos el comentario de la página
+          const commentElement = document.getElementById(`comentario-${id}`);
+          commentElement.remove();
+        } else {
+          console.error(`Error al borrar comentario: ${response.status}`);
+        }
+      })
+      .catch((error) => console.error(`Error al borrar comentario: ${error}`));
+  }
 
   // console.log(typeof lat);
   if (!Calendar) return <div>Cargando Calendario</div>;
@@ -171,26 +281,56 @@ export default function CardDetail() {
       </div>
       <hr />
       <div className="containerComents">
-        <p className="subtitleCardDe">Comentarios</p>
-        {Comments?.length > 0 ? (
-          <div>
-            <div className="contImgComentPrin">
-              <div className="contImgComents">
+        <div className="subtitleCardDe">Comentarios</div>
+        {auth?.email ? (
+          <form onSubmit={handleSubmit}>
+            <label>Nuevo comentario</label>
+            <input
+              className="hola"
+              type="text"
+              value={nuevoComentario}
+              onChange={(event) => setNuevoComentario(event.target.value)}
+            />
+
+            <button type="submit">Enviar comentario</button>
+          </form>
+        ) : (
+          <h1>Debes Registrarte Para poder comentar</h1>
+        )}
+        {commentsArray.length > 0 ? (
+          <div className="comment">
+            {commentsArray.map((comentario) => (
+              <div
+                key={comentario.id}
+                id={`comentario-${comentario.id}`}
+                className="comment-container"
+              >
+                {auth.email === Tenant.email || auth?.role == "Admin" ? (
+                  <button
+                    onClick={() => deleteComment(comentario.id)}
+                    className="delete-button"
+                  >
+                    Eliminar
+                  </button>
+                ) : (
+                  ""
+                )}
+                {<button className="response-button">Responder</button>}
+
+                <p className="commentFecha">{comentario.fecha?.toString()}</p>
+                <hr />
                 <img
-                  className="imgCom"
-                  src="https://www.pngitem.com/pimgs/m/78-786501_black-avatar-png-user-icon-png-transparent-png.png"
-                  alt=""
+                  className="imgComment"
+                  src={comentario.avatar}
+                  width="50"
+                  height="50"
                 />
+
+                <p className="authorComment">{comentario.author}</p>
+                <h1 className="comentarioComment">{comentario.comment}</h1>
+                <hr />
               </div>
-              <div className="contFeCom">
-                <div>
-                  <span className="fecha">Contenedor de Fecha</span>
-                </div>
-                <div className="comenCont">
-                  <p className="comentText">Contenedor de Comentario</p>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         ) : (
           <div>

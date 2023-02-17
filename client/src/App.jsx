@@ -74,18 +74,17 @@ function App() {
 
             {/*si quieren agregar rutas publicas arriba de este mensaje*/}
 
-            <Route element={<WithOutAuth />}>
-              <Route path="register" element={<SignUp />} />
-              <Route path="login" element={<Login />} />
-              <Route path="/forgotpassword" element={<ForgotPassword />} />
-            </Route>
+            <Route path="/register" element={<SignUp />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/forgotpassword" element={<ForgotPassword />} />
+            <Route element={<WithOutAuth />}></Route>
 
             {/*Protect routes*/}
 
             <Route element={<RequireAuth />}>
               <Route path="/Pay/Success" element={<PaySuccess />} />
               <Route path="/Pay/Failure" element={<PayFailure />} />
-              <Route path="settings" element={<Admin />} />
+              <Route path="/settings" element={<Admin />} />
             </Route>
 
             {/*Tenant Access*/}

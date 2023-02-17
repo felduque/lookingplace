@@ -149,17 +149,17 @@ export const getProperty = async (req, res) => {
         {
           model: Comment,
           as: "Comments",
-          attributes: ["id", "comment"],
+          attributes: ["id", "comment", "fecha"],
         },
         {
           model: Client,
           as: "Client",
-          attributes: ["id"],
+          attributes: ["id", "fullName", "avatar", "email"],
         },
         {
           model: Tenant,
           as: "Tenant",
-          attributes: ["id"],
+          attributes: ["id", "fullName", "avatar", "email"],
         },
       ],
     });
@@ -302,17 +302,17 @@ export const getPropertyById = async (req, res) => {
         {
           model: Comment,
           as: "Comments",
-          attributes: ["id", "comment"],
+          attributes: ["id", "comment", "fecha", "author", "avatar"],
         },
         {
           model: Client,
           as: "Client",
-          attributes: ["id"],
+          attributes: ["id", "fullName", "avatar", "email"],
         },
         {
           model: Tenant,
           as: "Tenant",
-          attributes: ["id"],
+          attributes: ["id", "fullName", "avatar", "email"],
         },
       ],
     });
