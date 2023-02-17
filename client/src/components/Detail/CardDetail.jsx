@@ -164,6 +164,7 @@ export default function CardDetail() {
               price={price}
               title={title}
               description={description}
+              url={image}
             />
           </div>
         </div>

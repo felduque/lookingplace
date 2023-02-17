@@ -5,11 +5,16 @@ import MPButton from "../MercadoPago/MercadoPago";
 export default function ResumePay() {
   const [params, setParams] = useSearchParams();
 
+  const id = params.get("id");
   const title = params.get("title");
   const description = params.get("description");
   const nigths = params.get("nigths");
   const price = params.get("price");
   const total = params.get("total");
+  const bookings = params.get("bookings");
+  const url = params.get("url");
+
+  console.log(id, title, description, nigths, price, total, bookings, url);
 
   if (!MPButton) return <div>...Cargando</div>;
   return (
@@ -34,7 +39,13 @@ export default function ResumePay() {
             {" "}
             <strong> Pago Total : USD$ {total}</strong>
           </p>
-          <MPButton title={title} description={description} price={total} />
+          <MPButton
+            id={id}
+            title={title}
+            description={bookings}
+            price={total}
+            picture_url={url}
+          />
         </div>
       </div>
     </>
