@@ -225,7 +225,6 @@ export default function Filters({ closeModal }) {
     });
   };
 
-
   const handleKeyDown = (event) => {
     if (event.key === "Escape") {
       closeModal();
@@ -373,60 +372,60 @@ export default function Filters({ closeModal }) {
                 <div className="buttons-container box">
                   <div className="is-flex is-align-items-center mt-1 ">
                     <h1 className="title is-size-4 align-left">Capacidad</h1>
-                    <img src={capacityfilerIcon} className="capacity-icon" />
+                    <img src={capacityfilerIcon} className="capacity-icon " />
                   </div>
-                  <div>
+                  <div className="">
                     <button
-                      className={`capacity-button button is-active ${capacity === "1" ? "capacity-button-active" : ""
+                      className={`capacity-button button is-active mr-2 ${capacity === "1" ? "capacity-button-active" : ""
                         }`}
                       onClick={() => handleCapacityButtonClick("1")}
                     >
                       1
                     </button>
                     <button
-                      className={`capacity-button button is-active ${capacity === "2" ? "capacity-button-active" : ""
+                      className={`capacity-button button is-active mr-2 ${capacity === "2" ? "capacity-button-active" : ""
                         }`}
                       onClick={() => handleCapacityButtonClick("2")}
                     >
                       2
                     </button>
                     <button
-                      className={`capacity-button button is-active ${capacity === "3" ? "capacity-button-active" : ""
+                      className={`capacity-button button is-active mr-2 ${capacity === "3" ? "capacity-button-active" : ""
                         }`}
                       onClick={() => handleCapacityButtonClick("3")}
                     >
                       3
                     </button>
                     <button
-                      className={`capacity-button button is-active ${capacity === "4" ? "capacity-button-active" : ""
+                      className={`capacity-button button is-active mr-2 ${capacity === "4" ? "capacity-button-active" : ""
                         }`}
                       onClick={() => handleCapacityButtonClick("4")}
                     >
                       4
                     </button>
                     <button
-                      className={`capacity-button button is-active ${capacity === "5" ? "capacity-button-active" : ""
+                      className={`capacity-button button is-active mr-2 ${capacity === "5" ? "capacity-button-active" : ""
                         }`}
                       onClick={() => handleCapacityButtonClick("5")}
                     >
                       5
                     </button>
                     <button
-                      className={`capacity-button button is-active ${capacity === "6" ? "capacity-button-active" : ""
+                      className={`capacity-button button is-active mr-2 ${capacity === "6" ? "capacity-button-active" : ""
                         }`}
                       onClick={() => handleCapacityButtonClick("6")}
                     >
                       6
                     </button>
                     <button
-                      className={`capacity-button button is-active ${capacity === "7" ? "capacity-button-active" : ""
+                      className={`capacity-button button is-active mr-2 ${capacity === "7" ? "capacity-button-active" : ""
                         }`}
                       onClick={() => handleCapacityButtonClick("7")}
                     >
                       7
                     </button>
                     <button
-                      className={`capacity-button button is-active ${capacity === "20" ? "capacity-button-active" : ""
+                      className={`capacity-button button is-active mr-2 ${capacity === "20" ? "capacity-button-active" : ""
                         }`}
                       onClick={() => handleCapacityButtonClick("20")}
                     >
@@ -439,56 +438,56 @@ export default function Filters({ closeModal }) {
                   </div>
                   <div>
                     <button
-                      className={`capacity-button button is-active ${beds === "1" ? "capacity-button-active" : ""
+                      className={`capacity-button button is-active mr-2 ${beds === "1" ? "capacity-button-active" : ""
                         }`}
                       onClick={() => handleBedsButtonClick("1")}
                     >
                       1
                     </button>
                     <button
-                      className={`capacity-button button is-active ${beds === "2" ? "capacity-button-active" : ""
+                      className={`capacity-button button is-active mr-2 ${beds === "2" ? "capacity-button-active" : ""
                         }`}
                       onClick={() => handleBedsButtonClick("2")}
                     >
                       2
                     </button>
                     <button
-                      className={`capacity-button button is-active ${beds === "3" ? "capacity-button-active" : ""
+                      className={`capacity-button button is-active mr-2 ${beds === "3" ? "capacity-button-active" : ""
                         }`}
                       onClick={() => handleBedsButtonClick("3")}
                     >
                       3
                     </button>
                     <button
-                      className={`capacity-button button is-active ${beds === "4" ? "capacity-button-active" : ""
+                      className={`capacity-button button is-active mr-2 ${beds === "4" ? "capacity-button-active" : ""
                         }`}
                       onClick={() => handleBedsButtonClick("4")}
                     >
                       4
                     </button>
                     <button
-                      className={`capacity-button button is-active ${beds === "5" ? "capacity-button-active" : ""
+                      className={`capacity-button button is-active mr-2 ${beds === "5" ? "capacity-button-active" : ""
                         }`}
                       onClick={() => handleBedsButtonClick("5")}
                     >
                       5
                     </button>
                     <button
-                      className={`capacity-button button is-active ${beds === "6" ? "capacity-button-active" : ""
+                      className={`capacity-button button is-active mr-2 ${beds === "6" ? "capacity-button-active" : ""
                         }`}
                       onClick={() => handleBedsButtonClick("6")}
                     >
                       6
                     </button>
                     <button
-                      className={`capacity-button button is-active ${beds === "7" ? "capacity-button-active" : ""
+                      className={`capacity-button button is-active mr-2 ${beds === "7" ? "capacity-button-active" : ""
                         }`}
                       onClick={() => handleBedsButtonClick("7")}
                     >
                       7
                     </button>
                     <button
-                      className={`capacity-button button is-active ${beds === "20" ? "capacity-button-active" : ""
+                      className={`capacity-button button is-active mr-2 ${beds === "20" ? "capacity-button-active" : ""
                         }`}
                       onClick={() => handleBedsButtonClick("20")}
                     >
@@ -501,56 +500,56 @@ export default function Filters({ closeModal }) {
                   </div>
                   <div>
                     <button
-                      className={`capacity-button button is-active ${baths === "1" ? "capacity-button-active" : ""
+                      className={`capacity-button button is-active mr-2 ${baths === "1" ? "capacity-button-active" : ""
                         }`}
                       onClick={() => handleBathsButtonClick("1")}
                     >
                       1
                     </button>
                     <button
-                      className={`capacity-button button is-active ${baths === "2" ? "capacity-button-active" : ""
+                      className={`capacity-button button is-active mr-2 ${baths === "2" ? "capacity-button-active" : ""
                         }`}
                       onClick={() => handleBathsButtonClick("2")}
                     >
                       2
                     </button>
                     <button
-                      className={`capacity-button button is-active ${baths === "3" ? "capacity-button-active" : ""
+                      className={`capacity-button button is-active mr-2 ${baths === "3" ? "capacity-button-active" : ""
                         }`}
                       onClick={() => handleBathsButtonClick("3")}
                     >
                       3
                     </button>
                     <button
-                      className={`capacity-button button is-active ${baths === "4" ? "capacity-button-active" : ""
+                      className={`capacity-button button is-active mr-2 ${baths === "4" ? "capacity-button-active" : ""
                         }`}
                       onClick={() => handleBathsButtonClick("4")}
                     >
                       4
                     </button>
                     <button
-                      className={`capacity-button button is-active ${baths === "5" ? "capacity-button-active" : ""
+                      className={`capacity-button button is-active mr-2 ${baths === "5" ? "capacity-button-active" : ""
                         }`}
                       onClick={() => handleBathsButtonClick("5")}
                     >
                       5
                     </button>
                     <button
-                      className={`capacity-button button is-active ${baths === "6" ? "capacity-button-active" : ""
+                      className={`capacity-button button is-active mr-2 ${baths === "6" ? "capacity-button-active" : ""
                         }`}
                       onClick={() => handleBathsButtonClick("6")}
                     >
                       6
                     </button>
                     <button
-                      className={`capacity-button button is-active ${baths === "7" ? "capacity-button-active" : ""
+                      className={`capacity-button button is-active mr-2 ${baths === "7" ? "capacity-button-active" : ""
                         }`}
                       onClick={() => handleBathsButtonClick("7")}
                     >
                       7
                     </button>
                     <button
-                      className={`capacity-button button is-active ${baths === "20" ? "capacity-button-active" : ""
+                      className={`capacity-button button is-active mr-2 ${baths === "20" ? "capacity-button-active" : ""
                         }`}
                       onClick={() => handleBathsButtonClick("20")}
                     >

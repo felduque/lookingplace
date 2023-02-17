@@ -37,8 +37,8 @@ export default function Navbar({ isLogued }) {
     setAuth(null);
   };
   return (
-    <nav className="navbar" role="navigation" aria-label="main navigation">
-      <div className="navbar-brand space-margin-left">
+    <nav className="navbar is-fixed-top has-shadow" role="navigation" aria-label="main navigation">
+      <div className="navbar-brand space-margin-left ">
         <Link to="/" className="navbar-item">
           <img src={logoIcon} width="30" height="20" />
           <strong>LookingPlace</strong>
