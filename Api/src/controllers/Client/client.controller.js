@@ -16,7 +16,7 @@ import bcrypt from "bcrypt";
 const app = express();
 import { createRequire } from "module";
 import jwt from "jsonwebtoken";
-//import { sendEmail } from "../Nodemailer/nodemailer.controller.js";
+import { sendEmail } from "../Nodemailer/nodemailer.controller.js";
 // import { Payments } from "../../models/payment.model.js";
 const require = createRequire(import.meta.url);
 require("dotenv").config();
