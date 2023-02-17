@@ -11,6 +11,7 @@ import {
   verifyPassword,
   resetPassword,
   updateAvatar,
+  deleteTenant,
 } from "../../controllers/Tenant/tenant.controller.js";
 import { Router } from "express";
 import multer from "multer";
@@ -33,6 +34,7 @@ router.post("/tenant/forgot", forgot);
 router.get("/tenant/reset/:id/:token", verifyPassword);
 router.post("/tenant/reset/:id/:token", resetPassword);
 router.get("/tenant/gettenant", getTenant);
+router.delete("/tenant/deletetenant/:id", deleteTenant);
 router.get("/tenant/gettenant/:id", getTenantById);
 router.patch("/tenant/updatetenant/:id", updateTenant);
 router.patch(

@@ -1,0 +1,82 @@
+.modal-container-comments{
+  /* ubicar modal en el medio de la pagina */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  
+}
+
+.modal-container-desing-comments{
+  background: linear-gradient(145deg, #272055, #2e2765);
+  box-shadow:  35px 35px 70px #161331;
+  display: flex;
+  border-radius: 5%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid rgb(0, 247, 255);
+  width: 35%;
+}
+
+.content-comment-property {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 1rem;
+  width: 100%;
+  overflow-y:  scroll;
+  height: 300px;
+
+}
+
+.container-comment{
+  background-color: #161331;
+  border-radius: 5%;
+  box-shadow:  35px 35px 70px #161331;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  margin: 5px;
+  padding: 10px;
+  border: 1px solid rgb(0, 247, 255);
+}
+
+.content-comment-user {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.content-comment-user-name{
+  color: aqua;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.content-comment-user-delete {
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.content-comment-user-comment {
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+}

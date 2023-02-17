@@ -10,11 +10,13 @@ import express from "express";
 import { Aboutme } from "../../models/aboutme.model.js";
 import { Client } from "../../models/client.model.js";
 import { Tenant } from "../../models/tenant.model.js";
+import { Property } from "../../models/property.model.js";
+import { Booking } from "../../models/booking.model.js";
 import bcrypt from "bcrypt";
 const app = express();
 import { createRequire } from "module";
 import jwt from "jsonwebtoken";
-//import { sendEmail } from "../Nodemailer/nodemailer.controller.js";
+import { sendEmail } from "../Nodemailer/nodemailer.controller.js";
 // import { Payments } from "../../models/payment.model.js";
 const require = createRequire(import.meta.url);
 require("dotenv").config();
@@ -358,6 +360,12 @@ export const getClientById = async (req, res) => {
           model: Aboutme,
           as: "Aboutmes",
           attributes: ["id", "description", "hobbies", "age", "from"],
+        },
+        {
+          model: Property,
+        },
+        {
+          model: Booking,
         },
       ],
     });

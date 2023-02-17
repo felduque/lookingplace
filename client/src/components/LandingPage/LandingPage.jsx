@@ -8,8 +8,11 @@ import logoLookingPlace from "../../assets/logo-icon.png";
 import video from "../../assets/landingpage.mp4";
 import { getPropertiesAsync } from "../../redux/features/getPropertySlice";
 
-import viajera from '../../assets/minita-review.jpg';
-import messireview from '../../assets/messi-review.jpg';
+import messi from '../../assets/testimonials/messi.jpg';
+import t2 from '../../assets/testimonials/t-2.jpg';
+import t3 from '../../assets/testimonials/t-3.jpg';
+import t4 from '../../assets/testimonials/t-4.jpg';
+import t5 from '../../assets/testimonials/t-5.jpg';
 
 export default function LandingPage() {
   const url = "http://localhost:3000/properties";
@@ -137,7 +140,103 @@ export default function LandingPage() {
           </a>
         </div>
 
-        <div className="conteiner-planes">
+
+        <section id="grid">
+			<div class="container">
+				<div class="grid-box grid-box-purple grid-box-daniel">
+					<div class="grid-box-author">
+						<img src={ messi } alt="" />
+						<div class="grid-box-author-title">
+							<p>Lionel M.</p>
+							<p class="small">Campeón del mundo</p>
+						</div>
+					</div>
+					<h4>
+						La oportunidad que ofrece LookingPlace es única
+					</h4>
+					<blockquote>
+						“ Como mochilero, siempre busco maneras de ahorrar dinero y encontrar lugares 
+            auténticos para alojarme. En mi última competencia en el extranjero, 
+            descubrí LookingPlace y encontré alojamiento a un precio muy asequible. 
+            La página fue fácil de usar y me permitió encontrar un alojamiento cómodo y bien ubicado.
+             Definitivamente recomendaría LookingPlace a cualquier mochilero, 
+             incluso a aquellos que también son atletas de alto nivel como yo, que buscan 
+             alojamiento asequible y auténtico mientras viajan por el mundo ”
+					</blockquote>
+				</div>
+				<div class="grid-box grid-box-gray grid-box-jonathan">
+					<div class="grid-box-author">
+						<img src={ t2 } alt="" />
+						<div class="grid-box-author-title">
+							<p>Andrés Z.</p>
+							<p class="small">Mochilero recurrente</p>
+						</div>
+					</div>
+					<h4>Ahora sé que estoy más seguro mientras viajo</h4>
+					<blockquote>
+						“ Como mochilero, encontrar un lugar seguro y económico para dormir puede ser difícil. 
+            Descubrí LookingPlace y encontré un alojamiento acogedor en una zona tranquila. 
+            La página me permitió contactar directamente con los anfitriones y hacer preguntas, 
+            lo que me dio tranquilidad. ”
+					</blockquote>
+				</div>
+				<div class="grid-box grid-box-white grid-box-kira">
+					<div class="grid-box-author">
+						<img src={ t4 } alt="" />
+						<div class="grid-box-author-title">
+							<p>Alicia M.</p>
+							<p class="small">Dando la vuelta al mundo</p>
+						</div>
+					</div>
+					<h4>LookingPlace cambio mi forma de viajar</h4>
+					<blockquote>
+						“ Como mochilero, siempre estoy buscando formas de ahorrar dinero mientras viajo por el mundo. 
+            Fue entonces cuando descubrí LookingPlace, una página que me permitió encontrar alojamiento 
+            a un precio asequible en diferentes partes del mundo. La página fue muy fácil de usar y pude 
+            filtrar los resultados según mi presupuesto y las características que estaba buscando. 
+            Me gustó mucho la opción de leer los comentarios de otros viajeros que ya habían utilizado
+             los alojamientos, lo que me ayudó a tomar una decisión informada. Definitivamente recomendaría
+              LookingPlace a cualquier mochilero que busque alojamiento económico y confiable. ”
+					</blockquote>
+				</div>
+				<div class="grid-box grid-box-white grid-box-jeanette">
+					<div class="grid-box-author">
+						<img src={ t3 } alt="" />
+						<div class="grid-box-author-title">
+							<p>Alonso Swatt</p>
+							<p class="small">Programador remoto</p>
+						</div>
+					</div>
+					<h4>Ahora ofrezco mi casa mientras viajo también</h4>
+					<blockquote>
+						“ Como anfitrión de LookingPlace, he tenido la oportunidad de conocer a mochileros de todo el mundo y compartir mi cultura local. La página es fácil de usar y me ha permitido aumentar mi ocupación. Recomendaría LookingPlace a cualquier persona que quiera ofrecer alojamiento a los viajeros. ”
+					</blockquote>
+				</div>
+				<div class="grid-box grid-box-navy grid-box-patrick">
+					<div class="grid-box-author">
+						<img src={ t5 } alt="" />
+						<div class="grid-box-author-title">
+							<p>Julie Halad</p>
+							<p class="small">Familia acojedora</p>
+						</div>
+					</div>
+					<h4>
+						Obtengo ingresos extras sin complicaciones
+					</h4>
+					<blockquote>
+						“ Como anfitrión, LookingPlace ha sido una excelente forma de conectar con mochileros
+             de todo el mundo. Me ha permitido publicar mi alojamiento de manera fácil y rápida, 
+             y ha atraído a una gran cantidad de viajeros que buscan alojamiento asequible.
+              Además, he tenido la oportunidad de conocer a personas increíbles y compartir 
+              historias de viaje. Definitivamente recomiendo LookingPlace a cualquier persona 
+              que esté interesada en ofrecer alojamiento a los viajeros ”
+					</blockquote>
+				</div>
+			</div>
+		</section>
+
+
+    <div className="conteiner-planes">
           <div className="title is-4 center-text is-italic text-planes">
             Conoce nuestros planes gratis y Profesional
           </div>
@@ -152,9 +251,12 @@ export default function LandingPage() {
                   <li class="bottom-bar">Busca y publica hospedaje</li>
                   <li class="bottom-bar">Comenta y puntúa tus visitas</li>
                   <li>
-                    <button class="btn">
-                      <i class="bi bi-bag"></i><strong>Obtener ahora</strong>
-                    </button>
+                    <div className="button-bottom">
+                      <button class="btn ">
+                        <i class="bi bi-bag "></i><a href='/login'><strong>Obtener ahora</strong></a>
+                      </button>
+                    </div>
+                    
                   </li>
                 </ul>
               </div>
@@ -182,59 +284,6 @@ export default function LandingPage() {
           </div>
         </div>
 
-        <div className="container-inf">
-          <div className="title is-4 center-text is-italic text-planes">
-            Conoce la experiencia de nuestros usuarios
-          </div>
-          <div className="container-reviews">
-            <input type="radio" name="nav" id="first" checked />
-            <input type="radio" name="nav" id="second" />
-            <input type="radio" name="nav" id="third" />
-
-            <label for="first" class="first"></label>
-            <label for="second" class="second"></label>
-            <label for="third" class="third"></label>
-
-            <div class="one slide">
-              <blockquote className="title is-5 has-text-white justify">
-                <span class="leftq quotes">&#171;</span>Lorem ipsum dolor sit
-                amet, consectetur adipiscing elit. Nam nisl nulla, egestas sed
-                mattis a, venenatis at turpis. Fusce mattis luctus erat vel
-                rutrum. Integer maximus eget est nec placerat.
-                <span class="rightq quotes">&#187; </span>
-              </blockquote>
-              <img src={viajera} />
-              <h2>Hadrianus Augustus</h2>
-              <h6>UI/UX/XVII Designer at Roman Coliseum</h6>
-            </div>
-
-            <div class="two slide">
-              <blockquote className="title is-5 has-text-white justify">
-                <span class="leftq quotes">&#171;</span>In ultrices lectus vel
-                purus posuere, vitae consectetur lacus faucibus. Ut luctus diam
-                arcu, non aliquam augue laoreet eget. Sed tristique ante sapien,
-                eget eleifend risus accumsan eget...
-                <span class="rightq quotes">&#187;</span>
-              </blockquote>
-              <img src={messireview} />
-              <h2>Caesar Augustus</h2>
-              <h6>CEO The Roman Empire</h6>
-            </div>
-
-            <div class="three slide">
-              <blockquote className="title is-5 has-text-white justify">
-                <span class="quotes leftq">&#171;</span>Sed mauris quam, congue
-                at eros et, fermentum mollis tellus. Sed ullamcorper est pretium
-                velit facilisis, quis ornare ex volutpat. Quisque finibus mattis
-                nibh, quis egestas dolor mollis in.
-                <span class="rightq quotes">&#187; </span>
-              </blockquote>
-              <img src={viajera} />
-              <h2>Flavius Domitianus</h2>
-              <h6>Chair of Finance, Ancient Rome</h6>
-            </div>
-          </div>
-        </div>
       </div>
     </>
   );
