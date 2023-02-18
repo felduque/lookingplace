@@ -5,7 +5,7 @@ export default function validateForm(inputs) {
   const title_REGEX = /^[a-zA-Z\s]+$/;
 
   if (inputs.title.length < 10) {
-    errors.title = "Usa palabras que hagan refencia a tu Place";
+    errors.title = "Usa palabras que hagan refencia a tu alojamiento";
   } else if (inputs.title.length > 40) {
     errors.title = "Sé breve";
   } else if (!title_REGEX.test(inputs.title)) {
@@ -13,7 +13,7 @@ export default function validateForm(inputs) {
   }
 
   if (inputs.description.length < 30) {
-    errors.description = "Sé descriptivo con tu Place";
+    errors.description = "Sé descriptivo con tu alojamiento";
   } else if (inputs.description.length > 250) {
     errors.description = "Sé breve en tu descripción";
   }
@@ -45,7 +45,7 @@ export default function validateForm(inputs) {
   }
 
   if (inputs.price < 1) {
-    errors.price = "Ponle un precio a tu Place";
+    errors.price = "Ponle un precio a tu alojamiento";
   }
   if (inputs.price > 300) {
     errors.price = "El máximo por noche es $300";

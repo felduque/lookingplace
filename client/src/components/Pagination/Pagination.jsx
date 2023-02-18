@@ -15,10 +15,11 @@ export const Pagination = ({
         <h1>No hay propiedades que mostrar. Al parecer NINGUNA propiedad tiene las caracteristicas que elegiste en los filtros</h1>
       </div>
     );
-  } else if (!totalProperty) {
-    return (
-      <Loader />
-    )
+    // } else if (!totalProperty) {
+    //   return (
+    //     <Loader />
+    //   )
+    // }
   }
   const pageNumber = [];
 

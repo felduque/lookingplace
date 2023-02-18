@@ -7,6 +7,7 @@ import "./Home.css";
 import Filters from "../Filters/Filters";
 import { useLoadScript } from "@react-google-maps/api";
 import { Pagination } from "../Pagination/Pagination";
+import Loader from "../Loader/Loader";
 
 function Home() {
   const { isLoaded } = useLoadScript({
@@ -14,11 +15,17 @@ function Home() {
     libraries: ["places"],
   });
 
+  const [loading, setLoading] = useState(true);
+
   const url = "http://localhost:3000/properties";
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getPropertiesAsync(url));
+    dispatch(getPropertiesAsync(url)).then(() => {
+      setTimeout(() => {
+        setLoading(false);
+      }, 2500);
+    });
   }, []);
 
   //----------------------Pagintado--------------------------------
@@ -30,12 +37,15 @@ function Home() {
   //---------------------------------------------------------------
 
   const statePropertys = useSelector((state) => state.properties.allPropertys);
-  console.log("statePropertys:", statePropertys.result?.length);
-  if (!isLoaded) return <h1>Cargando...</h1>;
-  if (!statePropertys) return <h1>Cargando...</h1>;
 
   const totalProperty = statePropertys.result?.length;
-  console.log("totalProperty:", totalProperty);
+
+
+  console.log(loading)
+  if (loading || !isLoaded) {
+    return <Loader />;
+  }
+
 
   return (
     <div>

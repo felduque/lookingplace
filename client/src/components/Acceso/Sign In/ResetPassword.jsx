@@ -13,6 +13,19 @@ export default function ResetPassword() {
   const navigate = useNavigate();
 
   const { id, token } = useParams();
+  const [setType, setSetType] = useState({
+    client: false,
+    tenant: false,
+  });
+
+  const handleChangeType = (e) => {
+    const { name } = e.target;
+    setSetType({
+      client: false,
+      tenant: false,
+      [name]: true,
+    });
+  };
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -24,17 +37,39 @@ export default function ResetPassword() {
 
     //`http://localhost:3000/reset/${match.params.id}/${match.params.accessToken}`
 
-    axios
-      .post(`/reset/${id}/${token}`, {
-        password,
-        passwordConfirm,
-      })
-      .then((res) => {
-        setReset(true);
-      })
-      .catch((err) => {
-        console.log(err);
+    if (setType.client === true) {
+      axios
+        .post(`/client/reset/${id}/${token}`, {
+          password,
+          passwordConfirm,
+        })
+        .then((res) => {
+          setReset(true);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else if (setType.tenant === true) {
+      axios
+        .post(`/tenant/reset/${id}/${token}`, {
+          password,
+          passwordConfirm,
+        })
+        .then((res) => {
+          setReset(true);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      Swal.fire({
+        title: "Reset Fallido",
+        text: "Algo salió mal, Marca tipo de usuario.",
+        icon: "error",
+        confirmButtonText: "Entendido",
+        timer: 4000,
       });
+    }
   }
 
   useEffect(() => {
@@ -101,6 +136,22 @@ export default function ResetPassword() {
                   <Link to="/register">Registrarme</Link>
                 </span>
               </p>
+              <div className="pt-3">
+                <button
+                  name="client"
+                  onClick={handleChangeType}
+                  className="button is-link is-rounded ml-6"
+                >
+                  Soy Cliente
+                </button>
+                <button
+                  name="tenant"
+                  onClick={handleChangeType}
+                  className="button is-link is-rounded ml-3"
+                >
+                  Soy Arrendatario
+                </button>
+              </div>
             </section>
           </div>
         </div>

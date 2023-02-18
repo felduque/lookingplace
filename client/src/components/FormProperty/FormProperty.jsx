@@ -96,8 +96,8 @@ export default function FormHostCreate() {
   const [inputs, setInputs] = useState({
     title: "",
     description: "",
-    checkIn: "12:00",
-    checkOut: "12:30",
+    checkIn: "08:00",
+    checkOut: "12:00",
     capacity: 1,
     beds: 1,
     baths: 1,
@@ -114,10 +114,13 @@ export default function FormHostCreate() {
     state: "",
     region: "",
     city: "",
-    id_tenant: auth.idTenant,
+    id_tenant: auth.idTenant
   });
   // estados relacionados con inputs.images para mostrar lo subido
   const [urlImages, setUrlImages] = useState([]);
+
+  const [validateImages, setValidateImages] = useState('');
+
 
   //Errores
   const [errors, setErrors] = useState({});
@@ -125,15 +128,17 @@ export default function FormHostCreate() {
 
   useEffect(() => {
     // seteo el array si no hay images, sino creo el array a mostrar
-    if (inputs.image.length === 0) setUrlImages([]);
+    if (inputs.image.length === 0)  setUrlImages([]); setValidateImages('Sube una foto del lugar');
     if (inputs.image.length > 0) {
       const newArrayUrl = [];
       inputs.image.forEach((img) => newArrayUrl.push(URL.createObjectURL(img)));
       setUrlImages(newArrayUrl);
+      setValidateImages('');
     }
+    if(inputs.image.length > 5) setValidateImages('Máximo 5 fotos del lugar');
 
     setErrors(validateForm(inputs));
-  }, [inputs]);
+  }, [inputs], [urlImages]);
 
 
   const handleChange = (e, actionMeta = false) => {
@@ -194,7 +199,8 @@ export default function FormHostCreate() {
       !inputs.beds ||
       !inputs.baths ||
       inputs.services.length < 1 ||
-      !inputs.price
+      !inputs.price ||
+      urlImages.length < 1 
     ) {
       Swal.fire({
         title: 'Error al publicar Place',
@@ -274,7 +280,7 @@ export default function FormHostCreate() {
               </div>
               <div className="field">
                 <label className="label" htmlFor="description">
-                  Descripción del alojamiento (Place)
+                  Descripción del alojamiento
                 </label>
                 <textarea
                   className="textarea"
@@ -287,6 +293,7 @@ export default function FormHostCreate() {
                   <span className="error">{errors.description}</span>
                 ) : null}
               </div>
+              <div className="areas-spaces-bot">
               <div className="field">
                 <label className="label" htmlFor="capacity">
                   Capacidad de personas:{" "}
@@ -338,6 +345,7 @@ export default function FormHostCreate() {
                   onChange={handleChange}
                 />
               </div>
+              
               <div className="field">
                 <p className="label">
                   Servicios con los que cuenta el alojamiento
@@ -355,10 +363,14 @@ export default function FormHostCreate() {
               {errors.services ? (
                 <span className="error">{errors.services}</span>
               ) : null}
+              </div>
               <div className="field">
                 <p className="title is-4">Reglas del alojamiento</p>
               </div>
+              
               <div className="clocks-inputs">
+               <div className="columns">
+                 <div className="column is-8 clock-margin-right">
                 <div className="field">
                   <label className="label" htmlFor="checkIn">
                     Horario de entrada
@@ -371,7 +383,8 @@ export default function FormHostCreate() {
                     onChange={handleChange}
                   />
                 </div>
-                <div>
+                </div>
+                <div className="column">
                   <label className="label" htmlFor="checkOut">
                     Horario de salida
                   </label>
@@ -388,7 +401,9 @@ export default function FormHostCreate() {
                     ) : null}
                   </p>
                 </div>
+               </div>
               </div>
+              <div className="areas-spaces-top">
               <div className="field">
                 <label className="label" htmlFor="smoke">
                   ¿Permitido fumar?&nbsp;
@@ -434,6 +449,8 @@ export default function FormHostCreate() {
                   </label>
                 </label>
               </div>
+              </div>
+              <div className="areas-spaces-top">
               <div className="field">
                 <label className="label" htmlFor="">
                   Ubicación
@@ -491,9 +508,14 @@ export default function FormHostCreate() {
               {errors.geolocation ? (
                 <span className="error">{errors.geolocation}</span>
               ) : null}
+              </div>
+              <div className="areas-spaces-top">
               <div className="field">
-                <label className="label">Imágenes del lugar</label>
-                <button className="button is-success" type="button">
+                <p><label className="label">Imágenes del lugar</label></p>
+                <button 
+                  className='button is-info'
+                  disabled={inputs.image.length === 5 ? true : false}
+                  type="button">
                   <img src={uploadIcon} className="upload-button-place" />
                   <label htmlFor="image">Selecciona las fotos...</label>
                 </button>
@@ -506,7 +528,12 @@ export default function FormHostCreate() {
                   multiple
                   accept="image/*"
                   onChange={handleChange}
+                  disabled={inputs.image.length === 5 ? true : false}
+                  
                 />
+                { validateImages ? (
+                  <p><span className="error">{ validateImages }</span></p>
+                  ) : '' }
                 {urlImages.map((img, i) => (
                   <div key={i}>
                     <img
@@ -520,6 +547,8 @@ export default function FormHostCreate() {
                   </div>
                 ))}
               </div>
+              </div>
+              <div className="areas-spaces-top">
               <div className="field">
                 <label className="label" htmlFor="price">
                   Precio por Noche
@@ -546,10 +575,11 @@ export default function FormHostCreate() {
                   <span className="error">{errors.price}</span>
                 ) : null}
               </div>
+              </div>
               <button
                 className="button is-link is-rounded center-button-publish"
                 type="submit"
-                disabled={errorsLength !== 0 ? true : false}
+                disabled={errorsLength !== 0 && validateImages ? true : false}
               >
                 Publicar Alojamiento
               </button>
