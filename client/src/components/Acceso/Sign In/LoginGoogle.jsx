@@ -13,5 +13,11 @@ export default function LoginGoogle() {
     }
   };
 
-  return <button onClick={init}>Google</button>;
+  return (
+    <button onClick={init} type="button" className="login-with-google-btn">
+      Loguearse con Google
+    </button>
+  )
 }
+
+

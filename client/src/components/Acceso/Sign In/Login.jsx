@@ -227,9 +227,11 @@ export default function Login() {
                   <Link to="/forgotpassword">Recuperar contraseña</Link>
                 </p>
               </form>
-              <p>
-                <LoginGoogle />
-              </p>
+              <div className="pt-2">
+                <p>
+                  <LoginGoogle />
+                </p>
+              </div>
               <p className="new-account">
                 ¿No tienes cuenta? <br />
                 <span>
@@ -237,20 +239,22 @@ export default function Login() {
                 </span>
                 {/* <LoginGoogle /> */}
               </p>
-              <button
-                name="client"
-                onClick={handleChangeType}
-                className="button is-link is-rounded"
-              >
-                soy Cliente
-              </button>
-              <button
-                name="tenant"
-                onClick={handleChangeType}
-                className="button is-link is-rounded"
-              >
-                Soy Arrendatario
-              </button>
+              <div className="pt-3">
+                <button
+                  name="client"
+                  onClick={handleChangeType}
+                  className="button is-link is-rounded ml-6"
+                >
+                  Soy Cliente
+                </button>
+                <button
+                  name="tenant"
+                  onClick={handleChangeType}
+                  className="button is-link is-rounded ml-3"
+                >
+                  Soy Arrendatario
+                </button>
+              </div>
             </section>
           </div>
         </div>

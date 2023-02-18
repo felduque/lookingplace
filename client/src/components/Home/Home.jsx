@@ -40,7 +40,7 @@ function Home() {
   return (
     <div>
       <div className="containerCards">
-        <div className="columns is-multiline box">
+        <div className="columns is-multiline box space-justify">
           {statePropertys.result
             ?.map((property, i) => {
               return (
@@ -64,6 +64,8 @@ function Home() {
             })
             .slice(firstIndex, lastIndex)}
         </div>
+      </div>
+      <div className="pagination">
         <Pagination
           propertyPerPage={propertyPerPage}
           currentPage={currentPage}

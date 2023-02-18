@@ -1,42 +1,46 @@
 .container-card {
-    width: 350px;
-    height: 440px;
-    border-radius: 12px;
-    padding: 30px 0;
-    margin: 15px 5px 5px;
-    border: solid 2px rgb(14, 147, 223);
+  width: 312px;
+  height: 410px;
+  border-radius: 12px;
+  padding: 15px 0;
+  margin: 15px 5px 5px;
+  border: solid 2px rgb(14, 147, 223);
 }
 .details-card {
-  width: auto;
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-top: 25px;
+width: auto;
+margin-left: 20px;
+margin-right: 20px;
+margin-top: 25px;
 }
 /*Iconos de las Cards*/
 .details-before-icons {
-  border-bottom: 25px;
-  
+border-bottom: 25px;
+
 }
 .icon-star {
-  width: 25px;
-  height: 20px;
-  margin-left: 10px;
+width: 25px;
+height: 20px;
+margin-left: 10px;
 }
 .icon-capacity {
-  width: 25px;
-  height: 22px;
-  margin-left: 10px;
+width: 25px;
+height: 22px;
+margin-left: 10px;
 }
 .icon-beds {
-  width: 30px;
-  height: 22px;
-  margin-left: 5px;
+width: 30px;
+height: 22px;
+margin-left: 5px;
 }
 .icon-bathroom {
-  width: 25px;
-  height: 20px;
-  margin-left: 10px;
+width: 25px;
+height: 20px;
+margin-left: 10px;
 }
 .number-info-icon {
-  font-size: 16px;
+font-size: 16px;
+}
+
+.number-card{
+margin-left: 10px;
 }
