@@ -10,10 +10,13 @@ import BedIcon from "./Icons/Bed";
 import BathIcon from "./Icons/Bath";
 import StarIcon from "./Icons/Star";
 import "./CardDetail.css";
+
 import useAuth from "../Acceso/hooks/useAuth";
 import axios from "axios";
 import { UserAuth } from "../../service/AuthContext";
 import Swal from "sweetalert2";
+
+import Loader from "../Loader/Loader";
 
 export default function CardDetail() {
   const { isLoaded } = useLoadScript({
@@ -206,55 +209,72 @@ axios
   }
 
   // console.log(typeof lat);
-  if (!Calendar) return <div>Cargando Calendario</div>;
-  if (!isLoaded) return <div>Loading...</div>;
-  if (!detail) return <div>Loading...</div>;
+  // if (!Calendar) return <div>Cargando Calendario</div>;
+  // if (!isLoaded) return <div>Loading...</div>;
+  // if (!detail) return <div>Loading...</div>
+
+  // if (!Calendar || !isLoaded || !detail) {
+  //   return <Loader />
+  // }
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2800);
+  }, []);
+
   return (
-    <div style={{ color: "black" }}>
-      <hr />
-      <div className="containerTitle">
-        <div className="containerTitleUbicacion">
-          <div className="titlePrin">{title}</div>
-          <div className="ubicacionCon">
-            {typeof country === "string" ? country + "/" : null}
-            {typeof region === "string" ? region + "/" : null}
-            {typeof state === "string" ? state : null}
+    <div>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div style={{ color: "black" }}>
+          <hr />
+          <div className="containerTitle">
+            <div className="containerTitleUbicacion">
+              <div className="titlePrin">{title}</div>
+              <div className="ubicacionCon">
+                {typeof country === "string" ? country + "/" : null}
+                {typeof region === "string" ? region + "/" : null}
+                {typeof state === "string" ? state : null}
+              </div>
+            </div>
+            <div className="iconsRes">
+              <div className="iconsMyClass">
+                <CapacityIcon width="35px" height="35px"></CapacityIcon>
+                {capacity}
+                <BedIcon width="35px" height="35px"></BedIcon>
+                {beds}
+                <BathIcon width="35px" height="35px"></BathIcon>
+                {baths}
+                <StarIcon width="35px" height="35px"></StarIcon>
+                {rating}
+              </div>
+              <div className="precio">
+                <strong className="classMyStrong">$USD {price}</strong> noche
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="iconsRes">
-          <div className="iconsMyClass">
-            <CapacityIcon width="35px" height="35px"></CapacityIcon>
-            {capacity}
-            <BedIcon width="35px" height="35px"></BedIcon>
-            {beds}
-            <BathIcon width="35px" height="35px"></BathIcon>
-            {baths}
-            <StarIcon width="35px" height="35px"></StarIcon>
-            {rating}
-          </div>
-          <div className="precio">
-            <strong className="classMyStrong">$USD {price}</strong> noche
-          </div>
-        </div>
-      </div>
-      <div className="containerImgDes">
-        <div className="containerCarousel">
-          <OwnCarousel id={id} images={image} />
-        </div>
-        <div className="cotainerData">
-          <div>
-            <h3 className="subtitleCardDe">Descripción</h3>
-            <p>{description}</p>
-          </div>
-          <div>
-            <h3 className="subtitleCardDe">Datos Generales</h3>
-            <p>
-              Alojamiento para {capacity}{" "}
-              {capacity > 1 ? "personas" : "persona"}, cuenta con {beds}{" "}
-              {beds > 1 ? "camas" : "cama"} y {baths}{" "}
-              {baths > 1 ? "baños" : "baño"}.
-            </p>
-            {/* <p>
+          <div className="containerImgDes">
+            <div className="containerCarousel">
+              <OwnCarousel id={id} images={image} />
+            </div>
+            <div className="cotainerData">
+              <div>
+                <h3 className="subtitleCardDe">Descripción</h3>
+                <p>{description}</p>
+              </div>
+              <div>
+                <h3 className="subtitleCardDe">Datos Generales</h3>
+                <p>
+                  Alojamiento para {capacity}{" "}
+                  {capacity > 1 ? "personas" : "persona"}, cuenta con {beds}{" "}
+                  {beds > 1 ? "camas" : "cama"} y {baths}{" "}
+                  {baths > 1 ? "baños" : "baño"}.
+                </p>
+                {/* <p>
               Capacidad : {capacity} {capacity > 1 ? "personas" : "persona"}
             </p>
             <p>
@@ -263,151 +283,155 @@ axios
             <p>
               {baths} {baths > 1 ? "baños" : "baño"}
             </p> */}
-            <p className="subTitleData">
-              {" "}
-              Contamos con los siguientes servicios :{" "}
-            </p>
-            {services?.map((s, i) => {
-              return <span key={i}> • {s} </span>;
-            })}
-            <p className="subTitleData"> Se permite : </p>
-            <p> {smoke ? "✔" : "✘"} Fumar</p>
-            <p> {party ? "✔" : "✘"} Fiestas</p>
-            <p> {pets ? "✔" : "✘"} Mascotas</p>
-          </div>
-          <div>
-            <h3 className="subtitleCardDe">Reglas del Hospedador</h3>
-            <p className="subTitleData">Hora de Ingreso : {checkIn}</p>
-
-            <p className="subTitleData">Hora de Salida : {checkOut}</p>
-            <span>
-              Recuerda llamar a tu hospedador para coordinar la recepción en su
-              hospedaje.
-            </span>
-          </div>
-          <p className="infoD">
-            Mantegamos la integridad de los servicios prestados, mantengamos una
-            comunidad responsable con los demas.
-          </p>
-        </div>
-      </div>
-      <hr />
-      <div className="containerCalMap">
-        <div className="containerMap">
-          <p className="subtitleCardDe">Ubicacion del Alojamiento</p>
-          <p className="">
-            Para una mejor referencia puedes comunicarte con el hospedador
-          </p>
-          <GoogleMap
-            zoom={12}
-            center={{ lat, lng }}
-            mapContainerStyle={{
-              height: "550px",
-              width: "100%",
-            }}
-          >
-            {lat && lng && <Marker position={{ lat, lng }} />}
-          </GoogleMap>
-        </div>
-        <div className="containerCalendar">
-          <p className="subtitleCardDe">Calendario de Disponibilidad</p>
-          <p>Verifica en el calendario la disponibilidad del alojamiento.</p>
-          <div className="content">
-            <Calendar
-              propId={id}
-              bookings={bookings}
-              price={price}
-              title={title}
-              description={description}
-              url={image}
-            />
-          </div>
-        </div>
-      </div>
-      <hr />
-      <div className="containerComents">
-        <div className="subtitleCardDe">Comentarios</div>
-        {auth?.email ? (
-          <div>
-            <form onSubmit={handleSubmit}>
-              <label>Nuevo comentario</label>
-              <input
-                className="hola"
-                type="text"
-                value={nuevoComentario}
-                onChange={(event) => setNuevoComentario(event.target.value)}
-              />
-
-              <button type="submit">Enviar comentario</button>
-            </form>
-          </div>
-        ) : (
-          <h1>Debes Registrarte Para poder comentar</h1>
-        )}
-        <form onSubmit={handleUpdateComment}>
-          <input
-            type="text"
-            placeholder="Editar comentario"
-            value={editComment.commentText}
-            onChange={(event) =>
-              setEditComment({
-                ...editComment,
-                commentText: event.target.value,
-              })
-            }
-          />
-          <button type="submit">Guardar cambios</button>
-        </form>
-        {commentsArray.length > 0 ? (
-          <div className="comment">
-            {commentsArray.map((comentario) => (
-              <div
-                key={comentario.id}
-                id={`comentario-${comentario.id}`}
-                className="comment-container"
-              >
-                {auth.email === Tenant.email || auth?.role == "Admin" ? (
-                  <button
-                    onClick={() => deleteComment(comentario.id)}
-                    className="delete-button"
-                  >
-                    Eliminar
-                  </button>
-                ) : (
-                  ""
-                )}
-                {<button className="response-button">Responder</button>}
-                <button
-                  onClick={() =>
-                    handleEditComment(comentario.id, comentario.comment)
-                  }
-                >
-                  Editar
-                </button>
-
-                <p className="commentFecha">{comentario.fecha?.toString()}</p>
-                <hr />
-                <img
-                  className="imgComment"
-                  src={comentario.avatar}
-                  width="50"
-                  height="50"
-                />
-
-                <p className="authorComment">{comentario.author}</p>
-                <h1 className="comentarioComment">{comentario.comment}</h1>
-                <p>{comentario.id}</p>
-                <hr />
+                <p className="subTitleData">
+                  {" "}
+                  Contamos con los siguientes servicios :{" "}
+                </p>
+                {services?.map((s, i) => {
+                  return <span key={i}> • {s} </span>;
+                })}
+                <p className="subTitleData"> Se permite : </p>
+                <p> {smoke ? "✔" : "✘"} Fumar</p>
+                <p> {party ? "✔" : "✘"} Fiestas</p>
+                <p> {pets ? "✔" : "✘"} Mascotas</p>
               </div>
-            ))}
+              <div>
+                <h3 className="subtitleCardDe">Reglas del Hospedador</h3>
+                <p className="subTitleData">Hora de Ingreso : {checkIn}</p>
+
+                <p className="subTitleData">Hora de Salida : {checkOut}</p>
+                <span>
+                  Recuerda llamar a tu hospedador para coordinar la recepción en
+                  su hospedaje.
+                </span>
+              </div>
+              <p className="infoD">
+                Mantegamos la integridad de los servicios prestados, mantengamos
+                una comunidad responsable con los demas.
+              </p>
+            </div>
           </div>
-        ) : (
-          <div>
-            <span>No existen comentarios para esta publicación</span>
+          <hr />
+          <div className="containerCalMap">
+            <div className="containerMap">
+              <p className="subtitleCardDe">Ubicacion del Alojamiento</p>
+              <p className="">
+                Para una mejor referencia puedes comunicarte con el hospedador
+              </p>
+              <GoogleMap
+                zoom={12}
+                center={{ lat, lng }}
+                mapContainerStyle={{
+                  height: "550px",
+                  width: "100%",
+                }}
+              >
+                {lat && lng && <Marker position={{ lat, lng }} />}
+              </GoogleMap>
+            </div>
+            <div className="containerCalendar">
+              <p className="subtitleCardDe">Calendario de Disponibilidad</p>
+              <p>
+                Verifica en el calendario la disponibilidad del alojamiento.
+              </p>
+              <div className="content">
+                <Calendar
+                  propId={id}
+                  bookings={bookings}
+                  price={price}
+                  title={title}
+                  description={description}
+                  url={image}
+                />
+              </div>
+            </div>
           </div>
-        )}
-      </div>
-      {/* <h1 className="title box is-size-1 has-background-dark has-text-centered is-capitalized has-text-white">
+          <hr />
+          <div className="containerComents">
+            <div className="subtitleCardDe">Comentarios</div>
+            {auth?.email ? (
+              <div>
+                <form onSubmit={handleSubmit}>
+                  <label>Nuevo comentario</label>
+                  <input
+                    className="hola"
+                    type="text"
+                    value={nuevoComentario}
+                    onChange={(event) => setNuevoComentario(event.target.value)}
+                  />
+
+                  <button type="submit">Enviar comentario</button>
+                </form>
+              </div>
+            ) : (
+              <h1>Debes Registrarte Para poder comentar</h1>
+            )}
+            <form onSubmit={handleUpdateComment}>
+              <input
+                type="text"
+                placeholder="Editar comentario"
+                value={editComment.commentText}
+                onChange={(event) =>
+                  setEditComment({
+                    ...editComment,
+                    commentText: event.target.value,
+                  })
+                }
+              />
+              <button type="submit">Guardar cambios</button>
+            </form>
+            {commentsArray.length > 0 ? (
+              <div className="comment">
+                {commentsArray.map((comentario) => (
+                  <div
+                    key={comentario.id}
+                    id={`comentario-${comentario.id}`}
+                    className="comment-container"
+                  >
+                    {auth.email === Tenant.email || auth?.role == "Admin" ? (
+                      <button
+                        onClick={() => deleteComment(comentario.id)}
+                        className="delete-button"
+                      >
+                        Eliminar
+                      </button>
+                    ) : (
+                      ""
+                    )}
+                    {<button className="response-button">Editar</button>}
+                    <button
+                      onClick={() =>
+                        handleEditComment(comentario.id, comentario.comment)
+                      }
+                    >
+                      Editar
+                    </button>
+
+                    <p className="commentFecha">
+                      {comentario.fecha?.toString()}
+                    </p>
+                    <hr />
+                    <img
+                      className="imgComment"
+                      src={comentario.avatar}
+                      width="50"
+                      height="50"
+                    />
+
+                    <p className="authorComment">{comentario.author}</p>
+                    <h1 className="comentarioComment">{comentario.comment}</h1>
+                    <p>{comentario.id}</p>
+                    <hr />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div>
+                <span>No existen comentarios para esta publicación</span>
+              </div>
+            )}
+          </div>
+          {/* <h1 className="title box is-size-1 has-background-dark has-text-centered is-capitalized has-text-white">
         {title}
       </h1>
       <p className="has-text-centered "> Calificacion : {rating}</p>
@@ -419,7 +443,7 @@ axios
         {description}
       </p> */}
 
-      {/* <div className="tile is-ancestor">
+          {/* <div className="tile is-ancestor">
         <div className="tile is-vertical is-8">
           <div className="tile">
             <div className="tile is-parent is-vertical">
@@ -495,7 +519,9 @@ axios
           </article>
         </div>
       </div> */}
-      <hr />
+          <hr />
+        </div>
+      )}
     </div>
   );
 }
