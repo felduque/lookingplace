@@ -10,6 +10,12 @@ import BedIcon from "./Icons/Bed";
 import BathIcon from "./Icons/Bath";
 import StarIcon from "./Icons/Star";
 import "./CardDetail.css";
+
+import useAuth from "../Acceso/hooks/useAuth";
+import axios from "axios";
+import { UserAuth } from "../../service/AuthContext";
+import Swal from "sweetalert2";
+
 import Loader from "../Loader/Loader";
 
 export default function CardDetail() {
@@ -25,7 +31,7 @@ export default function CardDetail() {
   }, [id, dispatch]);
 
   const detail = useSelector((state) => state.properties.propertyDetail);
-  console.log(detail);
+  //console.log(detail);
 
   const {
     title,
@@ -46,10 +52,161 @@ export default function CardDetail() {
     lng,
     bookings,
     Comments,
+    Tenant,
+    Client,
     country,
     region,
     state,
   } = detail;
+
+  /* David */
+
+  //const comentariosArray = comentarios ? Object.values(comentarios) : [];
+  //console.log(typeof comentarios);
+  //console.log(comentarios);
+  /*const handleDeleteComment = (id) => {
+axios
+  .delete(`http://localhost:3000/comment/delete/${id}`)
+  .then((response) => {
+    if (response.status === 200) {
+      const deletedComments = comentarios
+      .map((comentario) => comentario.id)
+      .filter((c) => c.id !== id);
+      setComentarios(deletedComments);
+    }
+  })
+  .catch((error) => console.log(error));
+};*/
+  //console.log(Tenant);
+  /*useEffect(() => {
+    const fetchComentarios = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/comments");
+        if (Array.isArray(response.data)) {
+          const comentarios = response.data.map((comentario) => {
+            const fecha = comentario.fecha ? new Date(comentario.fecha) : "";
+            return { ...comentario, fecha };
+          });
+          setComentarios(comentarios);
+        } else if (
+          typeof response.data === "object" &&
+          response.data !== null
+        ) {
+          const comentarios = Object.keys(response.data).map((key) => {
+            const comentario = response.data[key];
+            const fecha = comentario.fecha ? new Date(comentario.fecha) : "";
+            return { ...comentario, fecha };
+          });
+          setComentarios(comentarios);
+        } else {
+          console.log("Response data is not an array or object.");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchComentarios();
+  }, []);*/
+
+  const { auth } = useAuth();
+  const { user } = UserAuth();
+  const [comentarios, setComentarios] = useState([]);
+  const [nuevoComentario, setNuevoComentario] = useState("");
+
+  /* edittttttttt*/
+  const [editComment, setEditComment] = useState({
+    commentId: null,
+    commentText: "",
+  });
+
+  const handleEditComment = (id, text) => {
+    setEditComment({ commentId: id, commentText: text });
+  };
+
+  const handleUpdateComment = (event) => {
+    event.preventDefault();
+
+    const editCommento = {
+      comment: editComment.commentText,
+    };
+
+    axios
+      .patch(
+        `http://localhost:3000/comment/edit/${editComment.commentId}`,
+        editCommento
+      )
+      .then((response) => {
+        console.log(response.data);
+        return response.data;
+      })
+      .then((data) => {
+        const updatedComments = comentarios.map((commentId) =>
+          commentId === editComment.commentId
+            ? { ...comentarios, comentarios: editComment.commentText }
+            : comentarios
+        );
+        setComentarios(updatedComments);
+        setEditComment({ commentId: null, commentText: "" });
+      })
+      .catch((error) => console.log(error));
+  };
+
+  console.log(editComment);
+
+  /* Agregar comentario*/
+
+  console.log(detail);
+
+  const commentsArray = Comments ? Object.values(Comments) : [];
+
+  //console.log(commentsArray);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const fecha = new Date();
+
+    const comentario = {
+      comment: nuevoComentario,
+      property_comment: id,
+      author: auth.email,
+      avatar: auth.avatar,
+      fecha: fecha,
+    };
+
+    fetch("http://localhost:3000/comment/createcomment", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(comentario),
+    })
+      .then((response) => {
+        if (response.ok) {
+          setComentarios([...comentarios, comentario]);
+          setNuevoComentario("");
+          commentsArray;
+          Swal.fire(
+            "Tu comentario ha sido agregado con éxito, recargue la página para verlo reflejado",
+            "",
+            "success"
+          );
+        }
+      })
+      .catch((error) => console.log(error));
+  };
+
+  function deleteComment(id) {
+    fetch(`http://localhost:3000/comment/delete/${id}`, { method: "DELETE" })
+      .then((response) => {
+        if (response.ok) {
+          // Si la respuesta del servidor es satisfactoria, eliminamos el comentario de la página
+          const commentElement = document.getElementById(`comentario-${id}`);
+          commentElement.remove();
+        } else {
+          console.error(`Error al borrar comentario: ${response.status}`);
+        }
+      })
+      .catch((error) => console.error(`Error al borrar comentario: ${error}`));
+  }
 
   // console.log(typeof lat);
   // if (!Calendar) return <div>Cargando Calendario</div>;
@@ -144,13 +301,13 @@ export default function CardDetail() {
 
                 <p className="subTitleData">Hora de Salida : {checkOut}</p>
                 <span>
-                  Recuerda llamar a tu hospedador para coordinar la recepción en su
-                  hospedaje.
+                  Recuerda llamar a tu hospedador para coordinar la recepción en
+                  su hospedaje.
                 </span>
               </div>
               <p className="infoD">
-                Mantegamos la integridad de los servicios prestados, mantengamos una
-                comunidad responsable con los demas.
+                Mantegamos la integridad de los servicios prestados, mantengamos
+                una comunidad responsable con los demas.
               </p>
             </div>
           </div>
@@ -174,7 +331,9 @@ export default function CardDetail() {
             </div>
             <div className="containerCalendar">
               <p className="subtitleCardDe">Calendario de Disponibilidad</p>
-              <p>Verifica en el calendario la disponibilidad del alojamiento.</p>
+              <p>
+                Verifica en el calendario la disponibilidad del alojamiento.
+              </p>
               <div className="content">
                 <Calendar
                   propId={id}
@@ -189,26 +348,82 @@ export default function CardDetail() {
           </div>
           <hr />
           <div className="containerComents">
-            <p className="subtitleCardDe">Comentarios</p>
-            {Comments?.length > 0 ? (
+            <div className="subtitleCardDe">Comentarios</div>
+            {auth?.email ? (
               <div>
-                <div className="contImgComentPrin">
-                  <div className="contImgComents">
+                <form onSubmit={handleSubmit}>
+                  <label>Nuevo comentario</label>
+                  <input
+                    className="hola"
+                    type="text"
+                    value={nuevoComentario}
+                    onChange={(event) => setNuevoComentario(event.target.value)}
+                  />
+
+                  <button type="submit">Enviar comentario</button>
+                </form>
+              </div>
+            ) : (
+              <h1>Debes Registrarte Para poder comentar</h1>
+            )}
+            <form onSubmit={handleUpdateComment}>
+              <input
+                type="text"
+                placeholder="Editar comentario"
+                value={editComment.commentText}
+                onChange={(event) =>
+                  setEditComment({
+                    ...editComment,
+                    commentText: event.target.value,
+                  })
+                }
+              />
+              <button type="submit">Guardar cambios</button>
+            </form>
+            {commentsArray.length > 0 ? (
+              <div className="comment">
+                {commentsArray.map((comentario) => (
+                  <div
+                    key={comentario.id}
+                    id={`comentario-${comentario.id}`}
+                    className="comment-container"
+                  >
+                    {auth?.email === Tenant?.email || auth?.role == "Admin" ? (
+                      <button
+                        onClick={() => deleteComment(comentario.id)}
+                        className="delete-button"
+                      >
+                        Eliminar
+                      </button>
+                    ) : (
+                      ""
+                    )}
+                    {<button className="response-button">Editar</button>}
+                    <button
+                      onClick={() =>
+                        handleEditComment(comentario.id, comentario.comment)
+                      }
+                    >
+                      Editar
+                    </button>
+
+                    <p className="commentFecha">
+                      {comentario.fecha?.toString()}
+                    </p>
+                    <hr />
                     <img
-                      className="imgCom"
-                      src="https://www.pngitem.com/pimgs/m/78-786501_black-avatar-png-user-icon-png-transparent-png.png"
-                      alt=""
+                      className="imgComment"
+                      src={comentario.avatar}
+                      width="50"
+                      height="50"
                     />
+
+                    <p className="authorComment">{comentario.author}</p>
+                    <h1 className="comentarioComment">{comentario.comment}</h1>
+
+                    <hr />
                   </div>
-                  <div className="contFeCom">
-                    <div>
-                      <span className="fecha">Contenedor de Fecha</span>
-                    </div>
-                    <div className="comenCont">
-                      <p className="comentText">Contenedor de Comentario</p>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
             ) : (
               <div>
@@ -306,6 +521,7 @@ export default function CardDetail() {
       </div> */}
           <hr />
         </div>
-      )}</div>
+      )}
+    </div>
   );
 }

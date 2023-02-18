@@ -53,3 +53,38 @@ export const propertySlice = createSlice({
 export const { getdata } = propertySlice.actions;
 
 export default propertySlice.reducer;
+
+/* 
+
+export const getCommentByIdAsync = createAsyncThunk(
+  "comments/getId",
+  async (id, thunkApi) => {
+    return fetch(`http://localhost:3000/comment/${id}`)
+      .then((response) => response.json())
+      .catch((error) => console.log(error));
+  }
+);
+
+export const getCommentsAsync = createAsyncThunk(
+  "comments/get",
+  async (url, thunkApi) => {
+    return fetch(url)
+      .then((response) => response.json())
+      .catch((error) => console.log(error));
+  }
+);
+
+
+
+
+
+allComments: [],
+  commentsDetail: {},
+
+
+builder.addCase(getCommentsAsync.fulfilled, (state, action) => {
+      state.allComments = action.payload;
+    });
+    builder.addCase(getCommentByIdAsync.fulfilled, (state, action) => {
+      state.commentsDetail = action.payload;
+    });*/

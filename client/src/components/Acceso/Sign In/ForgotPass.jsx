@@ -16,6 +16,19 @@ export default function ForgotPassword() {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+  const [setType, setSetType] = useState({
+    client: false,
+    tenant: false,
+  });
+
+  const handleChangeType = (e) => {
+    const { name } = e.target;
+    setSetType({
+      client: false,
+      tenant: false,
+      [name]: true,
+    });
+  };
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -25,7 +38,7 @@ export default function ForgotPassword() {
       return;
     }
 
-    if (auth.role === "Client") {
+    if (setType.client === true) {
       try {
         const response = await axios.post("/client/forgot", { email });
         setSuccessMessage(
@@ -36,7 +49,7 @@ export default function ForgotPassword() {
           "Hubo un problema al enviar el correo electrónico de recuperación de contraseña, intentalo más tarde"
         );
       }
-    } else if (auth.role === "Tenant") {
+    } else if (setType.tenant === true) {
       try {
         const response = await axios.post("/tenant/forgot", { email });
         setSuccessMessage(
@@ -98,6 +111,20 @@ export default function ForgotPassword() {
                   <Link to="/register">Registrate</Link>
                 </span>
               </p>
+              <button
+                name="client"
+                onClick={handleChangeType}
+                className="button is-link is-rounded"
+              >
+                soy Cliente
+              </button>
+              <button
+                name="tenant"
+                onClick={handleChangeType}
+                className="button is-link is-rounded"
+              >
+                Soy Arrendatario
+              </button>
             </section>
           </div>
         </div>

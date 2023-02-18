@@ -70,13 +70,23 @@ export default function Login() {
         const accessToken = response?.data?.accessToken;
         const idClient = response?.data?.userId;
         const role = response?.data?.role;
+        const fullName = response?.data?.fullName;
+        const avatar = response?.data?.avatar;
         //const role = roleMapping[email] || "default";
 
-        setAuth({ email, password, accessToken, role });
+        setAuth({ email, password, accessToken, role, avatar, fullName });
         console.log(email, password, accessToken);
         localStorage.setItem(
           "auth",
-          JSON.stringify({ email, password, idClient, accessToken, role })
+          JSON.stringify({
+            email,
+            password,
+            idClient,
+            accessToken,
+            role,
+            avatar,
+            fullName,
+          })
         );
         setEmail("");
         setPassword("");
@@ -111,13 +121,23 @@ export default function Login() {
         const accessToken = response?.data?.accessToken;
         const idTenant = response?.data?.userId;
         const role = response?.data?.role;
+        const fullName = response?.data?.fullName;
+        const avatar = response?.data?.avatar;
         //const role = roleMapping[email] || "default";
 
-        setAuth({ email, password, accessToken, role });
+        setAuth({ email, password, accessToken, role, avatar, fullName });
         console.log(email, password, accessToken);
         localStorage.setItem(
           "auth",
-          JSON.stringify({ email, password, idTenant, accessToken, role })
+          JSON.stringify({
+            email,
+            password,
+            idTenant,
+            accessToken,
+            role,
+            avatar,
+            fullName,
+          })
         );
         setEmail("");
         setPassword("");

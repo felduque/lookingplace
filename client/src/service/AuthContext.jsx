@@ -7,9 +7,7 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-import { auth, db } from "./firebase.config";
-import { doc, setDoc } from "firebase/firestore";
-
+import { auth } from "./firebase.config";
 const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
@@ -24,24 +22,6 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-
-      // Almacenar la información del usuario en la colección "users"
-      if (currentUser) {
-        const userRef = doc(db, "usuarios", currentUser.uid);
-        setDoc(userRef, {
-          name: currentUser.displayName, //doc y set doc me sirve para guardar la informacion en la db
-          email: currentUser.email,
-        })
-          .then(() => {
-            console.log("Usuario registrado en Cloud Firestore");
-          })
-          .catch((error) => {
-            console.error(
-              "Error al registrar usuario en Cloud Firestore: ",
-              error
-            );
-          });
-      }
       console.log("User", currentUser);
     });
     return () => {
