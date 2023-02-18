@@ -28,11 +28,29 @@ export default function MPSuccess() {
         console.log(clientId);
         if (response.data) {
           const idProperty = response.data.additional_info?.items[0].id;
+          const priceTotal = response.data.additional_info?.items[0].unit_price;
+          const titlePay = response.data.additional_info?.items[0].title;
           const bookings = JSON.parse(
             response.data.additional_info?.items[0].description
           );
 
           if (response.data.status === "approved") {
+            axios
+              .get(`http://localhost:3000/client/getuser/${clientId}`)
+              .then((res) => {
+                // console.log(res.data);
+                return res.data;
+              })
+              .then((data) => {
+                console.log(data);
+                axios.post("http://localhost:3000/sendEmail/pay", {
+                  fullName: data.fullName,
+                  email: data.email,
+                  priceTotal: priceTotal,
+                  title: titlePay,
+                });
+              });
+
             axios
               .patch("http://localhost:3000/property/update/bookings", {
                 id: idProperty,

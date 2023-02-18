@@ -31,7 +31,15 @@ export default function CardDetail() {
   }, [id, dispatch]);
 
   const detail = useSelector((state) => state.properties.propertyDetail);
+
   //console.log(detail);
+  // console.log(detail.Bookings);
+  let arrayBookings = [];
+  detail.Bookings?.forEach((b) => {
+    // console.log(b.bookingsPropCli);
+    arrayBookings = arrayBookings.concat(b.bookingsPropCli);
+  });
+  console.log(arrayBookings);
 
   const {
     title,
@@ -369,7 +377,7 @@ axios
               <div className="content">
                 <Calendar
                   propId={id}
-                  bookings={bookings}
+                  bookings={arrayBookings}
                   price={price}
                   title={title}
                   description={description}

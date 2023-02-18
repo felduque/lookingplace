@@ -6,6 +6,7 @@ import { DateRange } from "react-date-range";
 import { addDays, subDays } from "date-fns";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export default function Calendar({
   propId,
@@ -16,6 +17,11 @@ export default function Calendar({
   url,
 }) {
   //  const dateDiary = useSelector -----> va al store
+
+  const auth = JSON.parse(localStorage.getItem("auth"));
+  console.log(auth);
+  // console.log(auth.role);
+
   const navigate = useNavigate();
 
   const [state, setState] = useState({
@@ -61,13 +67,38 @@ export default function Calendar({
       state.selection1.endDate.getDate() - state.selection1.startDate.getDate();
     const total = nochesNum * price;
 
-    navigate(
-      `/resumePay?id=${propId}&title=${title}&bookings=${JSON.stringify(
-        dataBooking
-      )}&description=${description}&price=${price}&nigths=${nochesNum}&total=${total}&url=${JSON.stringify(
-        url
-      )}`
-    );
+    // Probando ---------------------------
+    if (auth === null) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops no estas registrado",
+        text: "Para poder realizar la reserva, debes estar registrado como Cliente",
+      });
+    } else if (auth.role === "Client") {
+      navigate(
+        `/resumePay?id=${propId}&title=${title}&bookings=${JSON.stringify(
+          dataBooking
+        )}&description=${description}&price=${price}&nigths=${nochesNum}&total=${total}&url=${JSON.stringify(
+          url
+        )}`
+      );
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops no estas registrado",
+        text: "Para poder realizar la reserva, debes estar registrado como Cliente",
+      });
+    }
+
+    // Probando ------------------------
+
+    // navigate(
+    //   `/resumePay?id=${propId}&title=${title}&bookings=${JSON.stringify(
+    //     dataBooking
+    //   )}&description=${description}&price=${price}&nigths=${nochesNum}&total=${total}&url=${JSON.stringify(
+    //     url
+    //   )}`
+    // );
   }
 
   function reset() {
@@ -144,6 +175,7 @@ export default function Calendar({
           ranges={[state.selection1, selected]}
           locale={es}
           disabledDates={arr3}
+          minDate={new Date()}
         />
       </div>
       <div>
