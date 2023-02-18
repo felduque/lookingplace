@@ -76,6 +76,24 @@ export function getTenantById(id) {
   }
 }
 
+export function getClientById(id) {
+  try {
+    const result = axios.get(`http://localhost:3000/client/getuser/${id}`);
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function getPropertyById(id) {
+  try {
+    const result = axios.get(`http://localhost:3000/property/${id}`);
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export function updateTenant(id, data) {
   try {
     const result = axios.patch(

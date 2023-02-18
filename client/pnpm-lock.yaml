@@ -18,8 +18,8 @@ specifiers:
   bulma: ^0.9.4
   bulma-tooltip: ^3.0.2
   date-fns: ^2.29.3
-  rc-slider: 9.7.5
   firebase: ^9.17.1
+  rc-slider: 9.7.5
   react: ^18.2.0
   react-currency-input-field: ^3.6.10
   react-date-range: ^1.4.0
@@ -50,11 +50,8 @@ dependencies:
   bulma: 0.9.4
   bulma-tooltip: 3.0.2
   date-fns: 2.29.3
-<<<<<<< HEAD
-  rc-slider: 9.7.5_biqbaboplfbrettd7655fr4n2y
-=======
   firebase: 9.17.1
->>>>>>> 49c3bb2d9aa43c99adfedc5812cb1b575784bb53
+  rc-slider: 9.7.5_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
   react-currency-input-field: 3.6.10_react@18.2.0
   react-date-range: 1.4.0_r6j3756ioqf5pjc2u22wj25rla
