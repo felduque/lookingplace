@@ -410,7 +410,7 @@ axios
                     >
                       {auth?.email === comentario.author ||
                       user?.email === comentario.author ||
-                      auth?.email === Tenant.email ||
+                      auth?.email === Tenant?.email ||
                       auth?.role == "Admin" ? (
                         <button
                           onClick={() => deleteComment(comentario.id)}

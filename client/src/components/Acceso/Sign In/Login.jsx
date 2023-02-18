@@ -80,7 +80,6 @@ export default function Login() {
           "auth",
           JSON.stringify({
             email,
-            password,
             idClient,
             accessToken,
             role,
@@ -131,7 +130,6 @@ export default function Login() {
           "auth",
           JSON.stringify({
             email,
-            password,
             idTenant,
             accessToken,
             role,

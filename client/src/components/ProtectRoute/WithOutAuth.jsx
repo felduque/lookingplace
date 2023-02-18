@@ -1,9 +1,9 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
-//import useAuth from "../../apii/useAuth";
+import useAuth from "../Acceso/hooks/useAuth";
 import { UserAuth } from "../../service/AuthContext";
-const WithOutAuth = ({ isLogued }) => {
-  const [auth, setAuth] = useState("");
+const WithOutAuth = () => {
+  const { auth, setAuth } = useAuth();
   const { user } = UserAuth();
   useEffect(() => {
     const storedAuth = JSON.parse(localStorage.getItem("auth"));
