@@ -146,7 +146,7 @@ export const login = async (req, res) => {
     const accessToken = jwt.sign(
       {
         userInfo: {
-          email: foundUser.email,
+          email: foundUser.email, // de quién es el token?
         },
       },
       secretjwt,

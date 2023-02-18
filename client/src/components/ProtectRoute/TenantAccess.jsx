@@ -14,7 +14,7 @@ const TenantAccess = () => {
     }
   }, []);
 
-  return auth?.role == "Tenant" || auth.role == "Admin" || user ? (
+  return auth?.role == "Tenant" || auth.role == "Admin" || user?.email ? (
     <Outlet />
   ) : (
     (Swal.fire({

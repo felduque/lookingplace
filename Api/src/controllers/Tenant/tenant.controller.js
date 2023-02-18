@@ -255,7 +255,7 @@ export const resetPassword = async (req, res) => {
   try {
     const verify = jwt.verify(token, secret);
     const encryptedPassword = await bcrypt.hash(password, 10);
-    await Client.update(
+    await Tenant.update(
       { password: encryptedPassword },
       { where: { id: id } }
     ).then(() => {

@@ -46,7 +46,7 @@ function App() {
   /*User Normal*/
   const { auth, setAuth } = useAuth();
 
-  const location = useLocation()
+  const location = useLocation();
 
   useEffect(() => {
     const storedAuth = JSON.parse(localStorage.getItem("auth"));
@@ -59,7 +59,7 @@ function App() {
     <div>
       <div>
         <AuthContextProvider>
-          {location.pathname == "/welcome" ?  null : <Navbar />}
+          {location.pathname == "/welcome" ? null : <Navbar />}
           <Routes>
             {/*Public Routes*/}
             <Route path="/layout" element={<Layout />} />
@@ -74,10 +74,11 @@ function App() {
 
             {/*si quieren agregar rutas publicas arriba de este mensaje*/}
 
-            <Route path="/register" element={<SignUp />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/forgotpassword" element={<ForgotPassword />} />
-            <Route element={<WithOutAuth />}></Route>
+            <Route element={<WithOutAuth />}>
+              <Route path="/register" element={<SignUp />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/forgotpassword" element={<ForgotPassword />} />
+            </Route>
 
             {/*Protect routes*/}
 
@@ -95,7 +96,6 @@ function App() {
           </Routes>
         </AuthContextProvider>
       </div>
-
     </div>
   );
 }
