@@ -10,7 +10,6 @@ import BedIcon from "./Icons/Bed";
 import BathIcon from "./Icons/Bath";
 import StarIcon from "./Icons/Star";
 import "./CardDetail.css";
-import Loader from "../Loader/Loader";
 
 import useAuth from "../Acceso/hooks/useAuth";
 import axios from "axios";
@@ -302,7 +301,6 @@ axios
 
                 <p className="subTitleData">Hora de Salida : {checkOut}</p>
                 <span>
-<<<<<<< HEAD
                   Recuerda llamar a tu hospedador para coordinar la recepción en
                   su hospedaje.
                 </span>
@@ -310,15 +308,6 @@ axios
               <p className="infoD">
                 Mantegamos la integridad de los servicios prestados, mantengamos
                 una comunidad responsable con los demas.
-=======
-                  Recuerda llamar a tu hospedador para coordinar la recepción en su
-                  hospedaje.
-                </span>
-              </div>
-              <p className="infoD">
-                Mantegamos la integridad de los servicios prestados, mantengamos una
-                comunidad responsable con los demas.
->>>>>>> 3a2e7ceb607a0e9d9bd33a1171119aa3b589e652
               </p>
             </div>
           </div>
@@ -342,13 +331,9 @@ axios
             </div>
             <div className="containerCalendar">
               <p className="subtitleCardDe">Calendario de Disponibilidad</p>
-<<<<<<< HEAD
               <p>
                 Verifica en el calendario la disponibilidad del alojamiento.
               </p>
-=======
-              <p>Verifica en el calendario la disponibilidad del alojamiento.</p>
->>>>>>> 3a2e7ceb607a0e9d9bd33a1171119aa3b589e652
               <div className="content">
                 <Calendar
                   propId={id}
@@ -363,7 +348,6 @@ axios
           </div>
           <hr />
           <div className="containerComents">
-<<<<<<< HEAD
             <div className="subtitleCardDe">Comentarios</div>
             {auth?.email ? (
               <div>
@@ -404,7 +388,7 @@ axios
                     id={`comentario-${comentario.id}`}
                     className="comment-container"
                   >
-                    {auth.email === Tenant.email || auth?.role == "Admin" ? (
+                    {auth?.email === Tenant?.email || auth?.role == "Admin" ? (
                       <button
                         onClick={() => deleteComment(comentario.id)}
                         className="delete-button"
@@ -436,32 +420,10 @@ axios
 
                     <p className="authorComment">{comentario.author}</p>
                     <h1 className="comentarioComment">{comentario.comment}</h1>
-                    <p>{comentario.id}</p>
+
                     <hr />
                   </div>
                 ))}
-=======
-            <p className="subtitleCardDe">Comentarios</p>
-            {Comments?.length > 0 ? (
-              <div>
-                <div className="contImgComentPrin">
-                  <div className="contImgComents">
-                    <img
-                      className="imgCom"
-                      src="https://www.pngitem.com/pimgs/m/78-786501_black-avatar-png-user-icon-png-transparent-png.png"
-                      alt=""
-                    />
-                  </div>
-                  <div className="contFeCom">
-                    <div>
-                      <span className="fecha">Contenedor de Fecha</span>
-                    </div>
-                    <div className="comenCont">
-                      <p className="comentText">Contenedor de Comentario</p>
-                    </div>
-                  </div>
-                </div>
->>>>>>> 3a2e7ceb607a0e9d9bd33a1171119aa3b589e652
               </div>
             ) : (
               <div>
@@ -559,11 +521,7 @@ axios
       </div> */}
           <hr />
         </div>
-<<<<<<< HEAD
       )}
     </div>
-=======
-      )}</div>
->>>>>>> 3a2e7ceb607a0e9d9bd33a1171119aa3b589e652
   );
 }
