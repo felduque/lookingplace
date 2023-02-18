@@ -12,7 +12,7 @@ const WithOutAuth = ({ isLogued }) => {
     }
   }, []);
 
-  return auth?.email || user ? <Navigate to="/" /> : <Outlet />;
+  return auth?.email || user?.email ? <Navigate to="/" /> : <Outlet />;
 };
 
 export default WithOutAuth;

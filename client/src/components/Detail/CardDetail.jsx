@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPropertyByIdAsync } from "../../redux/features/getPropertySlice";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import Calendar from "../Calendario/Calendario";
 import OwnCarousel from "./OwnCarousel";
@@ -59,9 +59,8 @@ export default function CardDetail() {
     state,
   } = detail;
 
-  /* David */
+  /*Comentarios*/
 
-  //const comentariosArray = comentarios ? Object.values(comentarios) : [];
   //console.log(typeof comentarios);
   //console.log(comentarios);
   /*const handleDeleteComment = (id) => {
@@ -113,54 +112,81 @@ axios
   const { user } = UserAuth();
   const [comentarios, setComentarios] = useState([]);
   const [nuevoComentario, setNuevoComentario] = useState("");
-
-  /* edittttttttt*/
+  /* edit*/
   const [editComment, setEditComment] = useState({
     commentId: null,
     commentText: "",
   });
+  const [isEditing, setIsEditing] = useState(false);
+
+  /*const [replyComment, setReplyComment] = useState({
+    commentId: null,
+    commentText: "",
+  });
+  const [isReplying, setIsReplying] = useState(false);*/
+
+  const commentsArray = Comments ? Object.values(Comments) : [];
+
+  useEffect(() => {
+    commentsArray.sort((a, b) => b.id - a.id);
+    setComentarios(commentsArray);
+  }, [Comments]);
+
+  function reloadPageAndRestoreScrollPosition() {
+    const scrollPosition =
+      window.scrollY ||
+      window.pageYOffset ||
+      document.documentElement.scrollTop;
+    window.location.reload();
+    window.addEventListener("load", function () {
+      window.scroll(0, scrollPosition);
+    });
+  }
 
   const handleEditComment = (id, text) => {
     setEditComment({ commentId: id, commentText: text });
+    setIsEditing(true);
+  };
+
+  const handleCancel = () => {
+    setIsEditing(false);
+    //setReplyComment({ commentId: null, commentText: "" });
+    //setIsReplying(false);
   };
 
   const handleUpdateComment = (event) => {
     event.preventDefault();
-
     const editCommento = {
       comment: editComment.commentText,
     };
-
     axios
       .patch(
         `http://localhost:3000/comment/edit/${editComment.commentId}`,
         editCommento
       )
       .then((response) => {
-        console.log(response.data);
+        //console.log(response.data);
         return response.data;
       })
       .then((data) => {
         const updatedComments = comentarios.map((commentId) =>
           commentId === editComment.commentId
-            ? { ...comentarios, comentarios: editComment.commentText }
+            ? { ...comentarios, comment: editComment.commentText }
             : comentarios
         );
-        setComentarios(updatedComments);
+        setComentarios(updatedComments.sort((a, b) => a.id - b.id));
         setEditComment({ commentId: null, commentText: "" });
+        setIsEditing(false);
+        Swal.fire(
+          "Tu comentario ha sido modificado con éxito",
+          "",
+          "success"
+        ).then(function () {
+          reloadPageAndRestoreScrollPosition();
+        });
       })
       .catch((error) => console.log(error));
   };
-
-  console.log(editComment);
-
-  /* Agregar comentario*/
-
-  console.log(detail);
-
-  const commentsArray = Comments ? Object.values(Comments) : [];
-
-  //console.log(commentsArray);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -169,9 +195,10 @@ axios
     const comentario = {
       comment: nuevoComentario,
       property_comment: id,
-      author: auth.email,
+      author: auth.email || user.email,
       avatar: auth.avatar,
       fecha: fecha,
+      //parent_comment_id: parentCommentId,
     };
 
     fetch("http://localhost:3000/comment/createcomment", {
@@ -181,14 +208,19 @@ axios
     })
       .then((response) => {
         if (response.ok) {
-          setComentarios([...comentarios, comentario]);
+          setComentarios(
+            [...comentarios, comentario].sort((a, b) => b.id - a.id)
+          );
           setNuevoComentario("");
-          commentsArray;
+          //setReplyComment({ commentId: null, commentText: "" });
+          //setIsReplying(false);
           Swal.fire(
-            "Tu comentario ha sido agregado con éxito, recargue la página para verlo reflejado",
+            "Tu comentario ha sido agregado con éxito",
             "",
             "success"
-          );
+          ).then(function () {
+            reloadPageAndRestoreScrollPosition();
+          });
         }
       })
       .catch((error) => console.log(error));
@@ -216,7 +248,7 @@ axios
   // if (!Calendar || !isLoaded || !detail) {
   //   return <Loader />
   // }
-
+  console.log(detail);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -349,7 +381,7 @@ axios
           <hr />
           <div className="containerComents">
             <div className="subtitleCardDe">Comentarios</div>
-            {auth?.email ? (
+            {auth?.email || user?.email ? (
               <div>
                 <form onSubmit={handleSubmit}>
                   <label>Nuevo comentario</label>
@@ -366,64 +398,86 @@ axios
             ) : (
               <h1>Debes Registrarte Para poder comentar</h1>
             )}
-            <form onSubmit={handleUpdateComment}>
-              <input
-                type="text"
-                placeholder="Editar comentario"
-                value={editComment.commentText}
-                onChange={(event) =>
-                  setEditComment({
-                    ...editComment,
-                    commentText: event.target.value,
-                  })
-                }
-              />
-              <button type="submit">Guardar cambios</button>
-            </form>
+
             {commentsArray.length > 0 ? (
               <div className="comment">
-                {commentsArray.map((comentario) => (
-                  <div
-                    key={comentario.id}
-                    id={`comentario-${comentario.id}`}
-                    className="comment-container"
-                  >
-                    {auth?.email === Tenant?.email || auth?.role == "Admin" ? (
-                      <button
-                        onClick={() => deleteComment(comentario.id)}
-                        className="delete-button"
-                      >
-                        Eliminar
-                      </button>
-                    ) : (
-                      ""
-                    )}
-                    {<button className="response-button">Editar</button>}
-                    <button
-                      onClick={() =>
-                        handleEditComment(comentario.id, comentario.comment)
-                      }
+                {commentsArray
+                  .map((comentario) => (
+                    <div
+                      key={comentario.id}
+                      id={`comentario-${comentario.id}`}
+                      className="comment-container"
                     >
-                      Editar
-                    </button>
-
-                    <p className="commentFecha">
-                      {comentario.fecha?.toString()}
-                    </p>
-                    <hr />
-                    <img
-                      className="imgComment"
-                      src={comentario.avatar}
-                      width="50"
-                      height="50"
-                    />
-
-                    <p className="authorComment">{comentario.author}</p>
-                    <h1 className="comentarioComment">{comentario.comment}</h1>
-
-                    <hr />
-                  </div>
-                ))}
+                      {auth?.email === comentario.author ||
+                      user?.email === comentario.author ||
+                      auth?.email === Tenant.email ||
+                      auth?.role == "Admin" ? (
+                        <button
+                          onClick={() => deleteComment(comentario.id)}
+                          className="delete-button"
+                        >
+                          Eliminar
+                        </button>
+                      ) : (
+                        ""
+                      )}
+                      {auth?.email === comentario.author ||
+                      user?.email === comentario.author ? (
+                        <div>
+                          {isEditing &&
+                          editComment.commentId === comentario.id ? (
+                            <form onSubmit={handleUpdateComment}>
+                              <input
+                                type="text"
+                                placeholder="Editar comentario"
+                                value={editComment.commentText}
+                                onChange={(event) =>
+                                  setEditComment({
+                                    ...editComment,
+                                    commentText: event.target.value,
+                                  })
+                                }
+                              />
+                              <button type="submit">Guardar cambios</button>
+                              <button type="button" onClick={handleCancel}>
+                                Cancelar
+                              </button>
+                            </form>
+                          ) : (
+                            <button
+                              onClick={() =>
+                                handleEditComment(
+                                  comentario.id,
+                                  comentario.comment
+                                )
+                              }
+                              className="response-button"
+                            >
+                              Editar
+                            </button>
+                          )}
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                      <p className="commentFecha">
+                        {comentario.fecha?.toString()}
+                      </p>
+                      <hr />
+                      <img
+                        className="imgComment"
+                        src={comentario.avatar}
+                        width="50"
+                        height="50"
+                      />
+                      <p className="authorComment">{comentario.author}</p>
+                      <h1 className="comentarioComment">
+                        {comentario.comment}
+                      </h1>
+                      <hr />
+                    </div>
+                  ))
+                  .sort((a, b) => b.id - a.id)}
               </div>
             ) : (
               <div>
