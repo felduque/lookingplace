@@ -106,7 +106,7 @@ export default function LandingPage() {
                         key={property.id}
                         id={property.id}
                         price={property.price}
-                        image="https://picsum.photos/200/250"
+                        image={property.image}
                         capacity={property.capacity}
                         beds={property.beds}
                         baths={property.baths}

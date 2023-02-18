@@ -10,10 +10,14 @@ import BedIcon from "./Icons/Bed";
 import BathIcon from "./Icons/Bath";
 import StarIcon from "./Icons/Star";
 import "./CardDetail.css";
+
 import useAuth from "../Acceso/hooks/useAuth";
 import axios from "axios";
 import { UserAuth } from "../../service/AuthContext";
 import Swal from "sweetalert2";
+
+import Loader from "../Loader/Loader";
+
 
 export default function CardDetail() {
   const { isLoaded } = useLoadScript({
@@ -206,11 +210,28 @@ axios
   }
 
   // console.log(typeof lat);
-  if (!Calendar) return <div>Cargando Calendario</div>;
-  if (!isLoaded) return <div>Loading...</div>;
-  if (!detail) return <div>Loading...</div>;
+  // if (!Calendar) return <div>Cargando Calendario</div>;
+  // if (!isLoaded) return <div>Loading...</div>;
+  // if (!detail) return <div>Loading...</div>
+
+  // if (!Calendar || !isLoaded || !detail) {
+  //   return <Loader />
+  // }
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2800);
+  }, []);
+
   return (
-    <div style={{ color: "black" }}>
+    <div>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div style={{ color: "black" }}>
       <hr />
       <div className="containerTitle">
         <div className="containerTitleUbicacion">
@@ -376,7 +397,7 @@ axios
                 ) : (
                   ""
                 )}
-                {<button className="response-button">Responder</button>}
+                {<button className="response-button">Editar</button>}
                 <button
                   onClick={() =>
                     handleEditComment(comentario.id, comentario.comment)
@@ -497,5 +518,6 @@ axios
       </div> */}
       <hr />
     </div>
+      )}</div>
   );
 }
