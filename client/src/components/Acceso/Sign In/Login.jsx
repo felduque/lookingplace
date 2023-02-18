@@ -240,15 +240,24 @@ export default function Login() {
               <div className="pt-3">
                 <button
                   name="client"
+                  className={
+                    setType.client === true
+                      ? "button is-info"
+                      : "button is-info is-outlined has-tooltip-right"
+                  }
                   onClick={handleChangeType}
-                  className="button is-link is-rounded ml-6"
+
                 >
                   Soy Cliente
                 </button>
                 <button
                   name="tenant"
                   onClick={handleChangeType}
-                  className="button is-link is-rounded ml-3"
+                  className={
+                    setType.tenant === true
+                      ? "button is-info"
+                      : "button is-info is-outlined has-tooltip-right"
+                  }
                 >
                   Soy Arrendatario
                 </button>
