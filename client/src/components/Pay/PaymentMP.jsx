@@ -13,12 +13,7 @@ export default function Card(prod) {
   return (
     <div>
       <button
-        style={{
-          color: "white",
-          backgroundColor: "#F6AB0B",
-          padding: "10px",
-          borderRadius: "20px",
-        }}
+      className="btn is-active "
         onClick={(e) => {
           axios
             .post("http://localhost:3000/pago", pagoObj)
@@ -26,10 +21,9 @@ export default function Card(prod) {
               (res) =>
                 (window.location.href = res.data.response.sandbox_init_point)
             );
-        }}
-      >
-        Quiero Plan PRO
-      </button>
+        }}>
+          <i class="bi bi-bag "></i><strong>Obtener ahora</strong>
+        </button>
     </div>
   );
 }
