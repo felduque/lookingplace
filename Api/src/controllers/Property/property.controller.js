@@ -3,6 +3,7 @@ import { Tenant } from "../../models/tenant.model.js";
 import { Client } from "../../models/client.model.js";
 import { Comment } from "../../models/comment.model.js";
 import { Booking } from "../../models/booking.model.js";
+import { sendEmailProperty } from "../Nodemailer/nodemailer.controller.js";
 
 export const createProperty = async (req, res) => {
   // si files es un array lo iteramos y agregamos a nuestro array cada uno a nuestro array que usaremos en la propiedad
@@ -91,6 +92,7 @@ export const createProperty = async (req, res) => {
 
     if (newProperty) {
       // console.log(newProperty);
+      sendEmailProperty(newProperty, tenantSearch.dataValues.fullName, tenantSearch.dataValues.email );
       console.log("created new property");
       return res.json(newProperty);
     }
