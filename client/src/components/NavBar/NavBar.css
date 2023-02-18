@@ -1,3 +1,19 @@
+@font-face {
+  font-family: 'LookingPlace';
+  src: url('../../assets/fonts/Magistral/Magistral-Honesty.ttf') format('truetype');
+}
+
+.name-logo-navbar {
+  font-family: 'LookingPlace', sans-serif;
+  font-size: 24px;
+}
+.container-logo-name {
+  margin-top: 10px;
+  margin-left: 5px;
+}
+.no-link a{
+  text-decoration: none;
+}
 .space-margin-left
 {
   margin-left: 20px;
@@ -9,4 +25,7 @@
 
 .container-global-navbar{
   margin-bottom: 60px;
+}
+.suscribe-button {
+  margin-right: 170px;
 }
