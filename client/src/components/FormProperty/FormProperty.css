@@ -91,6 +91,15 @@ input[type="time"] {
   .clocks-inputs {
     display:inline-block;
   }
+  .areas-spaces-top {
+    margin-top: 20px;
+  }
+  .areas-spaces-bot {
+    margin-bottom: 25px;
+  }
+  .clock-margin-right {
+    margin-right: 90px;
+  }
   .error {
     color: rgb(182, 150, 24);
   }
