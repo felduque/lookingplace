@@ -16,7 +16,7 @@ import bcrypt from "bcrypt";
 const app = express();
 import { createRequire } from "module";
 import jwt from "jsonwebtoken";
-//import { sendEmail } from "../Nodemailer/nodemailer.controller.js";
+import { sendEmail } from "../Nodemailer/nodemailer.controller.js";
 // import { Payments } from "../../models/payment.model.js";
 const require = createRequire(import.meta.url);
 require("dotenv").config();
@@ -176,9 +176,10 @@ export const login = async (req, res) => {
     console.log(foundUser.id);
     let userId = foundUser.id;
     let role = foundUser.role;
-
+    let fullName = foundUser.fullName;
+    let avatar = foundUser.avatar;
     //require("crypto").randomBytes(64).toString("hex");
-    res.status(200).json({ accessToken, userId, role });
+    res.status(200).json({ accessToken, userId, role, avatar, fullName });
   }
 };
 

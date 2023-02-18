@@ -2,16 +2,27 @@ import React, { useState } from "react";
 import "./ModalForm.css";
 import { updatePropery } from "./Api";
 import { RiCloseCircleLine } from "react-icons/ri";
+import { getPropertyByid } from "./Api";
 import Swal from "sweetalert2";
+import { useEffect } from "react";
 export const ModalForm = (props) => {
   const [modal, setModal] = useState(true);
   const [data, setData] = useState({
     title: "",
     description: "",
   });
-
-  console.log(props);
   const { id } = props;
+
+  useEffect(() => {
+    getPropertyByid(id).then((res) => {
+      setData({
+        title: res.data.title,
+        description: res.data.description,
+      });
+    });
+  }, [id]);
+
+  console.log(data);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -58,6 +69,7 @@ export const ModalForm = (props) => {
           <label htmlFor="name">Editar Titulo</label>
           <input
             onChange={(e) => setData({ ...data, title: e.target.value })}
+            value={data.title}
             type="text"
             name="title"
           />
@@ -66,6 +78,7 @@ export const ModalForm = (props) => {
           <label htmlFor="description">Editar descripcion</label>
           <textarea
             name="description"
+            value={data.description}
             cols="30"
             rows="10"
             onChange={(e) => setData({ ...data, description: e.target.value })}

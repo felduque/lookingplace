@@ -37,79 +37,89 @@ export default function Navbar({ isLogued }) {
     setAuth(null);
   };
   return (
-    <nav className="navbar" role="navigation" aria-label="main navigation">
-      <div className="navbar-brand space-margin-left">
-        <Link to="/" className="navbar-item">
-          <img src={logoIcon} width="30" height="20" />
-          <strong>LookingPlace</strong>
-        </Link>
-        <a
-          role="button"
-          className="navbar-burger"
-          aria-label="menu"
-          aria-expanded="false"
-          data-target="navbarBasicExample"
-        >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-      </div>
-
-      <div id="navbarBasicExample" className="navbar-menu">
-        <div className="navbar-start">
-          <Link to="/suscribe" className="navbar-item">
-            Suscripción
+    <>
+    <div className="container-global-navbar">
+      <nav className="navbar is-fixed-top has-shadow" role="navigation" aria-label="main navigation">
+        <div className="navbar-brand space-margin-left ">
+          <Link to="/" className="navbar-item">
+            <img src={logoIcon} width="30" height="20" />
+            <div className="container-logo-name">
+              <strong><span className="name-logo-navbar no-link">LookingPlace</span></strong>
+            </div>
+            
           </Link>
+          <a
+            role="button"
+            className="navbar-burger"
+            aria-label="menu"
+            aria-expanded="false"
+            data-target="navbarBasicExample"
+          >
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
         </div>
-      </div>
 
-      {location.pathname === "/" ? <SearchBar /> : null}
-
-      <div className="navbar-end">
-        <div className="navbar-item">
-          <div className="buttons">
-            {
-              // Poner ! en auth para testear paneles sin iniciar sesión
-              auth || user ? (
-                <div className="navbar-item has-dropdown is-hoverable">
-                  <a className="navbar-link">
-                    <img src={userIcon} width="30" height="40" />
-                  </a>
-
-                  <div className="navbar-dropdown is-right">
-                    <Link to="/createProperty" className="navbar-item">
-                      Publicar propiedad
-                    </Link>
-                    <Link to="/settings" className="navbar-item">
-                      Dashboard
-                    </Link>
-                    <hr className="navbar-divider" />
-                    <a className="navbar-item" onClick={signOut}>
-                      Salir
-                    </a>
-                  </div>
-                </div>
-              ) : (
-                <div>
-                  <Link to="/register" className="button is-primary">
-                    <strong>Registrarse</strong>
-                  </Link>
-                  <Link to="/login" className="button is-info is-outlined">
-                    Ingresar
-                  </Link>
-                  <Link
-                    to="/createProperty"
-                    className="button is-link is-outlined"
-                  >
-                    Publicar propiedad
-                  </Link>
-                </div>
-              )
-            }
+        <div id="navbarBasicExample" className="navbar-menu">
+          <div className="navbar-start suscribe-button">
+            <Link to="/suscribe" className="navbar-item">
+              Suscripción
+            </Link>
           </div>
         </div>
-      </div>
-    </nav>
+
+        
+        {location.pathname === "/" ? <SearchBar /> : null}
+
+        <div className="navbar-end">
+          <div className="navbar-item">
+            <div className="buttons">
+              {
+                // Poner ! en auth para testear paneles sin iniciar sesión
+                auth || user ? (
+                  <div className="navbar-item has-dropdown is-hoverable">
+                    <a className="navbar-link">
+                      <img src={userIcon} width="30" height="40" />
+                    </a>
+
+                    <div className="navbar-dropdown is-right">
+                      <Link to="/createProperty" className="navbar-item">
+                        Publicar propiedad
+                      </Link>
+                      <Link to="/settings" className="navbar-item">
+                        Mi Cuenta/Perfil
+                      </Link>
+                      <hr className="navbar-divider" />
+                      <a className="navbar-item" onClick={signOut}>
+                        Salir
+                      </a>
+                    </div>
+                  </div>
+                ) : (
+                  <div><Link
+                      to="/createProperty"
+                      className="button is-link is-outlined"
+                    >
+                      Publicar propiedad
+                    </Link>
+                    <Link to="/login" className="button is-info is-outlined">
+                      Ingresar
+                    </Link>
+                    <Link to="/register" className="button is-primary">
+                      <strong>Registrarse</strong>
+                    </Link>
+                    
+                    
+                  </div>
+                )
+              }
+            </div>
+          </div>
+        </div>
+
+      </nav>
+    </div>
+    </>
   );
 }

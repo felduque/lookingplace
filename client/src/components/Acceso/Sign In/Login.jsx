@@ -70,13 +70,23 @@ export default function Login() {
         const accessToken = response?.data?.accessToken;
         const idClient = response?.data?.userId;
         const role = response?.data?.role;
+        const fullName = response?.data?.fullName;
+        const avatar = response?.data?.avatar;
         //const role = roleMapping[email] || "default";
 
-        setAuth({ email, password, accessToken, role });
+        setAuth({ email, password, accessToken, role, avatar, fullName });
         console.log(email, password, accessToken);
         localStorage.setItem(
           "auth",
-          JSON.stringify({ email, password, idClient, accessToken, role })
+          JSON.stringify({
+            email,
+            password,
+            idClient,
+            accessToken,
+            role,
+            avatar,
+            fullName,
+          })
         );
         setEmail("");
         setPassword("");
@@ -111,13 +121,23 @@ export default function Login() {
         const accessToken = response?.data?.accessToken;
         const idTenant = response?.data?.userId;
         const role = response?.data?.role;
+        const fullName = response?.data?.fullName;
+        const avatar = response?.data?.avatar;
         //const role = roleMapping[email] || "default";
 
-        setAuth({ email, password, accessToken, role });
+        setAuth({ email, password, accessToken, role, avatar, fullName });
         console.log(email, password, accessToken);
         localStorage.setItem(
           "auth",
-          JSON.stringify({ email, password, idTenant, accessToken, role })
+          JSON.stringify({
+            email,
+            password,
+            idTenant,
+            accessToken,
+            role,
+            avatar,
+            fullName,
+          })
         );
         setEmail("");
         setPassword("");
@@ -207,9 +227,11 @@ export default function Login() {
                   <Link to="/forgotpassword">Recuperar contraseña</Link>
                 </p>
               </form>
-              <p>
-                <LoginGoogle />
-              </p>
+              <div className="pt-2">
+                <p>
+                  <LoginGoogle />
+                </p>
+              </div>
               <p className="new-account">
                 ¿No tienes cuenta? <br />
                 <span>
@@ -217,20 +239,22 @@ export default function Login() {
                 </span>
                 {/* <LoginGoogle /> */}
               </p>
-              <button
-                name="client"
-                onClick={handleChangeType}
-                className="button is-link is-rounded"
-              >
-                soy Cliente
-              </button>
-              <button
-                name="tenant"
-                onClick={handleChangeType}
-                className="button is-link is-rounded"
-              >
-                Soy Arrendatario
-              </button>
+              <div className="pt-3">
+                <button
+                  name="client"
+                  onClick={handleChangeType}
+                  className="button is-link is-rounded ml-6"
+                >
+                  Soy Cliente
+                </button>
+                <button
+                  name="tenant"
+                  onClick={handleChangeType}
+                  className="button is-link is-rounded ml-3"
+                >
+                  Soy Arrendatario
+                </button>
+              </div>
             </section>
           </div>
         </div>

@@ -32,9 +32,16 @@ const animatedComponents = makeAnimated();
 const options = [
   { value: "Wi-fi", label: "Wi-Fi" },
   { value: "Cocina", label: "Cocina" },
+  { value: "Calefacción", label: "Calefacción" },
+  { value: "Aire acondicionado", label: "Aire acondicionado" },
   { value: "Lavadora", label: "Lavadora" },
   { value: "Plancha", label: "Plancha" },
   { value: "Zona de trabajo", label: "Zona de trabajo" },
+  { value: "Cochera", label: "Cochera" },
+  { value: "Televisor", label: "Televisor" },
+  { value: "Secadora", label: "Secadora" },
+  { value: "Parilla", label: "Parilla" },
+  { value: "Cuna", label: "Cuna" },
 ];
 
 export default function FormHostCreate() {

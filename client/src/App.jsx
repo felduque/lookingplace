@@ -1,6 +1,6 @@
 //import "./App.css";
 import { useState, useEffect } from "react";
-import { Routes, Route, Navigate, Outlet } from "react-router-dom";
+import { Routes, Route, Navigate, Outlet, useLocation } from "react-router-dom";
 import useAuth from "./components/Acceso/hooks/useAuth";
 
 /*Access components*/
@@ -22,7 +22,6 @@ import Navbar from "./components/NavBar/NavBar";
 import FormHostCreate from "./components/FormProperty/FormProperty";
 import CardDetail from "./components/Detail/CardDetail";
 import Suscribe from "./components/Pay/Suscribe";
-import Footer from "./components/Footer/Footer";
 import AboutUs from "./components/AboutUs/AboutUs";
 import ResumePay from "./components/ResumePay/ResumePay";
 
@@ -47,6 +46,8 @@ function App() {
   /*User Normal*/
   const { auth, setAuth } = useAuth();
 
+  const location = useLocation()
+
   useEffect(() => {
     const storedAuth = JSON.parse(localStorage.getItem("auth"));
     if (storedAuth) {
@@ -58,8 +59,7 @@ function App() {
     <div>
       <div>
         <AuthContextProvider>
-          {location.pathname !== "/welcome" ? <Navbar /> : null}
-
+          {location.pathname == "/welcome" ?  null : <Navbar />}
           <Routes>
             {/*Public Routes*/}
             <Route path="/layout" element={<Layout />} />
@@ -74,18 +74,17 @@ function App() {
 
             {/*si quieren agregar rutas publicas arriba de este mensaje*/}
 
-            <Route element={<WithOutAuth />}>
-              <Route path="register" element={<SignUp />} />
-              <Route path="login" element={<Login />} />
-              <Route path="/forgotpassword" element={<ForgotPassword />} />
-            </Route>
+            <Route path="/register" element={<SignUp />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/forgotpassword" element={<ForgotPassword />} />
+            <Route element={<WithOutAuth />}></Route>
 
             {/*Protect routes*/}
 
             <Route element={<RequireAuth />}>
               <Route path="/Pay/Success" element={<PaySuccess />} />
               <Route path="/Pay/Failure" element={<PayFailure />} />
-              <Route path="settings" element={<Admin />} />
+              <Route path="/settings" element={<Admin />} />
             </Route>
 
             {/*Tenant Access*/}
@@ -97,9 +96,6 @@ function App() {
         </AuthContextProvider>
       </div>
 
-      <div>
-        <Footer />
-      </div>
     </div>
   );
 }

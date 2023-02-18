@@ -116,9 +116,10 @@ export const login = async (req, res) => {
     console.log(foundUser.id);
     let userId = foundUser.id;
     let role = foundUser.role;
-
+    let fullName = foundUser.fullName;
+    let avatar = foundUser.avatar;
     //require("crypto").randomBytes(64).toString("hex");
-    res.status(200).json({ accessToken, userId, role });
+    res.status(200).json({ accessToken, userId, role, avatar, fullName });
   }
 };
 

@@ -17,4 +17,17 @@ export const Comment = sequelize.define("Comment", {
       },
     },
   },
+  fecha: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+    allowNull: false,
+  },
+  author: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  avatar: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
 });

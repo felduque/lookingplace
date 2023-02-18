@@ -4,6 +4,7 @@ import Card from "../Card/Card";
 import "./LandingPage.css";
 import "./PricingTable.css";
 import "./Reviews.css";
+import Footer from "../../components/Footer/Footer";
 import logoLookingPlace from "../../assets/logo-icon.png";
 import video from "../../assets/landingpage.mp4";
 import { getPropertiesAsync } from "../../redux/features/getPropertySlice";
@@ -106,7 +107,7 @@ export default function LandingPage() {
                         key={property.id}
                         id={property.id}
                         price={property.price}
-                        image="https://picsum.photos/200/250"
+                        image={property.image}
                         capacity={property.capacity}
                         beds={property.beds}
                         baths={property.baths}
@@ -140,7 +141,10 @@ export default function LandingPage() {
           </a>
         </div>
 
-
+        <div>
+        <div className="title is-4 center-text is-italic text-planes">
+            Conoce los comentarios de nuestros usuarios
+          </div>
         <section id="grid">
 			<div class="container">
 				<div class="grid-box grid-box-purple grid-box-daniel">
@@ -159,9 +163,7 @@ export default function LandingPage() {
             auténticos para alojarme. En mi última competencia en el extranjero, 
             descubrí LookingPlace y encontré alojamiento a un precio muy asequible. 
             La página fue fácil de usar y me permitió encontrar un alojamiento cómodo y bien ubicado.
-             Definitivamente recomendaría LookingPlace a cualquier mochilero, 
-             incluso a aquellos que también son atletas de alto nivel como yo, que buscan 
-             alojamiento asequible y auténtico mientras viajan por el mundo ”
+             Definitivamente recomendaría LookingPlace a cualquier mochilero.”
 					</blockquote>
 				</div>
 				<div class="grid-box grid-box-gray grid-box-jonathan">
@@ -175,9 +177,7 @@ export default function LandingPage() {
 					<h4>Ahora sé que estoy más seguro mientras viajo</h4>
 					<blockquote>
 						“ Como mochilero, encontrar un lugar seguro y económico para dormir puede ser difícil. 
-            Descubrí LookingPlace y encontré un alojamiento acogedor en una zona tranquila. 
-            La página me permitió contactar directamente con los anfitriones y hacer preguntas, 
-            lo que me dio tranquilidad. ”
+            Descubrí LookingPlace y encontré un alojamiento acogedor en una zona tranquila. ”
 					</blockquote>
 				</div>
 				<div class="grid-box grid-box-white grid-box-kira">
@@ -192,10 +192,7 @@ export default function LandingPage() {
 					<blockquote>
 						“ Como mochilero, siempre estoy buscando formas de ahorrar dinero mientras viajo por el mundo. 
             Fue entonces cuando descubrí LookingPlace, una página que me permitió encontrar alojamiento 
-            a un precio asequible en diferentes partes del mundo. La página fue muy fácil de usar y pude 
-            filtrar los resultados según mi presupuesto y las características que estaba buscando. 
-            Me gustó mucho la opción de leer los comentarios de otros viajeros que ya habían utilizado
-             los alojamientos, lo que me ayudó a tomar una decisión informada. Definitivamente recomendaría
+            a un precio asequible en diferentes partes del mundo. Recomendaría
               LookingPlace a cualquier mochilero que busque alojamiento económico y confiable. ”
 					</blockquote>
 				</div>
@@ -209,7 +206,9 @@ export default function LandingPage() {
 					</div>
 					<h4>Ahora ofrezco mi casa mientras viajo también</h4>
 					<blockquote>
-						“ Como anfitrión de LookingPlace, he tenido la oportunidad de conocer a mochileros de todo el mundo y compartir mi cultura local. La página es fácil de usar y me ha permitido aumentar mi ocupación. Recomendaría LookingPlace a cualquier persona que quiera ofrecer alojamiento a los viajeros. ”
+						“ Como anfitrión de LookingPlace, he tenido la oportunidad de conocer a mochileros 
+            de todo el mundo y compartir mi cultura local. La página es fácil de usar y me ha 
+            permitido aumentar mi ocupación. ”
 					</blockquote>
 				</div>
 				<div class="grid-box grid-box-navy grid-box-patrick">
@@ -228,13 +227,12 @@ export default function LandingPage() {
              de todo el mundo. Me ha permitido publicar mi alojamiento de manera fácil y rápida, 
              y ha atraído a una gran cantidad de viajeros que buscan alojamiento asequible.
               Además, he tenido la oportunidad de conocer a personas increíbles y compartir 
-              historias de viaje. Definitivamente recomiendo LookingPlace a cualquier persona 
-              que esté interesada en ofrecer alojamiento a los viajeros ”
+              historias de viaje. ”
 					</blockquote>
 				</div>
 			</div>
 		</section>
-
+    </div>
 
     <div className="conteiner-planes">
           <div className="title is-4 center-text is-italic text-planes">
@@ -285,6 +283,7 @@ export default function LandingPage() {
         </div>
 
       </div>
+      <Footer />
     </>
   );
 }

@@ -91,7 +91,7 @@
   padding-bottom: 2rem;
 }
   .shadow {
-    box-shadow: -5px 5px 15px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 5px 5px 20px 10px rgba(0, 0, 0, 0.1);
     height: 550px;
   }
   
@@ -141,6 +141,9 @@
   }
   .pack {
     font-size: 1.1rem;
+  }
+  .basic-plan-margin {
+    margin-bottom: 50px;
   }
   
   @media (max-width: 280px) {
