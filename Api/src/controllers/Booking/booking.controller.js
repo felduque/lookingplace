@@ -44,3 +44,22 @@ export const getBookings = async (req, res) => {
 
   res.json(bookingTotal);
 };
+
+export const deleteBooking = async (req, res) => {
+  const { idBooking } = req.params;
+  console.log(idBooking);
+  try {
+    let bookingDelete = await Booking.destroy({
+      where: {
+        id: idBooking,
+      },
+    });
+    return res.json({
+      msj: "Eliminado con exito",
+      dataEliminada: bookingDelete,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(404).send(error);
+  }
+};
