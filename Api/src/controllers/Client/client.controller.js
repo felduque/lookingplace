@@ -12,6 +12,7 @@ import { Client } from "../../models/client.model.js";
 import { Tenant } from "../../models/tenant.model.js";
 import { Property } from "../../models/property.model.js";
 import { Booking } from "../../models/booking.model.js";
+import { Comment } from "../../models/comment.model.js";
 import bcrypt from "bcrypt";
 const app = express();
 import { createRequire } from "module";
@@ -367,6 +368,34 @@ export const getClientById = async (req, res) => {
         },
         {
           model: Booking,
+          include: [
+            {
+              model: Client,
+              attributes: ["id"],
+              include: [
+                {
+                  model: Comment,
+                  attributes: ["id", "comment", "fecha"],
+                  include: [
+                    {
+                      model: Property,
+                      attributes: ["id"],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          model: Comment,
+          attributes: ["id", "comment", "fecha"],
+          include: [
+            {
+              model: Property,
+              attributes: ["id"],
+            },
+          ],
         },
       ],
     });

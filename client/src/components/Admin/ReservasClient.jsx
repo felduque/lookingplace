@@ -6,6 +6,7 @@ import { RiEditBoxFill } from "react-icons/ri";
 import { ModalForm } from "./ModalForm";
 import ReservasProp from "./ReservasProp";
 import ReservasTen from "./ReservasTen";
+import ReservasComent from "./ReservasComent";
 import axios from "axios";
 
 export const ReservacionesCliente = () => {
@@ -20,8 +21,11 @@ export const ReservacionesCliente = () => {
       const idClient = storedAuth?.idClient;
       if (storedAuth.role === "Client" || storedAuth.role === "Admin") {
         const allPropierte = await getClientById(idClient);
+        // console.log("Peticion de Cliente por id", allPropierte);
         const prop = allPropierte.data.Properties;
         const booking = allPropierte.data.Bookings;
+        // const comments = allPropierte.data.Comments;
+        // setAllComments(comments);
         setAllPropiertie(prop);
         setAllBookings(booking);
       } else {
@@ -33,7 +37,8 @@ export const ReservacionesCliente = () => {
     fetchAllPropierties();
   }, [allPropiertie.length, allBookings.length]);
 
-  console.log(allPropiertie, allBookings);
+  // console.log("Soy allProperty", allPropiertie);
+  console.log("Soy allBookings", allBookings);
 
   return (
     <>
@@ -93,6 +98,10 @@ export const ReservacionesCliente = () => {
                 </div>
                 <ReservasProp id={b.booking_property} />
                 <ReservasTen id={b.booking_tenant} />
+                <ReservasComent
+                  idPropiedad={b.booking_property}
+                  clientCom={b.Client.Comments}
+                />
                 <div className="columns">
                   <button
                     className="button is-danger m-5 is-4"

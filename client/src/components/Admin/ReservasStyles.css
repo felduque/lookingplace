@@ -1,0 +1,15 @@
+.iconoEditComentRes {
+  float: right;
+  padding: 1px;
+  cursor: pointer;
+  border-radius: 12px;
+  border: 1px solid rgb(166, 166, 166);
+  transition: 1.5s;
+}
+
+.iconoEditComentRes:hover {
+  transform: scale(1.2);
+  padding: 3px;
+  background-color: rgb(170, 196, 255);
+  border: 0;
+}

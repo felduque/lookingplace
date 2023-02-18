@@ -4,12 +4,14 @@ import { Tenant } from "../../models/tenant.model.js";
 import { Client } from "../../models/client.model.js";
 
 export const createComment = async (req, res) => {
-  const { comment, property_comment, author, avatar } = req.body;
+  const { comment, property_comment, author, avatar, client_comment } =
+    req.body;
   await Comment.create({
     comment,
     property_comment,
     author,
     avatar,
+    client_comment,
     fecha: new Date(),
   });
   return res.status(201).json({ message: `Comment created! ` });
@@ -54,18 +56,15 @@ export const getCommentById = async (req, res) => {
       include: [
         {
           model: Client,
-          as: "client_comment",
           attributes: ["id", "fullName", "avatar", "email"],
         },
         {
           model: Tenant,
-          as: "tentant_comment",
           attributes: ["id", "fullName", "avatar", "email"],
         },
         {
           model: Property,
-          as: "property_comment",
-          attributes: ["id", "fullName", "avatar", "email"],
+          attributes: ["id", "title"],
         },
       ],
     });
