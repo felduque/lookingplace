@@ -117,6 +117,7 @@ axios
   }, []);*/
 
   const { auth } = useAuth();
+  console.log(auth);
   const { user } = UserAuth();
   const [comentarios, setComentarios] = useState([]);
   const [nuevoComentario, setNuevoComentario] = useState("");
@@ -206,14 +207,13 @@ axios
       author: auth.email || user.email,
       avatar: auth.avatar,
       fecha: fecha,
+      client_comment: auth.idClient ? auth.idClient : null,
       //parent_comment_id: parentCommentId,
     };
+    console.log("Soy el Comentario antes de enviar", comentario);
 
-    fetch("http://localhost:3000/comment/createcomment", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(comentario),
-    })
+    axios
+      .post("http://localhost:3000/comment/createcomment", comentario)
       .then((response) => {
         if (response.ok) {
           setComentarios(

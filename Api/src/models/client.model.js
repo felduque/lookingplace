@@ -77,4 +77,8 @@ export const Client = sequelize.define("Clients", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  favorites: {
+    type: DataTypes.ARRAY(DataTypes.STRING),
+    allowNull: true,
+  },
 });
