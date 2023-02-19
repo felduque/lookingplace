@@ -24,7 +24,7 @@ function Home() {
     dispatch(getPropertiesAsync(url)).then(() => {
       setTimeout(() => {
         setLoading(false);
-      }, 2500);
+      }, 1200);
     });
   }, []);
 

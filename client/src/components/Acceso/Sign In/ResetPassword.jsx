@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import axios from "../hooks/axios";
+import validateForm from "../validate.js"
 
 export default function ResetPassword() {
   const [reset, setReset] = useState(false);
@@ -27,9 +28,15 @@ export default function ResetPassword() {
     });
   };
 
+  const [errors, setErrors] = useState({});
+  const errorsLength = Object.entries(errors).length;
+
   function handleSubmit(e) {
     e.preventDefault();
 
+    setErrors(
+      validateForm({ ...inputs, [e.target.name]: e.target.value })
+    );
     if (password !== passwordConfirm) {
       setErrMsg("Las contraseñas no coinciden");
       return;
@@ -71,6 +78,10 @@ export default function ResetPassword() {
       });
     }
   }
+
+  useEffect(() => {
+    setErrors(validateForm(inputs));
+  }, [inputs]);
 
   useEffect(() => {
     if (reset) {
@@ -136,18 +147,27 @@ export default function ResetPassword() {
                   <Link to="/register">Registrarme</Link>
                 </span>
               </p>
-              <div className="pt-3">
+              <div className="pt-3 pb-3">
                 <button
                   name="client"
+                  className={
+                    setType.client === true
+                      ? "button is-link is-rounded"
+                      : "button is-link is-outlined has-tooltip-right is-rounded"
+                  }
                   onClick={handleChangeType}
-                  className="button is-link is-rounded ml-6"
+
                 >
                   Soy Cliente
                 </button>
                 <button
                   name="tenant"
                   onClick={handleChangeType}
-                  className="button is-link is-rounded ml-3"
+                  className={
+                    setType.tenant === true
+                      ? "button is-link ml-4 is-rounded"
+                      : "button is-link is-outlined has-tooltip-right ml-4 is-rounded"
+                  }
                 >
                   Soy Arrendatario
                 </button>

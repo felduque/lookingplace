@@ -5,36 +5,11 @@ import searchIcon from "../../../assets/search-icon-2.png";
 import filterIcon from "../../../assets/filter-button.png"
 import { Component, useState } from "react";
 import "./modal.js"
-
 import Filters from "../../Filters/Filters";
-
-// window.onload = function () {
-//   (document.querySelectorAll(".js-modal-trigger") || []).forEach(($trigger) => {
-//     const modal = $trigger.dataset.target;
-//     const $target = document.getElementById(modal);
-
-//     $trigger.addEventListener("click", () => {
-//       openModal($target);
-//     });
-//   });
-
-//   const modalTrigger = document.querySelector('.js-modal-trigger');
-//   const modal = document.querySelector('#modal');
-
-//   modalTrigger.addEventListener('click', function () {
-//     modal.classList.add('is-active');
-//   });
-
-//   modal.querySelector('.modal-close, .modal-background', ".modal-background", ".modal-close", ".modal-card-head", ".delete", ".modal-card-foot", ".cerrar").addEventListener('click', function () {
-//     modal.classList.remove('is-active');
-//   });
-// }
 
 
 
 export default function SearchBar() {
-
-
 
   const dispatch = useDispatch();
   const [title, setTitle] = useState('');

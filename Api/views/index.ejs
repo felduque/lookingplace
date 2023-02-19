@@ -47,11 +47,11 @@
       </p>
         <p id="passwordDescription">Por favor, ingrese una contraseña segura que contenga al menos 8 caracteres y una combinación de letras, números y símbolos.</p>
       </div>
-    
+
       <div class="field">
         <p class="control has-icons-left">
         <label for="confirmPassword">Confirmar contraseña:</label>
-        <input type="password"  class="input" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
+        <input type="password" class="input" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password"  required>
         <span class="icon is-small is-left">
           <i class="fas fa-user">
             <img src="https://cdn-icons-png.flaticon.com/512/2556/2556639.png" class="icon-login" />
@@ -65,4 +65,18 @@
   </div>
 </div>
   </body>
+  <script>
+    function validatePassword() {
+      var password = document.getElementById("password");
+      var confirmPassword = document.getElementById("confirmPassword");
+      if (password.value != confirmPassword.value) {
+        confirmPassword.setCustomValidity("Las contraseñas no coinciden");
+      } else {
+        confirmPassword.setCustomValidity("");
+      }
+    }
+  
+    password.onchange = validatePassword;
+    confirmPassword.onkeyup = validatePassword;
+  </script>
 </html>
