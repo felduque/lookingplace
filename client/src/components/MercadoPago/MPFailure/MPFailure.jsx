@@ -72,7 +72,7 @@ export default function MPFailure() {
           className="button is-info"
           style={{ width: "125px" }}
           onClick={(e) => {
-            navigate("/");
+            navigate("/home");
           }}
         >
           Home

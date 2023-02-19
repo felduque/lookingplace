@@ -282,7 +282,7 @@ export const forgot = async (req, res) => {
         </div>
         <p style="text-align: center; font-size: 14px;">LookingPlace | 123 Main St | Ciudad, Estado | +1-234-567-8901</p>
       </div>
-      `
+      `,
     };
 
     transporter.sendMail(mailOptions, function (err, info) {

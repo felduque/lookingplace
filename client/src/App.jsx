@@ -59,12 +59,12 @@ function App() {
     <div>
       <div>
         <AuthContextProvider>
-          {location.pathname == "/welcome" ? null : <Navbar />}
+          {location.pathname == "/" ? null : <Navbar />}
           <Routes>
             {/*Public Routes*/}
             <Route path="/layout" element={<Layout />} />
-            <Route path="/welcome" element={<LandingPage />} />
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/home" element={<Home />} />
             <Route path="propertyDetail/:id" element={<CardDetail />} />
             <Route path="/aboutUs" element={<AboutUs />} />
             <Route path="suscribe" element={<Suscribe />} />

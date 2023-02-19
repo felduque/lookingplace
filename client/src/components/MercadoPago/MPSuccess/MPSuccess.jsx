@@ -159,7 +159,7 @@ export default function MPSuccess() {
           className="button is-info"
           style={{ width: "125px" }}
           onClick={(e) => {
-            navigate("/");
+            navigate("/home");
           }}
         >
           Home
