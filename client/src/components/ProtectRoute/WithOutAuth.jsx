@@ -12,7 +12,7 @@ const WithOutAuth = () => {
     }
   }, []);
 
-  return auth?.email || user?.email ? <Navigate to="/" /> : <Outlet />;
+  return auth?.email || user?.email ? <Navigate to="/home" /> : <Outlet />;
 };
 
 export default WithOutAuth;

@@ -16,7 +16,6 @@ export default function Navbar({ isLogued }) {
   const { user, logOut } = UserAuth();
   const [isActive, setIsActive] = useState(false);
 
-
   useEffect(() => {
     const storedAuth = JSON.parse(localStorage.getItem("auth"));
     if (storedAuth) {
@@ -42,14 +41,19 @@ export default function Navbar({ isLogued }) {
   return (
     <>
       <div className="container-global-navbar">
-        <nav className="navbar is-fixed-top has-shadow" role="navigation" aria-label="main navigation">
+        <nav
+          className="navbar is-fixed-top has-shadow"
+          role="navigation"
+          aria-label="main navigation"
+        >
           <div className="navbar-brand space-margin-left ">
-            <Link to="/" className="navbar-item">
+            <Link to="/home" className="navbar-item">
               <img src={logoIcon} width="30" height="20" />
               <div className="container-logo-name">
-                <strong><span className="name-logo-navbar no-link">LookingPlace</span></strong>
+                <strong>
+                  <span className="name-logo-navbar no-link">LookingPlace</span>
+                </strong>
               </div>
-
             </Link>
             <a
               role="button"
@@ -72,8 +76,7 @@ export default function Navbar({ isLogued }) {
             </div>
           </div>
 
-
-          {location.pathname === "/" ? <SearchBar /> : null}
+          {location.pathname === "/home" ? <SearchBar /> : null}
 
           <div className="navbar-end">
             <div className="navbar-item">
@@ -85,7 +88,12 @@ export default function Navbar({ isLogued }) {
                       <a className="navbar-link">
                         {auth?.avatar ? (
                           <figure class="image">
-                            <img src={auth?.avatar} className="is-rounded" width="60" height="60" />
+                            <img
+                              src={auth?.avatar}
+                              className="is-rounded"
+                              width="60"
+                              height="60"
+                            />
                           </figure>
                         ) : (
                           <img src={userIcon} width="30" height="40" />
@@ -107,14 +115,17 @@ export default function Navbar({ isLogued }) {
                       </div>
                     </div>
                   ) : (
-                    <div><Link
-                      to="/createProperty"
-                      className="button is-link is-outlined"
-                    >
-                      Publicar propiedad
-                    </Link>
-                      <button className="button is-info is-outlined"
-                        onClick={() => setIsActive(true)}>
+                    <div>
+                      <Link
+                        to="/createProperty"
+                        className="button is-link is-outlined"
+                      >
+                        Publicar propiedad
+                      </Link>
+                      <button
+                        className="button is-info is-outlined"
+                        onClick={() => setIsActive(true)}
+                      >
                         Ingresar
                       </button>
                       {isActive && (
@@ -129,7 +140,6 @@ export default function Navbar({ isLogued }) {
               </div>
             </div>
           </div>
-
         </nav>
       </div>
     </>

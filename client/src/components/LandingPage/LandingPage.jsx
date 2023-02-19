@@ -9,11 +9,11 @@ import logoLookingPlace from "../../assets/logo-icon.png";
 import video from "../../assets/landingpage.mp4";
 import { getPropertiesAsync } from "../../redux/features/getPropertySlice";
 
-import messi from '../../assets/testimonials/messi.jpg';
-import t2 from '../../assets/testimonials/t-2.jpg';
-import t3 from '../../assets/testimonials/t-3.jpg';
-import t4 from '../../assets/testimonials/t-4.jpg';
-import t5 from '../../assets/testimonials/t-5.jpg';
+import messi from "../../assets/testimonials/messi.jpg";
+import t2 from "../../assets/testimonials/t-2.jpg";
+import t3 from "../../assets/testimonials/t-3.jpg";
+import t4 from "../../assets/testimonials/t-4.jpg";
+import t5 from "../../assets/testimonials/t-5.jpg";
 import Loader from "../Loader/Loader";
 
 export default function LandingPage() {
@@ -64,7 +64,7 @@ export default function LandingPage() {
   }, []);
 
   if (isLoading) {
-    return <Loader />
+    return <Loader />;
   }
 
   return (
@@ -102,8 +102,9 @@ export default function LandingPage() {
             <div className="carrusel-left">
               <button
                 disabled={currentPage === 1 ? true : false}
-                className={`pagination-previous button is-info is-outlined ${currentPage === 1 ? "is-disabled" : ""
-                  }`}
+                className={`pagination-previous button is-info is-outlined ${
+                  currentPage === 1 ? "is-disabled" : ""
+                }`}
                 onClick={onPreviusPage}
               >
                 ❰
@@ -138,15 +139,16 @@ export default function LandingPage() {
             <div className="carrusel-right">
               <button
                 disabled={currentPage >= pageNumber.length ? true : false}
-                className={`pagination-next button is-info is-outlined space-right-next ${currentPage >= pageNumber.length ? "is-disabled" : ""
-                  }`}
+                className={`pagination-next button is-info is-outlined space-right-next ${
+                  currentPage >= pageNumber.length ? "is-disabled" : ""
+                }`}
                 onClick={onNextPage}
               >
                 ❱
               </button>
             </div>
           </div>
-          <a href="/">
+          <a href="/home">
             <button class="button is-link is-focused  is-medium into-home-button">
               Entrar al sitio
             </button>
@@ -167,15 +169,15 @@ export default function LandingPage() {
                     <p class="small">Campeón del mundo</p>
                   </div>
                 </div>
-                <h4>
-                  La oportunidad que ofrece LookingPlace es única
-                </h4>
+                <h4>La oportunidad que ofrece LookingPlace es única</h4>
                 <blockquote>
-                  “ Como mochilero, siempre busco maneras de ahorrar dinero y encontrar lugares
-                  auténticos para alojarme. En mi última competencia en el extranjero,
-                  descubrí LookingPlace y encontré alojamiento a un precio muy asequible.
-                  La página fue fácil de usar y me permitió encontrar un alojamiento cómodo y bien ubicado.
-                  Definitivamente recomendaría LookingPlace a cualquier mochilero.”
+                  “ Como mochilero, siempre busco maneras de ahorrar dinero y
+                  encontrar lugares auténticos para alojarme. En mi última
+                  competencia en el extranjero, descubrí LookingPlace y encontré
+                  alojamiento a un precio muy asequible. La página fue fácil de
+                  usar y me permitió encontrar un alojamiento cómodo y bien
+                  ubicado. Definitivamente recomendaría LookingPlace a cualquier
+                  mochilero.”
                 </blockquote>
               </div>
               <div class="grid-box grid-box-gray grid-box-jonathan">
@@ -188,8 +190,9 @@ export default function LandingPage() {
                 </div>
                 <h4>Ahora sé que estoy más seguro mientras viajo</h4>
                 <blockquote>
-                  “ Como mochilero, encontrar un lugar seguro y económico para dormir puede ser difícil.
-                  Descubrí LookingPlace y encontré un alojamiento acogedor en una zona tranquila. ”
+                  “ Como mochilero, encontrar un lugar seguro y económico para
+                  dormir puede ser difícil. Descubrí LookingPlace y encontré un
+                  alojamiento acogedor en una zona tranquila. ”
                 </blockquote>
               </div>
               <div class="grid-box grid-box-white grid-box-kira">
@@ -202,10 +205,12 @@ export default function LandingPage() {
                 </div>
                 <h4>LookingPlace cambio mi forma de viajar</h4>
                 <blockquote>
-                  “ Como mochilero, siempre estoy buscando formas de ahorrar dinero mientras viajo por el mundo.
-                  Fue entonces cuando descubrí LookingPlace, una página que me permitió encontrar alojamiento
-                  a un precio asequible en diferentes partes del mundo. Recomendaría
-                  LookingPlace a cualquier mochilero que busque alojamiento económico y confiable. ”
+                  “ Como mochilero, siempre estoy buscando formas de ahorrar
+                  dinero mientras viajo por el mundo. Fue entonces cuando
+                  descubrí LookingPlace, una página que me permitió encontrar
+                  alojamiento a un precio asequible en diferentes partes del
+                  mundo. Recomendaría LookingPlace a cualquier mochilero que
+                  busque alojamiento económico y confiable. ”
                 </blockquote>
               </div>
               <div class="grid-box grid-box-white grid-box-jeanette">
@@ -218,9 +223,10 @@ export default function LandingPage() {
                 </div>
                 <h4>Ahora ofrezco mi casa mientras viajo también</h4>
                 <blockquote>
-                  “ Como anfitrión de LookingPlace, he tenido la oportunidad de conocer a mochileros
-                  de todo el mundo y compartir mi cultura local. La página es fácil de usar y me ha
-                  permitido aumentar mi ocupación. ”
+                  “ Como anfitrión de LookingPlace, he tenido la oportunidad de
+                  conocer a mochileros de todo el mundo y compartir mi cultura
+                  local. La página es fácil de usar y me ha permitido aumentar
+                  mi ocupación. ”
                 </blockquote>
               </div>
               <div class="grid-box grid-box-navy grid-box-patrick">
@@ -231,15 +237,14 @@ export default function LandingPage() {
                     <p class="small">Familia acojedora</p>
                   </div>
                 </div>
-                <h4>
-                  Obtengo ingresos extras sin complicaciones
-                </h4>
+                <h4>Obtengo ingresos extras sin complicaciones</h4>
                 <blockquote>
-                  “ Como anfitrión, LookingPlace ha sido una excelente forma de conectar con mochileros
-                  de todo el mundo. Me ha permitido publicar mi alojamiento de manera fácil y rápida,
-                  y ha atraído a una gran cantidad de viajeros que buscan alojamiento asequible.
-                  Además, he tenido la oportunidad de conocer a personas increíbles y compartir
-                  historias de viaje. ”
+                  “ Como anfitrión, LookingPlace ha sido una excelente forma de
+                  conectar con mochileros de todo el mundo. Me ha permitido
+                  publicar mi alojamiento de manera fácil y rápida, y ha atraído
+                  a una gran cantidad de viajeros que buscan alojamiento
+                  asequible. Además, he tenido la oportunidad de conocer a
+                  personas increíbles y compartir historias de viaje. ”
                 </blockquote>
               </div>
             </div>
@@ -263,10 +268,12 @@ export default function LandingPage() {
                   <li>
                     <div className="button-bottom">
                       <button class="btn ">
-                        <i class="bi bi-bag "></i><a href='/login'><strong>Obtener ahora</strong></a>
+                        <i class="bi bi-bag "></i>
+                        <a href="/login">
+                          <strong>Obtener ahora</strong>
+                        </a>
                       </button>
                     </div>
-
                   </li>
                 </ul>
               </div>
@@ -285,7 +292,8 @@ export default function LandingPage() {
                   <li class="bottom-bar">Panel de control avanzado</li>
                   <li>
                     <button class="btn active-btn">
-                      <i class="bi bi-bag"></i><strong>Obtener ahora</strong>
+                      <i class="bi bi-bag"></i>
+                      <strong>Obtener ahora</strong>
                     </button>
                   </li>
                 </ul>
@@ -293,7 +301,6 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
-
       </div>
       <Footer />
     </>

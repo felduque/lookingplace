@@ -15,7 +15,7 @@ export default function Login({ closeModal }) {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/home";
   const [setType, setSetType] = useState({
     client: false,
     tenant: false,
