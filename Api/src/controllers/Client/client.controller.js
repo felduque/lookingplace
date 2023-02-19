@@ -12,6 +12,7 @@ import { Client } from "../../models/client.model.js";
 import { Tenant } from "../../models/tenant.model.js";
 import { Property } from "../../models/property.model.js";
 import { Booking } from "../../models/booking.model.js";
+import { Comment } from "../../models/comment.model.js";
 import bcrypt from "bcrypt";
 const app = express();
 import { createRequire } from "module";
@@ -268,7 +269,20 @@ export const forgot = async (req, res) => {
       from: "youremail@gmail.com",
       to: email,
       subject: "Password Reset",
-      text: link,
+      html: `
+      <div style="border: 4px solid #0099CC; border-radius: 10px; padding: 20px; max-width: 500px; margin: auto; font-family: Arial, sans-serif; font-size: 16px; line-height: 1.4; color: #333;">
+        <div style="text-align: center;">
+          <img src="https://thumbs2.imgbox.com/b1/74/LZvDpeYQ_t.png" alt="LookingPlace" style="max-width: 200px; height: auto;">
+          <h1 style="color: #0099CC; font-size: 32px; margin: 10px 0;">LookingPlace</h1>
+        </div>
+        <p>Estimado ${email},</p>
+        <p>Para recuperar su contraseña haga click en el siguiente boton:</p>
+        <div style="text-align: center; margin: 20px 0;">
+          <a href="${link}" style="background-color: #0099CC; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Recupere contraseña aqui</a>
+        </div>
+        <p style="text-align: center; font-size: 14px;">LookingPlace | 123 Main St | Ciudad, Estado | +1-234-567-8901</p>
+      </div>
+      `
     };
 
     transporter.sendMail(mailOptions, function (err, info) {
@@ -367,6 +381,34 @@ export const getClientById = async (req, res) => {
         },
         {
           model: Booking,
+          include: [
+            {
+              model: Client,
+              attributes: ["id"],
+              include: [
+                {
+                  model: Comment,
+                  attributes: ["id", "comment", "fecha"],
+                  include: [
+                    {
+                      model: Property,
+                      attributes: ["id"],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          model: Comment,
+          attributes: ["id", "comment", "fecha"],
+          include: [
+            {
+              model: Property,
+              attributes: ["id"],
+            },
+          ],
         },
       ],
     });

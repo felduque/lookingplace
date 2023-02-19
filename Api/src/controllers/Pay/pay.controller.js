@@ -1,5 +1,6 @@
 // const mercadopago = import("mercadopago");
 import mercadopago from "mercadopago";
+import { sendEmailPay } from "../Nodemailer/nodemailer.controller.js";
 
 mercadopago.configure({
   access_token:
@@ -61,6 +62,7 @@ export const paySuscription = async (req, res) => {
     });
 };
 
+// --------------------------------------------
 export const payProperty = async (req, res) => {
   const { property, client } = req.body;
   console.log(property, client);
@@ -116,4 +118,17 @@ export const payProperty = async (req, res) => {
       console.log(error);
       return res.status(404).send(error);
     });
+};
+
+// -------------------------Envio de Mail
+
+export const sendEmailFromPay = async (req, res) => {
+  const { fullName, email, priceTotal, title } = req.body;
+  console.log(fullName, email, priceTotal, title);
+  try {
+    await sendEmailPay(fullName, email, priceTotal, title);
+    return res.status(200).send("Email enviado con exito");
+  } catch (error) {
+    return res.status(404).send(error);
+  }
 };

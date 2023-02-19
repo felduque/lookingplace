@@ -31,7 +31,15 @@ export default function CardDetail() {
   }, [id, dispatch]);
 
   const detail = useSelector((state) => state.properties.propertyDetail);
+
   //console.log(detail);
+  // console.log(detail.Bookings);
+  let arrayBookings = [];
+  detail.Bookings?.forEach((b) => {
+    // console.log(b.bookingsPropCli);
+    arrayBookings = arrayBookings.concat(b.bookingsPropCli);
+  });
+  console.log(arrayBookings);
 
   const {
     title,
@@ -109,6 +117,7 @@ axios
   }, []);*/
 
   const { auth } = useAuth();
+  console.log(auth);
   const { user } = UserAuth();
   const [comentarios, setComentarios] = useState([]);
   const [nuevoComentario, setNuevoComentario] = useState("");
@@ -198,14 +207,13 @@ axios
       author: auth.email || user.email,
       avatar: auth.avatar,
       fecha: fecha,
+      client_comment: auth.idClient ? auth.idClient : null,
       //parent_comment_id: parentCommentId,
     };
+    console.log("Soy el Comentario antes de enviar", comentario);
 
-    fetch("http://localhost:3000/comment/createcomment", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(comentario),
-    })
+    axios
+      .post("http://localhost:3000/comment/createcomment", comentario)
       .then((response) => {
         if (response.ok) {
           setComentarios(
@@ -369,7 +377,7 @@ axios
               <div className="content">
                 <Calendar
                   propId={id}
-                  bookings={bookings}
+                  bookings={arrayBookings}
                   price={price}
                   title={title}
                   description={description}

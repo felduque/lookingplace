@@ -21,6 +21,7 @@ import { ListUser } from "./ListUser";
 import { Profile } from "./Profile";
 import { Publish } from "./Publish";
 import { Profile_edit } from "./Profile_edit";
+import { ReservacionesCliente } from "./ReservasClient";
 
 const UserSettings = () => {
   const [showMenu, setshowMenu] = useState(true);
@@ -32,6 +33,7 @@ const UserSettings = () => {
     profile: true,
     publish: false,
     allpublish: false,
+    reservaciones: false,
   });
 
   const [auth, setAuth] = useState("");
@@ -58,6 +60,7 @@ const UserSettings = () => {
       profile: false,
       publish: false,
       allpublish: false,
+      reservaciones: false,
       [name]: true,
     });
   };
@@ -94,6 +97,18 @@ const UserSettings = () => {
                   Editar Perfil
                 </a>
               </span>
+              <span className="sidebar-list-item">
+                <a
+                  className="side-item"
+                  name="reservaciones"
+                  onClick={handleComponent}
+                  href="#"
+                >
+                  {/* Cambiar icono*/}
+                  <RiSettings5Fill />
+                  Mis Reservaciones
+                </a>
+              </span>
             </div>
             <div className="sidebar-footer">
               <a
@@ -113,6 +128,7 @@ const UserSettings = () => {
             <div className="main-content">
               {component.settingpro && <Profile_edit />}
               {component.profile && <Profile />}
+              {component.reservaciones && <ReservacionesCliente />}
             </div>
           </main>
         </div>
