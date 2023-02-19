@@ -16,6 +16,7 @@ export default function Navbar({ isLogued }) {
   const { user, logOut } = UserAuth();
   const [isActive, setIsActive] = useState(false);
 
+
   useEffect(() => {
     const storedAuth = JSON.parse(localStorage.getItem("auth"));
     if (storedAuth) {
@@ -82,10 +83,17 @@ export default function Navbar({ isLogued }) {
                   auth || user ? (
                     <div className="navbar-item has-dropdown is-hoverable">
                       <a className="navbar-link">
-                        <img src={userIcon} width="30" height="40" />
+                        {auth?.avatar ? (
+                          <figure class="image">
+                            <img src={auth?.avatar} className="is-rounded" width="60" height="60" />
+                          </figure>
+                        ) : (
+                          <img src={userIcon} width="30" height="40" />
+                        )}
                       </a>
 
                       <div className="navbar-dropdown is-right">
+                        <span>{auth?.fullName}</span>
                         <Link to="/createProperty" className="navbar-item">
                           Publicar propiedad
                         </Link>
