@@ -155,6 +155,56 @@ export default function Login({ closeModal }) {
           setErrMsg("Error al ingresar");
         }
       }
+    } else if (auth.role === "Admin") {
+      try {
+        const response = await axios.post(
+          `http://localhost:3000/client/login`,
+          JSON.stringify({ email: email, password: password }),
+          {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true,
+          }
+        );
+        console.log(response);
+        //console.log(JSON.stringify(response));
+        const accessToken = response?.data?.accessToken;
+        const idClient = response?.data?.userId;
+        const role = response?.data?.role;
+        const fullName = response?.data?.fullName;
+        const avatar = response?.data?.avatar;
+        //const role = roleMapping[email] || "default";
+
+        setAuth({ email, password, accessToken, role, avatar, fullName });
+        console.log(email, password, accessToken);
+        localStorage.setItem(
+          "auth",
+          JSON.stringify({
+            email,
+            idClient,
+            accessToken,
+            role,
+            avatar,
+            fullName,
+          })
+        );
+        setEmail("");
+        setPassword("");
+        //setRole("");
+        navigate(from, { replace: true });
+        window.location.reload();
+      } catch (err) {
+        if (!err?.response) {
+          setErrMsg("Sin respuesta del servidor(back)");
+        } else if (err.response?.status === 400) {
+          setErrMsg("Creo que escribiste mal la contraseña");
+        } else if (err.response?.status === 401) {
+          setErrMsg(
+            "No estás registrado, no vas a poder entrar sin registrarte :)"
+          );
+        } else {
+          setErrMsg("Error al ingresar");
+        }
+      }
     } else {
       Swal.fire({
         title: "Login fallido",
@@ -165,17 +215,12 @@ export default function Login({ closeModal }) {
       });
     }
   };
-  function back() {
-    navigate(from, { replace: true });
-  }
-
 
   const handleKeyDown = (event) => {
     if (event.key === "Escape") {
       closeModal();
     }
   };
-
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
@@ -184,20 +229,18 @@ export default function Login({ closeModal }) {
     };
   }, []);
 
-
-
   return (
-
     <div class="modal is-active">
       <div class="modal-background" onClick={closeModal}></div>
       <div class="modal-content">
         <>
           <div className="container-page-login">
-
             <div className="form-container-login">
               <section>
                 <div className="error-messg-server">{errMsg}</div>
-                <div className="title is-4 is-spaced">Ingresar a la aventura</div>
+                <div className="title is-4 is-spaced">
+                  Ingresar a la aventura
+                </div>
                 <form onSubmit={handleSubmit}>
                   <div className="field">
                     <p className="control has-icons-left">
@@ -247,7 +290,6 @@ export default function Login({ closeModal }) {
                           : "button is-link is-outlined has-tooltip-right is-rounded"
                       }
                       onClick={handleChangeType}
-
                     >
                       Soy Cliente
                     </button>
@@ -265,12 +307,19 @@ export default function Login({ closeModal }) {
                     </button>
                   </div>
                   <div className="pt-2 pb-2">
-                    <button className="button is-link is-rounded" disabled={(
-                      setType.client === false && setType.tenant === false
-                    )}>Ingresar</button>
+                    <button
+                      className="button is-link is-rounded"
+                      disabled={
+                        setType.client === false && setType.tenant === false
+                      }
+                    >
+                      Ingresar
+                    </button>
                   </div>
                   <p>
-                    <Link to="/forgotpassword" onClick={closeModal}>Recuperar contraseña</Link>
+                    <Link to="/forgotpassword" onClick={closeModal}>
+                      Recuperar contraseña
+                    </Link>
                   </p>
                 </form>
                 <div className="pt-2">
@@ -281,11 +330,12 @@ export default function Login({ closeModal }) {
                 <p className="new-account">
                   ¿No tienes cuenta? <br />
                   <span>
-                    <Link to="/register" onClick={closeModal}>Registrarme</Link>
+                    <Link to="/register" onClick={closeModal}>
+                      Registrarme
+                    </Link>
                   </span>
                   {/* <LoginGoogle /> */}
                 </p>
-
               </section>
             </div>
           </div>
@@ -293,6 +343,5 @@ export default function Login({ closeModal }) {
       </div>
       <button class="modal-close is-large" aria-label="close"></button>
     </div>
-
   );
 }
