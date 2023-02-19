@@ -48,6 +48,11 @@ export default function ForgotPassword() {
         setErrorMessage(
           "Hubo un problema al enviar el correo electrónico de recuperación de contraseña, intentalo más tarde"
         );
+        if (error.response.status === 400) {
+          setErrorMessage(
+            "Email no registrado, usa un email que pertenezca a un cliente."
+          )
+        }
       }
     } else if (setType.tenant === true) {
       try {
@@ -57,8 +62,13 @@ export default function ForgotPassword() {
         );
       } catch (error) {
         setErrorMessage(
-          "Hubo un problema al enviar el correo electrónico de recuperación de contraseña, intentalo más tarde"
+          "Hubo un problema al enviar el correo electrónico de recuperación de contraseña, intentalo más tarde."
         );
+        if (error.response.status === 400) {
+          setErrorMessage(
+            "Email no registrado, usa un email que pertenezca a un arrendatario."
+          )
+        }
       }
     }
 
@@ -102,7 +112,9 @@ export default function ForgotPassword() {
                   </p>
                 </div>
 
-                <button class="button is-link is-rounded">Enviar</button>
+                <button class="button is-link is-rounded" disabled={
+                  (setType.client === false && setType.tenant === false)
+                }>Enviar</button>
               </form>
               <p className="new-account">
                 <span>
@@ -111,20 +123,31 @@ export default function ForgotPassword() {
                   <Link to="/register">Registrate</Link>
                 </span>
               </p>
-              <button
-                name="client"
-                onClick={handleChangeType}
-                className="button is-link is-rounded"
-              >
-                soy Cliente
-              </button>
-              <button
-                name="tenant"
-                onClick={handleChangeType}
-                className="button is-link is-rounded"
-              >
-                Soy Arrendatario
-              </button>
+              <div className="pt-3 pb-3">
+                <button
+                  name="client"
+                  className={
+                    setType.client === true
+                      ? "button is-link is-rounded"
+                      : "button is-link is-outlined has-tooltip-right is-rounded"
+                  }
+                  onClick={handleChangeType}
+
+                >
+                  Soy Cliente
+                </button>
+                <button
+                  name="tenant"
+                  onClick={handleChangeType}
+                  className={
+                    setType.tenant === true
+                      ? "button is-link ml-4 is-rounded"
+                      : "button is-link is-outlined has-tooltip-right ml-4 is-rounded"
+                  }
+                >
+                  Soy Arrendatario
+                </button>
+              </div>
             </section>
           </div>
         </div>

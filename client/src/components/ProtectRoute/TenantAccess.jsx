@@ -26,7 +26,7 @@ const TenantAccess = () => {
       confirmButtonText: "Entendido",
       position: "top-end",
     }),
-    (<Navigate to="/" />))
+      (<Navigate to="/register" />))
   );
 };
 

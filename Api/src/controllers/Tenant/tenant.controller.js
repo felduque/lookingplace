@@ -188,7 +188,7 @@ export const forgot = async (req, res) => {
   try {
     const oldUser = await Tenant.findOne({ where: { email } });
     if (!oldUser) {
-      return res.json({ status: "No existe ese usuario" });
+      return res.status(400).json({ status: "No existe ese usuario" });
     }
     const secret = secretjwt + oldUser.password;
     const token = jwt.sign({ email: oldUser.email, id: oldUser.id }, secret, {

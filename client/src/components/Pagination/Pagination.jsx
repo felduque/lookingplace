@@ -2,6 +2,7 @@ import React from "react";
 import "./Pagination.css";
 import Swal from "sweetalert2";
 import Loader from "../Loader/Loader";
+import { Link } from "react-router-dom";
 
 export const Pagination = ({
   propertyPerPage,
@@ -9,23 +10,17 @@ export const Pagination = ({
   setCurrentPage,
   totalProperty,
 }) => {
-  if (totalProperty === 0) {
-    return (
-      <div className="notification is-warning">
-        <h1>No hay propiedades que mostrar. Al parecer NINGUNA propiedad tiene las caracteristicas que elegiste en los filtros</h1>
-      </div>
-    );
-    // } else if (!totalProperty) {
-    //   return (
-    //     <Loader />
-    //   )
-    // }
-  }
+
   const pageNumber = [];
 
   for (let i = 1; i <= Math.ceil(totalProperty / propertyPerPage); i++) {
     pageNumber.push(i);
   }
+
+  const cleanProperties = (e) => {
+    e.preventDefault();
+    window.location.reload(false);
+  };
 
   const onPreviusPage = () => {
     setCurrentPage(currentPage - 1);
@@ -37,6 +32,24 @@ export const Pagination = ({
   const onSpecificPage = (n) => {
     setCurrentPage(n);
   };
+
+  if (totalProperty === 0) {
+    return (
+      <div className="notification is-warning mt-6 pt-6">
+        <h1 className="pb-3">No hay propiedades que mostrar. Al parecer NINGUNA propiedad tiene las caracteristicas que elegiste en los filtros</h1>
+        <Link to="/" onClick={cleanProperties} style={{ textDecoration: "none" }}>
+          <button className="button is-link">
+            Volver a la lista de propiedades
+          </button>
+        </Link>
+      </div>
+    );
+    // } else if (!totalProperty) {
+    //   return (
+    //     <Loader />
+    //   )
+    // }
+  }
 
   return (
     <div>

@@ -33,7 +33,7 @@
     transform: translate(5px, 5px);
     stroke-dasharray: 440;
     stroke-dashoffset: 440;
-    animation: animate 4s linear infinite;
+    animation: animate 1.5s linear infinite;
 }
 @keyframes animate
 {

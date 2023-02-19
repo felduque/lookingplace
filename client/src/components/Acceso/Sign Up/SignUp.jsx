@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import ReCAPTCHA from "react-google-recaptcha";
-import validateForm from "./validate.js";
+import validateForm from "./validate";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Swal from 'sweetalert2';
 import "./SignUp.css";
@@ -99,9 +99,9 @@ export default function SignUp() {
       })
       setTimeout(() => {
         navigate(from, { replace: true });
-      window.location.reload();
+        window.location.reload();
       }, 4000);
-      
+
       setInputs({
         fullName: "",
         password: "",

@@ -96,6 +96,11 @@
     cursor: not-allowed;
 }
   
+.form-container-login{
+    margin-left: 4.8em;
+    width: width 200px;
+    background-color: white;
+}
 
 .button-active {
     background-color: #2a9d8f;
