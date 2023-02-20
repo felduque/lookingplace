@@ -14,7 +14,7 @@ const TenantAccess = () => {
     }
   }, []);
 
-  return auth?.role == "Tenant" || auth.role == "Admin" || user?.email ? (
+  return auth?.role == "Tenant" || auth?.role == "Admin" || user?.email ? (
     <Outlet />
   ) : (
     (Swal.fire({
@@ -26,7 +26,7 @@ const TenantAccess = () => {
       confirmButtonText: "Entendido",
       position: "top-end",
     }),
-      (<Navigate to="/register" />))
+    (<Navigate to="/register" />))
   );
 };
 
