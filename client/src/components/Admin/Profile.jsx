@@ -34,7 +34,7 @@ export const Profile = () => {
   return (
     <>
       <div className="container-title-section-panel">
-        <h2 className="title-profile-container">BIENVENIDO A TU PERFIL</h2>
+        <h2 className="title is-3">Tu perfil</h2>
       </div>
       <div className="profile-container">
         <div className="profile-header">
@@ -47,43 +47,43 @@ export const Profile = () => {
         </div>
         <div className="profile-content">
           <div className="profile-content-title-description">
-            <h1 className="title-profile">Descripción</h1>
-            <p className="description-profile">
+            <h1 className="title is-4">Descripción</h1>
+            <p className="title is-5">
               {aboutMe ? aboutMe.description : "No hay descripción"}
             </p>
             <div className="hobbies-content">
-              <h1 className="title-profile">Hobbies</h1>
+              <h1 className="title is-4">Aficiones</h1>
               <div className="hobbies-profile">
                 {hobbie ? (
                   hobbie?.map((hobbie, index) => {
                     return (
                       <div key={index} className="hobby-profile">
-                        <p className="text-hobbie">{hobbie}</p>
+                        <p>{hobbie}</p>
                       </div>
                     );
                   })
                 ) : (
-                  <p className="hobby-profile">No hay hobbies</p>
+                  <p className="hobby-profile">No hay aficiones</p>
                 )}
               </div>
             </div>
             <div className="profile-detail">
               <div className="detail-profile">
-                <h2 className="detail-profile-title">Pais</h2>
-                <p className="detail-profile-text">
+                <h2 className="title is-4">País / Ciudad</h2>
+                <p>
                   {aboutMe ? aboutMe.from : "No hay pais"}
                 </p>
               </div>
 
               <div className="detail-profile">
-                <h2 className="detail-profile-title">Telefono</h2>
-                <p className="detail-profile-text">
+                <h2 className="title is-4">Teléfono</h2>
+                <p>
                   {aboutMe ? users?.phone : "No hay telefono"}
                 </p>
               </div>
               <div className="detail-profile">
-                <h2 className="detail-profile-title">Correo</h2>
-                <p className="detail-profile-text">felipeduque557@gmail.com</p>
+                <h2 className="title is-4">Correo</h2>
+                <p>correo@correo.com</p>
               </div>
             </div>
           </div>

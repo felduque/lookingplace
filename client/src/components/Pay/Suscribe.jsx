@@ -42,7 +42,11 @@ export default function Suscribe() {
           {
           auth?.email ? 
           (
-          <PaymentMP/>
+            <div>
+               <a className="button is-primary center-button-pro">
+                   <strong>Tu plan actual</strong>
+               </a>
+            </div>
           ) : 
             <div>
                <a className="button is-primary center-button-pro" to='/register'>
