@@ -10,6 +10,7 @@ import BedIcon from "./Icons/Bed";
 import BathIcon from "./Icons/Bath";
 import StarIcon from "./Icons/Star";
 import "./CardDetail.css";
+import "./darkCard.css";
 
 import useAuth from "../Acceso/hooks/useAuth";
 import axios from "axios";
@@ -117,10 +118,11 @@ axios
   }, []);*/
 
   const { auth } = useAuth();
-  console.log(auth);
+  //console.log(auth);
   const { user } = UserAuth();
   const [comentarios, setComentarios] = useState([]);
   const [nuevoComentario, setNuevoComentario] = useState("");
+  const [errMsg, setErrMsg] = useState(null);
   /* edit*/
   const [editComment, setEditComment] = useState({
     commentId: null,
@@ -205,15 +207,17 @@ axios
       comment: nuevoComentario,
       property_comment: id,
       author: auth.email || user.email,
-      avatar: auth.avatar,
+      avatar: auth.avatar || user.photoURL,
       fecha: fecha,
       client_comment: auth.idClient ? auth.idClient : null,
       //parent_comment_id: parentCommentId,
     };
-    console.log("Soy el Comentario antes de enviar", comentario);
 
-    axios
-      .post("http://localhost:3000/comment/createcomment", comentario)
+    fetch("http://localhost:3000/comment/createcomment", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(comentario),
+    })
       .then((response) => {
         if (response.ok) {
           setComentarios(
@@ -229,11 +233,19 @@ axios
           ).then(function () {
             reloadPageAndRestoreScrollPosition();
           });
+        } else if (response.status === 400) {
+          setErrMsg(
+            "Solo puedes comentar 1 vez por propiedad, recuerda que tienes la opción de editar tu comentario"
+          );
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        setErrMsg(
+          "Hubo un error al enviar el comentario, por favor intenta de nuevo."
+        );
+      });
   };
-
   function deleteComment(id) {
     fetch(`http://localhost:3000/comment/delete/${id}`, { method: "DELETE" })
       .then((response) => {
@@ -266,7 +278,7 @@ axios
   }, []);
 
   return (
-    <div>
+    <div className="dark-theme">
       {isLoading ? (
         <Loader />
       ) : (
@@ -392,9 +404,10 @@ axios
               <div className="title-comment">
                 <div className="subtitleCardDe">Comentarios</div>
               </div>
-  
+
               {auth?.email || user?.email ? (
                 <div className="c-avatar-input">
+                  {errMsg && <p className="errComment">{errMsg}</p>}
                   <form className="c-form" onSubmit={handleSubmit}>
                     <div className="avatar-input">
                       <div className="c-avatar">
@@ -442,7 +455,8 @@ axios
                             ""
                           )}
                           {auth?.email === comentario.author ||
-                          user?.email === comentario.author ? (
+                          user?.email === comentario.author ||
+                          auth?.role === "Admin" ? (
                             <div>
                               {isEditing &&
                               editComment.commentId === comentario.id ? (
@@ -481,18 +495,38 @@ axios
                             ""
                           )}
                           <div className="c-avatar-author-comment">
-                            <img
-                              className="imgComment"
-                              src={comentario.avatar}
-                              width="50"
-                              height="50"
-                            />
-                            <div className="c-author-fecha"> 
-
-                            <p className="authorComment">{comentario.author}</p>
-                            <p className="commentFecha">
-                              {comentario.fecha?.toString()}
-                            </p>
+                            {auth?.email === comentario.author &&
+                            auth?.avatar !== comentario.avatar ? (
+                              <img
+                                className="imgComment"
+                                src={auth.avatar}
+                                width="50"
+                                height="50"
+                              />
+                            ) : user?.email === comentario.author &&
+                              user?.providerData[0]?.photoURL !==
+                                comentario.avatar ? (
+                              <img
+                                className="imgComment"
+                                src={user.providerData[0]?.photoURL}
+                                width="50"
+                                height="50"
+                              />
+                            ) : (
+                              <img
+                                className="imgComment"
+                                src={comentario.avatar}
+                                width="50"
+                                height="50"
+                              />
+                            )}
+                            <div className="c-author-fecha">
+                              <p className="authorComment">
+                                {comentario.author}
+                              </p>
+                              <p className="commentFecha">
+                                {comentario.fecha?.toString()}
+                              </p>
                             </div>
                           </div>
                           <h1 className="comentarioComment">

@@ -1,41 +1,90 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/*:root {
+  /* Colors */
+  /*--bgtgderecha: #21252b;
+  --body: #202020;
+  --text: #fff;
+  --body-rgba: 32, 32, 32;
+  --text-rgba: 255, 255, 255;
+  --carousel-color: #eeedde;
+  --font-xs: 0.75em;
+  --font-sm: 0.875em;
+  --font-md: 1em;
+  --font-lg: 1.25em;
+  --font-xl: 2em;
+  --font-xxl: 3em;
+  --font-xxxl: 4em;
+  --font-button: 0.875em;
+  --nav-height: 5rem;
+  --white-bg: #7522e6s;
+  --bg: rgb(29, 28, 28);
+  --bg-alpha: rgba(0, 0, 0, 0.3);
+  --bg-2: rgb(30, 30, 30);
+  --bg-3: rgb(50, 50, 50);
+  --text-color: rgb(210, 210, 210);
+  --primary-color: rgb(52, 131, 235);
+  --bg-4: #9247fc;
+  --bg-total: #21252b;
+  --barrascroll: #a18aff;
+  --gray-900: #000000;
+  --gray-800: #1f1f1f;
+  --gray-700: #2e2e2e;
+  --gray-600: #313131;
+  --gray-500: #969593;
+  --gray-400: #a6a6a6;
+  --gray-300: #bdbbb7;
+  --gray-200: #f1f1f1;
+  --gray-100: #ffffff;
+  --green-500: #f9516e;
+  --olive-500: #e3ffa8;
+  --white: #ffffff;
+  --text-primary: #ffffff;
+  --text-secondary: #f1f1f1;
+  --text-tertiary: #969593;
+
+  /* Toggle */
+  /*--dark-background: linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 0%, rgba(0, 0, 0, 0.15) 100%),
+    radial-gradient(at top center, rgba(255, 255, 255, 0.4) 0%, rgba(0, 0, 0, 0.4) 120%) #989898;
+  --dark-checkbox: #757575;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Dark theme */
+/** {
+  background-color: var(--bg);
+  color: var(--text-color);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+* {
+  background-color: var(--bgtgderecha);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.carousel-item {
+  background-color: var(--carousel-color);
+  color: var(--text-color);
 }
 
-.card {
-  padding: 2em;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-color);
 }
 
-.read-the-docs {
-  color: #888;
+button {
+  background-color: var(--bg-4);
+  color: var(--text-color);
 }
+
+button:hover {
+  background-color: var(--olive-500);
+  color: var(--text-color);
+}
+
+.toggle {
+  background: var(--dark-background);
+}
+
+.toggle-checkbox:checked + .toggle-switch {
+  background-color: var(--primary-color);
+}*/
