@@ -76,21 +76,20 @@ export const ReservacionesCliente = () => {
                     display: "flex",
                     justifyContent: "space-evenly",
                     alignItems: "center",
-                    color: "white",
+                    color: "black",
                     gap: "20px",
                     fontSize: "14px",
                     margin: "8px",
                   }}
                 >
-                  <h1>{b.id}</h1>
                   <p>
-                    <strong style={{ color: "white" }}>
+                    <strong style={{ color: "black" }}>
                       Fecha de ingreso :
                     </strong>{" "}
                     {ingreso.toDateString()}
                   </p>
                   <p>
-                    <strong style={{ color: "white" }}>
+                    <strong style={{ color: "black" }}>
                       Fecha de salida :
                     </strong>
                     {salida.toDateString()}

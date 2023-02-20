@@ -80,7 +80,7 @@ export default function ReservasTen({ id }) {
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "flex-start",
-              color: "white",
+              color: "black",
             }}
           >
             <div
