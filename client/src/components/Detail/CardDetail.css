@@ -227,6 +227,11 @@ color: #000000;
  margin-right: 15px;
 }
 
+.errComment{
+  color: red;
+}
+
+
 .response-button {
   position: absolute;
   bottom: 0;
