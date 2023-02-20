@@ -6,15 +6,34 @@ import { Client } from "../../models/client.model.js";
 export const createComment = async (req, res) => {
   const { comment, property_comment, author, avatar, client_comment } =
     req.body;
-  await Comment.create({
-    comment,
-    property_comment,
-    author,
-    avatar,
-    client_comment,
-    fecha: new Date(),
-  });
-  return res.status(201).json({ message: `Comment created! ` });
+
+  try {
+    const existingComment = await Comment.findOne({
+      where: {
+        author,
+        property_comment,
+      },
+    });
+
+    if (existingComment) {
+      return res
+        .status(400)
+        .json({ message: "El autor ya ha comentado en esta propiedad" });
+    }
+
+    await Comment.create({
+      comment,
+      property_comment,
+      author,
+      avatar,
+      client_comment,
+      fecha: new Date(),
+    });
+    return res.status(201).json({ message: `Comentario creado! ` });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Ha ocurrido un error" });
+  }
 };
 
 export const getAllComments = async (req, res) => {

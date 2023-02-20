@@ -95,13 +95,22 @@ export default function Navbar({ isLogued }) {
                               height="60"
                             />
                           </figure>
+                        ) : user?.photoURL ? (
+                          <figure class="image">
+                            <img
+                              src={user.providerData[0]?.photoURL}
+                              className="is-rounnded"
+                              width="60"
+                              height="60"
+                            />
+                          </figure>
                         ) : (
                           <img src={userIcon} width="30" height="40" />
                         )}
                       </a>
 
                       <div className="navbar-dropdown is-right">
-                        <span>{auth?.fullName}</span>
+                        <span>{auth?.fullName || user?.displayName}</span>
                         <Link to="/createProperty" className="navbar-item">
                           Publicar propiedad
                         </Link>
