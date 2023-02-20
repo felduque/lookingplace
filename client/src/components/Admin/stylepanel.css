@@ -1,6 +1,6 @@
 .admin-container {
   /* backgraund repeat */
-  background: #292348;
+  background: #ffffff;
   display: grid;
   grid-template-columns: 21% 77%;
   grid-template-rows: auto auto auto auto;
@@ -8,21 +8,29 @@
   width: 100%;
 }
 
+/*Barra lateral*/
 .sidebar-header {
-  position: fixed;
-  top: 58px;
+  position:fixed;
+  top: 80px;
   width: auto;
   height: auto;
-  background-color: #18152E;
+  /*Barra lateral color*/
+  background-color: #f8f6f6;
   border-right-width: 3px;
-  border-right-style: solid;
-  border-right-color: #2b245e;
+  border-right-style:solid;
+  border-right-color: #bbbbba;
+  border-bottom-style:solid;
+  border-bottom-color: #bbbbba;
+  border-top: 1px;
+  border-top-style:solid;
+  border-top-color: #bbbbba;
   grid-column: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
   transition: 0.5s;
+  border-radius: 12px;
 }
 
 .view-menu{
@@ -52,12 +60,14 @@
 
 
 .sidebar-list-item:hover {
-  background-color: #2b245e;
+  background-color: #4866b1;
   transform: scale(1.1, 1.1);
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 .side-item {
-  color: rgb(46,136,254);
+  color: rgb(34, 33, 32);
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: 400;
@@ -68,7 +78,7 @@
 
 
 .side-item:hover {
-  color: rgb(46,136,254);
+  color: rgb(255, 255, 255);
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: 400;
@@ -91,7 +101,7 @@
     position: fixed;
     bottom: 8px;
     right: 8px;
-    background-color: #18152E;
+    background-color: #f0ebea;
     border: none;
     outline: none;
     cursor: pointer;
@@ -103,9 +113,9 @@
   /*  Main */
 .main-container {
   grid-area: main;
+  /*Aqú es la caja gris que no dejaba*/
+  background-color: rgb(255, 255, 255);
   width: 100%;
-  min-height: 100vh;
-  max-height: 100%;
   grid-column: 2;
   grid-row: 2/5;
   margin: 20px;
@@ -133,19 +143,19 @@
 /* profile */
 .profile-container {
   width: 95%;
+  border: solid 2px rgb(50, 147, 232);
   border-radius: 62px;
   display: flex;
-background: linear-gradient(145deg, #272055, #2e2765);
-box-shadow:  35px 35px 70px #161331,
-             -35px -35px 70px #40358b;
+  z-index: 1;
 }
 
 .profile-header {
+  background-color: transparent;
   padding: 1.5rem;
 }
 
 .title-profile-container{
-  color: rgb(2, 255, 175);
+  color: rgb(36, 35, 35);
   font-weight: bold;
   font-size: 2rem;
 }
@@ -166,7 +176,7 @@ box-shadow:  35px 35px 70px #161331,
 }
 
 .content-profile-name {
-  background-color: #18152E;
+  background-color: rgb(244, 243, 246);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -176,7 +186,8 @@ box-shadow:  35px 35px 70px #161331,
 }
 
 .name-profile {
-  color: #fff;
+  background-color: rgb(244, 243, 246);
+  color: #302f2f;
   font-size: 1.5rem;
   margin: 0;
   font-weight: bold;
@@ -198,7 +209,7 @@ box-shadow:  35px 35px 70px #161331,
 }
 
 .title-profile {
-  color: rgb(2, 255, 175);
+  color: rgb(35, 36, 39);
   font-weight: bold;
   font-size: 2rem;
 }
@@ -206,7 +217,7 @@ box-shadow:  35px 35px 70px #161331,
 .description-profile{
   font-size: 1rem;
   font-weight: bold;
-  color: #fff;
+  color: #3e3f45;
 }
 
 .profile-detail {
@@ -237,10 +248,11 @@ box-shadow:  35px 35px 70px #161331,
   justify-content: space-evenly;
   align-items: center;
   list-style: none;
-  color: #fff;
+  color: #ffffff;
 }
 
 .container-title-section-panel{
+  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -249,7 +261,7 @@ box-shadow:  35px 35px 70px #161331,
 }
 
 .hobby-profile {
-  background-color: #18152E;
+  background-color: #4897cf;
   margin: 10px;
   border-radius: 10%;
   padding: 0.7rem;
@@ -259,11 +271,11 @@ box-shadow:  35px 35px 70px #161331,
 .detail-profile-title {
   font-size: 1.5rem;
   font-weight: bold;
-  color: rgb(2, 255, 175);
+  color: rgb(29, 31, 31);
 }
 
 .detail-profile-text {
-  color: #fff;
+  color: #3b3b43;
 }
 
 /* Form property */
@@ -287,9 +299,7 @@ box-shadow:  35px 35px 70px #161331,
   gap: 1rem;
   margin-top: 1rem;
   padding: 1rem;
-  background: linear-gradient(145deg, #272055, #2e2765);
-  box-shadow:  35px 35px 70px #161331,
-             -35px -35px 70px #40358b;
+  background-color: white;
 
 border-radius: 5%;
 }
@@ -306,7 +316,7 @@ border-radius: 5%;
 .title-form-edit-profile {
   font-size: 1.5rem;
   font-weight: bold;
-  color: rgb(2, 255, 175);
+  color: rgb(65, 70, 73);
 }
 
 .form-control {
@@ -318,7 +328,7 @@ border-radius: 5%;
   font-size: 1rem;
   font-weight: bold;
   color: #fff;
-  background-color: #18152E; 
+  background-color: #f4f3f5; 
 }
 
 .viewAvatarUpload {
@@ -368,10 +378,11 @@ border-radius: 5%;
 /*  List publish  */
 
 .container-list-publish-tenant {
-  background: #272055;
-  border-radius: 1%;
-  padding: 1rem;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 40px;
   margin-top: 1rem;
+  border: solid 2px rgb(50, 147, 232);
 }
 
 .container-list-publish-tenant__search{
@@ -405,14 +416,14 @@ border-radius: 5%;
 
 .content-list-publish-all {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 300px));
+  grid-gap: 15px;
 }
 
 .container-list-publish-tenant > h2 {
   font-size: 2rem;
   font-weight: bold;
-  color: rgb(2, 255, 175);
+  color: rgb(33, 29, 29);
 }
 
 
@@ -425,8 +436,8 @@ border-radius: 5%;
   align-items: center;
   border-radius: 5px;
   overflow: hidden;
-  background: linear-gradient(145deg, #272055, #2e2765);
-box-shadow:  35px 35px 70px #161331;
+  border: solid 1px rgb(50, 147, 232);
+  padding: 10px;
             
   border-radius: 5%;
 }
@@ -435,7 +446,7 @@ box-shadow:  35px 35px 70px #161331;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  width: 100%;
+  width: 20px;
 }
 
 .container-list-publish-tenant__list__item__edit{
@@ -447,20 +458,18 @@ box-shadow:  35px 35px 70px #161331;
 }
 
 .btn-delete-publish{
-  font-weight: bold;
-  color: #fff;
+  width: 20px;
+  height: 20px;
+  color: #ff0000;
   left: 0;
   border-radius: 10%;
   outline: none;
   cursor: pointer;
   font-size: 1.5rem;
+  margin-right: 100px;
 }
 
-.text-list-publish-title{
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: rgb(2, 255, 175);
-}
+
 
 .text-list-publish-data{
   font-size: 1rem;
@@ -485,8 +494,18 @@ box-shadow:  35px 35px 70px #161331;
 }
 
 .container-list-publish-tenant__list__item__image > img {
-  width: 100%;
+  width: 250px;
   height: 200px;
   border-radius: 10%;
 }
 
+.form-container-edit-profile {
+  width: 550px;
+  border: solid 2px rgb(50, 147, 232);
+  border-radius: 8px;
+  padding: 30px 40px 30px 40px;
+  margin-left: 20%;
+}
+.centered-button {
+  margin-left: 40%;
+}

@@ -157,118 +157,146 @@ export const Profile_edit = () => {
   return (
     <>
       <div className="container-title-section-panel">
-        <h2 className="title-profile-container">EDITA TU PERFIL </h2>
+        <div className="title is-3">Edita tu perfil</div>
       </div>
-      <form onSubmit={handleSubmit} className="form-profile">
-        <div className="form-group">
-          <label className="title-form-edit-profile" htmlFor="name">
-            Full Name
-          </label>
-          <input
-            type="text"
-            name="fullName"
-            placeholder={users?.fullName}
-            id="name"
-            className="form-control"
-            onChange={(e) => setForm({ ...form, fullName: e.target.value })}
-          />
+      <div className="form-container-edit-profile">
+      <form onSubmit={handleSubmit}>
+        <div className="columns">
+          <div className="column">
+               Nombre completo
+          </div>
+          <div className="column">
+            <input
+              type="text"
+              name="fullName"
+              placeholder={users?.fullName}
+              id="name"
+              className="input"
+              onChange={(e) => setForm({ ...form, fullName: e.target.value })}
+            />
+          </div>
+          </div>
+          <div className="columns">
+          <div className="column">
+              Teléfono
+          </div>
+          <div className="column">
+            <input
+              type="text"
+              name="phone"
+              id="phone"
+              placeholder={users?.phone}
+              className="input"
+              onChange={(e) => setForm({ ...form, phone: e.target.value })}
+            />
         </div>
-        <div className="form-group">
-          <label className="title-form-edit-profile" htmlFor="phone">
-            Telefono
-          </label>
-          <input
-            type="text"
-            name="phone"
-            id="phone"
-            placeholder={users?.phone}
-            className="form-control"
-            onChange={(e) => setForm({ ...form, phone: e.target.value })}
-          />
         </div>
-        <div className="form-group">
-          <label className="title-form-edit-profile" htmlFor="from">
-            From
-          </label>
+        <div className="columns">
+        <div className="column">
+            País / Ciudad
+        </div>
+        <div className="column">
           <input
             type="text"
             name="from"
             id="from"
             placeholder={about?.from}
-            className="form-control"
+            className="input"
             onChange={(e) => setForm({ ...form, from: e.target.value })}
           />
+          </div>
         </div>
-        <div className="form-group">
-          <label className="title-form-edit-profile" htmlFor="age">
+        <div className="columns">
+          <div className="column">
             Edad
-          </label>
+          </div>
+          <div className="column">
           <input
             type="text"
             name="age"
             placeholder={about?.age}
             id="age"
-            className="form-control"
+            className="input"
             onChange={(e) => setForm({ ...form, age: e.target.value })}
           />
+          </div>
         </div>
-
-        <div className="form-group">
-          <label className="title-form-edit-profile" htmlFor="description">
-            Descripción
-          </label>
+        <div className="columns">
+          <div className="column">
+            Sobre mí
+          </div>
+          <div className="column">
           <textarea
             type="text"
             placeholder={about?.description}
             name="description"
             id="description"
-            className="form-control"
+            className="textarea"
             onChange={(e) => setForm({ ...form, description: e.target.value })}
           ></textarea>
+          </div>
         </div>
-        <div className="form-group">
-          <label className="title-form-edit-profile" htmlFor="hobbies">
-            Hobbies
-          </label>
+        <div className="columns">
+          <div className="column">
+            Aficiones
+          </div>
+          <div className="column">
           <Select
             closeMenuOnSelect={true}
             components={animatedComponents}
             isSearchable={true}
-            maxMenuHeight={100}
+            maxMenuHeight={200}
+            placeholder={'Seleciona...'}
             isMulti
             options={opciones}
             // guardar en string sin value y label
             onChange={(e) => iterarHobbieLabel(e)}
           />
-        </div>
-        <div className="form-group">
-          <label className="title-form-edit-profile" htmlFor="avatar">
-            Avatar
-          </label>
-          <input
-            type="file"
-            name="avatar"
-            id="avatar"
-            className="form-control"
-            onChange={saveAvatarUpload}
-          />
-        </div>
-        <div className="viewAvatarUpload">
-          <div className="content-avatar-setting">
-            <h2>Nuevo Avatar</h2>
-            <img src={avatarupload} alt="Avatar" />
-          </div>
-          <div className="content-avatar-setting">
-            <h2>Avatar Actual</h2>
-            <img src={users?.avatar} alt="ActualAvatar" />
           </div>
         </div>
-        <div className="form-group">
-          <button type="submit" className="btn-primary">
+        <div className="columns">
+          
+          <div className="column">
+            Avatar Actual
+            <p><img src={users?.avatar} alt="ActualAvatar" width='150px' height='150px'/></p>
+          </div>
+          <div className="column">
+            Nuevo avatar
+            <p>{avatarupload ? <img src={avatarupload} width='150' height='150'/> : ''}</p>
+          </div>
+          <div className="column">
+          <div class="file is-info">
+            <label class="file-label">
+              <input
+              type="file"
+              name="avatar"
+              id="avatar"
+              className=""
+              onChange={saveAvatarUpload}
+              class="file-input"
+              />
+              <span class="file-cta">
+                <span class="file-icon">
+                  <i class="fas fa-upload"></i>
+                 </span>
+                <span class="file-label">
+                  Cambiar avatar...
+                </span>
+              </span>
+            </label>
+</div>
+          
+          </div>
+          
+
+        </div>
+
+          <button type="submit" className="button is-success centered-button">
             Guardar
           </button>
-        </div>
+
       </form>
+      </div>
     </>
   );
 };

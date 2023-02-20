@@ -14,8 +14,8 @@
 }
 
 .modal-container-desing-comments{
-  background: linear-gradient(145deg, #272055, #2e2765);
-  box-shadow:  35px 35px 70px #161331;
+  background: linear-gradient(145deg, #d1cee2, #bdbcc5);
+  box-shadow:  35px 35px 70px #575665;
   display: flex;
   border-radius: 5%;
   flex-direction: column;

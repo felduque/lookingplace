@@ -14,8 +14,7 @@
 }
 
 .modal-container-inputs{
-  background: linear-gradient(145deg, #272055, #2e2765);
-  box-shadow:  35px 35px 70px #161331;
+  box-shadow:  35px 35px 70px #a3a3a9;
   display: flex;
   border-radius: 5%;
   flex-direction: column;
