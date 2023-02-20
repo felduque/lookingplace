@@ -71,6 +71,7 @@ function App() {
             <Route path="/ResumePay" element={<ResumePay />} />
             <Route path="/Pay/Success" element={<PaySuccess />} />
             <Route path="/Pay/Failure" element={<PayFailure />} />
+            <Route path="/settings" element={<Admin />} />
 
             {/*si quieren agregar rutas publicas arriba de este mensaje*/}
 
@@ -82,9 +83,7 @@ function App() {
 
             {/*Protect routes*/}
 
-            <Route element={<RequireAuth />}>
-              <Route path="/settings" element={<Admin />} />
-            </Route>
+            <Route element={<RequireAuth />}></Route>
 
             {/*Tenant Access*/}
 

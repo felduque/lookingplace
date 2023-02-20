@@ -23,7 +23,7 @@ export default function ReservasTen({ id }) {
     const mensajeCode = encodeURI(mensaje);
     console.log(mensajeCode);
     window.open(
-      `https://api.whatsapp.com/send?phone=${51973517265}&text=${mensajeCode}`,
+      `https://api.whatsapp.com/send?phone=${tenantSearch.phone}&text=${mensajeCode}`,
       "_blank" // <- This is what makes it open in a new window.
     );
   };

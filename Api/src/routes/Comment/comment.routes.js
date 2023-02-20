@@ -4,6 +4,7 @@ import {
   getAllComments,
   getCommentById,
   updateComment,
+  calificacionUpdate,
 } from "../../controllers/Comment/comment.controller.js";
 import { Router } from "express";
 
@@ -14,4 +15,6 @@ router.get("/comments", getAllComments);
 router.get("/comment/:id", getCommentById);
 router.delete("/comment/delete/:id", deleteComment);
 router.patch("/comment/edit/:id", updateComment);
+router.patch("/comment/rating/:id", calificacionUpdate);
+
 export default router;
