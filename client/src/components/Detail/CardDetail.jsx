@@ -411,12 +411,21 @@ axios
                   <form className="c-form" onSubmit={handleSubmit}>
                     <div className="avatar-input">
                       <div className="c-avatar">
-                        <p>Avatar</p>
+                      {auth?.avatar ? (
+                          
+                            <img
+                            class="c-avatar-img"
+                              src={auth?.avatar}
+                           
+                            />
+                         
+                        ) : (
+                          <img src={userIcon} width="50" height="50" />
+                        )}
                       </div>
                       <div className="c-input">
-                        <input
-                          className="hola"
-                          type="text"
+                        <textarea 
+                          className="textarea is-primary is-info"
                           value={nuevoComentario}
                           onChange={(event) =>
                             setNuevoComentario(event.target.value)
