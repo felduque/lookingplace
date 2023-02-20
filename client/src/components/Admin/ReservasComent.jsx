@@ -16,6 +16,29 @@ export default function ReservasComent({ idPropiedad, clientCom }) {
 
   const commentProp = clientCom.filter((p) => p.Property?.id === idPropiedad);
   console.log(commentProp);
+  if (commentProp.length === 0) {
+    return (
+      <div style={{ margin: "10px" }}>
+        <hr
+          style={{
+            margin: "10px",
+          }}
+        />
+        <p
+          style={{
+            color: "rgb(2, 255, 175)",
+            fontSize: "18px",
+            fontWeight: "bold",
+            padding: "0",
+            margin: "0",
+            textAlign: "center",
+          }}
+        >
+          Aun no has comentado tu estancia
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div style={{ margin: "10px" }}>

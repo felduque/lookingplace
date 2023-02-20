@@ -59,7 +59,7 @@ function App() {
     <div>
       <div>
         <AuthContextProvider>
-          {location.pathname == "/" ? null : <Navbar />}
+          {location.pathname === "/" ? null : <Navbar />}
           <Routes>
             {/*Public Routes*/}
             <Route path="/layout" element={<Layout />} />
@@ -69,8 +69,8 @@ function App() {
             <Route path="/aboutUs" element={<AboutUs />} />
             <Route path="suscribe" element={<Suscribe />} />
             <Route path="/ResumePay" element={<ResumePay />} />
-
-            <Route path="*" element={<Home />} />
+            <Route path="/Pay/Success" element={<PaySuccess />} />
+            <Route path="/Pay/Failure" element={<PayFailure />} />
 
             {/*si quieren agregar rutas publicas arriba de este mensaje*/}
 
@@ -83,8 +83,6 @@ function App() {
             {/*Protect routes*/}
 
             <Route element={<RequireAuth />}>
-              <Route path="/Pay/Success" element={<PaySuccess />} />
-              <Route path="/Pay/Failure" element={<PayFailure />} />
               <Route path="/settings" element={<Admin />} />
             </Route>
 
@@ -93,6 +91,7 @@ function App() {
             <Route element={<TenantAccess />}>
               <Route path="/createProperty" element={<FormHostCreate />} />
             </Route>
+            <Route path="*" element={<Home />} />
           </Routes>
         </AuthContextProvider>
       </div>
