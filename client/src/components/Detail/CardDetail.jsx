@@ -262,7 +262,7 @@ axios
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 2800);
+    }, 1500);
   }, []);
 
   return (
@@ -386,112 +386,129 @@ axios
               </div>
             </div>
           </div>
-          <hr />
-          <div className="containerComents">
-            <div className="subtitleCardDe">Comentarios</div>
-            {auth?.email || user?.email ? (
-              <div>
-                <form onSubmit={handleSubmit}>
-                  <label>Nuevo comentario</label>
-                  <input
-                    className="hola"
-                    type="text"
-                    value={nuevoComentario}
-                    onChange={(event) => setNuevoComentario(event.target.value)}
-                  />
 
-                  <button type="submit">Enviar comentario</button>
-                </form>
+          <div className="container-sup-comment">
+            <div className="containerComents">
+              <div className="title-comment">
+                <div className="subtitleCardDe">Comentarios</div>
               </div>
-            ) : (
-              <h1>Debes Registrarte Para poder comentar</h1>
-            )}
-
-            {commentsArray.length > 0 ? (
-              <div className="comment">
-                {commentsArray
-                  .map((comentario) => (
-                    <div
-                      key={comentario.id}
-                      id={`comentario-${comentario.id}`}
-                      className="comment-container"
-                    >
-                      {auth?.email === comentario.author ||
-                      user?.email === comentario.author ||
-                      auth?.email === Tenant?.email ||
-                      auth?.role == "Admin" ? (
-                        <button
-                          onClick={() => deleteComment(comentario.id)}
-                          className="delete-button"
-                        >
-                          Eliminar
-                        </button>
-                      ) : (
-                        ""
-                      )}
-                      {auth?.email === comentario.author ||
-                      user?.email === comentario.author ? (
-                        <div>
-                          {isEditing &&
-                          editComment.commentId === comentario.id ? (
-                            <form onSubmit={handleUpdateComment}>
-                              <input
-                                type="text"
-                                placeholder="Editar comentario"
-                                value={editComment.commentText}
-                                onChange={(event) =>
-                                  setEditComment({
-                                    ...editComment,
-                                    commentText: event.target.value,
-                                  })
-                                }
-                              />
-                              <button type="submit">Guardar cambios</button>
-                              <button type="button" onClick={handleCancel}>
-                                Cancelar
-                              </button>
-                            </form>
-                          ) : (
-                            <button
-                              onClick={() =>
-                                handleEditComment(
-                                  comentario.id,
-                                  comentario.comment
-                                )
-                              }
-                              className="response-button"
-                            >
-                              Editar
-                            </button>
-                          )}
-                        </div>
-                      ) : (
-                        ""
-                      )}
-                      <p className="commentFecha">
-                        {comentario.fecha?.toString()}
-                      </p>
-                      <hr />
-                      <img
-                        className="imgComment"
-                        src={comentario.avatar}
-                        width="50"
-                        height="50"
-                      />
-                      <p className="authorComment">{comentario.author}</p>
-                      <h1 className="comentarioComment">
-                        {comentario.comment}
-                      </h1>
-                      <hr />
+  
+              {auth?.email || user?.email ? (
+                <div className="c-avatar-input">
+                  <form className="c-form" onSubmit={handleSubmit}>
+                    <div className="avatar-input">
+                      <div className="c-avatar">
+                        <p>Avatar</p>
+                      </div>
+                      <div className="c-input">
+                        <input
+                          className="hola"
+                          type="text"
+                          value={nuevoComentario}
+                          onChange={(event) =>
+                            setNuevoComentario(event.target.value)
+                          }
+                        />
+                      </div>
                     </div>
-                  ))
-                  .sort((a, b) => b.id - a.id)}
+                    <div className="c-button">
+                      <button type="submit">Comentario</button>
+                    </div>
+                  </form>
+                </div>
+              ) : (
+                <h1>Debes Registrarte Para poder comentar</h1>
+              )}
+              <div className="container-cards-comment">
+                {commentsArray.length > 0 ? (
+                  <div className="comment">
+                    {commentsArray
+                      .map((comentario) => (
+                        <div
+                          key={comentario.id}
+                          id={`comentario-${comentario.id}`}
+                          className="comment-container"
+                        >
+                          {auth?.email === comentario.author ||
+                          user?.email === comentario.author ||
+                          auth?.role == "Admin" ? (
+                            <button
+                              onClick={() => deleteComment(comentario.id)}
+                              className="delete-button"
+                            >
+                              ❌
+                            </button>
+                          ) : (
+                            ""
+                          )}
+                          {auth?.email === comentario.author ||
+                          user?.email === comentario.author ? (
+                            <div>
+                              {isEditing &&
+                              editComment.commentId === comentario.id ? (
+                                <form onSubmit={handleUpdateComment}>
+                                  <input
+                                    type="text"
+                                    placeholder="Editar comentario"
+                                    value={editComment.commentText}
+                                    onChange={(event) =>
+                                      setEditComment({
+                                        ...editComment,
+                                        commentText: event.target.value,
+                                      })
+                                    }
+                                  />
+                                  <button type="submit">Guardar cambios</button>
+                                  <button type="button" onClick={handleCancel}>
+                                    Cancelar
+                                  </button>
+                                </form>
+                              ) : (
+                                <button
+                                  onClick={() =>
+                                    handleEditComment(
+                                      comentario.id,
+                                      comentario.comment
+                                    )
+                                  }
+                                  className="response-button"
+                                >
+                                  📝
+                                </button>
+                              )}
+                            </div>
+                          ) : (
+                            ""
+                          )}
+                          <div className="c-avatar-author-comment">
+                            <img
+                              className="imgComment"
+                              src={comentario.avatar}
+                              width="50"
+                              height="50"
+                            />
+                            <div className="c-author-fecha"> 
+
+                            <p className="authorComment">{comentario.author}</p>
+                            <p className="commentFecha">
+                              {comentario.fecha?.toString()}
+                            </p>
+                            </div>
+                          </div>
+                          <h1 className="comentarioComment">
+                            {comentario.comment}
+                          </h1>
+                        </div>
+                      ))
+                      .sort((a, b) => b.id - a.id)}
+                  </div>
+                ) : (
+                  <div>
+                    <span>No existen comentarios para esta publicación</span>
+                  </div>
+                )}
               </div>
-            ) : (
-              <div>
-                <span>No existen comentarios para esta publicación</span>
-              </div>
-            )}
+            </div>
           </div>
           {/* <h1 className="title box is-size-1 has-background-dark has-text-centered is-capitalized has-text-white">
         {title}
