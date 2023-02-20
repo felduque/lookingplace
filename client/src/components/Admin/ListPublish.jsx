@@ -54,7 +54,7 @@ export const ListPublish = () => {
 
   return (
   <>
-    <div className="title is-4">Tus propiedades publicadas</div>
+    <div className="title is-4 space-all-post-title">Tus propiedades publicadas</div>
     <div className="container-list-publish-tenant">
       <div className="content-list-publish-all">
         {allPropiertie.map((item) => {
@@ -67,12 +67,14 @@ export const ListPublish = () => {
               
               <div className="column">
               <div className="container-list-publish-tenant__list__item__delete">
-                <button
-                  className="btn-delete-publish"
-                  onClick={() => handleDelete(item.id)}
-                >
-                  x
-                </button>
+              
+                  <button
+                    onClick={() => handleDelete(item.id)}
+                    className="delete-button"
+                  >
+                    ❌
+                  </button>
+                  
               </div>
               </div>
 
@@ -81,13 +83,19 @@ export const ListPublish = () => {
                 
               </div> */}
               <div className="container-list-publish-tenant__list__item__image">
-                <GrEdit
-                  onClick={() => {
-                    handleChangeModal();
-                    setId(item.id);
-                  }}
-                  className="btn-edit-publish"
-                />
+                
+
+                 <button
+                    onClick={() => {
+                      setId(item.id);
+                      handleChangeModal();
+                    }}
+                    className="btn-edit-publish"
+                    >
+                      📝
+                  </button>
+
+
                   </div>
                 </div>
               </div>
