@@ -14,6 +14,7 @@
 }
 
 .modal-container-inputs{
+  background-color: rgb(253, 253, 253);
   box-shadow:  35px 35px 70px #a3a3a9;
   display: flex;
   border-radius: 5%;
@@ -23,8 +24,9 @@
   gap: 1rem;
   margin: 15% auto;
   padding: 20px;
-  border: 1px solid rgb(0, 247, 255);
-  width: 30%;
+  border: 3px solid rgb(50, 147, 232);
+  width: 35%;
+  height: 590px;
 }
 
 .modal-container-form-input{
@@ -39,7 +41,7 @@
 .modal-container-form-input > label {
   font-size: 1.5rem;
   font-weight: bold;
-  color: rgb(2, 255, 175);
+  color: rgb(79, 82, 81);
 }
 
 .content-modal-form-button{
@@ -94,4 +96,14 @@
   font-weight: bold;
   color: #fff;
   background-color: #18152E;
+}
+.description-edit-textarea {
+  font-size: 28px;
+}
+.title-edit-content {
+  width: 260px;
+}
+
+.comments-button-allpublish {
+  margin-left: 10px;
 }
