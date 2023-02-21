@@ -1,4 +1,4 @@
-import { axiosPrivate } from "./axios";
+/*import { axiosPrivate } from "./axios";
 import { useEffect } from "react";
 import useRefreshToken from "./useRefreshToken";
 import useAuth from "./useAuth";
@@ -41,4 +41,4 @@ const useAxiosPrivate = () => {
   return axiosPrivate;
 };
 
-export default useAxiosPrivate;
+export default useAxiosPrivate;*/

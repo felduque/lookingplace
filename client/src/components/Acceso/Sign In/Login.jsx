@@ -4,7 +4,7 @@ import useAuth from "../hooks/useAuth";
 import axios from "axios";
 import usermailIcon from "../../../assets/usermail-login.png";
 import userPasswordIcon from "../../../assets/key-login.png";
-import leftarrow from "../../../assets/flecha-izquierda.png";
+
 import "./Login.css";
 import LoginGoogle from "./LoginGoogle";
 
@@ -61,7 +61,10 @@ export default function Login({ closeModal }) {
           `http://localhost:3000/client/login`,
           JSON.stringify({ email: email, password: password }),
           {
-            headers: { "Content-Type": "application/json" },
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
             withCredentials: true,
           }
         );
@@ -87,6 +90,7 @@ export default function Login({ closeModal }) {
             fullName,
           })
         );
+        window.localStorage.setItem("loggedClient", true);
         setEmail("");
         setPassword("");
         //setRole("");
@@ -137,6 +141,7 @@ export default function Login({ closeModal }) {
             fullName,
           })
         );
+        window.localStorage.setItem("loggedTenant", true);
         setEmail("");
         setPassword("");
         //setRole("");
@@ -158,7 +163,7 @@ export default function Login({ closeModal }) {
     } else if (auth.role === "Admin") {
       try {
         const response = await axios.post(
-          `http://localhost:3000/client/login`,
+          `http://localhost:3000/tenant/login`,
           JSON.stringify({ email: email, password: password }),
           {
             headers: { "Content-Type": "application/json" },
@@ -187,6 +192,7 @@ export default function Login({ closeModal }) {
             fullName,
           })
         );
+        window.localStorage.setItem("loggedAdmin", true);
         setEmail("");
         setPassword("");
         //setRole("");
@@ -334,6 +340,14 @@ export default function Login({ closeModal }) {
                       Registrarme
                     </Link>
                   </span>
+                  <Link to="/home" className="btnBackHomeLogin">
+                    <button
+                      className="button is-link is-rounded"
+                      id="btnBackHomeLogin"
+                    >
+                      Home
+                    </button>
+                  </Link>
                   {/* <LoginGoogle /> */}
                 </p>
               </section>

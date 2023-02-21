@@ -205,7 +205,6 @@
 }
 
 .container-cards-comment {
-  display: flex;
   width: 100%;
 }
 
@@ -247,7 +246,7 @@
 .response-button {
   position: absolute;
   bottom: 0;
-  right: 20px;
+  right: 10px;
   border-radius: 50%;
   padding: 7px;
   background-color: #007bff;
