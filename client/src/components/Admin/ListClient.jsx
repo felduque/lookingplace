@@ -4,18 +4,18 @@ import { DataGrid } from "@mui/x-data-grid";
 export const ListClient = () => {
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
-    { field: "fullName", headerName: "Full Name", width: 140 },
-    { field: "email", headerName: "Correo Electronico", width: 130 },
-    { field: "pais", headerName: "Pais", width: 90 },
+    { field: "fullName", headerName: "Nombre", width: 140 },
+    { field: "email", headerName: "Correo", width: 130 },
+    { field: "pais", headerName: "País", width: 90 },
     { field: "edad", headerName: "Edad", type: "number", width: 90 },
-    { field: "telefono", headerName: "Telefono", type: "number", width: 140 },
+    { field: "telefono", headerName: "Teléfono", type: "number", width: 140 },
     {
       field: "payment",
-      headerName: "Payment",
+      headerName: "Pago",
       width: 130,
       type: "number",
     },
-    { field: "metodo", headerName: "Metodo de Pago", width: 130 },
+    { field: "metodo", headerName: "Método de Pago", width: 130 },
   ];
 
   const rows = [
@@ -114,7 +114,7 @@ export const ListClient = () => {
   return (
     <>
       <div className="container-title-section-panel">
-        <div className="title is-3">Clientes</div>
+        <div className="title is-4">Clientes</div>
       </div>
       <div className="listUser">
         <div className="listuserall">

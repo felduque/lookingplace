@@ -35,7 +35,7 @@ export const Profile = () => {
   return (
     <>
       <div className="container-title-section-panel">
-        <h2 className="title is-3">Tu perfil</h2>
+        <h2 className="title is-4">Tu perfil</h2>
       </div>
       <div className="profile-container">
         <div className="profile-header">

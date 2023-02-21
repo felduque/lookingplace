@@ -157,7 +157,7 @@ export const Profile_edit = () => {
   return (
     <>
       <div className="container-title-section-panel">
-        <div className="title is-3">Edita tu perfil</div>
+        <div className="title is-4">Edita tu perfil</div>
       </div>
       <div className="form-container-edit-profile">
       <form onSubmit={handleSubmit}>
