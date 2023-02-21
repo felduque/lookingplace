@@ -45,8 +45,8 @@ const options = [
 ];
 
 export default function FormHostCreate() {
-  const { auth } = useAuth();
-  console.log(auth.idTenant);
+  const auth = JSON.parse(localStorage.getItem("auth"));
+  console.log("Soy idTenan", auth.idTenant);
 
   // Google Maps
   const libraries = ["places"];
