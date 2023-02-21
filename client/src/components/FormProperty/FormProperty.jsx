@@ -43,6 +43,7 @@ const options = [
   { value: "Parilla", label: "Parilla" },
   { value: "Cuna", label: "Cuna" },
 ];
+const predefinedTitleNames = ["Casa", "Apartamento", "Habitación", "Cabaña"];
 
 export default function FormHostCreate() {
   const { auth } = useAuth();
@@ -128,14 +129,14 @@ export default function FormHostCreate() {
 
   useEffect(() => {
     // seteo el array si no hay images, sino creo el array a mostrar
-    if (inputs.image.length === 0)  setUrlImages([]); setValidateImages('Sube una foto del lugar');
+    if (inputs.image.length === 0) setUrlImages([]); setValidateImages('Sube una foto del lugar');
     if (inputs.image.length > 0) {
       const newArrayUrl = [];
       inputs.image.forEach((img) => newArrayUrl.push(URL.createObjectURL(img)));
       setUrlImages(newArrayUrl);
       setValidateImages('');
     }
-    if(inputs.image.length > 5) setValidateImages('Máximo 5 fotos del lugar');
+    if (inputs.image.length > 5) setValidateImages('Máximo 5 fotos del lugar');
 
     setErrors(validateForm(inputs));
   }, [inputs], [urlImages]);
@@ -200,7 +201,7 @@ export default function FormHostCreate() {
       !inputs.baths ||
       inputs.services.length < 1 ||
       !inputs.price ||
-      urlImages.length < 1 
+      urlImages.length < 1
     ) {
       Swal.fire({
         title: 'Error al publicar Place',
@@ -254,6 +255,14 @@ export default function FormHostCreate() {
   // console.log(inputs);
   console.log(inputs);
 
+
+  const handleButtonClick = (titleName) => {
+    setInputs((inputs) => ({
+      ...inputs,
+      title: titleName,
+    }));
+  };
+
   if (!isLoaded) return <div>Cargando...</div>;
   return (
     <div>
@@ -266,6 +275,20 @@ export default function FormHostCreate() {
                 <label className="label" htmlFor="title">
                   Título del Alojamiento
                 </label>
+                <div className="buttons">
+                  {predefinedTitleNames.map((name) => (
+                    <button
+                      key={name}
+                      className={`button ${inputs.title === name ? "is-info" : ""}`}
+                      type="button"
+                      onClick={() => handleButtonClick(name)}
+                    >
+                      {name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="field">
                 <input
                   className="input"
                   id="title"
@@ -294,287 +317,287 @@ export default function FormHostCreate() {
                 ) : null}
               </div>
               <div className="areas-spaces-bot">
-              <div className="field">
-                <label className="label" htmlFor="capacity">
-                  Capacidad de personas:{" "}
-                </label>
-                <input
-                  className="input"
-                  id="capacity"
-                  type="number"
-                  name="capacity"
-                  value={inputs.capacity}
-                  min={1}
-                  max={20}
-                  onChange={handleChange}
+                <div className="field">
+                  <label className="label" htmlFor="capacity">
+                    Capacidad de personas:{" "}
+                  </label>
+                  <input
+                    className="input"
+                    id="capacity"
+                    type="number"
+                    name="capacity"
+                    value={inputs.capacity}
+                    min={1}
+                    max={20}
+                    onChange={handleChange}
+                  />
+                  {errors.capacity ? (
+                    <span className="error">{errors.capacity}</span>
+                  ) : null}
+                </div>
+                <div className="field">
+                  <label className="label" htmlFor="beds">
+                    Número de camas
+                  </label>
+                  <input
+                    className="input"
+                    id="beds"
+                    type="number"
+                    name="beds"
+                    min={1}
+                    max={20}
+                    value={inputs.beds}
+                    onChange={handleChange}
+                  />
+                  {errors.beds ? (
+                    <span className="error">{errors.beds}</span>
+                  ) : null}
+                </div>
+                <div className="field">
+                  <label className="label" htmlFor="baths">
+                    Número de baños
+                  </label>
+                  <input
+                    className="input"
+                    id="baths"
+                    type="number"
+                    name="baths"
+                    min={1}
+                    max={20}
+                    value={inputs.baths}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="field">
+                  <p className="label">
+                    Servicios con los que cuenta el alojamiento
+                  </p>
+                </div>
+                <Select
+                  className="field "
+                  components={animatedComponents}
+                  name="services"
+                  isMulti
+                  defaultValue={inputs.services}
+                  onChange={(e, actionMeta) => handleChange(e, actionMeta)}
+                  options={options}
                 />
-                {errors.capacity ? (
-                  <span className="error">{errors.capacity}</span>
+                {errors.services ? (
+                  <span className="error">{errors.services}</span>
                 ) : null}
-              </div>
-              <div className="field">
-                <label className="label" htmlFor="beds">
-                  Número de camas
-                </label>
-                <input
-                  className="input"
-                  id="beds"
-                  type="number"
-                  name="beds"
-                  min={1}
-                  max={20}
-                  value={inputs.beds}
-                  onChange={handleChange}
-                />
-                {errors.beds ? (
-                  <span className="error">{errors.beds}</span>
-                ) : null}
-              </div>
-              <div className="field">
-                <label className="label" htmlFor="baths">
-                  Número de baños
-                </label>
-                <input
-                  className="input"
-                  id="baths"
-                  type="number"
-                  name="baths"
-                  min={1}
-                  max={20}
-                  value={inputs.baths}
-                  onChange={handleChange}
-                />
-              </div>
-              
-              <div className="field">
-                <p className="label">
-                  Servicios con los que cuenta el alojamiento
-                </p>
-              </div>
-              <Select
-                className="field "
-                components={animatedComponents}
-                name="services"
-                isMulti
-                defaultValue={inputs.services}
-                onChange={(e, actionMeta) => handleChange(e, actionMeta)}
-                options={options}
-              />
-              {errors.services ? (
-                <span className="error">{errors.services}</span>
-              ) : null}
               </div>
               <div className="field">
                 <p className="title is-4">Reglas del alojamiento</p>
               </div>
-              
+
               <div className="clocks-inputs">
-               <div className="columns">
-                 <div className="column is-8 clock-margin-right">
-                <div className="field">
-                  <label className="label" htmlFor="checkIn">
-                    Horario de entrada
-                  </label>
-                  <input
-                    id="checkIn"
-                    type="time"
-                    name="checkIn"
-                    value={inputs.checkIn}
-                    onChange={handleChange}
-                  />
-                </div>
-                </div>
-                <div className="column">
-                  <label className="label" htmlFor="checkOut">
-                    Horario de salida
-                  </label>
-                  <input
-                    id="checkOut"
-                    type="time"
-                    name="checkOut"
-                    value={inputs.checkOut}
-                    onChange={handleChange}
-                  />
-                  <p>
-                    {errors.checksTime ? (
-                      <span className="error">{errors.checksTime}</span>
-                    ) : null}
-                  </p>
-                </div>
-               </div>
-              </div>
-              <div className="areas-spaces-top">
-              <div className="field">
-                <label className="label" htmlFor="smoke">
-                  ¿Permitido fumar?&nbsp;
-                  <label class="custom-checkbox">
-                    <input
-                      id="smoke"
-                      type="checkbox"
-                      name="smoke"
-                      value={inputs.smoke}
-                      onChange={handleChange}
-                    />
-                    <span className="checkmark"></span>
-                  </label>
-                </label>
-              </div>
-              <div className="field">
-                <label className="label" htmlFor="">
-                  ¿Permitido fiestas?&nbsp;
-                  <label class="custom-checkbox">
-                    <input
-                      id="party"
-                      type="checkbox"
-                      name="party"
-                      value={inputs.party}
-                      onChange={handleChange}
-                    />
-                    <span className="checkmark"></span>
-                  </label>
-                </label>
-              </div>
-              <div className="field">
-                <label className="label" htmlFor="pets">
-                  ¿Permitido mascostas?&nbsp;
-                  <label class="custom-checkbox">
-                    <input
-                      id="pets"
-                      type="checkbox"
-                      name="pets"
-                      value={inputs.pets}
-                      onChange={handleChange}
-                    />
-                    <span className="checkmark"></span>
-                  </label>
-                </label>
-              </div>
-              </div>
-              <div className="areas-spaces-top">
-              <div className="field">
-                <label className="label" htmlFor="">
-                  Ubicación
-                </label>
-              </div>
-              {/* Gooogle Maps */}
-              {/* <p>lat:{coordinates.lat}</p>
-        <p>long:{coordinates.lng}</p>
-        <p>Adress:{address}</p> */}
-              <PlacesAutocomplete
-                value={address}
-                onChange={setAddress}
-                onSelect={handleSelect}
-              >
-                {({
-                  getInputProps,
-                  suggestions,
-                  getSuggestionItemProps,
-                  loading,
-                }) => (
-                  <div>
-                    <input
-                      {...getInputProps({
-                        placeholder: "Busca tu dirección ...",
-                        className: "input",
-                      })}
-                    />
-                    <div className="autocomplete-dropdown-container">
-                      {loading && <div>Cargando...</div>}
-                      {suggestions.map((suggestion) => {
-                        const className = suggestion.active
-                          ? "suggestion-item--active"
-                          : "suggestion-item";
-                        // inline style for demonstration purpose
-                        const style = suggestion.active
-                          ? { backgroundColor: "#fafafa", cursor: "pointer" }
-                          : { backgroundColor: "#ffffff", cursor: "pointer" };
-                        return (
-                          <div
-                            {...getSuggestionItemProps(suggestion, {
-                              className,
-                              style,
-                            })}
-                          >
-                            <span>{suggestion.description}</span>
-                          </div>
-                        );
-                      })}
+                <div className="columns">
+                  <div className="column is-8 clock-margin-right">
+                    <div className="field">
+                      <label className="label" htmlFor="checkIn">
+                        Horario de entrada
+                      </label>
+                      <input
+                        id="checkIn"
+                        type="time"
+                        name="checkIn"
+                        value={inputs.checkIn}
+                        onChange={handleChange}
+                      />
                     </div>
                   </div>
-                )}
-              </PlacesAutocomplete>
-
-              {/* Fin Gooogle Maps */}
-              {errors.geolocation ? (
-                <span className="error">{errors.geolocation}</span>
-              ) : null}
-              </div>
-              <div className="areas-spaces-top">
-              <div className="field">
-                <p><label className="label">Imágenes del lugar</label></p>
-                <button 
-                  className='button is-info'
-                  disabled={inputs.image.length === 5 ? true : false}
-                  type="button">
-                  <img src={uploadIcon} className="upload-button-place" />
-                  <label htmlFor="image">Selecciona las fotos...</label>
-                </button>
-                <input
-                  style={{ display: "none" }}
-                  id="image"
-                  type="file"
-                  name="image"
-                  // value={inputs.img}
-                  multiple
-                  accept="image/*"
-                  onChange={handleChange}
-                  disabled={inputs.image.length === 5 ? true : false}
-                  
-                />
-                { validateImages ? (
-                  <p><span className="error">{ validateImages }</span></p>
-                  ) : '' }
-                {urlImages.map((img, i) => (
-                  <div key={i}>
-                    <img
-                      key={i}
-                      src={img}
-                      className="is-multiline loaded-images"
-                    ></img>
-                    <button id={i} type="button" onClick={handleClickImg}>
-                      X
-                    </button>
+                  <div className="column">
+                    <label className="label" htmlFor="checkOut">
+                      Horario de salida
+                    </label>
+                    <input
+                      id="checkOut"
+                      type="time"
+                      name="checkOut"
+                      value={inputs.checkOut}
+                      onChange={handleChange}
+                    />
+                    <p>
+                      {errors.checksTime ? (
+                        <span className="error">{errors.checksTime}</span>
+                      ) : null}
+                    </p>
                   </div>
-                ))}
-              </div>
+                </div>
               </div>
               <div className="areas-spaces-top">
-              <div className="field">
-                <label className="label" htmlFor="price">
-                  Precio por Noche
-                </label>
-                <CurrencyInput
-                  className="input"
-                  id="price"
-                  name="price"
-                  placeholder="Please enter a number"
-                  prefix="$"
-                  min={0}
-                  max={300}
-                  defaultValue={inputs.price}
-                  decimalsLimit={2}
-                  onValueChange={(value, name) => {
-                    setInputs({
-                      ...inputs,
-                      [name]: value,
-                    });
-                    setErrors(validateForm({ ...inputs, [name]: value }));
-                  }}
-                />
-                {errors.price ? (
-                  <span className="error">{errors.price}</span>
+                <div className="field">
+                  <label className="label" htmlFor="smoke">
+                    ¿Permitido fumar?&nbsp;
+                    <label class="custom-checkbox">
+                      <input
+                        id="smoke"
+                        type="checkbox"
+                        name="smoke"
+                        value={inputs.smoke}
+                        onChange={handleChange}
+                      />
+                      <span className="checkmark"></span>
+                    </label>
+                  </label>
+                </div>
+                <div className="field">
+                  <label className="label" htmlFor="">
+                    ¿Permitido fiestas?&nbsp;
+                    <label class="custom-checkbox">
+                      <input
+                        id="party"
+                        type="checkbox"
+                        name="party"
+                        value={inputs.party}
+                        onChange={handleChange}
+                      />
+                      <span className="checkmark"></span>
+                    </label>
+                  </label>
+                </div>
+                <div className="field">
+                  <label className="label" htmlFor="pets">
+                    ¿Permitido mascostas?&nbsp;
+                    <label class="custom-checkbox">
+                      <input
+                        id="pets"
+                        type="checkbox"
+                        name="pets"
+                        value={inputs.pets}
+                        onChange={handleChange}
+                      />
+                      <span className="checkmark"></span>
+                    </label>
+                  </label>
+                </div>
+              </div>
+              <div className="areas-spaces-top">
+                <div className="field">
+                  <label className="label" htmlFor="">
+                    Ubicación
+                  </label>
+                </div>
+                {/* Gooogle Maps */}
+                {/* <p>lat:{coordinates.lat}</p>
+        <p>long:{coordinates.lng}</p>
+        <p>Adress:{address}</p> */}
+                <PlacesAutocomplete
+                  value={address}
+                  onChange={setAddress}
+                  onSelect={handleSelect}
+                >
+                  {({
+                    getInputProps,
+                    suggestions,
+                    getSuggestionItemProps,
+                    loading,
+                  }) => (
+                    <div>
+                      <input
+                        {...getInputProps({
+                          placeholder: "Busca tu dirección ...",
+                          className: "input",
+                        })}
+                      />
+                      <div className="autocomplete-dropdown-container">
+                        {loading && <div>Cargando...</div>}
+                        {suggestions.map((suggestion) => {
+                          const className = suggestion.active
+                            ? "suggestion-item--active"
+                            : "suggestion-item";
+                          // inline style for demonstration purpose
+                          const style = suggestion.active
+                            ? { backgroundColor: "#fafafa", cursor: "pointer" }
+                            : { backgroundColor: "#ffffff", cursor: "pointer" };
+                          return (
+                            <div
+                              {...getSuggestionItemProps(suggestion, {
+                                className,
+                                style,
+                              })}
+                            >
+                              <span>{suggestion.description}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </PlacesAutocomplete>
+
+                {/* Fin Gooogle Maps */}
+                {errors.geolocation ? (
+                  <span className="error">{errors.geolocation}</span>
                 ) : null}
               </div>
+              <div className="areas-spaces-top">
+                <div className="field">
+                  <p><label className="label">Imágenes del lugar</label></p>
+                  <button
+                    className='button is-info'
+                    disabled={inputs.image.length === 5 ? true : false}
+                    type="button">
+                    <img src={uploadIcon} className="upload-button-place" />
+                    <label htmlFor="image">Selecciona las fotos...</label>
+                  </button>
+                  <input
+                    style={{ display: "none" }}
+                    id="image"
+                    type="file"
+                    name="image"
+                    // value={inputs.img}
+                    multiple
+                    accept="image/*"
+                    onChange={handleChange}
+                    disabled={inputs.image.length === 5 ? true : false}
+
+                  />
+                  {validateImages ? (
+                    <p><span className="error">{validateImages}</span></p>
+                  ) : ''}
+                  {urlImages.map((img, i) => (
+                    <div key={i}>
+                      <img
+                        key={i}
+                        src={img}
+                        className="is-multiline loaded-images"
+                      ></img>
+                      <button id={i} type="button" onClick={handleClickImg}>
+                        X
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="areas-spaces-top">
+                <div className="field">
+                  <label className="label" htmlFor="price">
+                    Precio por Noche
+                  </label>
+                  <CurrencyInput
+                    className="input"
+                    id="price"
+                    name="price"
+                    placeholder="Please enter a number"
+                    prefix="$"
+                    min={0}
+                    max={300}
+                    defaultValue={inputs.price}
+                    decimalsLimit={2}
+                    onValueChange={(value, name) => {
+                      setInputs({
+                        ...inputs,
+                        [name]: value,
+                      });
+                      setErrors(validateForm({ ...inputs, [name]: value }));
+                    }}
+                  />
+                  {errors.price ? (
+                    <span className="error">{errors.price}</span>
+                  ) : null}
+                </div>
               </div>
               <button
                 className="button is-link is-rounded center-button-publish"
