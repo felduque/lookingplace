@@ -9,9 +9,10 @@ import CapacityIcon from "./Icons/Capacity";
 import BedIcon from "./Icons/Bed";
 import BathIcon from "./Icons/Bath";
 import StarIcon from "./Icons/Star";
+import userIcon from "../../assets/user-default-icon.png";
 import "./CardDetail.css";
 import "./darkCard.css";
-
+import { getTenantById, getUserById } from "../Admin/Api";
 import useAuth from "../Acceso/hooks/useAuth";
 import axios from "axios";
 import { UserAuth } from "../../service/AuthContext";
@@ -40,7 +41,28 @@ export default function CardDetail() {
     // console.log(b.bookingsPropCli);
     arrayBookings = arrayBookings.concat(b.bookingsPropCli);
   });
-  console.log(arrayBookings);
+  //console.log(arrayBookings);
+
+  let arrayCalificacion = [];
+  detail.Comments?.forEach((c) => {
+    if (c.calificacion !== null)
+      arrayCalificacion = [...arrayCalificacion, c.calificacion];
+  });
+
+  console.log("Soy ArrayCalificacion", arrayCalificacion);
+
+  let promedio =
+    arrayCalificacion.reduce(
+      (acumulador, currentValue) => acumulador + currentValue,
+      0
+    ) / arrayCalificacion.length;
+
+  if (promedio % 1 === 0) {
+    promedio = promedio + ".0";
+  }
+
+  if (isNaN(promedio)) promedio = "0.0";
+  console.log(promedio);
 
   const {
     title,
@@ -70,58 +92,12 @@ export default function CardDetail() {
 
   /*Comentarios*/
 
-  //console.log(typeof comentarios);
-  //console.log(comentarios);
-  /*const handleDeleteComment = (id) => {
-axios
-  .delete(`http://localhost:3000/comment/delete/${id}`)
-  .then((response) => {
-    if (response.status === 200) {
-      const deletedComments = comentarios
-      .map((comentario) => comentario.id)
-      .filter((c) => c.id !== id);
-      setComentarios(deletedComments);
-    }
-  })
-  .catch((error) => console.log(error));
-};*/
-  //console.log(Tenant);
-  /*useEffect(() => {
-    const fetchComentarios = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/comments");
-        if (Array.isArray(response.data)) {
-          const comentarios = response.data.map((comentario) => {
-            const fecha = comentario.fecha ? new Date(comentario.fecha) : "";
-            return { ...comentario, fecha };
-          });
-          setComentarios(comentarios);
-        } else if (
-          typeof response.data === "object" &&
-          response.data !== null
-        ) {
-          const comentarios = Object.keys(response.data).map((key) => {
-            const comentario = response.data[key];
-            const fecha = comentario.fecha ? new Date(comentario.fecha) : "";
-            return { ...comentario, fecha };
-          });
-          setComentarios(comentarios);
-        } else {
-          console.log("Response data is not an array or object.");
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchComentarios();
-  }, []);*/
-
   const { auth } = useAuth();
   //console.log(auth);
   const { user } = UserAuth();
   const [comentarios, setComentarios] = useState([]);
   const [nuevoComentario, setNuevoComentario] = useState("");
+  const [usersLocal, setUsersLocal] = useState([]);
   const [errMsg, setErrMsg] = useState(null);
   /* edit*/
   const [editComment, setEditComment] = useState({
@@ -137,6 +113,23 @@ axios
   const [isReplying, setIsReplying] = useState(false);*/
 
   const commentsArray = Comments ? Object.values(Comments) : [];
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const storedAuth = JSON.parse(localStorage.getItem("auth") || "{}");
+      const idClient = storedAuth?.idClient;
+      const idTenant = storedAuth?.idTenant;
+
+      if (storedAuth.role === "Client") {
+        const usersLocal = await getUserById(idClient);
+        setUsersLocal(usersLocal.data);
+      } else if (storedAuth.role === "Tenant" || storedAuth.role === "Admin") {
+        const usersLocal = await getTenantById(idTenant);
+        setUsersLocal(usersLocal.data);
+      }
+    };
+    fetchUsers();
+  }, []);
 
   useEffect(() => {
     commentsArray.sort((a, b) => b.id - a.id);
@@ -164,7 +157,7 @@ axios
     //setReplyComment({ commentId: null, commentText: "" });
     //setIsReplying(false);
   };
-
+  //console.log(usersLocal);
   const handleUpdateComment = (event) => {
     event.preventDefault();
     const editCommento = {
@@ -206,10 +199,10 @@ axios
     const comentario = {
       comment: nuevoComentario,
       property_comment: id,
-      author: auth.email || user.email,
-      avatar: auth.avatar || user.photoURL,
+      author: usersLocal?.email || user?.email,
+      avatar: usersLocal?.avatar || user?.photoURL,
       fecha: fecha,
-      client_comment: auth.idClient ? auth.idClient : null,
+      client_comment: usersLocal?.idClient ? auth?.idClient : null,
       //parent_comment_id: parentCommentId,
     };
 
@@ -260,15 +253,6 @@ axios
       .catch((error) => console.error(`Error al borrar comentario: ${error}`));
   }
 
-  // console.log(typeof lat);
-  // if (!Calendar) return <div>Cargando Calendario</div>;
-  // if (!isLoaded) return <div>Loading...</div>;
-  // if (!detail) return <div>Loading...</div>
-
-  // if (!Calendar || !isLoaded || !detail) {
-  //   return <Loader />
-  // }
-  console.log(detail);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -302,7 +286,22 @@ axios
                 <BathIcon width="35px" height="35px"></BathIcon>
                 {baths}
                 <StarIcon width="35px" height="35px"></StarIcon>
-                {rating}
+                {promedio}/5.0
+                <div>
+                  <span
+                    style={{
+                      color: "green",
+                      fontSize: "12px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {arrayCalificacion.length === 0
+                      ? "No existen calificaciones"
+                      : arrayCalificacion.length > 1
+                      ? arrayCalificacion.length + " calificaciones"
+                      : arrayCalificacion.length + " calificación"}
+                  </span>
+                </div>
               </div>
               <div className="precio">
                 <strong className="classMyStrong">$USD {price}</strong> noche
@@ -405,26 +404,22 @@ axios
                 <div className="subtitleCardDe">Comentarios</div>
               </div>
 
-              {auth?.email || user?.email ? (
+              {usersLocal?.email ||
+              user?.email ||
+              usersLocal.role === "Admin" ? (
                 <div className="c-avatar-input">
                   {errMsg && <p className="errComment">{errMsg}</p>}
                   <form className="c-form" onSubmit={handleSubmit}>
                     <div className="avatar-input">
                       <div className="c-avatar">
-                      {auth?.avatar ? (
-                          
-                            <img
-                            class="c-avatar-img"
-                              src={auth?.avatar}
-                           
-                            />
-                         
+                        {usersLocal?.avatar ? (
+                          <img class="c-avatar-img" src={usersLocal?.avatar} />
                         ) : (
                           <img src={userIcon} width="50" height="50" />
                         )}
                       </div>
                       <div className="c-input">
-                        <textarea 
+                        <textarea
                           className="textarea is-primary is-info"
                           value={nuevoComentario}
                           onChange={(event) =>
@@ -451,9 +446,9 @@ axios
                           id={`comentario-${comentario.id}`}
                           className="comment-container"
                         >
-                          {auth?.email === comentario.author ||
+                          {usersLocal?.email === comentario.author ||
                           user?.email === comentario.author ||
-                          auth?.role == "Admin" ? (
+                          usersLocal?.role == "Admin" ? (
                             <button
                               onClick={() => deleteComment(comentario.id)}
                               className="delete-button"
@@ -463,9 +458,9 @@ axios
                           ) : (
                             ""
                           )}
-                          {auth?.email === comentario.author ||
+                          {usersLocal?.email === comentario.author ||
                           user?.email === comentario.author ||
-                          auth?.role === "Admin" ? (
+                          usersLocal?.role === "Admin" ? (
                             <div>
                               {isEditing &&
                               editComment.commentId === comentario.id ? (
@@ -504,11 +499,11 @@ axios
                             ""
                           )}
                           <div className="c-avatar-author-comment">
-                            {auth?.email === comentario.author &&
-                            auth?.avatar !== comentario.avatar ? (
+                            {usersLocal?.email === comentario.author &&
+                            usersLocal?.avatar !== comentario.avatar ? (
                               <img
                                 className="imgComment"
-                                src={auth.avatar}
+                                src={usersLocal.avatar}
                                 width="50"
                                 height="50"
                               />

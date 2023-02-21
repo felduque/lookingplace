@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from "react-router-dom";
+/*import { Navigate, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
 import useAuth from "../Acceso/hooks/useAuth";
 import imageDialog from "../../assets/map-publish.png";
@@ -30,4 +30,4 @@ const TenantAccess = () => {
   );
 };
 
-export default TenantAccess;
+export default TenantAccess;*/

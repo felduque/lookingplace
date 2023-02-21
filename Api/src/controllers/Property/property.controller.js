@@ -309,7 +309,14 @@ export const getPropertyById = async (req, res) => {
         {
           model: Comment,
           as: "Comments",
-          attributes: ["id", "comment", "fecha", "author", "avatar"],
+          attributes: [
+            "id",
+            "comment",
+            "fecha",
+            "author",
+            "avatar",
+            "calificacion",
+          ],
         },
         {
           model: Client,

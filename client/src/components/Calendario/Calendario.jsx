@@ -19,7 +19,7 @@ export default function Calendar({
   //  const dateDiary = useSelector -----> va al store
 
   const auth = JSON.parse(localStorage.getItem("auth"));
-  console.log(auth);
+  //console.log(auth);
   // console.log(auth.role);
 
   const navigate = useNavigate();

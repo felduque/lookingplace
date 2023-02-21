@@ -30,6 +30,7 @@ export const Profile = () => {
 
   console.log(users);
   console.log(users?.phone);
+  console.log(users?.email);
 
   return (
     <>
@@ -70,20 +71,16 @@ export const Profile = () => {
             <div className="profile-detail">
               <div className="detail-profile">
                 <h2 className="title is-4">País / Ciudad</h2>
-                <p>
-                  {aboutMe ? aboutMe.from : "No hay pais"}
-                </p>
+                <p>{aboutMe ? aboutMe.from : "No hay pais"}</p>
               </div>
 
               <div className="detail-profile">
                 <h2 className="title is-4">Teléfono</h2>
-                <p>
-                  {aboutMe ? users?.phone : "No hay telefono"}
-                </p>
+                <p>{aboutMe ? users?.phone : "No hay telefono"}</p>
               </div>
               <div className="detail-profile">
                 <h2 className="title is-4">Correo</h2>
-                <p>correo@correo.com</p>
+                <p>{users?.email}</p>
               </div>
             </div>
           </div>
