@@ -14,11 +14,11 @@ export const ListUser = () => {
 
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
-    { field: "fullName", headerName: "Full Name", width: 160 },
-    { field: "email", headerName: "Email ", width: 190 },
+    { field: "fullName", headerName: "Nombre", width: 160 },
+    { field: "email", headerName: "Correo ", width: 190 },
     {
       field: "phone",
-      headerName: " Telefono",
+      headerName: " Teléfono",
       type: "number",
       width: 120,
     },
@@ -104,17 +104,17 @@ export const ListUser = () => {
     return (
       <>
         <div className="container-title-section-panel">
-          <h2 className="title-profile-container">LISTADO DE USUARIOS </h2>
+          <div className="title is-4">Listado de usuarios</div>
         </div>
         <button
-          className="button is-link "
+          className="button is-link space-button-list-users"
           value="listTenant"
           onClick={changeViewList}
         >
           Ver Arrendatarios
         </button>
         <button
-          className="button is-danger"
+          className="button is-danger space-button-list-users"
           value="deleteClients"
           onClick={handleDeleteClient}
         >
@@ -126,7 +126,7 @@ export const ListUser = () => {
               style={{
                 height: 400,
                 width: "100%",
-                color: "white",
+                color: "gray",
                 fontWeight: "bold",
               }}
               rows={users}

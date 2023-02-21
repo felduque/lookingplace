@@ -47,12 +47,13 @@ export const AllPublish = () => {
 
   return (
     <>
+    <div className="title is-4 space-all-post-title">Todas las publicaciones</div>
       <div className="container-list-publish-tenant">
-        <h2>Todas las publicaciones</h2>
+        
         <div className="container-list-publish-tenant__search">
           <input
             type="text"
-            className="input-list-publish-tenant"
+            className="input is-rounded is-info"
             placeholder="Buscar"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -76,13 +77,14 @@ export const AllPublish = () => {
                   className="container-list-publish-tenant__list__item"
                 >
                   <div className="container-list-publish-tenant__list__item__delete">
-                    <button
-                      className="btn-delete-publish"
-                      onClick={() => handleDelete(item.id)}
-                    >
-                      X
-                    </button>
+                  <button
+                    onClick={() => handleDelete(item.id)}
+                    className="delete-button"
+                  >
+                    ❌
+                  </button>
                   </div>
+                  
                   <AiOutlineComment
                     onClick={() => {
                       setId(item.id);

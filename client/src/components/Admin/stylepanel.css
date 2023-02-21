@@ -1,18 +1,15 @@
 .admin-container {
   /* backgraund repeat */
+  width: auto;
   background: #ffffff;
-  display: grid;
-  grid-template-columns: 21% 77%;
-  grid-template-rows: auto auto auto auto;
-  flex-direction: row;
-  width: 100%;
+  margin-left: 220px;
 }
 
 /*Barra lateral*/
 .sidebar-header {
   position:fixed;
   top: 80px;
-  width: auto;
+  width: 189px;
   height: auto;
   /*Barra lateral color*/
   background-color: #f8f6f6;
@@ -54,16 +51,16 @@
 
 .sidebar-list-item {
   /* background-color: #fff; */
-  padding: 1rem;
+  padding: 0;
   margin: 5px;
+  z-index:9;
 }
 
 
 .sidebar-list-item:hover {
   background-color: #4866b1;
-  transform: scale(1.1, 1.1);
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
+  transform: scale(1.0, 1.1);
+  border-radius: 8px;
 }
 
 .side-item {
@@ -71,8 +68,11 @@
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: 400;
-  gap: 5px;
   display: flex;
+  width: 180px;
+  min-height: 50px;
+  padding: 5px;
+ 
 }
 
 
@@ -82,6 +82,7 @@
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: 400;
+  height: auto;
 }
 
 
@@ -252,11 +253,9 @@
 }
 
 .container-title-section-panel{
+
   background-color: white;
-  display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 1rem;
   padding: 1rem;
 }
 
@@ -378,10 +377,10 @@ border-radius: 5%;
 /*  List publish  */
 
 .container-list-publish-tenant {
+  width: 95%;
   background: #ffffff;
   border-radius: 12px;
   padding: 40px;
-  margin-top: 1rem;
   border: solid 2px rgb(50, 147, 232);
 }
 
@@ -393,14 +392,21 @@ border-radius: 5%;
   padding: 1rem;
 }
 
-.btn-edit-publish{
+.btn-edit-publish {
+  bottom: 0;
+  border-radius: 50%;
+  padding: 7px;
+  background-color: #007bff;
   color: #fff;
   border: none;
-  outline: none;
   cursor: pointer;
-  font-size: 1.5rem;
+  margin-bottom: 5px;
+  border: 1px solid #000000;
+  margin-left:210px
 }
-
+.btn-edit-publish:hover {
+  background-color: #0056b3;
+}
 
 .input-list-publish-tenant{
   width: 100%;
@@ -443,10 +449,9 @@ border-radius: 5%;
 }
 
 .container-list-publish-tenant__list__item__delete{
-  display: flex;
   justify-content: flex-end;
   align-items: center;
-  width: 20px;
+  width: 10px;
 }
 
 .container-list-publish-tenant__list__item__edit{
@@ -508,4 +513,64 @@ border-radius: 5%;
 }
 .centered-button {
   margin-left: 40%;
+}
+/*Panel iconos y texto de menu*/
+.icon-panel-control {
+  width: 20px;
+  margin-top: 7px;
+  margin-left: 15px;
+  margin-right: 0px;
+  z-index: 1;
+  pointer-events: none;
+}
+.text-panel-control {
+  width: auto;
+  height: auto;
+  margin-top: 4px;
+  margin-left: 8px;
+  margin-right: 0px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.space-button-list-users {
+  margin-right: 30px;
+  margin-bottom: 20px;
+}
+
+.space-all-post-title {
+  margin-top: 80px;
+}
+
+
+
+
+.delete-button {
+  bottom: 0;
+  padding: 7px;
+  border-radius: 50%;
+  background-color: #ff0000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 5px;
+  border: 1px solid #000000;
+}
+.delete-button:hover {
+  background-color: #c82333;
+}
+.response-button {
+  bottom: 0;
+  border-radius: 50%;
+  padding: 7px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 5px;
+  border: 1px solid #000000;
+}
+
+.response-button:hover {
+  background-color: #0056b3;
 }
