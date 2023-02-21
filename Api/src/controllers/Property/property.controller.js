@@ -92,7 +92,11 @@ export const createProperty = async (req, res) => {
 
     if (newProperty) {
       // console.log(newProperty);
-      sendEmailProperty(newProperty, tenantSearch.dataValues.fullName, tenantSearch.dataValues.email );
+      sendEmailProperty(
+        newProperty,
+        tenantSearch.dataValues.fullName,
+        tenantSearch.dataValues.email
+      );
       console.log("created new property");
       return res.json(newProperty);
     }
@@ -210,21 +214,21 @@ export const getProperty = async (req, res) => {
     }
     if (capacity) {
       const capacityValue = parseInt(capacity);
-      result = result.filter((property) => property.capacity <= capacityValue);
-      result.sort((a, b) => b.capacity - a.capacity);
+      result = result.filter((property) => property.capacity === capacityValue);
+      // result.sort((a, b) => b.capacity - a.capacity);
       filters += ` capacity=${capacityValue}`;
     }
     if (beds) {
       const bedsValue = parseInt(beds);
-      result = result.filter((property) => property.beds <= bedsValue);
-      result.sort((a, b) => b.beds - a.beds);
-      filters += ` beds<=${bedsValue}`;
+      result = result.filter((property) => property.beds === bedsValue);
+      // result.sort((a, b) => b.beds - a.beds);
+      filters += ` beds=${bedsValue}`;
     }
     if (baths) {
       const bathsValue = parseInt(baths);
-      result = result.filter((property) => property.baths <= bathsValue);
-      result.sort((a, b) => b.baths - a.baths);
-      filters += ` baths<=${bathsValue}`;
+      result = result.filter((property) => property.baths === bathsValue);
+      // result.sort((a, b) => b.baths - a.baths);
+      filters += ` baths=${bathsValue}`;
     }
     if (priceMin) {
       result = result.filter((property) => property.price >= priceMin);
@@ -305,7 +309,14 @@ export const getPropertyById = async (req, res) => {
         {
           model: Comment,
           as: "Comments",
-          attributes: ["id", "comment", "fecha", "author", "avatar"],
+          attributes: [
+            "id",
+            "comment",
+            "fecha",
+            "author",
+            "avatar",
+            "calificacion",
+          ],
         },
         {
           model: Client,

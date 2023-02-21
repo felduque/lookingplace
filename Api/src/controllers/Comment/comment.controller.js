@@ -4,17 +4,43 @@ import { Tenant } from "../../models/tenant.model.js";
 import { Client } from "../../models/client.model.js";
 
 export const createComment = async (req, res) => {
-  const { comment, property_comment, author, avatar, client_comment } =
-    req.body;
-  await Comment.create({
+  const {
     comment,
     property_comment,
     author,
     avatar,
     client_comment,
-    fecha: new Date(),
-  });
-  return res.status(201).json({ message: `Comment created! ` });
+    calificacion,
+  } = req.body;
+
+  try {
+    const existingComment = await Comment.findOne({
+      where: {
+        author,
+        property_comment,
+      },
+    });
+
+    if (existingComment) {
+      return res
+        .status(400)
+        .json({ message: "El autor ya ha comentado en esta propiedad" });
+    }
+
+    await Comment.create({
+      comment,
+      property_comment,
+      author,
+      avatar,
+      client_comment,
+      calificacion,
+      fecha: new Date(),
+    });
+    return res.status(201).json({ message: `Comentario creado! ` });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Ha ocurrido un error" });
+  }
 };
 
 export const getAllComments = async (req, res) => {
@@ -115,6 +141,39 @@ export const updateComment = async (req, res) => {
         {
           comment,
           property_comment,
+        },
+        {
+          where: { id },
+        }
+      );
+      res.json({
+        message: "Comment updated successfully",
+        data: commentUpd,
+      });
+    }
+  } catch (err) {
+    res.json({
+      message: "Something goes wrong",
+      data: {},
+    });
+  }
+};
+
+export const calificacionUpdate = async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  const { dataBody } = req.body;
+  console.log(dataBody);
+  try {
+    let commentUpd = await Comment.findOne({
+      where: { id },
+    });
+    if (!commentUpd)
+      return res.status(400).json({ message: "Comment not found" });
+    if (commentUpd) {
+      await Comment.update(
+        {
+          calificacion: dataBody,
         },
         {
           where: { id },

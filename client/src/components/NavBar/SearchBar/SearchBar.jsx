@@ -15,6 +15,7 @@ export default function SearchBar() {
   const [isActive, setIsActive] = useState(false);
 
 
+
   const handleClickSearchTitle = (e) => {
     e.preventDefault();
     let urlSearch2 = `${urlbase}?title=${title}`;
@@ -67,5 +68,5 @@ export default function SearchBar() {
         )}
       </div>
     </>
-  );
-}
+  )
+};

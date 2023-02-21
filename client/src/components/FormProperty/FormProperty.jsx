@@ -18,7 +18,7 @@ import {
   geocodeByPlaceId,
   getLatLng,
 } from "react-places-autocomplete";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 import validateForm from "./validate.js";
 
@@ -46,8 +46,8 @@ const options = [
 const predefinedTitleNames = ["Casa", "Apartamento", "Habitación", "Cabaña"];
 
 export default function FormHostCreate() {
-  const { auth } = useAuth();
-  console.log(auth.idTenant);
+  const auth = JSON.parse(localStorage.getItem("auth"));
+  console.log("Soy idTenan", auth.idTenant);
 
   // Google Maps
   const libraries = ["places"];
@@ -64,7 +64,7 @@ export default function FormHostCreate() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/home";
 
   const handleSelect = async (value) => {
     setAddress(value);
@@ -115,13 +115,12 @@ export default function FormHostCreate() {
     state: "",
     region: "",
     city: "",
-    id_tenant: auth.idTenant
+    id_tenant: auth.idTenant,
   });
   // estados relacionados con inputs.images para mostrar lo subido
   const [urlImages, setUrlImages] = useState([]);
 
-  const [validateImages, setValidateImages] = useState('');
-
+  const [validateImages, setValidateImages] = useState("");
 
   //Errores
   const [errors, setErrors] = useState({});
@@ -204,12 +203,12 @@ export default function FormHostCreate() {
       urlImages.length < 1
     ) {
       Swal.fire({
-        title: 'Error al publicar Place',
-        text: 'Algo salió mal, intenta de nuevo.',
-        icon: 'error',
-        confirmButtonText: 'Entendido',
+        title: "Error al publicar Place",
+        text: "Algo salió mal, intenta de nuevo.",
+        icon: "error",
+        confirmButtonText: "Entendido",
         timer: 4000,
-      })
+      });
     } else {
       setErrors(
         validateForm({
@@ -224,14 +223,14 @@ export default function FormHostCreate() {
         .then(function (response) {
           console.log(response);
           Swal.fire({
-            title: 'Place publicado con éxito',
-            text: 'Ahora tu Place aparece en la portada.',
+            title: "Place publicado con éxito",
+            text: "Ahora tu Place aparece en la portada.",
             imageUrl: tipiCreatePlace,
             imageWidth: 200,
             imageHeight: 180,
-            confirmButtonText: 'Entendido',
+            confirmButtonText: "Entendido",
             timer: 4000,
-          })
+          });
           setTimeout(() => {
             navigate(from, { replace: true });
             window.location.reload();
@@ -240,12 +239,12 @@ export default function FormHostCreate() {
         .catch(function (error) {
           console.log(error);
           Swal.fire({
-            title: 'Error fatal',
-            text: 'Algo salió mal, intenta de nuevo.',
-            icon: 'error',
-            confirmButtonText: 'Entendido',
+            title: "Error fatal",
+            text: "Algo salió mal, intenta de nuevo.",
+            icon: "error",
+            confirmButtonText: "Entendido",
             timer: 4000,
-          })
+          });
         });
     }
   };

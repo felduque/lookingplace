@@ -5,11 +5,12 @@ import "./index.css";
 import { AuthProvider } from "./components/context/AuthProvider";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
-
+import { AuthContextProvider } from "./service/AuthContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <BrowserRouter>
+  <BrowserRouter>
+    <AuthContextProvider>
       <Provider store={store}>
         <AuthProvider>
           <Routes>
@@ -17,5 +18,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           </Routes>
         </AuthProvider>
       </Provider>
-    </BrowserRouter>
+    </AuthContextProvider>
+  </BrowserRouter>
 );

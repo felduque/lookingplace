@@ -40,12 +40,10 @@ function Home() {
 
   const totalProperty = statePropertys.result?.length;
 
-
-  console.log(loading)
+  console.log(loading);
   if (loading || !isLoaded) {
     return <Loader />;
   }
-
 
   return (
     <div>

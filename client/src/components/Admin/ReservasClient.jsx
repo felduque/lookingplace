@@ -12,8 +12,12 @@ import axios from "axios";
 export const ReservacionesCliente = () => {
   const [allPropiertie, setAllPropiertie] = useState([]);
   const [allBookings, setAllBookings] = useState([]);
-  const [modal, setModal] = useState(false);
   const [id, setId] = useState(0);
+  const [dataClient, setDataClient] = useState({
+    idClient: 0,
+    avatar: "",
+    email: "",
+  });
 
   useEffect(() => {
     const fetchAllPropierties = async () => {
@@ -21,12 +25,17 @@ export const ReservacionesCliente = () => {
       const idClient = storedAuth?.idClient;
       if (storedAuth.role === "Client" || storedAuth.role === "Admin") {
         const allPropierte = await getClientById(idClient);
-        // console.log("Peticion de Cliente por id", allPropierte);
+        console.log("Peticion de Cliente por id", allPropierte.data);
         const prop = allPropierte.data.Properties;
         const booking = allPropierte.data.Bookings;
         // const comments = allPropierte.data.Comments;
         // setAllComments(comments);
-        setAllPropiertie(prop);
+        setDataClient({
+          idClient: allPropierte.data.id,
+          avatar: allPropierte.data.avatar,
+          email: allPropierte.data.email,
+        }),
+          setAllPropiertie(prop);
         setAllBookings(booking);
       } else {
         alert(
@@ -35,10 +44,11 @@ export const ReservacionesCliente = () => {
       }
     };
     fetchAllPropierties();
-  }, [allPropiertie.length, allBookings.length]);
+  }, [allPropiertie?.length, allBookings?.length]);
 
   // console.log("Soy allProperty", allPropiertie);
   console.log("Soy allBookings", allBookings);
+  console.log("Soy stado Client DATA", dataClient);
 
   return (
     <>
@@ -53,7 +63,7 @@ export const ReservacionesCliente = () => {
             flexWrap: "wrap",
           }}
         >
-          {allBookings.map((b) => {
+          {allBookings?.map((b) => {
             let ingreso = new Date(b.bookingsPropCli[0]);
             console.log(ingreso);
 
@@ -76,21 +86,20 @@ export const ReservacionesCliente = () => {
                     display: "flex",
                     justifyContent: "space-evenly",
                     alignItems: "center",
-                    color: "white",
+                    color: "black",
                     gap: "20px",
                     fontSize: "14px",
                     margin: "8px",
                   }}
                 >
-                  <h1>{b.id}</h1>
                   <p>
-                    <strong style={{ color: "white" }}>
+                    <strong style={{ color: "black" }}>
                       Fecha de ingreso :
                     </strong>{" "}
                     {ingreso.toDateString()}
                   </p>
                   <p>
-                    <strong style={{ color: "white" }}>
+                    <strong style={{ color: "black" }}>
                       Fecha de salida :
                     </strong>
                     {salida.toDateString()}
@@ -98,10 +107,15 @@ export const ReservacionesCliente = () => {
                 </div>
                 <ReservasProp id={b.booking_property} />
                 <ReservasTen id={b.booking_tenant} />
-                <ReservasComent
-                  idPropiedad={b.booking_property}
-                  clientCom={b.Client.Comments}
-                />
+                <div className="reservasClientPrincipal">
+                  <ReservasComent
+                    idPropiedad={b.booking_property}
+                    clientCom={b.Client.Comments}
+                    idCliente={dataClient.idClient}
+                    avatarCliente={dataClient.avatar}
+                    emailCliente={dataClient.email}
+                  />
+                </div>
                 <div className="columns">
                   <button
                     className="button is-danger m-5 is-4"
@@ -130,10 +144,20 @@ export const ReservacionesCliente = () => {
                   >
                     Cancelar Reservación
                   </button>
-                  <button className="button is-primary m-5 is-4">
+                  {/* <button
+                    className="button is-primary m-5 is-4"
+                    onClick={(e) => {
+                      setModalCalificacion(true);
+                    }}
+                  >
                     Calificar Alojamiento
-                  </button>
+                  </button> */}
                 </div>
+                {/* {modalCalificacion && (
+                  <ModalCalificacion
+                    closeModal={() => setModalCalificacion(false)}
+                  />
+                )} */}
               </div>
             );
           })}

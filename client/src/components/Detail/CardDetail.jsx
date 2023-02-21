@@ -9,8 +9,10 @@ import CapacityIcon from "./Icons/Capacity";
 import BedIcon from "./Icons/Bed";
 import BathIcon from "./Icons/Bath";
 import StarIcon from "./Icons/Star";
+import userIcon from "../../assets/user-default-icon.png";
 import "./CardDetail.css";
-
+import "./darkCard.css";
+import { getTenantById, getUserById } from "../Admin/Api";
 import useAuth from "../Acceso/hooks/useAuth";
 import axios from "axios";
 import { UserAuth } from "../../service/AuthContext";
@@ -39,7 +41,28 @@ export default function CardDetail() {
     // console.log(b.bookingsPropCli);
     arrayBookings = arrayBookings.concat(b.bookingsPropCli);
   });
-  console.log(arrayBookings);
+  //console.log(arrayBookings);
+
+  let arrayCalificacion = [];
+  detail.Comments?.forEach((c) => {
+    if (c.calificacion !== null)
+      arrayCalificacion = [...arrayCalificacion, c.calificacion];
+  });
+
+  console.log("Soy ArrayCalificacion", arrayCalificacion);
+
+  let promedio =
+    arrayCalificacion.reduce(
+      (acumulador, currentValue) => acumulador + currentValue,
+      0
+    ) / arrayCalificacion.length;
+
+  if (promedio % 1 === 0) {
+    promedio = promedio + ".0";
+  }
+
+  if (isNaN(promedio)) promedio = "0.0";
+  console.log(promedio);
 
   const {
     title,
@@ -69,58 +92,13 @@ export default function CardDetail() {
 
   /*Comentarios*/
 
-  //console.log(typeof comentarios);
-  //console.log(comentarios);
-  /*const handleDeleteComment = (id) => {
-axios
-  .delete(`http://localhost:3000/comment/delete/${id}`)
-  .then((response) => {
-    if (response.status === 200) {
-      const deletedComments = comentarios
-      .map((comentario) => comentario.id)
-      .filter((c) => c.id !== id);
-      setComentarios(deletedComments);
-    }
-  })
-  .catch((error) => console.log(error));
-};*/
-  //console.log(Tenant);
-  /*useEffect(() => {
-    const fetchComentarios = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/comments");
-        if (Array.isArray(response.data)) {
-          const comentarios = response.data.map((comentario) => {
-            const fecha = comentario.fecha ? new Date(comentario.fecha) : "";
-            return { ...comentario, fecha };
-          });
-          setComentarios(comentarios);
-        } else if (
-          typeof response.data === "object" &&
-          response.data !== null
-        ) {
-          const comentarios = Object.keys(response.data).map((key) => {
-            const comentario = response.data[key];
-            const fecha = comentario.fecha ? new Date(comentario.fecha) : "";
-            return { ...comentario, fecha };
-          });
-          setComentarios(comentarios);
-        } else {
-          console.log("Response data is not an array or object.");
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchComentarios();
-  }, []);*/
-
   const { auth } = useAuth();
-  console.log(auth);
+  //console.log(auth);
   const { user } = UserAuth();
   const [comentarios, setComentarios] = useState([]);
   const [nuevoComentario, setNuevoComentario] = useState("");
+  const [usersLocal, setUsersLocal] = useState([]);
+  const [errMsg, setErrMsg] = useState(null);
   /* edit*/
   const [editComment, setEditComment] = useState({
     commentId: null,
@@ -135,6 +113,23 @@ axios
   const [isReplying, setIsReplying] = useState(false);*/
 
   const commentsArray = Comments ? Object.values(Comments) : [];
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const storedAuth = JSON.parse(localStorage.getItem("auth") || "{}");
+      const idClient = storedAuth?.idClient;
+      const idTenant = storedAuth?.idTenant;
+
+      if (storedAuth.role === "Client") {
+        const usersLocal = await getUserById(idClient);
+        setUsersLocal(usersLocal.data);
+      } else if (storedAuth.role === "Tenant" || storedAuth.role === "Admin") {
+        const usersLocal = await getTenantById(idTenant);
+        setUsersLocal(usersLocal.data);
+      }
+    };
+    fetchUsers();
+  }, []);
 
   useEffect(() => {
     commentsArray.sort((a, b) => b.id - a.id);
@@ -162,7 +157,7 @@ axios
     //setReplyComment({ commentId: null, commentText: "" });
     //setIsReplying(false);
   };
-
+  //console.log(usersLocal);
   const handleUpdateComment = (event) => {
     event.preventDefault();
     const editCommento = {
@@ -204,16 +199,18 @@ axios
     const comentario = {
       comment: nuevoComentario,
       property_comment: id,
-      author: auth.email || user.email,
-      avatar: auth.avatar,
+      author: usersLocal?.email || user?.email,
+      avatar: usersLocal?.avatar || user?.photoURL,
       fecha: fecha,
-      client_comment: auth.idClient ? auth.idClient : null,
+      client_comment: usersLocal?.idClient ? auth?.idClient : null,
       //parent_comment_id: parentCommentId,
     };
-    console.log("Soy el Comentario antes de enviar", comentario);
 
-    axios
-      .post("http://localhost:3000/comment/createcomment", comentario)
+    fetch("http://localhost:3000/comment/createcomment", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(comentario),
+    })
       .then((response) => {
         if (response.ok) {
           setComentarios(
@@ -229,11 +226,19 @@ axios
           ).then(function () {
             reloadPageAndRestoreScrollPosition();
           });
+        } else if (response.status === 400) {
+          setErrMsg(
+            "Solo puedes comentar 1 vez por propiedad, recuerda que tienes la opción de editar tu comentario"
+          );
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        setErrMsg(
+          "Hubo un error al enviar el comentario, por favor intenta de nuevo."
+        );
+      });
   };
-
   function deleteComment(id) {
     fetch(`http://localhost:3000/comment/delete/${id}`, { method: "DELETE" })
       .then((response) => {
@@ -248,25 +253,16 @@ axios
       .catch((error) => console.error(`Error al borrar comentario: ${error}`));
   }
 
-  // console.log(typeof lat);
-  // if (!Calendar) return <div>Cargando Calendario</div>;
-  // if (!isLoaded) return <div>Loading...</div>;
-  // if (!detail) return <div>Loading...</div>
-
-  // if (!Calendar || !isLoaded || !detail) {
-  //   return <Loader />
-  // }
-  console.log(detail);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 2800);
+    }, 1500);
   }, []);
 
   return (
-    <div>
+    <div className="dark-theme">
       {isLoading ? (
         <Loader />
       ) : (
@@ -290,7 +286,22 @@ axios
                 <BathIcon width="35px" height="35px"></BathIcon>
                 {baths}
                 <StarIcon width="35px" height="35px"></StarIcon>
-                {rating}
+                {promedio}/5.0
+                <div>
+                  <span
+                    style={{
+                      color: "green",
+                      fontSize: "12px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {arrayCalificacion.length === 0
+                      ? "No existen calificaciones"
+                      : arrayCalificacion.length > 1
+                      ? arrayCalificacion.length + " calificaciones"
+                      : arrayCalificacion.length + " calificación"}
+                  </span>
+                </div>
               </div>
               <div className="precio">
                 <strong className="classMyStrong">$USD {price}</strong> noche
@@ -386,112 +397,156 @@ axios
               </div>
             </div>
           </div>
-          <hr />
-          <div className="containerComents">
-            <div className="subtitleCardDe">Comentarios</div>
-            {auth?.email || user?.email ? (
-              <div>
-                <form onSubmit={handleSubmit}>
-                  <label>Nuevo comentario</label>
-                  <input
-                    className="hola"
-                    type="text"
-                    value={nuevoComentario}
-                    onChange={(event) => setNuevoComentario(event.target.value)}
-                  />
 
-                  <button type="submit">Enviar comentario</button>
-                </form>
+          <div className="container-sup-comment">
+            <div className="containerComents">
+              <div className="title-comment">
+                <div className="subtitleCardDe">Comentarios</div>
               </div>
-            ) : (
-              <h1>Debes Registrarte Para poder comentar</h1>
-            )}
 
-            {commentsArray.length > 0 ? (
-              <div className="comment">
-                {commentsArray
-                  .map((comentario) => (
-                    <div
-                      key={comentario.id}
-                      id={`comentario-${comentario.id}`}
-                      className="comment-container"
-                    >
-                      {auth?.email === comentario.author ||
-                      user?.email === comentario.author ||
-                      auth?.email === Tenant?.email ||
-                      auth?.role == "Admin" ? (
-                        <button
-                          onClick={() => deleteComment(comentario.id)}
-                          className="delete-button"
-                        >
-                          Eliminar
-                        </button>
-                      ) : (
-                        ""
-                      )}
-                      {auth?.email === comentario.author ||
-                      user?.email === comentario.author ? (
-                        <div>
-                          {isEditing &&
-                          editComment.commentId === comentario.id ? (
-                            <form onSubmit={handleUpdateComment}>
-                              <input
-                                type="text"
-                                placeholder="Editar comentario"
-                                value={editComment.commentText}
-                                onChange={(event) =>
-                                  setEditComment({
-                                    ...editComment,
-                                    commentText: event.target.value,
-                                  })
-                                }
-                              />
-                              <button type="submit">Guardar cambios</button>
-                              <button type="button" onClick={handleCancel}>
-                                Cancelar
-                              </button>
-                            </form>
-                          ) : (
-                            <button
-                              onClick={() =>
-                                handleEditComment(
-                                  comentario.id,
-                                  comentario.comment
-                                )
-                              }
-                              className="response-button"
-                            >
-                              Editar
-                            </button>
-                          )}
-                        </div>
-                      ) : (
-                        ""
-                      )}
-                      <p className="commentFecha">
-                        {comentario.fecha?.toString()}
-                      </p>
-                      <hr />
-                      <img
-                        className="imgComment"
-                        src={comentario.avatar}
-                        width="50"
-                        height="50"
-                      />
-                      <p className="authorComment">{comentario.author}</p>
-                      <h1 className="comentarioComment">
-                        {comentario.comment}
-                      </h1>
-                      <hr />
+              {usersLocal?.email ||
+              user?.email ||
+              usersLocal.role === "Admin" ? (
+                <div className="c-avatar-input">
+                  {errMsg && <p className="errComment">{errMsg}</p>}
+                  <form className="c-form" onSubmit={handleSubmit}>
+                    <div className="avatar-input">
+                      <div className="c-avatar">
+                        {usersLocal?.avatar ? (
+                          <img class="c-avatar-img" src={usersLocal?.avatar} />
+                        ) : (
+                          <img src={userIcon} width="50" height="50" />
+                        )}
+                      </div>
+                      <div className="c-input">
+                        <textarea
+                          className="textarea is-primary is-info"
+                          value={nuevoComentario}
+                          onChange={(event) =>
+                            setNuevoComentario(event.target.value)
+                          }
+                        />
+                      </div>
                     </div>
-                  ))
-                  .sort((a, b) => b.id - a.id)}
+                    <div className="c-button">
+                      <button type="submit">Comentario</button>
+                    </div>
+                  </form>
+                </div>
+              ) : (
+                <h1>Debes Registrarte Para poder comentar</h1>
+              )}
+              <div className="container-cards-comment">
+                {commentsArray.length > 0 ? (
+                  <div className="comment">
+                    {commentsArray
+                      .map((comentario) => (
+                        <div
+                          key={comentario.id}
+                          id={`comentario-${comentario.id}`}
+                          className="comment-container"
+                        >
+                          {usersLocal?.email === comentario.author ||
+                          user?.email === comentario.author ||
+                          usersLocal?.role == "Admin" ? (
+                            <button
+                              onClick={() => deleteComment(comentario.id)}
+                              className="delete-button"
+                            >
+                              ❌
+                            </button>
+                          ) : (
+                            ""
+                          )}
+                          {usersLocal?.email === comentario.author ||
+                          user?.email === comentario.author ||
+                          usersLocal?.role === "Admin" ? (
+                            <div>
+                              {isEditing &&
+                              editComment.commentId === comentario.id ? (
+                                <form onSubmit={handleUpdateComment}>
+                                  <input
+                                    type="text"
+                                    placeholder="Editar comentario"
+                                    value={editComment.commentText}
+                                    onChange={(event) =>
+                                      setEditComment({
+                                        ...editComment,
+                                        commentText: event.target.value,
+                                      })
+                                    }
+                                  />
+                                  <button type="submit">Guardar cambios</button>
+                                  <button type="button" onClick={handleCancel}>
+                                    Cancelar
+                                  </button>
+                                </form>
+                              ) : (
+                                <button
+                                  onClick={() =>
+                                    handleEditComment(
+                                      comentario.id,
+                                      comentario.comment
+                                    )
+                                  }
+                                  className="response-button"
+                                >
+                                  📝
+                                </button>
+                              )}
+                            </div>
+                          ) : (
+                            ""
+                          )}
+                          <div className="c-avatar-author-comment">
+                            {usersLocal?.email === comentario.author &&
+                            usersLocal?.avatar !== comentario.avatar ? (
+                              <img
+                                className="imgComment"
+                                src={usersLocal.avatar}
+                                width="50"
+                                height="50"
+                              />
+                            ) : user?.email === comentario.author &&
+                              user?.providerData[0]?.photoURL !==
+                                comentario.avatar ? (
+                              <img
+                                className="imgComment"
+                                src={user.providerData[0]?.photoURL}
+                                width="50"
+                                height="50"
+                              />
+                            ) : (
+                              <img
+                                className="imgComment"
+                                src={comentario.avatar}
+                                width="50"
+                                height="50"
+                              />
+                            )}
+                            <div className="c-author-fecha">
+                              <p className="authorComment">
+                                {comentario.author}
+                              </p>
+                              <p className="commentFecha">
+                                {comentario.fecha?.toString()}
+                              </p>
+                            </div>
+                          </div>
+                          <h1 className="comentarioComment">
+                            {comentario.comment}
+                          </h1>
+                        </div>
+                      ))
+                      .sort((a, b) => b.id - a.id)}
+                  </div>
+                ) : (
+                  <div>
+                    <span>No existen comentarios para esta publicación</span>
+                  </div>
+                )}
               </div>
-            ) : (
-              <div>
-                <span>No existen comentarios para esta publicación</span>
-              </div>
-            )}
+            </div>
           </div>
           {/* <h1 className="title box is-size-1 has-background-dark has-text-centered is-capitalized has-text-white">
         {title}

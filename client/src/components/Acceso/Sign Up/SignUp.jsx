@@ -3,11 +3,11 @@ import axios from "axios";
 import ReCAPTCHA from "react-google-recaptcha";
 import validateForm from "./validate";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 import "./SignUp.css";
 
-import leftarrow from '../../../assets/flecha-izquierda.png';
-import welcomeUser from '../../../assets/welcome-user.png';
+import leftarrow from "../../../assets/flecha-izquierda.png";
+import welcomeUser from "../../../assets/welcome-user.png";
 
 export default function SignUp() {
   const [inputs, setInputs] = useState({
@@ -20,13 +20,12 @@ export default function SignUp() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/home";
 
   //Estado de Captcha
   const [validCaptcha, setValidCaptcha] = useState(false);
   //Estado de tipo de cuenta
-  const [typeAccount, setTypeAccount] = useState('');
-
+  const [typeAccount, setTypeAccount] = useState("");
 
   let allDataUser = {
     fullName: inputs.fullName,
@@ -73,12 +72,12 @@ export default function SignUp() {
       errorsLength !== 0
     ) {
       Swal.fire({
-        title: 'Registro fallido',
-        text: 'Algo salió mal, intenta de nuevo.',
-        icon: 'error',
-        confirmButtonText: 'Entendido',
+        title: "Registro fallido",
+        text: "Algo salió mal, intenta de nuevo.",
+        icon: "error",
+        confirmButtonText: "Entendido",
         timer: 4000,
-      })
+      });
     } else {
       setErrors(
         validateForm({
@@ -89,14 +88,14 @@ export default function SignUp() {
       //ENVÍO
       createUser(allDataUser);
       Swal.fire({
-        title: 'Registrado con éxito',
-        text: 'Te has registrado con éxito. Ahora puedes iniciar sesión.',
+        title: "Registrado con éxito",
+        text: "Te has registrado con éxito. Ahora puedes iniciar sesión.",
         imageUrl: welcomeUser,
         imageWidth: 200,
         imageHeight: 180,
-        confirmButtonText: 'Entendido',
+        confirmButtonText: "Entendido",
         timer: 4000,
-      })
+      });
       setTimeout(() => {
         navigate(from, { replace: true });
         window.location.reload();
@@ -138,7 +137,6 @@ export default function SignUp() {
 
   function userType2() {
     setTypeAccount("Tenant");
-
   }
   function back() {
     navigate(from, { replace: true });

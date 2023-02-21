@@ -53,8 +53,9 @@ export const ListPublish = () => {
   };
 
   return (
+  <>
+    <div className="title is-4">Tus propiedades publicadas</div>
     <div className="container-list-publish-tenant">
-      <h2>Tus Propiedades</h2>
       <div className="content-list-publish-all">
         {allPropiertie.map((item) => {
           return (
@@ -62,18 +63,23 @@ export const ListPublish = () => {
               key={item.id}
               className="container-list-publish-tenant__list__item"
             >
+            <div className="columns">
+              
+              <div className="column">
               <div className="container-list-publish-tenant__list__item__delete">
                 <button
                   className="btn-delete-publish"
                   onClick={() => handleDelete(item.id)}
                 >
-                  X
+                  x
                 </button>
               </div>
+              </div>
+
+              <div className="column">
               {/* <div className="container-list-publish-tenant__list__item__edit">
                 
               </div> */}
-
               <div className="container-list-publish-tenant__list__item__image">
                 <GrEdit
                   onClick={() => {
@@ -82,9 +88,16 @@ export const ListPublish = () => {
                   }}
                   className="btn-edit-publish"
                 />
-
+                  </div>
+                </div>
+              </div>
+              <div className="container-list-publish-tenant__list__item__image">
                 <img src={item.image[0]} alt={item.title} />
               </div>
+                
+              
+
+            
               <Link to={`/propertyDetail/${item.id}`}>
                 <h3 className="text-list-publish-title">
                   {item.title
@@ -100,5 +113,6 @@ export const ListPublish = () => {
       {/* se manda el id por prop */}
       {modal && <ModalForm id={id} />}
     </div>
+    </>
   );
 };

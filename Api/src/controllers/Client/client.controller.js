@@ -151,13 +151,13 @@ export const login = async (req, res) => {
         },
       },
       secretjwt,
-      { expiresIn: "1d" }
+      { expiresIn: "30m" }
     );
     const refreshToken = jwt.sign(
       { email: foundUser.email },
       "b0b53d04c7f3a2631116667f0786b94a0fea2b668fac2ad776442e786ba1a6cbf92a6f65034bbff1dfb9168567d31a780058856aef566993a894937d44303ec2",
       {
-        expiresIn: "1d",
+        expiresIn: "30m",
       }
     );
 
@@ -183,6 +183,31 @@ export const login = async (req, res) => {
     res.status(200).json({ accessToken, userId, role, avatar, fullName });
   }
 };
+
+/*export const clientData = async (req, res) => {
+  const { accessToken } = req.body;
+  try {
+    const user = jwt.verify(accessToken, secretjwt, (err, res) => {
+      if (err) {
+        return "token expired";
+      }
+      return res;
+    });
+    console.log(user);
+    if (user == "token expired") {
+      res.send({ status: "error", data: "token expired" });
+    }
+
+    const useremail = user.email;
+    Client.findOne({ where: { email: useremail } })
+      .then((data) => {
+        res.send({ status: "ok", data: data });
+      })
+      .catch((error) => {
+        res.send({ status: "error", data: error });
+      });
+  } catch (error) {}
+};*/
 
 export const logout = async (req, res) => {
   const cookies = req.cookies;
@@ -282,7 +307,7 @@ export const forgot = async (req, res) => {
         </div>
         <p style="text-align: center; font-size: 14px;">LookingPlace | 123 Main St | Ciudad, Estado | +1-234-567-8901</p>
       </div>
-      `
+      `,
     };
 
     transporter.sendMail(mailOptions, function (err, info) {
@@ -369,7 +394,7 @@ export const getClientById = async (req, res) => {
   try {
     let clientId = await Client.findOne({
       where: { id },
-      attributes: ["id", "fullName", "email", "avatar", "phone"],
+      attributes: ["id", "fullName", "email", "avatar", "phone", "role"],
       include: [
         {
           model: Aboutme,

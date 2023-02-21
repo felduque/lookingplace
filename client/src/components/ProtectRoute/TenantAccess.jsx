@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from "react-router-dom";
+/*import { Navigate, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
 import useAuth from "../Acceso/hooks/useAuth";
 import imageDialog from "../../assets/map-publish.png";
@@ -14,7 +14,7 @@ const TenantAccess = () => {
     }
   }, []);
 
-  return auth?.role == "Tenant" || auth.role == "Admin" || user?.email ? (
+  return auth?.role == "Tenant" || auth?.role == "Admin" || user?.email ? (
     <Outlet />
   ) : (
     (Swal.fire({
@@ -26,8 +26,8 @@ const TenantAccess = () => {
       confirmButtonText: "Entendido",
       position: "top-end",
     }),
-      (<Navigate to="/register" />))
+    (<Navigate to="/register" />))
   );
 };
 
-export default TenantAccess;
+export default TenantAccess;*/

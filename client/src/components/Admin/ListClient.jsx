@@ -114,7 +114,7 @@ export const ListClient = () => {
   return (
     <>
       <div className="container-title-section-panel">
-        <h2 className="title-profile-container">TUS CLIENTES </h2>
+        <div className="title is-3">Clientes</div>
       </div>
       <div className="listUser">
         <div className="listuserall">
@@ -122,7 +122,7 @@ export const ListClient = () => {
             style={{
               height: 400,
               width: "100%",
-              color: "white",
+              color: "gray",
               fontWeight: "bold",
             }}
             rows={rows}

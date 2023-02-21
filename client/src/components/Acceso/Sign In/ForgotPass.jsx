@@ -15,7 +15,7 @@ export default function ForgotPassword() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/home";
   const [setType, setSetType] = useState({
     client: false,
     tenant: false,
@@ -51,7 +51,7 @@ export default function ForgotPassword() {
         if (error.response.status === 400) {
           setErrorMessage(
             "Email no registrado, usa un email que pertenezca a un cliente."
-          )
+          );
         }
       }
     } else if (setType.tenant === true) {
@@ -67,7 +67,7 @@ export default function ForgotPassword() {
         if (error.response.status === 400) {
           setErrorMessage(
             "Email no registrado, usa un email que pertenezca a un arrendatario."
-          )
+          );
         }
       }
     }
@@ -112,9 +112,14 @@ export default function ForgotPassword() {
                   </p>
                 </div>
 
-                <button class="button is-link is-rounded" disabled={
-                  (setType.client === false && setType.tenant === false)
-                }>Enviar</button>
+                <button
+                  class="button is-link is-rounded"
+                  disabled={
+                    setType.client === false && setType.tenant === false
+                  }
+                >
+                  Enviar
+                </button>
               </form>
               <p className="new-account">
                 <span>
@@ -132,7 +137,6 @@ export default function ForgotPassword() {
                       : "button is-link is-outlined has-tooltip-right is-rounded"
                   }
                   onClick={handleChangeType}
-
                 >
                   Soy Cliente
                 </button>
