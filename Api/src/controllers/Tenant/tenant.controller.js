@@ -92,13 +92,13 @@ export const login = async (req, res) => {
         },
       },
       secretjwt,
-      { expiresIn: "1d" }
+      { expiresIn: "30m" }
     );
     const refreshToken = jwt.sign(
       { email: foundUser.email },
       "b0b53d04c7f3a2631116667f0786b94a0fea2b668fac2ad776442e786ba1a6cbf92a6f65034bbff1dfb9168567d31a780058856aef566993a894937d44303ec2",
       {
-        expiresIn: "1d",
+        expiresIn: "30m",
       }
     );
 
@@ -221,7 +221,7 @@ export const forgot = async (req, res) => {
         </div>
         <p style="text-align: center; font-size: 14px;">LookingPlace | 123 Main St | Ciudad, Estado | +1-234-567-8901</p>
       </div>
-      `
+      `,
     };
 
     transporter.sendMail(mailOptions, function (err, info) {
@@ -307,7 +307,7 @@ export const getTenantById = async (req, res) => {
   try {
     const client = await Tenant.findOne({
       where: { id },
-      attributes: ["id", "fullName", "email", "avatar", "phone"],
+      attributes: ["id", "fullName", "email", "avatar", "phone", "role"],
       include: [
         {
           model: Aboutme,

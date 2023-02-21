@@ -12,6 +12,7 @@ import {
   verifyPassword,
   resetPassword,
   updateAvatar,
+  //clientData,
 } from "../../controllers/Client/client.controller.js";
 //import jwt from "jsonwebtoken";
 import multer from "multer";
@@ -47,6 +48,7 @@ router.post(
   createClient
 );
 router.post("/client/login", login);
+//router.post("/client/userData", clientData);
 router.get("/client/logout", logout);
 router.get("/client/refreshToken", refreshToken);
 router.post("/client/forgot", forgot);

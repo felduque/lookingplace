@@ -67,7 +67,7 @@ const UserSettings = () => {
 
   return (
     <>
-      {auth.role == "Client" ? (
+      {auth?.role == "Client" ? (
         <div className="admin-container">
           <div
             className={`sidebar-header ${
@@ -132,7 +132,7 @@ const UserSettings = () => {
             </div>
           </main>
         </div>
-      ) : auth.role == "Tenant" ? (
+      ) : auth?.role == "Tenant" ? (
         <div className="admin-container">
           <div
             className={`sidebar-header ${
