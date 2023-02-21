@@ -87,9 +87,19 @@ function App() {
           {/*<Route path="/userData" element={<UserDetails />} />*/}
           {/*Protect routes*/}
 
-          <Route element={<RequireAuth />}>
-            <Route path="/settings" element={<Admin />} />
-          </Route>
+          <Route
+            path="/settings"
+            element={
+              isLoggedTenant == "true" ||
+              isLoggedClient == "true" ||
+              isLoggedAdmin == "true" ||
+              user ? (
+                <Admin />
+              ) : (
+                <Navigate to="/home" />
+              )
+            }
+          />
 
           {/*Tenant Access*/}
           <Route
