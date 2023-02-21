@@ -44,7 +44,7 @@ export const ReservacionesCliente = () => {
       }
     };
     fetchAllPropierties();
-  }, [allPropiertie.length, allBookings.length]);
+  }, [allPropiertie?.length, allBookings?.length]);
 
   // console.log("Soy allProperty", allPropiertie);
   console.log("Soy allBookings", allBookings);
@@ -63,7 +63,7 @@ export const ReservacionesCliente = () => {
             flexWrap: "wrap",
           }}
         >
-          {allBookings.map((b) => {
+          {allBookings?.map((b) => {
             let ingreso = new Date(b.bookingsPropCli[0]);
             console.log(ingreso);
 
