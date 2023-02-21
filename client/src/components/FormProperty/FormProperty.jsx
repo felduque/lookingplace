@@ -43,6 +43,7 @@ const options = [
   { value: "Parilla", label: "Parilla" },
   { value: "Cuna", label: "Cuna" },
 ];
+const predefinedTitleNames = ["Casa", "Apartamento", "Habitación", "Cabaña"];
 
 export default function FormHostCreate() {
   const auth = JSON.parse(localStorage.getItem("auth"));
@@ -125,27 +126,20 @@ export default function FormHostCreate() {
   const [errors, setErrors] = useState({});
   const errorsLength = Object.entries(errors).length;
 
-  useEffect(
-    () => {
-      // seteo el array si no hay images, sino creo el array a mostrar
-      if (inputs.image.length === 0) setUrlImages([]);
-      setValidateImages("Sube una foto del lugar");
-      if (inputs.image.length > 0) {
-        const newArrayUrl = [];
-        inputs.image.forEach((img) =>
-          newArrayUrl.push(URL.createObjectURL(img))
-        );
-        setUrlImages(newArrayUrl);
-        setValidateImages("");
-      }
-      if (inputs.image.length > 5)
-        setValidateImages("Máximo 5 fotos del lugar");
+  useEffect(() => {
+    // seteo el array si no hay images, sino creo el array a mostrar
+    if (inputs.image.length === 0) setUrlImages([]); setValidateImages('Sube una foto del lugar');
+    if (inputs.image.length > 0) {
+      const newArrayUrl = [];
+      inputs.image.forEach((img) => newArrayUrl.push(URL.createObjectURL(img)));
+      setUrlImages(newArrayUrl);
+      setValidateImages('');
+    }
+    if (inputs.image.length > 5) setValidateImages('Máximo 5 fotos del lugar');
 
-      setErrors(validateForm(inputs));
-    },
-    [inputs],
-    [urlImages]
-  );
+    setErrors(validateForm(inputs));
+  }, [inputs], [urlImages]);
+
 
   const handleChange = (e, actionMeta = false) => {
     // Select no tiene name en el evento, usa ActionMeta
@@ -260,6 +254,14 @@ export default function FormHostCreate() {
   // console.log(inputs);
   console.log(inputs);
 
+
+  const handleButtonClick = (titleName) => {
+    setInputs((inputs) => ({
+      ...inputs,
+      title: titleName,
+    }));
+  };
+
   if (!isLoaded) return <div>Cargando...</div>;
   return (
     <div>
@@ -272,6 +274,20 @@ export default function FormHostCreate() {
                 <label className="label" htmlFor="title">
                   Título del Alojamiento
                 </label>
+                <div className="buttons">
+                  {predefinedTitleNames.map((name) => (
+                    <button
+                      key={name}
+                      className={`button ${inputs.title === name ? "is-info" : ""}`}
+                      type="button"
+                      onClick={() => handleButtonClick(name)}
+                    >
+                      {name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="field">
                 <input
                   className="input"
                   id="title"
@@ -517,14 +533,11 @@ export default function FormHostCreate() {
               </div>
               <div className="areas-spaces-top">
                 <div className="field">
-                  <p>
-                    <label className="label">Imágenes del lugar</label>
-                  </p>
+                  <p><label className="label">Imágenes del lugar</label></p>
                   <button
-                    className="button is-info"
+                    className='button is-info'
                     disabled={inputs.image.length === 5 ? true : false}
-                    type="button"
-                  >
+                    type="button">
                     <img src={uploadIcon} className="upload-button-place" />
                     <label htmlFor="image">Selecciona las fotos...</label>
                   </button>
@@ -538,14 +551,11 @@ export default function FormHostCreate() {
                     accept="image/*"
                     onChange={handleChange}
                     disabled={inputs.image.length === 5 ? true : false}
+
                   />
                   {validateImages ? (
-                    <p>
-                      <span className="error">{validateImages}</span>
-                    </p>
-                  ) : (
-                    ""
-                  )}
+                    <p><span className="error">{validateImages}</span></p>
+                  ) : ''}
                   {urlImages.map((img, i) => (
                     <div key={i}>
                       <img

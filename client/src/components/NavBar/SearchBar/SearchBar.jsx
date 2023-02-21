@@ -1,5 +1,5 @@
 import { getPropertiesAsync } from "../../../redux/features/getPropertySlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./SearchBar.css";
 import searchIcon from "../../../assets/search-icon-2.png";
 import filterIcon from "../../../assets/filter-button.png";
@@ -14,12 +14,28 @@ export default function SearchBar() {
 
   const [isActive, setIsActive] = useState(false);
 
+
+
   const handleClickSearchTitle = (e) => {
     e.preventDefault();
     let urlSearch2 = `${urlbase}?title=${title}`;
     console.log("Sí llega la dispatch");
     dispatch(getPropertiesAsync(urlSearch2));
   };
+
+  const handleInputChange = (e) => {
+
+    setTitle(e.target.value);
+    if (title === "") {
+      dispatch(getPropertiesAsync(urlbase))
+    } else {
+      let urlSearch2 = `${urlbase}?title=${e.target.value}`;
+      dispatch(getPropertiesAsync(urlSearch2));
+    }
+
+  }
+
+
   return (
     <>
       <div className="search-input-bar">
@@ -27,11 +43,9 @@ export default function SearchBar() {
           <input
             type="text"
             className="input is-rounded is-small input-search"
-            placeholder="Buscar por título..."
+            placeholder="Buscar por título... EJ: Casa, apartamento, cabaña, etc."
             name="title"
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
+            onChange={handleInputChange}
             value={title}
           />
           <div className="container-search-button">
@@ -54,5 +68,5 @@ export default function SearchBar() {
         )}
       </div>
     </>
-  );
-}
+  )
+};

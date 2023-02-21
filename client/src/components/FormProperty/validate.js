@@ -2,11 +2,13 @@
 export default function validateForm(inputs) {
   let errors = {};
   console.log("Validator ;) ", inputs);
-  const title_REGEX = /^[a-zA-Z\s]+$/;
+  const title_REGEX =
+    /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g;
 
-  if (inputs.title.length < 10) {
-    errors.title = "Usa palabras que hagan refencia a tu alojamiento";
-  } else if (inputs.title.length > 40) {
+  if (inputs.title.length < 12) {
+    errors.title =
+      "Por favor agrega algunas palabras que hagan referencia a tu propiedad... Ej: Casa con vista a la playa";
+  } else if (inputs.title.length > 60) {
     errors.title = "Sé breve";
   } else if (!title_REGEX.test(inputs.title)) {
     errors.title = "Sólo se aceptan letras";
