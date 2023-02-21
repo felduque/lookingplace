@@ -43,6 +43,27 @@ export default function CardDetail() {
   });
   //console.log(arrayBookings);
 
+  let arrayCalificacion = [];
+  detail.Comments?.forEach((c) => {
+    if (c.calificacion !== null)
+      arrayCalificacion = [...arrayCalificacion, c.calificacion];
+  });
+
+  console.log("Soy ArrayCalificacion", arrayCalificacion);
+
+  let promedio =
+    arrayCalificacion.reduce(
+      (acumulador, currentValue) => acumulador + currentValue,
+      0
+    ) / arrayCalificacion.length;
+
+  if (promedio % 1 === 0) {
+    promedio = promedio + ".0";
+  }
+
+  if (isNaN(promedio)) promedio = "0.0";
+  console.log(promedio);
+
   const {
     title,
     description,
@@ -265,7 +286,22 @@ export default function CardDetail() {
                 <BathIcon width="35px" height="35px"></BathIcon>
                 {baths}
                 <StarIcon width="35px" height="35px"></StarIcon>
-                {rating}
+                {promedio}/5.0
+                <div>
+                  <span
+                    style={{
+                      color: "green",
+                      fontSize: "12px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {arrayCalificacion.length === 0
+                      ? "No existen calificaciones"
+                      : arrayCalificacion.length > 1
+                      ? arrayCalificacion.length + " calificaciones"
+                      : arrayCalificacion.length + " calificación"}
+                  </span>
+                </div>
               </div>
               <div className="precio">
                 <strong className="classMyStrong">$USD {price}</strong> noche

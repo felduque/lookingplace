@@ -1,5 +1,23 @@
+.reservasClientPrincipal {
+  width: 90%;
+}
+
+.containerCommentPanel {
+  width: 80%;
+  margin: 0 auto;
+}
+
 .iconoEditComentRes {
   float: right;
+  padding: 1px;
+  cursor: pointer;
+  border-radius: 12px;
+  border: 1px solid rgb(166, 166, 166);
+  transition: 1.5s;
+}
+
+.iconoDeleteComentRes {
+  float: inline-end;
   padding: 1px;
   cursor: pointer;
   border-radius: 12px;
@@ -10,6 +28,13 @@
 .iconoEditComentRes:hover {
   transform: scale(1.2);
   padding: 3px;
-  background-color: rgb(170, 196, 255);
+  background-color: rgb(232, 241, 108);
+  border: 0;
+}
+
+.iconoDeleteComentRes:hover {
+  transform: scale(1.2);
+  padding: 3px;
+  background-color: rgb(255, 170, 170);
   border: 0;
 }

@@ -4,8 +4,14 @@ import { Tenant } from "../../models/tenant.model.js";
 import { Client } from "../../models/client.model.js";
 
 export const createComment = async (req, res) => {
-  const { comment, property_comment, author, avatar, client_comment } =
-    req.body;
+  const {
+    comment,
+    property_comment,
+    author,
+    avatar,
+    client_comment,
+    calificacion,
+  } = req.body;
 
   try {
     const existingComment = await Comment.findOne({
@@ -27,6 +33,7 @@ export const createComment = async (req, res) => {
       author,
       avatar,
       client_comment,
+      calificacion,
       fecha: new Date(),
     });
     return res.status(201).json({ message: `Comentario creado! ` });
@@ -134,6 +141,39 @@ export const updateComment = async (req, res) => {
         {
           comment,
           property_comment,
+        },
+        {
+          where: { id },
+        }
+      );
+      res.json({
+        message: "Comment updated successfully",
+        data: commentUpd,
+      });
+    }
+  } catch (err) {
+    res.json({
+      message: "Something goes wrong",
+      data: {},
+    });
+  }
+};
+
+export const calificacionUpdate = async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  const { dataBody } = req.body;
+  console.log(dataBody);
+  try {
+    let commentUpd = await Comment.findOne({
+      where: { id },
+    });
+    if (!commentUpd)
+      return res.status(400).json({ message: "Comment not found" });
+    if (commentUpd) {
+      await Comment.update(
+        {
+          calificacion: dataBody,
         },
         {
           where: { id },
