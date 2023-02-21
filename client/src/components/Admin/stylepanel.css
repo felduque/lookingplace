@@ -85,6 +85,14 @@
   height: auto;
 }
 
+.side-item-github:hover {
+  color: rgb(41, 101, 205);
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 400;
+  height: auto;
+}
+
 
 
 

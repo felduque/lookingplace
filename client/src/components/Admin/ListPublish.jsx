@@ -30,16 +30,16 @@ export const ListPublish = () => {
   const handleDelete = (id) => {
     Swal.fire({
       title: "¿Estás seguro?",
-      text: "No podrás revertir esto!",
+      text: "No podrás revertir esto",
       icon: "question",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Sí, bórralo!",
+      confirmButtonText: "Sí, eliminar",
     }).then((result) => {
       if (result.isConfirmed) {
         deleteProperty(id);
-        Swal.fire("Borrado!", "Tu archivo ha sido borrado.", "success");
+        Swal.fire("Borrado!", "Tu selección ha sido eliminada.", "success");
       }
     });
   };

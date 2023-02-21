@@ -27,13 +27,13 @@ export const ModalForm = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     Swal.fire({
-      title: "¿Estas seguro de editar esta propiedad?",
-      text: "Podria afectar la forma en que te buscan tus clientes",
+      title: "¿Estás seguro de editar esta propiedad?",
+      text: "Podría afectar la forma en que te buscan tus clientes",
       icon: "question",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Si, editar",
+      confirmButtonText: "Sí, editar",
     }).then((result) => {
       if (result.isConfirmed) {
         updatePropery(id, data);
@@ -43,7 +43,7 @@ export const ModalForm = (props) => {
           description: "",
         });
         setModal(false);
-        Swal.fire("Editado!", "La propiedad ha sido editada.", "success");
+        Swal.fire("Cambios con éxito", "La propiedad ha sido editada.", "success");
       }
     });
   };
@@ -64,27 +64,30 @@ export const ModalForm = (props) => {
             onClick={handleModal}
           />
         </div>
-        <h2>Los campos que no quieras modificar dejalos vacios</h2>
-        <div className="modal-container-form-input">
-          <label htmlFor="name">Editar Titulo</label>
-          <input
+        <div className="title is-4">Los campos que no quieras modificar déjalos vacíos</div>
+        <div className="title-edit-content">
+          <label className="title is-5">Editar título</label>
+          <p><input
             onChange={(e) => setData({ ...data, title: e.target.value })}
             value={data.title}
             type="text"
             name="title"
-          />
+            className="input"
+          /></p>
         </div>
-        <div className="modal-container-form-input">
-          <label htmlFor="description">Editar descripcion</label>
-          <textarea
+        <div>
+          <label className="title is-5">Editar descripción</label>
+          <p><textarea
             name="description"
             value={data.description}
             cols="30"
             rows="10"
+            className="textarea is-hovered has-fixed-size"
             onChange={(e) => setData({ ...data, description: e.target.value })}
-          ></textarea>
+          ></textarea></p>
+          
         </div>
-        <button onClick={handleSubmit} type="submit">
+        <button onClick={handleSubmit} type="submit" className="button is-success">
           Editar
         </button>
       </div>
