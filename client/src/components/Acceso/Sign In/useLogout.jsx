@@ -1,8 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import axios from "../hooks/axios";
 import useAuth from "../hooks/useAuth";
 
 const useLogout = () => {
   const { auth, setAuth } = useAuth();
+  const navigate = useNavigate();
 
   const logout = async () => {
     setAuth({});
@@ -12,6 +14,8 @@ const useLogout = () => {
         const response = await axios("/client/logout", {
           withCredentials: true,
         });
+        window.localStorage.clear();
+        navigate("/home");
       } catch (err) {
         console.error(err);
       }
@@ -20,6 +24,8 @@ const useLogout = () => {
         const response = await axios("/tenant/logout", {
           withCredentials: true,
         });
+        window.localStorage.clear();
+        navigate("/home");
       } catch (err) {
         console.error(err);
       }
