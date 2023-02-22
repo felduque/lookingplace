@@ -36,6 +36,7 @@ export const ListPublish = () => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Sí, eliminar",
+      reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
         deleteProperty(id);
@@ -53,74 +54,74 @@ export const ListPublish = () => {
   };
 
   return (
-  <>
-    <div className="title is-4 space-all-post-title">Tus propiedades publicadas</div>
-    <div className="container-list-publish-tenant">
-      <div className="content-list-publish-all">
-        {allPropiertie.map((item) => {
-          return (
-            <div
-              key={item.id}
-              className="container-list-publish-tenant__list__item"
-            >
-            <div className="columns">
-              
-              <div className="column">
-              <div className="container-list-publish-tenant__list__item__delete">
-              
-                  <button
-                    onClick={() => handleDelete(item.id)}
-                    className="delete-button"
-                  >
-                    ❌
-                  </button>
-                  
-              </div>
-              </div>
+    <>
+      <div className="title is-4 space-all-post-title">Tus propiedades publicadas</div>
+      <div className="container-list-publish-tenant">
+        <div className="content-list-publish-all">
+          {allPropiertie.map((item) => {
+            return (
+              <div
+                key={item.id}
+                className="container-list-publish-tenant__list__item"
+              >
+                <div className="columns">
 
-              <div className="column">
-              {/* <div className="container-list-publish-tenant__list__item__edit">
+                  <div className="column">
+                    <div className="container-list-publish-tenant__list__item__delete">
+
+                      <button
+                        onClick={() => handleDelete(item.id)}
+                        className="delete-button"
+                      >
+                        ❌
+                      </button>
+
+                    </div>
+                  </div>
+
+                  <div className="column">
+                    {/* <div className="container-list-publish-tenant__list__item__edit">
                 
               </div> */}
-              <div className="container-list-publish-tenant__list__item__image">
-                
-
-                 <button
-                    onClick={() => {
-                      setId(item.id);
-                      handleChangeModal();
-                    }}
-                    className="btn-edit-publish"
-                    >
-                      📝
-                  </button>
+                    <div className="container-list-publish-tenant__list__item__image">
 
 
+                      <button
+                        onClick={() => {
+                          setId(item.id);
+                          handleChangeModal();
+                        }}
+                        className="btn-edit-publish"
+                      >
+                        📝
+                      </button>
+
+
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="container-list-publish-tenant__list__item__image">
-                <img src={item.image[0]} alt={item.title} />
-              </div>
-                
-              
+                <div className="container-list-publish-tenant__list__item__image">
+                  <img src={item.image[0]} alt={item.title} />
+                </div>
 
-            
-              <Link to={`/propertyDetail/${item.id}`}>
-                <h3 className="text-list-publish-title">
-                  {item.title
-                    .slice(0, 22)
-                    .concat(item.title.length > 22 ? "..." : "")}
-                </h3>
-              </Link>
-              <p className="text-list-publish-data">{item.country}</p>
-            </div>
-          );
-        })}
+
+
+
+                <Link to={`/propertyDetail/${item.id}`}>
+                  <h3 className="text-list-publish-title">
+                    {item.title
+                      .slice(0, 22)
+                      .concat(item.title.length > 22 ? "..." : "")}
+                  </h3>
+                </Link>
+                <p className="text-list-publish-data">{item.country}</p>
+              </div>
+            );
+          })}
+        </div>
+        {/* se manda el id por prop */}
+        {modal && <ModalForm id={id} />}
       </div>
-      {/* se manda el id por prop */}
-      {modal && <ModalForm id={id} />}
-    </div>
     </>
   );
 };

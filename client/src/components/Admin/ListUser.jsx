@@ -58,6 +58,7 @@ export const ListUser = () => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Si, eliminar",
+      reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
         clientIds?.forEach((id) => {
@@ -85,6 +86,7 @@ export const ListUser = () => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Si, eliminar",
+      reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
         clientIds?.forEach((id) => {

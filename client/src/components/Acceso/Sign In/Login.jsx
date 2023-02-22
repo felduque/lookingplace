@@ -238,124 +238,114 @@ export default function Login({ closeModal }) {
   return (
     <div class="modal is-active">
       <div class="modal-background" onClick={closeModal}></div>
-      <div class="modal-content">
+      <div class="modal-content" style={{ width: "450px" }}>
         <>
-          <div className="container-page-login">
-            <div className="form-container-login">
-              <section>
-                <div className="error-messg-server">{errMsg}</div>
-                <div className="title is-4 is-spaced">
-                  Ingresar a la aventura
-                </div>
-                <form onSubmit={handleSubmit}>
-                  <div className="field">
-                    <p className="control has-icons-left">
-                      <input
-                        type="email"
-                        id="emailname"
-                        className="input"
-                        placeholder="Correo"
-                        autoComplete="off"
-                        onChange={(e) => setEmail(e.target.value)}
-                        value={email}
-                        required
-                      />
-                      <span className="icon is-small is-left">
-                        <i className="fas fa-user">
-                          <img src={usermailIcon} className="icon-login" />
-                        </i>
-                      </span>
-                    </p>
-                  </div>
-                  <div className="field">
-                    <p className="control has-icons-left">
-                      <input
-                        type="password"
-                        id="passwordLogin"
-                        className="input"
-                        placeholder="Contraseña"
-                        autoComplete="off"
-                        onChange={(e) => setPassword(e.target.value)}
-                        value={password}
-                        required
-                      />
-                      <span className="icon is-small is-left">
-                        <i className="fas fa-user">
-                          <img src={userPasswordIcon} className="icon-login" />
-                        </i>
-                      </span>
-                    </p>
-                  </div>
-                  <div className="pt-2">
-                    <button
-                      name="client"
-                      type="button"
-                      className={
-                        setType.client === true
-                          ? "button is-link is-rounded"
-                          : "button is-link is-outlined has-tooltip-right is-rounded"
-                      }
-                      onClick={handleChangeType}
-                    >
-                      Soy Cliente
-                    </button>
-                    <button
-                      type="button"
-                      name="tenant"
-                      onClick={handleChangeType}
-                      className={
-                        setType.tenant === true
-                          ? "button is-link ml-4 is-rounded"
-                          : "button is-link is-outlined has-tooltip-right ml-4 is-rounded"
-                      }
-                    >
-                      Soy Arrendatario
-                    </button>
-                  </div>
-                  <div className="pt-2 pb-2">
-                    <button
-                      className="button is-link is-rounded"
-                      disabled={
-                        setType.client === false && setType.tenant === false
-                      }
-                    >
-                      Ingresar
-                    </button>
-                  </div>
-                  <p>
-                    <Link to="/forgotpassword" onClick={closeModal}>
-                      Recuperar contraseña
-                    </Link>
+          <div className="form-container-login">
+            <section>
+              <div className="error-messg-server">{errMsg}</div>
+              <div className="title is-4 is-spaced">
+                Ingresar a la aventura
+              </div>
+              <form onSubmit={handleSubmit}>
+                <div className="field">
+                  <p className="control has-icons-left">
+                    <input
+                      type="email"
+                      id="emailname"
+                      className="input"
+                      placeholder="Correo"
+                      autoComplete="off"
+                      onChange={(e) => setEmail(e.target.value)}
+                      value={email}
+                      required
+                    />
+                    <span className="icon is-small is-left">
+                      <i className="fas fa-user">
+                        <img src={usermailIcon} className="icon-login" />
+                      </i>
+                    </span>
                   </p>
-                </form>
+                </div>
+                <div className="field">
+                  <p className="control has-icons-left">
+                    <input
+                      type="password"
+                      id="passwordLogin"
+                      className="input"
+                      placeholder="Contraseña"
+                      autoComplete="off"
+                      onChange={(e) => setPassword(e.target.value)}
+                      value={password}
+                      required
+                    />
+                    <span className="icon is-small is-left">
+                      <i className="fas fa-user">
+                        <img src={userPasswordIcon} className="icon-login" />
+                      </i>
+                    </span>
+                  </p>
+                </div>
                 <div className="pt-2">
-                  <p>
-                    <LoginGoogle />
-                  </p>
+                  <button
+                    name="client"
+                    type="button"
+                    className={
+                      setType.client === true
+                        ? "button is-link is-rounded"
+                        : "button is-link is-outlined has-tooltip-right is-rounded"
+                    }
+                    onClick={handleChangeType}
+                  >
+                    Soy Cliente
+                  </button>
+                  <button
+                    type="button"
+                    name="tenant"
+                    onClick={handleChangeType}
+                    className={
+                      setType.tenant === true
+                        ? "button is-link ml-4 is-rounded"
+                        : "button is-link is-outlined has-tooltip-right ml-4 is-rounded"
+                    }
+                  >
+                    Soy Arrendatario
+                  </button>
                 </div>
-                <p className="new-account">
-                  ¿No tienes cuenta? <br />
-                  <span>
-                    <Link to="/register" onClick={closeModal}>
-                      Registrarme
-                    </Link>
-                  </span>
-                  <Link to="/home" className="btnBackHomeLogin">
-                    <button
-                      className="button is-link is-rounded"
-                      id="btnBackHomeLogin"
-                    >
-                      Home
-                    </button>
+                <div className="pt-2 pb-2">
+                  <button
+                    className="button is-link is-rounded"
+                    disabled={
+                      setType.client === false && setType.tenant === false
+                    }
+                  >
+                    Ingresar
+                  </button>
+                </div>
+                <p>
+                  <Link to="/forgotpassword" onClick={closeModal}>
+                    Recuperar contraseña
                   </Link>
-                  {/* <LoginGoogle /> */}
                 </p>
-              </section>
-            </div>
+              </form>
+              <div className="pt-2">
+                <p>
+                  <LoginGoogle />
+                </p>
+              </div>
+              <p className="new-account">
+                ¿No tienes cuenta? <br />
+                <span>
+                  <Link to="/register" onClick={closeModal}>
+                    Registrarme
+                  </Link>
+                </span>
+                {/* <LoginGoogle /> */}
+              </p>
+            </section>
           </div>
         </>
       </div>
-      <button class="modal-close is-large" aria-label="close"></button>
+      <button class="modal-close is-large" aria-label="close" onClick={closeModal}></button>
     </div>
   );
 }

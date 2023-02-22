@@ -26,6 +26,7 @@ import {
   geocodeByPlaceId,
   getLatLng,
 } from "react-places-autocomplete";
+import Switch from "react-switch";
 
 // Fin de Google Maps
 
@@ -241,9 +242,9 @@ export default function Filters({ closeModal, title }) {
     };
   }, [filters]);
 
-  console.log("soy Filters Properties ", filterProperties);
+
   console.log(filterProperties.result.length);
-  // console.log(filters);
+
 
   if (!isLoaded) return <h1>Cargando...</h1>;
   return (
@@ -298,13 +299,13 @@ export default function Filters({ closeModal, title }) {
                             // inline style for demonstration purpose
                             const style = suggestion.active
                               ? {
-                                  backgroundColor: "#fafafa",
-                                  cursor: "pointer",
-                                }
+                                backgroundColor: "#fafafa",
+                                cursor: "pointer",
+                              }
                               : {
-                                  backgroundColor: "#ffffff",
-                                  cursor: "pointer",
-                                };
+                                backgroundColor: "#ffffff",
+                                cursor: "pointer",
+                              };
                             return (
                               <div
                                 {...getSuggestionItemProps(suggestion, {
@@ -377,65 +378,57 @@ export default function Filters({ closeModal, title }) {
                   </div>
                   <div className="">
                     <button
-                      className={`capacity-button button is-active mr-2 ${
-                        capacity === "1" ? "capacity-button-active" : ""
-                      }`}
+                      className={`capacity-button button is-active mr-2 ${capacity === "1" ? "capacity-button-active" : ""
+                        }`}
                       onClick={() => handleCapacityButtonClick("1")}
                     >
                       1
                     </button>
                     <button
-                      className={`capacity-button button is-active mr-2 ${
-                        capacity === "2" ? "capacity-button-active" : ""
-                      }`}
+                      className={`capacity-button button is-active mr-2 ${capacity === "2" ? "capacity-button-active" : ""
+                        }`}
                       onClick={() => handleCapacityButtonClick("2")}
                     >
                       2
                     </button>
                     <button
-                      className={`capacity-button button is-active mr-2 ${
-                        capacity === "3" ? "capacity-button-active" : ""
-                      }`}
+                      className={`capacity-button button is-active mr-2 ${capacity === "3" ? "capacity-button-active" : ""
+                        }`}
                       onClick={() => handleCapacityButtonClick("3")}
                     >
                       3
                     </button>
                     <button
-                      className={`capacity-button button is-active mr-2 ${
-                        capacity === "4" ? "capacity-button-active" : ""
-                      }`}
+                      className={`capacity-button button is-active mr-2 ${capacity === "4" ? "capacity-button-active" : ""
+                        }`}
                       onClick={() => handleCapacityButtonClick("4")}
                     >
                       4
                     </button>
                     <button
-                      className={`capacity-button button is-active mr-2 ${
-                        capacity === "5" ? "capacity-button-active" : ""
-                      }`}
+                      className={`capacity-button button is-active mr-2 ${capacity === "5" ? "capacity-button-active" : ""
+                        }`}
                       onClick={() => handleCapacityButtonClick("5")}
                     >
                       5
                     </button>
                     <button
-                      className={`capacity-button button is-active mr-2 ${
-                        capacity === "6" ? "capacity-button-active" : ""
-                      }`}
+                      className={`capacity-button button is-active mr-2 ${capacity === "6" ? "capacity-button-active" : ""
+                        }`}
                       onClick={() => handleCapacityButtonClick("6")}
                     >
                       6
                     </button>
                     <button
-                      className={`capacity-button button is-active mr-2 ${
-                        capacity === "7" ? "capacity-button-active" : ""
-                      }`}
+                      className={`capacity-button button is-active mr-2 ${capacity === "7" ? "capacity-button-active" : ""
+                        }`}
                       onClick={() => handleCapacityButtonClick("7")}
                     >
                       7
                     </button>
                     <button
-                      className={`capacity-button button is-active mr-2 ${
-                        capacity === "20" ? "capacity-button-active" : ""
-                      }`}
+                      className={`capacity-button button is-active mr-2 ${capacity === "20" ? "capacity-button-active" : ""
+                        }`}
                       onClick={() => handleCapacityButtonClick("20")}
                     >
                       +8
@@ -449,65 +442,57 @@ export default function Filters({ closeModal, title }) {
                   </div>
                   <div>
                     <button
-                      className={`capacity-button button is-active mr-2 ${
-                        beds === "1" ? "capacity-button-active" : ""
-                      }`}
+                      className={`capacity-button button is-active mr-2 ${beds === "1" ? "capacity-button-active" : ""
+                        }`}
                       onClick={() => handleBedsButtonClick("1")}
                     >
                       1
                     </button>
                     <button
-                      className={`capacity-button button is-active mr-2 ${
-                        beds === "2" ? "capacity-button-active" : ""
-                      }`}
+                      className={`capacity-button button is-active mr-2 ${beds === "2" ? "capacity-button-active" : ""
+                        }`}
                       onClick={() => handleBedsButtonClick("2")}
                     >
                       2
                     </button>
                     <button
-                      className={`capacity-button button is-active mr-2 ${
-                        beds === "3" ? "capacity-button-active" : ""
-                      }`}
+                      className={`capacity-button button is-active mr-2 ${beds === "3" ? "capacity-button-active" : ""
+                        }`}
                       onClick={() => handleBedsButtonClick("3")}
                     >
                       3
                     </button>
                     <button
-                      className={`capacity-button button is-active mr-2 ${
-                        beds === "4" ? "capacity-button-active" : ""
-                      }`}
+                      className={`capacity-button button is-active mr-2 ${beds === "4" ? "capacity-button-active" : ""
+                        }`}
                       onClick={() => handleBedsButtonClick("4")}
                     >
                       4
                     </button>
                     <button
-                      className={`capacity-button button is-active mr-2 ${
-                        beds === "5" ? "capacity-button-active" : ""
-                      }`}
+                      className={`capacity-button button is-active mr-2 ${beds === "5" ? "capacity-button-active" : ""
+                        }`}
                       onClick={() => handleBedsButtonClick("5")}
                     >
                       5
                     </button>
                     <button
-                      className={`capacity-button button is-active mr-2 ${
-                        beds === "6" ? "capacity-button-active" : ""
-                      }`}
+                      className={`capacity-button button is-active mr-2 ${beds === "6" ? "capacity-button-active" : ""
+                        }`}
                       onClick={() => handleBedsButtonClick("6")}
                     >
                       6
                     </button>
                     <button
-                      className={`capacity-button button is-active mr-2 ${
-                        beds === "7" ? "capacity-button-active" : ""
-                      }`}
+                      className={`capacity-button button is-active mr-2 ${beds === "7" ? "capacity-button-active" : ""
+                        }`}
                       onClick={() => handleBedsButtonClick("7")}
                     >
                       7
                     </button>
                     <button
-                      className={`capacity-button button is-active mr-2 ${
-                        beds === "20" ? "capacity-button-active" : ""
-                      }`}
+                      className={`capacity-button button is-active mr-2 ${beds === "20" ? "capacity-button-active" : ""
+                        }`}
                       onClick={() => handleBedsButtonClick("20")}
                     >
                       +8
@@ -521,65 +506,57 @@ export default function Filters({ closeModal, title }) {
                   </div>
                   <div>
                     <button
-                      className={`capacity-button button is-active mr-2 ${
-                        baths === "1" ? "capacity-button-active" : ""
-                      }`}
+                      className={`capacity-button button is-active mr-2 ${baths === "1" ? "capacity-button-active" : ""
+                        }`}
                       onClick={() => handleBathsButtonClick("1")}
                     >
                       1
                     </button>
                     <button
-                      className={`capacity-button button is-active mr-2 ${
-                        baths === "2" ? "capacity-button-active" : ""
-                      }`}
+                      className={`capacity-button button is-active mr-2 ${baths === "2" ? "capacity-button-active" : ""
+                        }`}
                       onClick={() => handleBathsButtonClick("2")}
                     >
                       2
                     </button>
                     <button
-                      className={`capacity-button button is-active mr-2 ${
-                        baths === "3" ? "capacity-button-active" : ""
-                      }`}
+                      className={`capacity-button button is-active mr-2 ${baths === "3" ? "capacity-button-active" : ""
+                        }`}
                       onClick={() => handleBathsButtonClick("3")}
                     >
                       3
                     </button>
                     <button
-                      className={`capacity-button button is-active mr-2 ${
-                        baths === "4" ? "capacity-button-active" : ""
-                      }`}
+                      className={`capacity-button button is-active mr-2 ${baths === "4" ? "capacity-button-active" : ""
+                        }`}
                       onClick={() => handleBathsButtonClick("4")}
                     >
                       4
                     </button>
                     <button
-                      className={`capacity-button button is-active mr-2 ${
-                        baths === "5" ? "capacity-button-active" : ""
-                      }`}
+                      className={`capacity-button button is-active mr-2 ${baths === "5" ? "capacity-button-active" : ""
+                        }`}
                       onClick={() => handleBathsButtonClick("5")}
                     >
                       5
                     </button>
                     <button
-                      className={`capacity-button button is-active mr-2 ${
-                        baths === "6" ? "capacity-button-active" : ""
-                      }`}
+                      className={`capacity-button button is-active mr-2 ${baths === "6" ? "capacity-button-active" : ""
+                        }`}
                       onClick={() => handleBathsButtonClick("6")}
                     >
                       6
                     </button>
                     <button
-                      className={`capacity-button button is-active mr-2 ${
-                        baths === "7" ? "capacity-button-active" : ""
-                      }`}
+                      className={`capacity-button button is-active mr-2 ${baths === "7" ? "capacity-button-active" : ""
+                        }`}
                       onClick={() => handleBathsButtonClick("7")}
                     >
                       7
                     </button>
                     <button
-                      className={`capacity-button button is-active mr-2 ${
-                        baths === "20" ? "capacity-button-active" : ""
-                      }`}
+                      className={`capacity-button button is-active mr-2 ${baths === "20" ? "capacity-button-active" : ""
+                        }`}
                       onClick={() => handleBathsButtonClick("20")}
                     >
                       +8
@@ -598,59 +575,75 @@ export default function Filters({ closeModal, title }) {
                     options={optionsServices}
                     onChange={handleServiceChange}
                     value={selectedServices}
+                    placeholder="Seleccionar..."
                   />
                 </div>
                 <div className="checkboxes-container box">
                   <h1 className="title is-size-4">Reglas de la propiedad</h1>
                   <div className="field">
                     <label className="label" htmlFor="pets">
-                      ¿Permitido mascostas?&nbsp;
-                      <label className="custom-checkbox">
-                        <input
-                          id="pets"
-                          type="checkbox"
-                          name="pets"
-                          value={filters.pets}
-                          onChange={(e) =>
-                            setFilters({ ...filters, pets: e.target.checked })
-                          }
-                        />
-                        <span className="checkmark"></span>
-                      </label>
+                      ¿Permitido mascotas?
+                      <Switch
+                        id="pets"
+                        name="pets"
+                        checked={filters.pets ? true : ""}
+                        onChange={(value) => {
+                          const newValue = value ? true : "";
+                          setFilters((prevInputs) => ({ ...prevInputs, pets: newValue }));
+                        }}
+                        onColor="#86d3ff"
+                        onHandleColor="#2693e6"
+                        handleDiameter={30}
+                        boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                        activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                        height={20}
+                        width={48}
+                        className="react-switch"
+                      />
                     </label>
                   </div>
                   <div className="field">
-                    <label className="label" htmlFor="">
-                      ¿Permitido fiestas?&nbsp;
-                      <label className="custom-checkbox">
-                        <input
-                          id="party"
-                          type="checkbox"
-                          name="party"
-                          value={filters.party}
-                          onChange={(e) =>
-                            setFilters({ ...filters, party: e.target.checked })
-                          }
-                        />
-                        <span className="checkmark"></span>
-                      </label>
+                    <label className="label" htmlFor="party">
+                      ¿Permitido fiestas?
+                      <Switch
+                        id="party"
+                        name="party"
+                        checked={filters.party ? true : ""}
+                        onChange={(value) => {
+                          const newValue = value ? true : "";
+                          setFilters((prevInputs) => ({ ...prevInputs, party: newValue }));
+                        }}
+                        onColor="#86d3ff"
+                        onHandleColor="#2693e6"
+                        handleDiameter={30}
+                        boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                        activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                        height={20}
+                        width={48}
+                        className="react-switch"
+                      />
                     </label>
                   </div>
                   <div className="field">
-                    <label className="label" htmlFor="">
-                      ¿Permitido fumar?&nbsp;
-                      <label className="custom-checkbox">
-                        <input
-                          id="smoke"
-                          type="checkbox"
-                          name="smoke"
-                          value={filters.smoke}
-                          onChange={(e) =>
-                            setFilters({ ...filters, smoke: e.target.checked })
-                          }
-                        />
-                        <span className="checkmark"></span>
-                      </label>
+                    <label className="label" htmlFor="smoke">
+                      ¿Permitido fumar?
+                      <Switch
+                        id="smoke"
+                        name="smoke"
+                        checked={filters.smoke ? true : ""}
+                        onChange={(value) => {
+                          const newValue = value ? true : "";
+                          setFilters((prevInputs) => ({ ...prevInputs, smoke: newValue }));
+                        }}
+                        onColor="#86d3ff"
+                        onHandleColor="#2693e6"
+                        handleDiameter={30}
+                        boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                        activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                        height={20}
+                        width={48}
+                        className="react-switch"
+                      />
                     </label>
                   </div>
                 </div>

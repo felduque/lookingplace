@@ -103,3 +103,8 @@ input[type="time"] {
   .error {
     color: rgb(214, 30, 30);
   }
+
+  .react-switch {
+    vertical-align: middle;
+    margin-left: 4px;
+  }

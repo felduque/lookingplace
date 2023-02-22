@@ -32,6 +32,7 @@ specifiers:
   react-router-dom: ^6.8.0
   react-select: ^5.7.0
   react-star-ratings: ^2.3.0
+  react-switch: ^7.0.0
   redux: ^4.2.1
   styled-components: ^5.3.6
   sweetalert2: ^11.7.1
@@ -66,6 +67,7 @@ dependencies:
   react-router-dom: 6.8.1_biqbaboplfbrettd7655fr4n2y
   react-select: 5.7.0_zula6vjvt3wdocc4mwcxqa6nzi
   react-star-ratings: 2.3.0
+  react-switch: 7.0.0_biqbaboplfbrettd7655fr4n2y
   redux: 4.2.1
   styled-components: 5.3.6_biqbaboplfbrettd7655fr4n2y
   sweetalert2: 11.7.2
@@ -2438,6 +2440,17 @@ packages:
       classnames: 2.3.2
       prop-types: 15.8.1
       react: 16.14.0
+    dev: false
+
+  /react-switch/7.0.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-KkDeW+cozZXI6knDPyUt3KBN1rmhoVYgAdCJqAh7st7tk8YE6N0iR89zjCWO8T8dUTeJGTR0KU+5CHCRMRffiA==}
+    peerDependencies:
+      react: ^15.3.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^15.3.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /react-transition-group/4.4.5_biqbaboplfbrettd7655fr4n2y:

@@ -111,8 +111,9 @@ export const Profile_edit = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Si",
       cancelButtonText: "Cancelar",
+      confirmButtonText: "Confirmar",
+      reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
         if (form.hobbies.length > 5) {
@@ -182,12 +183,14 @@ export const Profile_edit = () => {
       <div className="form-container-edit-profile">
         <form onSubmit={handleSubmit}>
           <div className="columns">
-            <div className="column">Nombre completo</div>
+            <div className="column">
+              Nombre completo
+            </div>
             <div className="column">
               <input
                 type="text"
                 name="fullName"
-                value={form?.fullName}
+                placeholder={users?.fullName}
                 id="name"
                 className="input"
                 onChange={(e) => setForm({ ...form, fullName: e.target.value })}
@@ -195,38 +198,44 @@ export const Profile_edit = () => {
             </div>
           </div>
           <div className="columns">
-            <div className="column">Teléfono</div>
+            <div className="column">
+              Teléfono
+            </div>
             <div className="column">
               <input
                 type="text"
                 name="phone"
                 id="phone"
-                value={form?.phone}
+                placeholder={users?.phone}
                 className="input"
                 onChange={(e) => setForm({ ...form, phone: e.target.value })}
               />
             </div>
           </div>
           <div className="columns">
-            <div className="column">País / Ciudad</div>
+            <div className="column">
+              País / Ciudad
+            </div>
             <div className="column">
               <input
                 type="text"
                 name="from"
                 id="from"
-                value={form?.from}
+                placeholder={about?.from}
                 className="input"
                 onChange={(e) => setForm({ ...form, from: e.target.value })}
               />
             </div>
           </div>
           <div className="columns">
-            <div className="column">Edad</div>
+            <div className="column">
+              Edad
+            </div>
             <div className="column">
               <input
                 type="text"
                 name="age"
-                value={form?.age}
+                placeholder={about?.age}
                 id="age"
                 className="input"
                 onChange={(e) => setForm({ ...form, age: e.target.value })}
@@ -234,29 +243,31 @@ export const Profile_edit = () => {
             </div>
           </div>
           <div className="columns">
-            <div className="column">Sobre mí</div>
+            <div className="column">
+              Sobre mí
+            </div>
             <div className="column">
               <textarea
                 type="text"
-                value={form?.description}
+                placeholder={about?.description}
                 name="description"
                 id="description"
                 className="textarea"
-                onChange={(e) =>
-                  setForm({ ...form, description: e.target.value })
-                }
+                onChange={(e) => setForm({ ...form, description: e.target.value })}
               ></textarea>
             </div>
           </div>
           <div className="columns">
-            <div className="column">Aficiones</div>
+            <div className="column">
+              Aficiones
+            </div>
             <div className="column">
               <Select
                 closeMenuOnSelect={true}
                 components={animatedComponents}
                 isSearchable={true}
                 maxMenuHeight={200}
-                placeholder={"Seleciona..."}
+                placeholder={'Seleciona...'}
                 isMulti
                 options={opciones}
                 // guardar en string sin value y label
@@ -265,26 +276,14 @@ export const Profile_edit = () => {
             </div>
           </div>
           <div className="columns">
+
             <div className="column">
               Avatar Actual
-              <p>
-                <img
-                  src={users?.avatar}
-                  alt="ActualAvatar"
-                  width="150px"
-                  height="150px"
-                />
-              </p>
+              <p><img src={users?.avatar} alt="ActualAvatar" width='150px' height='150px' /></p>
             </div>
             <div className="column">
               Nuevo avatar
-              <p>
-                {avatarupload ? (
-                  <img src={avatarupload} width="150" height="150" />
-                ) : (
-                  ""
-                )}
-              </p>
+              <p>{avatarupload ? <img src={avatarupload} width='150' height='150' /> : ''}</p>
             </div>
             <div className="column">
               <div class="file is-info">
@@ -301,16 +300,22 @@ export const Profile_edit = () => {
                     <span class="file-icon">
                       <i class="fas fa-upload"></i>
                     </span>
-                    <span class="file-label">Cambiar avatar...</span>
+                    <span class="file-label">
+                      Cambiar avatar...
+                    </span>
                   </span>
                 </label>
               </div>
+
             </div>
+
+
           </div>
 
           <button type="submit" className="button is-success centered-button">
             Guardar
           </button>
+
         </form>
       </div>
     </>
