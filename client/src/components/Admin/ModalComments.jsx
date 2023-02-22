@@ -23,13 +23,13 @@ export const ModalComments = ({ id }) => {
 
   const handleDelete = (id) => {
     Swal.fire({
-      title: "¿Estas seguro de eliminar el comentario?",
-      text: "No podras revertir esta accion",
+      title: "¿Ests seguro de eliminar el comentario?",
+      text: "No podrs revertir esta accin",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Si, eliminar",
+      confirmButtonText: "Sí, eliminar",
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {

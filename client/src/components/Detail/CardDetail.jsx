@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPropertyByIdAsync } from "../../redux/features/getPropertySlice";
 import { useEffect, useReducer, useState } from "react";
@@ -194,14 +195,22 @@ export default function CardDetail() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const fecha = new Date();
+    const fecha = new Date("2023-02-22T00:21:48.544Z");
+    const options = {
+      day: "numeric",
+      month: "numeric",
+      year: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+    };
+    const fechaFormateada = fecha.toLocaleString("es-MX", options);
 
     const comentario = {
       comment: nuevoComentario,
       property_comment: id,
       author: usersLocal?.email || user?.email,
       avatar: usersLocal?.avatar || user?.photoURL,
-      fecha: fecha,
+      fecha: fechaFormateada,
       client_comment: usersLocal?.idClient ? auth?.idClient : null,
       //parent_comment_id: parentCommentId,
     };
@@ -269,10 +278,11 @@ export default function CardDetail() {
         <div style={{ color: "black" }}>
           <hr />
           <div className="containerTitle">
-            <div className="containerTitleUbicacion">
-              <div className="titlePrin">{title}</div>
-              <div className="ubicacionCon">
-                {typeof country === "string" ? country + "/" : null}
+            <div className="containerTitleUbicacion ">
+              <div className="titlePrin title is-4 is-italic ">{title}</div>
+              <div className="ubicacionCon title is-6">
+                {" "}
+                | {typeof country === "string" ? country + "/" : null}
                 {typeof region === "string" ? region + "/" : null}
                 {typeof state === "string" ? state : null}
               </div>
@@ -303,8 +313,8 @@ export default function CardDetail() {
                   </span>
                 </div>
               </div>
-              <div className="precio">
-                <strong className="classMyStrong">$USD {price}</strong> noche
+              <div className="title is-6 is-italic">
+                <strong className="classMyStrong">$USD {price}</strong> /noche
               </div>
             </div>
           </div>
@@ -312,14 +322,18 @@ export default function CardDetail() {
             <div className="containerCarousel">
               <OwnCarousel id={id} images={image} />
             </div>
-            <div className="cotainerData">
+            <div className="cotainerData box has-shadow">
               <div>
-                <h3 className="subtitleCardDe">Descripción</h3>
-                <p>{description}</p>
+                <h3 className="c-title title is-5 is-italic mt-5 my-3 has-text-centered">
+                  Descripción
+                </h3>
+                <p className="c-description title is-6">{description}</p>
               </div>
               <div>
-                <h3 className="subtitleCardDe">Datos Generales</h3>
-                <p>
+                <h3 className=" c-title title is-5 is-italic mt-0 my-3">
+                  Datos Generales
+                </h3>
+                <p className="c-description title is-6 mt-0 my-4">
                   Alojamiento para {capacity}{" "}
                   {capacity > 1 ? "personas" : "persona"}, cuenta con {beds}{" "}
                   {beds > 1 ? "camas" : "cama"} y {baths}{" "}
@@ -334,55 +348,90 @@ export default function CardDetail() {
             <p>
               {baths} {baths > 1 ? "baños" : "baño"}
             </p> */}
-                <p className="subTitleData">
+                <p className="c-title title is-5 is-italic my-2">
                   {" "}
                   Contamos con los siguientes servicios :{" "}
                 </p>
                 {services?.map((s, i) => {
-                  return <span key={i}> • {s} </span>;
+                  return (
+                    <span className="c-description title is-6 my-2" key={i}>
+                      {" "}
+                      • {s}{" "}
+                    </span>
+                  );
                 })}
-                <p className="subTitleData"> Se permite : </p>
-                <p> {smoke ? "✔" : "✘"} Fumar</p>
-                <p> {party ? "✔" : "✘"} Fiestas</p>
-                <p> {pets ? "✔" : "✘"} Mascotas</p>
               </div>
-              <div>
-                <h3 className="subtitleCardDe">Reglas del Hospedador</h3>
-                <p className="subTitleData">Hora de Ingreso : {checkIn}</p>
+              <hr className="c-hr" />
+              <div className="reglasHospedador">
+                <h3 className="c-title title is-5 my-2 is-italic has-text-centered">
+                  <span className="warning-icon">⚠</span> Reglas del Hospedador
+                </h3>
+                <p className="c-title title is-5 is-italic my-2">
+                  {" "}
+                  Se permite :{" "}
+                </p>
+                <p className="c-description title is-6 my-2">
+                  {" "}
+                  {smoke ? "✔" : "✘"} Fumar
+                </p>
+                <p className="c-description title is-6 my-2">
+                  {" "}
+                  {party ? "✔" : "✘"} Fiestas
+                </p>
+                <p className="c-description title is-6 my-2">
+                  {" "}
+                  {pets ? "✔" : "✘"} Mascotas
+                </p>
+                <p className="c-title title is-5 is-italic my-2">
+                  {" "}
+                  Horarios Entrada/Salida :{" "}
+                </p>
+                <p className="c-description title is-6 my-2">
+                  Hora de Ingreso : {checkIn}
+                </p>
 
-                <p className="subTitleData">Hora de Salida : {checkOut}</p>
-                <span>
+                <p className="c-description title is-6 mt-2 my-2">
+                  Hora de Salida : {checkOut}
+                </p>
+                <span className="c-description title is-6 mt-2 my-2">
                   Recuerda llamar a tu hospedador para coordinar la recepción en
                   su hospedaje.
                 </span>
+                <p className="c-description title is-7 is-italic  my-2 ">
+                  Mantegamos la integridad de los servicios prestados,
+                  mantengamos una comunidad responsable con los demas.
+                </p>
               </div>
-              <p className="infoD">
-                Mantegamos la integridad de los servicios prestados, mantengamos
-                una comunidad responsable con los demas.
-              </p>
             </div>
           </div>
-          <hr />
-          <div className="containerCalMap">
+          <hr className="c-hr" />
+          <div className="containerCalMap box has-shadow">
             <div className="containerMap">
-              <p className="subtitleCardDe">Ubicacion del Alojamiento</p>
-              <p className="">
+              <p className="subtitleCardDe c-title title is-5 is-italic">
+                Ubicacion del Alojamiento
+              </p>
+              <p className="c-description title is-6">
                 Para una mejor referencia puedes comunicarte con el hospedador
               </p>
               <GoogleMap
                 zoom={12}
                 center={{ lat, lng }}
                 mapContainerStyle={{
-                  height: "550px",
+                  height: "400px",
                   width: "100%",
+                  borderRadius: "10px",
+                  border: "1px solid blue",
+                  margin: "42px",
                 }}
               >
                 {lat && lng && <Marker position={{ lat, lng }} />}
               </GoogleMap>
             </div>
             <div className="containerCalendar">
-              <p className="subtitleCardDe">Calendario de Disponibilidad</p>
-              <p>
+              <p className="subtitleCardDe c-title title is-5 is-italic">
+                Calendario de Disponibilidad
+              </p>
+              <p className="c-description title is-6">
                 Verifica en el calendario la disponibilidad del alojamiento.
               </p>
               <div className="content">
@@ -397,11 +446,13 @@ export default function CardDetail() {
               </div>
             </div>
           </div>
-
-          <div className="container-sup-comment">
+          <hr className="c-hr" />
+          <div className="container-sup-comment ">
             <div className="containerComents">
               <div className="title-comment">
-                <div className="subtitleCardDe">Comentarios</div>
+                <div className="subtitleCardDe c-title title is-5 is-italic">
+                  Comentarios
+                </div>
               </div>
 
               {usersLocal?.email ||
@@ -420,11 +471,12 @@ export default function CardDetail() {
                       </div>
                       <div className="c-input">
                         <textarea
-                          className="textarea is-primary is-info"
+                          className="c-textarea is-primary is-info c-description title is-6"
                           value={nuevoComentario}
                           onChange={(event) =>
                             setNuevoComentario(event.target.value)
                           }
+                          style={{padding: "10px"}}
                         />
                       </div>
                     </div>
@@ -434,7 +486,9 @@ export default function CardDetail() {
                   </form>
                 </div>
               ) : (
-                <h1>Debes Registrarte Para poder comentar</h1>
+                <Link to="/register" className="button is-primary">
+                  <strong>Registrarse</strong>
+                </Link>
               )}
               <div className="container-cards-comment">
                 {commentsArray.length > 0 ? (
@@ -444,7 +498,7 @@ export default function CardDetail() {
                         <div
                           key={comentario.id}
                           id={`comentario-${comentario.id}`}
-                          className="comment-container"
+                          className="comment-container title is-5"
                         >
                           {usersLocal?.email === comentario.author ||
                           user?.email === comentario.author ||
@@ -475,8 +529,10 @@ export default function CardDetail() {
                                         commentText: event.target.value,
                                       })
                                     }
+                                    style={{padding: "10px"}}
                                   />
-                                  <button type="submit">Guardar cambios</button>
+                                  <button type="submit" 
+                                    style={{margin: "10px"}}>Guardar cambios</button>
                                   <button type="button" onClick={handleCancel}>
                                     Cancelar
                                   </button>
@@ -529,11 +585,20 @@ export default function CardDetail() {
                                 {comentario.author}
                               </p>
                               <p className="commentFecha">
-                                {comentario.fecha?.toString()}
+                              {new Date(comentario.fecha).toLocaleString(
+                                  "es-MX",
+                                  {
+                                    day: "numeric",
+                                    month: "numeric",
+                                    year: "numeric",
+                                    hour: "numeric",
+                                    minute: "numeric",
+                                  }
+                                )}
                               </p>
                             </div>
                           </div>
-                          <h1 className="comentarioComment">
+                          <h1 className="comentarioComment c-description title is-6">
                             {comentario.comment}
                           </h1>
                         </div>
@@ -542,7 +607,7 @@ export default function CardDetail() {
                   </div>
                 ) : (
                   <div>
-                    <span>No existen comentarios para esta publicación</span>
+                    <span className="c-description title is-6">No existen comentarios para esta publicación</span>
                   </div>
                 )}
               </div>
