@@ -53,10 +53,30 @@ export const Profile_edit = () => {
       setStore(storedAuth);
       if (storedAuth.role === "Client") {
         const users = await getUserById(idClient);
+        const abt = users?.data?.Aboutmes;
+        const newValue = {
+          fullName: users?.data?.fullName,
+          phone: users?.data?.phone,
+          description: abt[0]?.description,
+          age: abt[0]?.age,
+          from: abt[0]?.from,
+        };
+        setForm(newValue);
+
         setUsers(users.data);
         setIdUser(idClient);
       } else if (storedAuth.role === "Tenant" || storedAuth.role === "Admin") {
         const users = await getTenantById(idTenant);
+        const abt = users?.data?.Aboutmes;
+        const newValue = {
+          fullName: users?.data?.fullName,
+          phone: users?.data?.phone,
+          description: abt[0]?.description,
+          age: abt[0]?.age,
+          from: abt[0]?.from,
+        };
+        setForm(newValue);
+
         setUsers(users.data);
         setIdUser(idTenant);
       }

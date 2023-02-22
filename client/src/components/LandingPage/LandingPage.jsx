@@ -4,7 +4,6 @@ import Card from "../Card/Card";
 import "./LandingPage.css";
 import "./PricingTable.css";
 import "./Reviews.css";
-import Footer from "../../components/Footer/Footer";
 import logoLookingPlace from "../../assets/logo-icon.png";
 import video from "../../assets/landingpage.mp4";
 import { getPropertiesAsync } from "../../redux/features/getPropertySlice";
@@ -302,7 +301,6 @@ export default function LandingPage() {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 }

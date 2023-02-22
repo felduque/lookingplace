@@ -75,7 +75,7 @@ const goToSlide = (slideIndex) => {
                   key={slideIndex} 
                   style={dotStyles} 
                   onClick={() => goToSlide(slideIndex)}>
-                    ○
+                    { currentIndex === slideIndex ? '⬤' : '○' }
                 </div>
             ))}
           </div>

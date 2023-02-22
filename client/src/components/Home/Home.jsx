@@ -38,6 +38,7 @@ function Home() {
 
   const statePropertys = useSelector((state) => state.properties.allPropertys);
 
+  console.log("Soy propiedades", statePropertys);
   const totalProperty = statePropertys.result?.length;
 
   console.log(loading);
@@ -66,6 +67,7 @@ function Home() {
                     country={property.country}
                     state={property.state}
                     region={property.region}
+                    comments={property.Comments}
                   ></Card>
                 </div>
               );

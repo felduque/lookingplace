@@ -22,18 +22,18 @@ export const AllPublish = () => {
   const handleDelete = (id) => {
     Swal.fire({
       title: "¿Estás seguro?",
-      text: "No podrás revertir esto!",
+      text: "No podrás revertir esto",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Sí, bórralo!",
+      confirmButtonText: "Sí, eliminar",
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
         deleteProperty(id);
         setAllPropiertie(allPropiertie.filter((item) => item.id !== id));
-        Swal.fire("Borrado!", "Tu archivo ha sido borrado.", "success");
+        Swal.fire("Borrado!", "Tu selección ha sido borrada.", "success");
       }
     });
   };
@@ -77,22 +77,30 @@ export const AllPublish = () => {
                   key={item.id}
                   className="container-list-publish-tenant__list__item"
                 >
-                  <div className="container-list-publish-tenant__list__item__delete">
-                    <button
-                      onClick={() => handleDelete(item.id)}
-                      className="delete-button"
-                    >
-                      ❌
-                    </button>
-                  </div>
+                  <div className="columns">
+                    <div className="column">
+                      <div className="container-list-publish-tenant__list__item__delete">
+                        <button
+                          onClick={() => handleDelete(item.id)}
+                          className="delete-button"
+                        >
+                          ❌
+                        </button>
+                      </div>
+                    </div>
 
-                  <AiOutlineComment
-                    onClick={() => {
-                      setId(item.id);
-                      handleChangeModal();
-                    }}
-                    className="btn-edit-publish"
-                  />
+                    <div className="column">
+                      <div class="comments-button-allpublish">
+                        <button
+                          onClick={() => {
+                            setId(item.id);
+                            handleChangeModal();
+                          }}
+                          className="btn-edit-publish"
+                        >💬</button>
+                      </div>
+                    </div>
+                  </div>
 
                   <Link to={`/propertyDetail/${item.id}`}>
                     <div className="container-list-publish-tenant__list__item__image">

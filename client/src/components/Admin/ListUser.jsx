@@ -113,14 +113,14 @@ export const ListUser = () => {
           value="listTenant"
           onClick={changeViewList}
         >
-          Ver Arrendatarios
+          Ver arrendatarios
         </button>
         <button
           className="button is-danger space-button-list-users"
           value="deleteClients"
           onClick={handleDeleteClient}
         >
-          Borrar Clientes
+          Borrar clientes
         </button>
         <div className="listUser">
           <div className="listuserall">
@@ -151,22 +151,22 @@ export const ListUser = () => {
     return (
       <>
         <div className="container-title-section-panel">
-          <h2 className="title-profile-container">LISTADO DE ARRENDATARIOS</h2>
+          <h2 className="title is-4">Listado de arrendatarios</h2>
         </div>
         <button
-          className="button is-link"
+          className="button is-link space-button-list-users"
           value="listUser"
           // se setea el Clientids a vacio para que no se queden los ids de los clientes seleccionados
           onClick={changeViewList}
         >
-          Ver Clientes
+          Ver clientes
         </button>
         <button
-          className="button is-danger"
+          className="button is-danger space-button-list-users"
           value="deleteClients"
           onClick={handleDeleteTenant}
         >
-          Borrar Arrendatarios
+          Borrar arrendatarios
         </button>
         <div className="listUser">
           <div className="listuserall">
@@ -174,7 +174,7 @@ export const ListUser = () => {
               style={{
                 height: 400,
                 width: "100%",
-                color: "white",
+                color: "gray",
                 fontWeight: "bold",
               }}
               rows={tenant}

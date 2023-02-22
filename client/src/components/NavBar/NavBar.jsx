@@ -126,10 +126,11 @@ export default function Navbar() {
                       </a>
 
                       <div className="navbar-dropdown is-right">
-                        <span className="navbar-item">
-                          {usersLocal?.fullName || user?.displayName}
+                        <span className="name-user-navbar">
+                        <a className="navbar-item name-user-navbar">
+                          <strong>{usersLocal?.fullName || user?.displayName}</strong>
+                        </a>
                         </span>
-                        <hr />
                         <Link to="/createProperty" className="navbar-item">
                           Publicar propiedad
                         </Link>
@@ -158,7 +159,7 @@ export default function Navbar() {
                           <figure class="image">
                             <img
                               src={user.providerData[0]?.photoURL}
-                              className="is-rounnded"
+                              className="is-rounded"
                               width="60"
                               height="60"
                             />
@@ -169,10 +170,11 @@ export default function Navbar() {
                       </a>
 
                       <div className="navbar-dropdown is-right">
-                        <span className="navbar-item">
-                          {usersLocal?.fullName || user?.displayName}
+                        <span className="name-user-navbar">
+                           <a className="navbar-item name-user-navbar">
+                            <strong>{usersLocal?.fullName || user?.displayName}</strong>
+                          </a>
                         </span>
-                        <hr />
                         <Link to="/settings" className="navbar-item">
                           Mi Cuenta/Perfil
                         </Link>

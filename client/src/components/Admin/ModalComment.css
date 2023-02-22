@@ -14,8 +14,7 @@
 }
 
 .modal-container-desing-comments{
-  background: linear-gradient(145deg, #d1cee2, #bdbcc5);
-  box-shadow:  35px 35px 70px #575665;
+  background-color: white;
   display: flex;
   border-radius: 5%;
   flex-direction: column;
@@ -24,7 +23,7 @@
   gap: 1rem;
   margin: 15% auto;
   padding: 20px;
-  border: 1px solid rgb(0, 247, 255);
+  border: 1px solid rgb(54, 57, 57);
   width: 35%;
 }
 
@@ -41,9 +40,8 @@
 }
 
 .container-comment{
-  background-color: #161331;
+  background-color: #f8f8f8;
   border-radius: 5%;
-  box-shadow:  35px 35px 70px #161331;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -51,7 +49,7 @@
   gap: 10px;
   margin: 5px;
   padding: 10px;
-  border: 1px solid rgb(0, 247, 255);
+  border: 1px solid rgb(28, 115, 190);
 }
 
 .content-comment-user {
@@ -64,7 +62,7 @@
 }
 
 .content-comment-user-name{
-  color: aqua;
+  color: rgb(100, 96, 96);
   font-size: 1.2rem;
   font-weight: bold;
 }
@@ -76,7 +74,7 @@
 }
 
 .content-comment-user-comment {
-  color: white;
+  color: rgb(122, 120, 120);
   font-size: 1rem;
   font-weight: bold;
 }

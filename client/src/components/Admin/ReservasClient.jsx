@@ -52,8 +52,12 @@ export const ReservacionesCliente = () => {
 
   return (
     <>
+    <div className="container-title-section-panel">
+      <div className="title is-4">Tus alojamientos reservados</div>
+    </div>
+    
       <div className="container-list-publish-tenant">
-        <h2>Tus Alojamientos Reservados</h2>
+        {allBookings.length > 0 ? (
         <div
           style={{
             display: "flex",
@@ -163,6 +167,7 @@ export const ReservacionesCliente = () => {
             );
           })}
         </div>
+        ) : <div className="title is-6">No hay reservaciones aún</div>}
       </div>
     </>
   );

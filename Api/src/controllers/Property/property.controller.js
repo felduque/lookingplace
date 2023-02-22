@@ -156,7 +156,7 @@ export const getProperty = async (req, res) => {
         {
           model: Comment,
           as: "Comments",
-          attributes: ["id", "comment", "fecha"],
+          attributes: ["id", "comment", "fecha", "calificacion"],
         },
         {
           model: Client,

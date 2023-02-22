@@ -10,7 +10,7 @@
   position:fixed;
   top: 80px;
   width: 189px;
-  height: auto;
+  min-height: 550px;
   /*Barra lateral color*/
   background-color: #f8f6f6;
   border-right-width: 3px;
@@ -79,6 +79,14 @@
 
 .side-item:hover {
   color: rgb(255, 255, 255);
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 400;
+  height: auto;
+}
+
+.side-item-github:hover {
+  color: rgb(41, 101, 205);
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: 400;
