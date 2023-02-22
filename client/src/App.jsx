@@ -96,9 +96,9 @@ function App() {
             path="/settings"
             element={
               isLoggedTenant == "true" ||
-              isLoggedClient == "true" ||
-              isLoggedAdmin == "true" ||
-              user ? (
+                isLoggedClient == "true" ||
+                isLoggedAdmin == "true" ||
+                user ? (
                 <Admin />
               ) : (
                 <Navigate to="/home" />

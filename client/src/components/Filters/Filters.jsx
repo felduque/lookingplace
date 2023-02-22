@@ -349,32 +349,39 @@ export default function Filters({ closeModal, title }) {
                   </div>
                   <div>
                     <button
-                      className={`capacity-button button is-active mr-2 ${type === "Casa" ? "capacity-button-active" : ""
+                      className={`capacity-button button is-active mr-2 ${type === "casa" ? "capacity-button-active" : ""
                         }`}
-                      onClick={() => handleTypeButtonClick("Casa")}
+                      onClick={() => handleTypeButtonClick("casa")}
                     >
                       Casa
                     </button>
                     <button
-                      className={`capacity-button button is-active mr-2 ${type === "Cabaña" ? "capacity-button-active" : ""
+                      className={`capacity-button button is-active mr-2 ${type === "cabaña" ? "capacity-button-active" : ""
                         }`}
-                      onClick={() => handleTypeButtonClick("Cabaña")}
+                      onClick={() => handleTypeButtonClick("cabaña")}
                     >
                       Cabaña
                     </button>
                     <button
-                      className={`capacity-button button is-active mr-2 ${type === "Apartamento" ? "capacity-button-active" : ""
+                      className={`capacity-button button is-active mr-2 ${type === "apartamento" ? "capacity-button-active" : ""
                         }`}
-                      onClick={() => handleTypeButtonClick("Apartamento")}
+                      onClick={() => handleTypeButtonClick("apartamento")}
                     >
                       Apartamento
                     </button>
                     <button
-                      className={`capacity-button button is-active mr-2 ${type === "Habitacion" ? "capacity-button-active" : ""
+                      className={`capacity-button button is-active mr-2 ${type === "habitacion" ? "capacity-button-active" : ""
                         }`}
-                      onClick={() => handleTypeButtonClick("Habitacion")}
+                      onClick={() => handleTypeButtonClick("habitacion")}
                     >
                       Habitación
+                    </button>
+                    <button
+                      className={`capacity-button button is-active mr-2 ${type === "camping" ? "capacity-button-active" : ""
+                        }`}
+                      onClick={() => handleTypeButtonClick("camping")}
+                    >
+                      Camping
                     </button>
                   </div>
                 </div>

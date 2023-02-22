@@ -43,12 +43,13 @@ const options = [
   { value: "Parilla", label: "Parilla" },
   { value: "Cuna", label: "Cuna" },
 ];
-const predefinedTitleNames = ["Casa", "Apartamento", "Habitación", "Cabaña"];
+const predefinedTitleNames = ["Apartamento", "Cabaña", "Casa", "Camping", "Habitación", "Habitación comunitaria"];
 const predefinedPropertyTypes = [
   "Apartamento",
+  "Cabaña",
   "Casa",
-  "Habitación privada",
-  "Habitación compartida",
+  "Habitación",
+  "Camping"
 ];
 
 export default function FormHostCreate() {
@@ -309,8 +310,29 @@ export default function FormHostCreate() {
       <div className="container-general">
         <div className="container-property">
           <div className="container-form-property">
-            <div className="title is-2">Crea un Place para los viajeros</div>
+            <div className="title is-2">Crea un lugar para los Viajeros</div>
             <form onSubmit={handleSubmit} encType="multiple" className="box">
+              <div className="field">
+                <label className="label">Tipo de propiedad</label>
+                <div className="buttons">
+                  {predefinedPropertyTypes.map((typeName) => (
+                    <button
+                      key={typeName}
+                      className={`button ${inputs.type === typeName ? "is-info" : ""
+                        }`}
+                      type="button"
+                      onClick={() => handlePropertyTypeButtonClick(typeName)}
+                    >
+                      {typeName}
+                    </button>
+                  ))}
+                  {errors.type ? (
+                    <p>
+                      <span className="error">{errors.type}</span>
+                    </p>
+                  ) : null}
+                </div>
+              </div>
               <div className="field">
                 <label className="label" htmlFor="title">
                   Título del Alojamiento
@@ -319,37 +341,21 @@ export default function FormHostCreate() {
                   {predefinedTitleNames.map((name) => (
                     <button
                       key={name}
-                      className={`button ${
-                        inputs.title === name ? "is-info" : ""
-                      }`}
+                      className={`button ${inputs.title === name ? "is-info" : ""
+                        }`}
                       type="button"
                       onClick={() => handleButtonClick(name)}
                     >
                       {name}
                     </button>
+
                   ))}
-                </div>
-              </div>
-              <div className="field">
-                <label className="label">Tipo de propiedad</label>
-                <div className="buttons">
-                  {predefinedPropertyTypes.map((typeName) => (
-                    <button
-                      key={typeName}
-                      className={`button ${
-                        inputs.type === typeName ? "is-info" : ""
-                      }`}
-                      type="button"
-                      onClick={() => handlePropertyTypeButtonClick(typeName)}
-                    >
-                      {typeName}
-                    </button>
-                  ))}
+
                 </div>
               </div>
               <div className="field">
                 <input
-                  className="input"
+                  className="input pr-1"
                   id="title"
                   type="text"
                   name="title"
@@ -365,7 +371,7 @@ export default function FormHostCreate() {
                   Descripción del alojamiento
                 </label>
                 <textarea
-                  className="textarea"
+                  className="textarea pr-1"
                   id="description"
                   name="description"
                   value={inputs.description}
@@ -381,7 +387,7 @@ export default function FormHostCreate() {
                     Capacidad de personas:{" "}
                   </label>
                   <input
-                    className="input"
+                    className="input pr-1"
                     id="capacity"
                     type="number"
                     name="capacity"
@@ -391,7 +397,9 @@ export default function FormHostCreate() {
                     onChange={handleChange}
                   />
                   {errors.capacity ? (
-                    <span className="error">{errors.capacity}</span>
+                    <p>
+                      <span className="error">{errors.capacity}</span>
+                    </p>
                   ) : null}
                 </div>
                 <div className="field">
@@ -399,7 +407,7 @@ export default function FormHostCreate() {
                     Número de camas
                   </label>
                   <input
-                    className="input"
+                    className="input pr-1"
                     id="beds"
                     type="number"
                     name="beds"
@@ -409,7 +417,9 @@ export default function FormHostCreate() {
                     onChange={handleChange}
                   />
                   {errors.beds ? (
-                    <span className="error">{errors.beds}</span>
+                    <p>
+                      <span className="error">{errors.beds}</span>
+                    </p>
                   ) : null}
                 </div>
                 <div className="field">
@@ -417,7 +427,7 @@ export default function FormHostCreate() {
                     Número de baños
                   </label>
                   <input
-                    className="input"
+                    className="input pr-1"
                     id="baths"
                     type="number"
                     name="baths"
@@ -560,7 +570,7 @@ export default function FormHostCreate() {
                 </div>
               </div>
               <div className="areas-spaces-top">
-                <div className="field">
+                <div className="field ">
                   <label className="label" htmlFor="">
                     Ubicación
                   </label>
@@ -584,7 +594,7 @@ export default function FormHostCreate() {
                       <input
                         {...getInputProps({
                           placeholder: "Busca tu dirección ...",
-                          className: "input",
+                          className: "input pr-1",
                         })}
                       />
                       <div className="autocomplete-dropdown-container">
@@ -619,12 +629,12 @@ export default function FormHostCreate() {
                 ) : null}
               </div>
               <div className="areas-spaces-top">
-                <div className="field">
+                <div className="field" >
                   <p>
-                    <label className="label">Imágenes del lugar</label>
+                    <label className="label pb-2">Imágenes del lugar</label>
                   </p>
                   <button
-                    className="button is-info"
+                    className="button is-info mb-5"
                     disabled={inputs.image.length === 5 ? true : false}
                     type="button"
                   >
@@ -650,15 +660,17 @@ export default function FormHostCreate() {
                     ""
                   )}
                   {urlImages.map((img, i) => (
-                    <div key={i}>
-                      <img
-                        key={i}
-                        src={img}
-                        className="is-multiline loaded-images"
-                      ></img>
-                      <button id={i} type="button" onClick={handleClickImg}>
-                        X
-                      </button>
+                    <div className="container-images ">
+                      <div key={i}>
+                        <img
+                          key={i}
+                          src={img}
+                          className="loaded-images" style={{ width: "250px", height: "200px" }}
+                        ></img>
+                        <button id={i} type="button" onClick={handleClickImg}>
+                          X
+                        </button>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -669,7 +681,7 @@ export default function FormHostCreate() {
                     Precio por Noche
                   </label>
                   <CurrencyInput
-                    className="input"
+                    className="input pr-1"
                     id="price"
                     name="price"
                     placeholder="Please enter a number"
@@ -691,20 +703,26 @@ export default function FormHostCreate() {
                   ) : null}
                 </div>
               </div>
-              <button
-                className="button is-link is-rounded center-button-publish"
-                type="submit"
-                disabled={errorsLength !== 0 && validateImages ? true : false}
-              >
-                Publicar Alojamiento
-              </button>
+              <div className="container">
+                <div className="text-center">
+                  <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', paddingTop: "50px" }}>
+                    <button
+                      className="button is-warning is-rounded ml-3 mr-6"
+                      onClick={cancelPublish}
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      className="button is-link is-rounded ml-6 mr-4"
+                      type="submit"
+                      disabled={errorsLength !== 0 && validateImages ? true : false}
+                    >
+                      Publicar Alojamiento
+                    </button>
+                  </div>
+                </div>
+              </div>
             </form>
-            <button
-              className="button  is-warning is-rounded center-button-cancel"
-              onClick={cancelPublish}
-            >
-              Cancelar
-            </button>
           </div>
         </div>
       </div>
