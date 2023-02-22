@@ -75,18 +75,14 @@ export const createClient = async (req, res) => {
 
   const { fullName, email, password, verify, phone, role } = req.body;
 
-  const searchEmailTenant = await Tenant.findOne({ where: { email } });
-  if (searchEmailTenant) {
-    return res.status(400).json({ message: "email exist" });
-  }
   // ! Encrypt password
   const salt = await bcrypt.genSalt(10);
   const passwordCrypt = await bcrypt.hash(password, salt);
   try {
-    const searchPhone = await Client.findOne({ where: { phone } });
+    //const searchPhone = await Client.findOne({ where: { phone } });
     const searchEmail = await Client.findOne({ where: { email } });
     if (searchEmail) return res.status(400).json({ message: "Email exists" });
-    if (searchPhone) return res.status(400).json({ message: "Phone exists" });
+    //if (searchPhone) return res.status(400).json({ message: "Phone exists" });
 
     let newClient = await Client.create(
       {
