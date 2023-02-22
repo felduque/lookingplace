@@ -119,3 +119,7 @@ video {
 .button-bottom {
     margin-top: 120px;
 }
+
+.container-pro{
+    border: solid 2px #D4AC0D;
+}

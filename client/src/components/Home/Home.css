@@ -33,3 +33,13 @@ DESDE ACÁ SE EDITA PARA RECORRER EL CONTENIDO CENTRAL DE HOME CENTRAL*/
 display: flex;
 justify-content: space-around
 }
+
+.container-pro2{
+  margin-top: 30px;
+}
+.icon-pro{
+  display: flex;
+  justify-content: center;
+  margin-top: 75px;
+  margin-bottom: 30px;
+}

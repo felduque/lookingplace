@@ -51,6 +51,9 @@ export default function LandingPage() {
     setCurrentPage(n);
   };
 
+  let arrayFiltrados = statePropertys.result?.filter((e) => e.pro === true);
+  console.log("Soy array Filtrados", arrayFiltrados);
+
   //---------------------------------------------------------------
 
   //-----------------------------Loader----------------------------
@@ -101,7 +104,7 @@ export default function LandingPage() {
             <div className="carrusel-left">
               <button
                 disabled={currentPage === 1 ? true : false}
-                className={`pagination-previous button is-info is-outlined ${
+                className={`pagination-previous button is-warning is-outlined ${
                   currentPage === 1 ? "is-disabled" : ""
                 }`}
                 onClick={onPreviusPage}
@@ -110,8 +113,8 @@ export default function LandingPage() {
               </button>
             </div>
 
-            <div className="columns is-multiline box">
-              {statePropertys.result
+            <div className="container-pro columns is-multiline box">
+              {arrayFiltrados
                 ?.map((property, i) => {
                   return (
                     <div key={i}>
@@ -138,7 +141,7 @@ export default function LandingPage() {
             <div className="carrusel-right">
               <button
                 disabled={currentPage >= pageNumber.length ? true : false}
-                className={`pagination-next button is-info is-outlined space-right-next ${
+                className={`pagination-next button is-warning is-outlined space-right-next ${
                   currentPage >= pageNumber.length ? "is-disabled" : ""
                 }`}
                 onClick={onNextPage}
