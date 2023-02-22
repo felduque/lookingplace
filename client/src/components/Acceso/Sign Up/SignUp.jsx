@@ -258,13 +258,13 @@ export default function SignUp() {
                 />
               </p>
               <p>
-                <div className="type-acoount-cont">
-                  <div className="type-account">
+                <div className="type-acoount-cont columns is-variable is-1 pt-3">
+                  <div className="column type-account">
                     <div
                       className={
                         typeAccount === "Tenant"
-                          ? "button is-info has-tooltip-multiline"
-                          : "button is-info is-outlined has-tooltip-multiline"
+                          ? "button is-info has-tooltip-multiline is-rounded"
+                          : "button is-info is-outlined has-tooltip-multiline is-rounded"
                       }
                       data-tooltip="Hospedador: Te permite publicar hsopedaje que rentes. Si eres viajero debes crear otra cuenta como Hospedero"
                       onClick={userType2}
@@ -272,16 +272,18 @@ export default function SignUp() {
                       Ofrezco hospedaje
                     </div>
                   </div>
-                  <div
-                    className={
-                      typeAccount === "Client"
-                        ? "button is-info"
-                        : "button is-info is-outlined has-tooltip-right"
-                    }
-                    data-tooltip="Hospedero: Permite buscar hospedaje a donde vayas. Para publicar hospedajes que rentas debes crear otra cuenta como hospedador"
-                    onClick={userType1}
-                  >
-                    Busco hospedaje
+                  <div className="column type-account">
+                    <div
+                      className={
+                        typeAccount === "Client"
+                          ? "button is-info is-rounded"
+                          : "button is-info is-outlined has-tooltip-right is-rounded"
+                      }
+                      data-tooltip="Hospedero: Permite buscar hospedaje a donde vayas. Para publicar hospedajes que rentas debes crear otra cuenta como hospedador"
+                      onClick={userType1}
+                    >
+                      Busco hospedaje
+                    </div>
                   </div>
                 </div>
               </p>

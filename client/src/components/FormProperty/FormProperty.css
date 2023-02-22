@@ -59,14 +59,6 @@ input[type="time"] {
     display: none;
     font-size: 10px;
   }
-.center-button-publish  {
-  margin-left: 30%;
-  margin-top: 30px;
-}
-.center-button-cancel {
-  margin-left: 40%;
-  margin-top: 5px
-}
   
   .checkmark::before {
     content: "No\02717";
@@ -87,6 +79,7 @@ input[type="time"] {
     padding: 2px;
     border-radius: 4px;
     font-size: 15px;
+
   }
   .clocks-inputs {
     display:inline-block;
@@ -98,7 +91,7 @@ input[type="time"] {
     margin-bottom: 25px;
   }
   .clock-margin-right {
-    margin-right: 90px;
+    margin-right: 50px;
   }
   .error {
     color: rgb(214, 30, 30);
@@ -107,4 +100,8 @@ input[type="time"] {
   .react-switch {
     vertical-align: middle;
     margin-left: 4px;
+  }
+
+  .container-images{
+  display: block;
   }

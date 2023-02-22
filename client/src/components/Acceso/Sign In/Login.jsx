@@ -77,7 +77,6 @@ export default function Login({ closeModal }) {
             const fullName = data?.fullName;
 
             if (data.status == "ok") {
-              alert("login successful");
               setAuth({ email, password, role, avatar, fullName });
               localStorage.setItem(
                 "auth",
@@ -132,7 +131,6 @@ export default function Login({ closeModal }) {
             const fullName = data?.fullName;
 
             if (data.status == "ok") {
-              alert("login successful");
               setAuth({ email, password, role, avatar, fullName });
               localStorage.setItem(
                 "auth",
@@ -186,7 +184,6 @@ export default function Login({ closeModal }) {
             const fullName = data?.fullName;
 
             if (data.status == "ok") {
-              alert("login successful");
               setAuth({ email, password, role, avatar, fullName });
               localStorage.setItem(
                 "auth",

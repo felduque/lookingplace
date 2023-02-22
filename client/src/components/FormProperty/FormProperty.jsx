@@ -43,8 +43,14 @@ const options = [
   { value: "Parilla", label: "Parilla" },
   { value: "Cuna", label: "Cuna" },
 ];
-const predefinedTitleNames = ["Casa", "Apartamento", "Habitación", "Cabaña"];
-const predefinedPropertyTypes = ["Apartamento", "Casa", "Habitación privada", "Habitación compartida"];
+const predefinedTitleNames = ["Apartamento", "Cabaña", "Casa", "Camping", "Habitación", "Habitación comunitaria"];
+const predefinedPropertyTypes = [
+  "Apartamento",
+  "Cabaña",
+  "Casa",
+  "Habitación",
+  "Camping"
+];
 
 export default function FormHostCreate() {
   const auth = JSON.parse(localStorage.getItem("auth"));
@@ -118,6 +124,7 @@ export default function FormHostCreate() {
     city: "",
     id_tenant: auth.idTenant,
     type: "",
+    pro: false,
   });
   // estados relacionados con inputs.images para mostrar lo subido
   const [urlImages, setUrlImages] = useState([]);
@@ -128,20 +135,42 @@ export default function FormHostCreate() {
   const [errors, setErrors] = useState({});
   const errorsLength = Object.entries(errors).length;
 
+  useEffect(
+    () => {
+      // seteo el array si no hay images, sino creo el array a mostrar
+      if (inputs.image.length === 0) setUrlImages([]);
+      setValidateImages("Sube una foto del lugar");
+      if (inputs.image.length > 0) {
+        const newArrayUrl = [];
+        inputs.image.forEach((img) =>
+          newArrayUrl.push(URL.createObjectURL(img))
+        );
+        setUrlImages(newArrayUrl);
+        setValidateImages("");
+      }
+      if (inputs.image.length > 5)
+        setValidateImages("Máximo 5 fotos del lugar");
+
+      setErrors(validateForm(inputs));
+    },
+    [inputs],
+    [urlImages]
+  );
+
   useEffect(() => {
-    // seteo el array si no hay images, sino creo el array a mostrar
-    if (inputs.image.length === 0) setUrlImages([]); setValidateImages('Sube una foto del lugar');
-    if (inputs.image.length > 0) {
-      const newArrayUrl = [];
-      inputs.image.forEach((img) => newArrayUrl.push(URL.createObjectURL(img)));
-      setUrlImages(newArrayUrl);
-      setValidateImages('');
-    }
-    if (inputs.image.length > 5) setValidateImages('Máximo 5 fotos del lugar');
-
-    setErrors(validateForm(inputs));
-  }, [inputs], [urlImages]);
-
+    const axiosDataTenant = async () => {
+      const data = await axios(
+        `http://localhost:3000/tenant/gettenant/${auth.idTenant}`
+      );
+      if (data.data.isPro) {
+        setInputs({
+          ...inputs,
+          pro: true,
+        });
+      }
+    };
+    axiosDataTenant();
+  }, []);
 
   const handleChange = (e, actionMeta = false, nextChecked) => {
     // Select no tiene name en el evento, usa ActionMeta
@@ -182,7 +211,6 @@ export default function FormHostCreate() {
       setErrors(validateForm({ ...inputs, [e.target.name]: e.target.value }));
       setChecked(nextChecked);
     }
-
   };
 
   // eliminando image del estado y actualizando el estado; todo esta referenciado al state principal inputs
@@ -198,10 +226,9 @@ export default function FormHostCreate() {
       ...inputs,
       type: typeName,
     }));
-    console.log('typeName:', typeName);
-    console.log('inputs:', inputs);
+    console.log("typeName:", typeName);
+    console.log("inputs:", inputs);
   };
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -269,7 +296,6 @@ export default function FormHostCreate() {
   // console.log(inputs);
   console.log(inputs);
 
-
   const handleButtonClick = (titleName) => {
     setInputs((inputs) => ({
       ...inputs,
@@ -278,32 +304,14 @@ export default function FormHostCreate() {
   };
   const [checked, setChecked] = useState(false);
 
-
   if (!isLoaded) return <div>Cargando...</div>;
   return (
     <div>
       <div className="container-general">
         <div className="container-property">
           <div className="container-form-property">
-            <div className="title is-2">Crea un Place para los viajeros</div>
+            <div className="title is-2">Crea un lugar para los Viajeros</div>
             <form onSubmit={handleSubmit} encType="multiple" className="box">
-              <div className="field">
-                <label className="label" htmlFor="title">
-                  Título del Alojamiento
-                </label>
-                <div className="buttons">
-                  {predefinedTitleNames.map((name) => (
-                    <button
-                      key={name}
-                      className={`button ${inputs.title === name ? "is-info" : ""}`}
-                      type="button"
-                      onClick={() => handleButtonClick(name)}
-                    >
-                      {name}
-                    </button>
-                  ))}
-                </div>
-              </div>
               <div className="field">
                 <label className="label">Tipo de propiedad</label>
                 <div className="buttons">
@@ -318,11 +326,36 @@ export default function FormHostCreate() {
                       {typeName}
                     </button>
                   ))}
+                  {errors.type ? (
+                    <p>
+                      <span className="error">{errors.type}</span>
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+              <div className="field">
+                <label className="label" htmlFor="title">
+                  Título del Alojamiento
+                </label>
+                <div className="buttons">
+                  {predefinedTitleNames.map((name) => (
+                    <button
+                      key={name}
+                      className={`button ${inputs.title === name ? "is-info" : ""
+                        }`}
+                      type="button"
+                      onClick={() => handleButtonClick(name)}
+                    >
+                      {name}
+                    </button>
+
+                  ))}
+
                 </div>
               </div>
               <div className="field">
                 <input
-                  className="input"
+                  className="input pr-1"
                   id="title"
                   type="text"
                   name="title"
@@ -338,7 +371,7 @@ export default function FormHostCreate() {
                   Descripción del alojamiento
                 </label>
                 <textarea
-                  className="textarea"
+                  className="textarea pr-1"
                   id="description"
                   name="description"
                   value={inputs.description}
@@ -354,7 +387,7 @@ export default function FormHostCreate() {
                     Capacidad de personas:{" "}
                   </label>
                   <input
-                    className="input"
+                    className="input pr-1"
                     id="capacity"
                     type="number"
                     name="capacity"
@@ -364,7 +397,9 @@ export default function FormHostCreate() {
                     onChange={handleChange}
                   />
                   {errors.capacity ? (
-                    <span className="error">{errors.capacity}</span>
+                    <p>
+                      <span className="error">{errors.capacity}</span>
+                    </p>
                   ) : null}
                 </div>
                 <div className="field">
@@ -372,7 +407,7 @@ export default function FormHostCreate() {
                     Número de camas
                   </label>
                   <input
-                    className="input"
+                    className="input pr-1"
                     id="beds"
                     type="number"
                     name="beds"
@@ -382,7 +417,9 @@ export default function FormHostCreate() {
                     onChange={handleChange}
                   />
                   {errors.beds ? (
-                    <span className="error">{errors.beds}</span>
+                    <p>
+                      <span className="error">{errors.beds}</span>
+                    </p>
                   ) : null}
                 </div>
                 <div className="field">
@@ -390,7 +427,7 @@ export default function FormHostCreate() {
                     Número de baños
                   </label>
                   <input
-                    className="input"
+                    className="input pr-1"
                     id="baths"
                     type="number"
                     name="baths"
@@ -439,7 +476,7 @@ export default function FormHostCreate() {
                       />
                     </div>
                   </div>
-                  <div className="column">
+                  <div className="column is-8 clock-margin-right">
                     <label className="label" htmlFor="checkOut">
                       Horario de salida
                     </label>
@@ -461,12 +498,17 @@ export default function FormHostCreate() {
               <div className="areas-spaces-top">
                 <div className="field">
                   <label className="label" htmlFor="smoke">
-                    ¿Permitido mascotas?
+                    ¿Permitido fumar?
                     <Switch
                       id="smoke"
                       name="smoke"
                       checked={inputs.smoke}
-                      onChange={value => setInputs(prevInputs => ({ ...prevInputs, smoke: value }))}
+                      onChange={(value) =>
+                        setInputs((prevInputs) => ({
+                          ...prevInputs,
+                          smoke: value,
+                        }))
+                      }
                       onColor="#86d3ff"
                       onHandleColor="#2693e6"
                       handleDiameter={30}
@@ -485,7 +527,12 @@ export default function FormHostCreate() {
                       id="party"
                       name="party"
                       checked={inputs.party}
-                      onChange={value => setInputs(prevInputs => ({ ...prevInputs, party: value }))}
+                      onChange={(value) =>
+                        setInputs((prevInputs) => ({
+                          ...prevInputs,
+                          party: value,
+                        }))
+                      }
                       onColor="#86d3ff"
                       onHandleColor="#2693e6"
                       handleDiameter={30}
@@ -504,7 +551,12 @@ export default function FormHostCreate() {
                       id="pets"
                       name="pets"
                       checked={inputs.pets}
-                      onChange={value => setInputs(prevInputs => ({ ...prevInputs, pets: value }))}
+                      onChange={(value) =>
+                        setInputs((prevInputs) => ({
+                          ...prevInputs,
+                          pets: value,
+                        }))
+                      }
                       onColor="#86d3ff"
                       onHandleColor="#2693e6"
                       handleDiameter={30}
@@ -518,7 +570,7 @@ export default function FormHostCreate() {
                 </div>
               </div>
               <div className="areas-spaces-top">
-                <div className="field">
+                <div className="field ">
                   <label className="label" htmlFor="">
                     Ubicación
                   </label>
@@ -542,7 +594,7 @@ export default function FormHostCreate() {
                       <input
                         {...getInputProps({
                           placeholder: "Busca tu dirección ...",
-                          className: "input",
+                          className: "input pr-1",
                         })}
                       />
                       <div className="autocomplete-dropdown-container">
@@ -577,12 +629,15 @@ export default function FormHostCreate() {
                 ) : null}
               </div>
               <div className="areas-spaces-top">
-                <div className="field">
-                  <p><label className="label">Imágenes del lugar</label></p>
+                <div className="field" >
+                  <p>
+                    <label className="label pb-2">Imágenes del lugar</label>
+                  </p>
                   <button
-                    className='button is-info'
+                    className="button is-info mb-5"
                     disabled={inputs.image.length === 5 ? true : false}
-                    type="button">
+                    type="button"
+                  >
                     <img src={uploadIcon} className="upload-button-place" />
                     <label htmlFor="image">Selecciona las fotos...</label>
                   </button>
@@ -596,21 +651,26 @@ export default function FormHostCreate() {
                     accept="image/*"
                     onChange={handleChange}
                     disabled={inputs.image.length === 5 ? true : false}
-
                   />
                   {validateImages ? (
-                    <p><span className="error">{validateImages}</span></p>
-                  ) : ''}
+                    <p>
+                      <span className="error">{validateImages}</span>
+                    </p>
+                  ) : (
+                    ""
+                  )}
                   {urlImages.map((img, i) => (
-                    <div key={i}>
-                      <img
-                        key={i}
-                        src={img}
-                        className="is-multiline loaded-images"
-                      ></img>
-                      <button id={i} type="button" onClick={handleClickImg}>
-                        X
-                      </button>
+                    <div className="container-images ">
+                      <div key={i}>
+                        <img
+                          key={i}
+                          src={img}
+                          className="loaded-images" style={{ width: "250px", height: "200px" }}
+                        ></img>
+                        <button id={i} type="button" onClick={handleClickImg}>
+                          X
+                        </button>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -621,7 +681,7 @@ export default function FormHostCreate() {
                     Precio por Noche
                   </label>
                   <CurrencyInput
-                    className="input"
+                    className="input pr-1"
                     id="price"
                     name="price"
                     placeholder="Please enter a number"
@@ -643,20 +703,26 @@ export default function FormHostCreate() {
                   ) : null}
                 </div>
               </div>
-              <button
-                className="button is-link is-rounded center-button-publish"
-                type="submit"
-                disabled={errorsLength !== 0 && validateImages ? true : false}
-              >
-                Publicar Alojamiento
-              </button>
+              <div className="container">
+                <div className="text-center">
+                  <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', paddingTop: "50px" }}>
+                    <button
+                      className="button is-warning is-rounded ml-3 mr-6"
+                      onClick={cancelPublish}
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      className="button is-link is-rounded ml-6 mr-4"
+                      type="submit"
+                      disabled={errorsLength !== 0 && validateImages ? true : false}
+                    >
+                      Publicar Alojamiento
+                    </button>
+                  </div>
+                </div>
+              </div>
             </form>
-            <button
-              className="button  is-warning is-rounded center-button-cancel"
-              onClick={cancelPublish}
-            >
-              Cancelar
-            </button>
           </div>
         </div>
       </div>

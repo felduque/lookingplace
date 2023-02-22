@@ -25,19 +25,19 @@ export default function validateForm(inputs) {
   }
 
   if (inputs.capacity < 1) {
-    errors.title = "¡Imposible!";
+    errors.title = "¡Imposible la capacidad no puede ser menos que 1!";
   } else if (inputs.capacity > 20) {
     errors.title = "No puede ser mayor a 20";
   }
 
   if (inputs.beds < 1) {
-    errors.beds = "¡Imposible!";
+    errors.beds = "¡Imposible no puede haber menos de una cama!";
   } else if (inputs.beds > 20) {
     errors.beds = "No puede ser mayor a 20";
   }
 
   if (inputs.baths < 1) {
-    errors.baths = "¡Imposible!";
+    errors.baths = "¡Imposible no puede haber menos de un baño!";
   } else if (inputs.baths > 20) {
     errors.baths = "No puede ser mayor a 20";
   }
@@ -56,5 +56,8 @@ export default function validateForm(inputs) {
     errors.geolocation = "En dónde se encuentra";
   }
 
+  if (inputs.type === "") {
+    errors.type = "Se necesita un tipo de propiedad";
+  }
   return errors;
 }

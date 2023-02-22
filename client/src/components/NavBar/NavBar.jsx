@@ -9,7 +9,7 @@ import useLogout from "../Acceso/Sign In/useLogout";
 import logoIcon from "../../assets/logo-icon.png";
 import userIcon from "../../assets/user-default-icon.png";
 import Login from "../Acceso/Sign In/Login";
-import useAuth from "../Acceso/hooks/useAuth";
+//import useAuth from "../Acceso/hooks/useAuth";
 
 export default function Navbar() {
   //const [auth, setAuth] = useState(null);
@@ -89,13 +89,19 @@ export default function Navbar() {
             </a>
           </div>
 
-          <div id="navbarBasicExample" className="navbar-menu">
-            <div className="navbar-start suscribe-button">
-              <Link to="/suscribe" className="navbar-item">
-                Suscripción
-              </Link>
+          {auth?.role === "Tenant" ? (
+            <div id="navbarBasicExample" className="navbar-menu">
+              <div className="navbar-start suscribe-button">
+                <Link to="/suscribe" className="navbar-item">
+                  Suscripción
+                </Link>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div id="navbarBasicExample" className="navbar-menu">
+              <div className="navbar-start suscribe-button"></div>
+            </div>
+          )}
 
           {location.pathname === "/home" ? <SearchBar /> : null}
 
@@ -155,7 +161,7 @@ export default function Navbar() {
                           <figure class="image">
                             <img
                               src={usersLocal?.avatar}
-                              className="is-rounded"
+                              class="is-rounded is-fullwidth"
                               width="60"
                               height="60"
                             />
@@ -164,7 +170,7 @@ export default function Navbar() {
                           <figure class="image">
                             <img
                               src={user.providerData[0]?.photoURL}
-                              className="is-rounded"
+                              class="is-rounded is-fullwidth"
                               width="60"
                               height="60"
                             />

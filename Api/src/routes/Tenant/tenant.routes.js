@@ -10,7 +10,11 @@ import {
   resetPassword,
   updateAvatar,
   deleteTenant,
+<<<<<<< HEAD
   tenantData,
+=======
+  patchProTenant,
+>>>>>>> d7978435510ac6d240860ca2387424fca8946816
 } from "../../controllers/Tenant/tenant.controller.js";
 import { Router } from "express";
 import multer from "multer";
@@ -35,6 +39,7 @@ router.get("/tenant/gettenant", getTenant);
 router.delete("/tenant/deletetenant/:id", deleteTenant);
 router.get("/tenant/gettenant/:id", getTenantById);
 router.patch("/tenant/updatetenant/:id", updateTenant);
+router.patch("/tenant/updatePro", patchProTenant);
 router.patch(
   "/tenant/updateavatar/:id",
   upload.single("image"),
