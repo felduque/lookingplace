@@ -258,8 +258,8 @@ export default function SignUp() {
                 />
               </p>
               <p>
-                <div className="type-acoount-cont columns is-variable is-1 pt-3">
-                  <div className="column type-account">
+                <div className=" columns pt-3">
+                  <div className="column">
                     <div
                       className={
                         typeAccount === "Tenant"
