@@ -70,8 +70,8 @@ export default function ResetPassword() {
         });
     } else {
       Swal.fire({
-        title: "Reset Fallido",
-        text: "Algo salió mal, Marca tipo de usuario.",
+        title: "Reset fallido",
+        text: "Algo salió mal, marca tipo de usuario.",
         icon: "error",
         confirmButtonText: "Entendido",
         timer: 4000,

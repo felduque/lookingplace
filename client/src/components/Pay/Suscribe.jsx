@@ -33,7 +33,7 @@ export default function Suscribe() {
                 <ul>
                   <li class="pack">Básico</li>
                   <li id="basic" class="price bottom-bar">
-                    Gratis
+                    Gratis <span className="title-small">por siempre</span>
                   </li>
                   <li class="bottom-bar">Busca y publica hospedaje</li>
                   <li class="bottom-bar">Comenta y puntúa tus visitas</li>
@@ -43,7 +43,7 @@ export default function Suscribe() {
           auth ? 
           (
             <div>
-               <a className="button is-primary center-button-pro">
+               <a className="button is-primary center-button-pro ">
                    <strong>Tu plan actual</strong>
                </a>
             </div>
@@ -65,15 +65,15 @@ export default function Suscribe() {
                 <ul>
                   <li class="pack">Profesional</li>
                   <li id="professional" class="price bottom-bar">
-                    $8.99
+                    $8.99 <span className="title-small">por mes</span>
                     <span className="new-price-oro">
                       <del>$13.99</del>
                     </span>
+                   
                   </li>
-                  <li class="bottom-bar">Beneficios del plan básico</li>
+                  <li class="bottom-bar">Busca y publica hospedaje</li>
+                  <li class="bottom-bar">Comenta y puntúa tus visitas</li>
                   <li class="bottom-bar">Mejor posicionamiento</li>
-                  <li class="bottom-bar">Propiedades sin límite</li>
-                  <li class="bottom-bar">Panel de control avanzado</li>
                   <li>
                   {
             // Poner ! en auth para testear paneles sin iniciar sesión

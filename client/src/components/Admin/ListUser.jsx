@@ -66,7 +66,7 @@ export const ListUser = () => {
           setTenant(tenant.filter((user) => user.id !== id));
         });
         Swal.fire(
-          "Eliminados!",
+          "Eliminados",
           "Los clientes han sido eliminados.",
           "success"
         );
@@ -79,13 +79,13 @@ export const ListUser = () => {
     if (clientIds.length === 0)
       return Swal.fire("Error", "No hay clientes seleccionados", "error");
     Swal.fire({
-      title: "¿Estas seguro de eliminar estos clientes?",
-      text: `Se eleminaran los siguentes clients: ${clientIds}`,
+      title: "¿Estás seguro de eliminar estos clientes?",
+      text: `Se eleminarán los siguentes clientes con ID: ${clientIds}`,
       icon: "question",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Si, eliminar",
+      confirmButtonText: "Sí, eliminar",
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
@@ -94,7 +94,7 @@ export const ListUser = () => {
           setUsers(users.filter((user) => user.id !== id));
         });
         Swal.fire(
-          "Eliminados!",
+          "Eliminados",
           "Los clientes han sido eliminados.",
           "success"
         );
