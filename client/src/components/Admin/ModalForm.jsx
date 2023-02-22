@@ -34,6 +34,7 @@ export const ModalForm = (props) => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Si, editar",
+      reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
         updatePropery(id, data);

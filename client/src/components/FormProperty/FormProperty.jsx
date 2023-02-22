@@ -19,7 +19,7 @@ import {
   getLatLng,
 } from "react-places-autocomplete";
 import Swal from "sweetalert2";
-
+import Switch from "react-switch";
 import validateForm from "./validate.js";
 
 // Fin Google Maps
@@ -44,6 +44,7 @@ const options = [
   { value: "Cuna", label: "Cuna" },
 ];
 const predefinedTitleNames = ["Casa", "Apartamento", "Habitación", "Cabaña"];
+const predefinedPropertyTypes = ["Apartamento", "Casa", "Habitación privada", "Habitación compartida"];
 
 export default function FormHostCreate() {
   const auth = JSON.parse(localStorage.getItem("auth"));
@@ -116,6 +117,7 @@ export default function FormHostCreate() {
     region: "",
     city: "",
     id_tenant: auth.idTenant,
+    type: "",
   });
   // estados relacionados con inputs.images para mostrar lo subido
   const [urlImages, setUrlImages] = useState([]);
@@ -141,7 +143,7 @@ export default function FormHostCreate() {
   }, [inputs], [urlImages]);
 
 
-  const handleChange = (e, actionMeta = false) => {
+  const handleChange = (e, actionMeta = false, nextChecked) => {
     // Select no tiene name en el evento, usa ActionMeta
     if (actionMeta) {
       if (actionMeta.name === "services") {
@@ -178,7 +180,9 @@ export default function FormHostCreate() {
         [e.target.name]: e.target.value,
       });
       setErrors(validateForm({ ...inputs, [e.target.name]: e.target.value }));
+      setChecked(nextChecked);
     }
+
   };
 
   // eliminando image del estado y actualizando el estado; todo esta referenciado al state principal inputs
@@ -189,9 +193,20 @@ export default function FormHostCreate() {
     setInputs({ ...inputs, image: arrayImg });
   };
 
+  const handlePropertyTypeButtonClick = (typeName) => {
+    setInputs((inputs) => ({
+      ...inputs,
+      type: typeName,
+    }));
+    console.log('typeName:', typeName);
+    console.log('inputs:', inputs);
+  };
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
+      !inputs.type ||
       !inputs.title ||
       !inputs.checkIn ||
       !inputs.checkOut ||
@@ -261,6 +276,8 @@ export default function FormHostCreate() {
       title: titleName,
     }));
   };
+  const [checked, setChecked] = useState(false);
+
 
   if (!isLoaded) return <div>Cargando...</div>;
   return (
@@ -283,6 +300,22 @@ export default function FormHostCreate() {
                       onClick={() => handleButtonClick(name)}
                     >
                       {name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="field">
+                <label className="label">Tipo de propiedad</label>
+                <div className="buttons">
+                  {predefinedPropertyTypes.map((typeName) => (
+                    <button
+                      key={typeName}
+                      className={`button ${inputs.type === typeName ? "is-info" : ""
+                        }`}
+                      type="button"
+                      onClick={() => handlePropertyTypeButtonClick(typeName)}
+                    >
+                      {typeName}
                     </button>
                   ))}
                 </div>
@@ -428,47 +461,59 @@ export default function FormHostCreate() {
               <div className="areas-spaces-top">
                 <div className="field">
                   <label className="label" htmlFor="smoke">
-                    ¿Permitido fumar?&nbsp;
-                    <label class="custom-checkbox">
-                      <input
-                        id="smoke"
-                        type="checkbox"
-                        name="smoke"
-                        value={inputs.smoke}
-                        onChange={handleChange}
-                      />
-                      <span className="checkmark"></span>
-                    </label>
+                    ¿Permitido mascotas?
+                    <Switch
+                      id="smoke"
+                      name="smoke"
+                      checked={inputs.smoke}
+                      onChange={value => setInputs(prevInputs => ({ ...prevInputs, smoke: value }))}
+                      onColor="#86d3ff"
+                      onHandleColor="#2693e6"
+                      handleDiameter={30}
+                      boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                      activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                      height={20}
+                      width={48}
+                      className="react-switch"
+                    />
                   </label>
                 </div>
                 <div className="field">
-                  <label className="label" htmlFor="">
-                    ¿Permitido fiestas?&nbsp;
-                    <label class="custom-checkbox">
-                      <input
-                        id="party"
-                        type="checkbox"
-                        name="party"
-                        value={inputs.party}
-                        onChange={handleChange}
-                      />
-                      <span className="checkmark"></span>
-                    </label>
+                  <label className="label" htmlFor="party">
+                    ¿Permitido fiestas?
+                    <Switch
+                      id="party"
+                      name="party"
+                      checked={inputs.party}
+                      onChange={value => setInputs(prevInputs => ({ ...prevInputs, party: value }))}
+                      onColor="#86d3ff"
+                      onHandleColor="#2693e6"
+                      handleDiameter={30}
+                      boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                      activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                      height={20}
+                      width={48}
+                      className="react-switch"
+                    />
                   </label>
                 </div>
                 <div className="field">
                   <label className="label" htmlFor="pets">
-                    ¿Permitido mascostas?&nbsp;
-                    <label class="custom-checkbox">
-                      <input
-                        id="pets"
-                        type="checkbox"
-                        name="pets"
-                        value={inputs.pets}
-                        onChange={handleChange}
-                      />
-                      <span className="checkmark"></span>
-                    </label>
+                    ¿Permitido mascotas?
+                    <Switch
+                      id="pets"
+                      name="pets"
+                      checked={inputs.pets}
+                      onChange={value => setInputs(prevInputs => ({ ...prevInputs, pets: value }))}
+                      onColor="#86d3ff"
+                      onHandleColor="#2693e6"
+                      handleDiameter={30}
+                      boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                      activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                      height={20}
+                      width={48}
+                      className="react-switch"
+                    />
                   </label>
                 </div>
               </div>

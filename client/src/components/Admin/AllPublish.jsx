@@ -28,6 +28,7 @@ export const AllPublish = () => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Sí, bórralo!",
+      reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
         deleteProperty(id);
@@ -47,9 +48,9 @@ export const AllPublish = () => {
 
   return (
     <>
-    <div className="title is-4 space-all-post-title">Todas las publicaciones</div>
+      <div className="title is-4 space-all-post-title">Todas las publicaciones</div>
       <div className="container-list-publish-tenant">
-        
+
         <div className="container-list-publish-tenant__search">
           <input
             type="text"
@@ -77,14 +78,14 @@ export const AllPublish = () => {
                   className="container-list-publish-tenant__list__item"
                 >
                   <div className="container-list-publish-tenant__list__item__delete">
-                  <button
-                    onClick={() => handleDelete(item.id)}
-                    className="delete-button"
-                  >
-                    ❌
-                  </button>
+                    <button
+                      onClick={() => handleDelete(item.id)}
+                      className="delete-button"
+                    >
+                      ❌
+                    </button>
                   </div>
-                  
+
                   <AiOutlineComment
                     onClick={() => {
                       setId(item.id);

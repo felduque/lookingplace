@@ -119,6 +119,7 @@ export default function ModalCommentEdit({
                 showDenyButton: true,
                 confirmButtonText: "Confirmar",
                 denyButtonText: `Cancelar`,
+                reverseButtons: true,
               }).then((result) => {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {

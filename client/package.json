@@ -37,6 +37,7 @@
     "react-router-dom": "^6.8.0",
     "react-select": "^5.7.0",
     "react-star-ratings": "^2.3.0",
+    "react-switch": "^7.0.0",
     "redux": "^4.2.1",
     "styled-components": "^5.3.6",
     "sweetalert2": "^11.7.1"

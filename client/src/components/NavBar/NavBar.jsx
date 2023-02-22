@@ -105,19 +105,17 @@ export default function Navbar() {
                     <div className="navbar-item has-dropdown is-hoverable">
                       <a className="navbar-link">
                         {auth?.avatar ? (
-                          <figure class="image">
+                          <figure class="image is-50x50">
                             <img
                               src={usersLocal?.avatar}
                               className="is-rounded"
-                              width="60"
-                              height="60"
                             />
                           </figure>
                         ) : user?.photoURL ? (
                           <figure class="image">
                             <img
                               src={user.providerData[0]?.photoURL}
-                              className="is-rounnded"
+                              className="is-rounded"
                               width="60"
                               height="60"
                             />
@@ -187,10 +185,11 @@ export default function Navbar() {
                   ) : (
                     <div>
                       <Link
-                        to="/createProperty"
+                        to="/home"
                         className="button is-link is-outlined"
+                        onClick={() => setIsActive(true)}
                       >
-                        Publicar propiedad
+                        Publicar una propiedad
                       </Link>
                       <button
                         className="button is-info is-outlined"
