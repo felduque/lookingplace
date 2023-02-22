@@ -29,18 +29,14 @@ export const createTenant = async (req, res) => {
   const { firebaseUrl } = req.file ? req.file : "";
   const { fullName, email, password, verify, phone, role } = req.body;
 
-  const searchEmailClient = await Client.findOne({ where: { email } });
-  if (searchEmailClient) {
-    return res.status(400).json({ message: "email exist" });
-  }
   // ! Encrypt password
   const salt = await bcrypt.genSalt(10);
   const passwordCrypt = await bcrypt.hash(password, salt);
   try {
-    const searchPhone = await Tenant.findOne({ where: { phone } });
+    //const searchPhone = await Tenant.findOne({ where: { phone } });
     const searchEmail = await Tenant.findOne({ where: { email } });
     if (searchEmail) return res.status(400).json({ message: "Email exists" });
-    if (searchPhone) return res.status(400).json({ message: "Phone exists" });
+    //if (searchPhone) return res.status(400).json({ message: "Phone exists" });
 
     let newClient = await Tenant.create({
       fullName,

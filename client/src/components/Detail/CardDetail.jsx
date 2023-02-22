@@ -476,7 +476,7 @@ export default function CardDetail() {
                           onChange={(event) =>
                             setNuevoComentario(event.target.value)
                           }
-                          style={{padding: "10px"}}
+                          style={{ padding: "10px" }}
                         />
                       </div>
                     </div>
@@ -500,7 +500,8 @@ export default function CardDetail() {
                           id={`comentario-${comentario.id}`}
                           className="comment-container title is-5"
                         >
-                          {usersLocal?.email === comentario.author ||
+                          {(usersLocal?.email === comentario.author &&
+                            usersLocal?.role === "Client") ||
                           user?.email === comentario.author ||
                           usersLocal?.role == "Admin" ? (
                             <button
@@ -512,7 +513,8 @@ export default function CardDetail() {
                           ) : (
                             ""
                           )}
-                          {usersLocal?.email === comentario.author ||
+                          {(usersLocal?.email === comentario.author &&
+                            usersLocal?.role === "Client") ||
                           user?.email === comentario.author ||
                           usersLocal?.role === "Admin" ? (
                             <div>
@@ -529,10 +531,14 @@ export default function CardDetail() {
                                         commentText: event.target.value,
                                       })
                                     }
-                                    style={{padding: "10px"}}
+                                    style={{ padding: "10px" }}
                                   />
-                                  <button type="submit" 
-                                    style={{margin: "10px"}}>Guardar cambios</button>
+                                  <button
+                                    type="submit"
+                                    style={{ margin: "10px" }}
+                                  >
+                                    Guardar cambios
+                                  </button>
                                   <button type="button" onClick={handleCancel}>
                                     Cancelar
                                   </button>
@@ -585,7 +591,7 @@ export default function CardDetail() {
                                 {comentario.author}
                               </p>
                               <p className="commentFecha">
-                              {new Date(comentario.fecha).toLocaleString(
+                                {new Date(comentario.fecha).toLocaleString(
                                   "es-MX",
                                   {
                                     day: "numeric",
@@ -607,7 +613,9 @@ export default function CardDetail() {
                   </div>
                 ) : (
                   <div>
-                    <span className="c-description title is-6">No existen comentarios para esta publicación</span>
+                    <span className="c-description title is-6">
+                      No existen comentarios para esta publicación
+                    </span>
                   </div>
                 )}
               </div>
