@@ -1,6 +1,9 @@
 // const mercadopago = import("mercadopago");
 import mercadopago from "mercadopago";
-import { sendEmailPay } from "../Nodemailer/nodemailer.controller.js";
+import {
+  sendEmailPay,
+  sendEmailCancel,
+} from "../Nodemailer/nodemailer.controller.js";
 
 mercadopago.configure({
   access_token:
@@ -11,40 +14,39 @@ mercadopago.configure({
 });
 
 export const paySuscription = async (req, res) => {
-  const prod = req.body;
-  console.log(prod);
+  const { client } = req.body;
   let preference = {
     items: [
       {
-        title: prod.title,
-        description: prod.description,
-        picture_url: prod.url,
-        category_id: prod.category,
-        unit_price: Number(prod.price),
-        quantity: Number(prod.quantity),
+        title: "Pago de Suscripción",
+        // description: prod.description,
+        // picture_url: prod.url,
+        // category_id: prod.category,
+        unit_price: 8.99,
+        quantity: 1,
       },
     ],
     payer: {
-      name: "Prueba1",
-      email: "prueba1@gmail.com",
-      phone: {
-        area_code: "11",
-        number: 123456789,
-      },
-      identification: {
-        number: "12345678",
-        type: "DNI",
-      },
-      address: {
-        zip_code: "1111",
-        street_name: "False",
-        street_number: 123,
-      },
+      name: client.name,
+      surname: JSON.stringify(client.id),
+      email: client.email,
+      // phone: {
+      //   number: client.phone,
+      // },
+      // identification: {
+      //   number: "12345678",
+      //   type: "DNI",
+      // },
+      // address: {
+      //   zip_code: "1111",
+      //   street_name: "False",
+      //   street_number: 123,
+      // },
     },
     back_urls: {
-      success: "http://localhost:5173/",
-      failure: "http://localhost:5173/",
-      pending: "http://localhost:5173/",
+      success: "http://127.0.0.1:5173/Suscription/Success",
+      failure: "http://127.0.0.1:5173/Suscription/Failure",
+      pending: "http://127.0.0.1:5173/",
     },
     auto_return: "approved",
     // pagos que se solucionan en el momento
@@ -54,7 +56,8 @@ export const paySuscription = async (req, res) => {
   mercadopago.preferences
     .create(preference)
     .then(function (response) {
-      res.json(response);
+      // console.log(response);
+      res.status(200).json(response);
     })
     .catch((error) => {
       console.log(error);
@@ -111,7 +114,7 @@ export const payProperty = async (req, res) => {
   mercadopago.preferences
     .create(preference)
     .then(function (response) {
-      console.log(response);
+      // console.log(response);
       res.status(200).json(response);
     })
     .catch((error) => {
@@ -128,6 +131,19 @@ export const sendEmailFromPay = async (req, res) => {
   try {
     await sendEmailPay(fullName, email, priceTotal, title);
     return res.status(200).send("Email enviado con exito");
+  } catch (error) {
+    return res.status(404).send(error);
+  }
+};
+
+// -----------------------Cancelacion Email
+
+export const sendEmailCancelBook = async (req, res) => {
+  const { fullName, email, title } = req.body;
+  console.log(fullName, email, title);
+  try {
+    await sendEmailCancel(fullName, email, title);
+    return res.status(200).send("Email de cancelacion enviado con exito");
   } catch (error) {
     return res.status(404).send(error);
   }
