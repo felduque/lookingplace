@@ -312,7 +312,15 @@ export const getTenantById = async (req, res) => {
   try {
     const client = await Tenant.findOne({
       where: { id },
-      attributes: ["id", "fullName", "email", "avatar", "phone", "role"],
+      attributes: [
+        "id",
+        "fullName",
+        "email",
+        "avatar",
+        "phone",
+        "role",
+        "isPro",
+      ],
       include: [
         {
           model: Aboutme,
