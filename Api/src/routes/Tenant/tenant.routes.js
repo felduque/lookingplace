@@ -10,11 +10,8 @@ import {
   resetPassword,
   updateAvatar,
   deleteTenant,
-<<<<<<< HEAD
   tenantData,
-=======
   patchProTenant,
->>>>>>> d7978435510ac6d240860ca2387424fca8946816
 } from "../../controllers/Tenant/tenant.controller.js";
 import { Router } from "express";
 import multer from "multer";
