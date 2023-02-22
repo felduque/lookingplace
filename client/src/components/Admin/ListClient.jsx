@@ -1,7 +1,61 @@
 import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export const ListClient = () => {
+  const auth = JSON.parse(localStorage.getItem("auth"));
+  console.log(auth.idTenant);
+
+  const [dataPayments, setDataPayments] = useState([]);
+
+  useEffect(() => {
+    const axiosData = async () => {
+      const res = await axios(
+        `http://localhost:3000/tenant/gettenant/${auth.idTenant}`
+      );
+      setDataPayments(res.data.payments);
+    };
+    axiosData();
+  }, []);
+  console.log(dataPayments);
+
+  const dataRows = [];
+
+  dataPayments.forEach((d) => {
+    let obj = {
+      id: d.id,
+      fullName: d.Client.fullName,
+      email: d.Client.email,
+      // pais: "No tengo pais",
+      // edad: 20,
+      telefono: d.Client.phone,
+      payment: d.amount,
+      metodo: d.type,
+      propiedad: d.description,
+    };
+    dataRows.push(obj);
+  });
+
+  console.log(dataRows);
+
+  const columsData = [
+    { field: "id", headerName: "ID", width: 70 },
+    { field: "fullName", headerName: "Nombre", width: 200 },
+    { field: "email", headerName: "Correo", width: 220 },
+    // { field: "pais", headerName: "País", width: 90 },
+    // { field: "edad", headerName: "Edad", type: "number", width: 90 },
+    { field: "telefono", headerName: "Teléfono", type: "number", width: 130 },
+    {
+      field: "payment",
+      headerName: "Pago (USD$)",
+      width: 130,
+      type: "number",
+    },
+    { field: "metodo", headerName: "Método de Pago", width: 150 },
+    { field: "propiedad", headerName: "Propiedad Alquilada", width: 200 },
+  ];
+
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
     { field: "fullName", headerName: "Nombre", width: 140 },
@@ -121,12 +175,12 @@ export const ListClient = () => {
           <DataGrid
             style={{
               height: 400,
-              width: "100%",
+              width: "95%",
               color: "gray",
               fontWeight: "bold",
             }}
-            rows={rows}
-            columns={columns}
+            rows={dataRows}
+            columns={columsData}
             pageSize={8}
             rowsPerPageOptions={[5]}
             checkboxSelection

@@ -7,6 +7,10 @@ export const Property = sequelize.define("Property", {
     primaryKey: true,
     autoIncrement: true,
   },
+  type: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
   title: {
     type: DataTypes.STRING(60),
   },
@@ -71,5 +75,9 @@ export const Property = sequelize.define("Property", {
   },
   bookings: {
     type: DataTypes.ARRAY(DataTypes.STRING),
+  },
+  pro: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
   },
 });
