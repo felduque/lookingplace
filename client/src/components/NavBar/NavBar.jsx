@@ -86,13 +86,20 @@ export default function Navbar() {
             </a>
           </div>
 
-          <div id="navbarBasicExample" className="navbar-menu">
-            <div className="navbar-start suscribe-button">
-              <Link to="/suscribe" className="navbar-item">
-                Suscripción
-              </Link>
+          {auth?.role === "Tenant" ? (
+            <div id="navbarBasicExample" className="navbar-menu">
+              <div className="navbar-start suscribe-button">
+                <Link to="/suscribe" className="navbar-item">
+                  Suscripción
+                </Link>
+              </div>
             </div>
-          </div>
+            ) : (<div id="navbarBasicExample" className="navbar-menu">
+            <div className="navbar-start suscribe-button">
+              
+            </div>
+          </div>)}
+          
 
           {location.pathname === "/home" ? <SearchBar /> : null}
 

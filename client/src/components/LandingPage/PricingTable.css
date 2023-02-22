@@ -49,6 +49,7 @@
   }
   
   .card {
+    width: 320px;
     background: #fff;
     color: hsl(233, 13%, 49%);
     border-radius: 0.8rem;

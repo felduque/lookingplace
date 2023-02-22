@@ -43,12 +43,12 @@ function Home() {
   // console.log("Soy propiedades.result", statePropertys.result);
   const totalProperty = statePropertys.result?.length;
 
-  let arrayFiltrados = statePropertys.result?.filter((e) => e.pro === true);
-  console.log("Soy array Filtrados", arrayFiltrados);
+  // let arrayFiltrados = statePropertys.result.filter((e) => {
+  //   e.pro === "true";
+  // });
+  // console.log("Soy array Filtrados", arrayFiltrados);
 
-  // let arrayFiltrados = statePropertys.result.filter((e) => e.pro === true);
-
-  // console.log(loading);
+  console.log(loading);
   if (loading || !isLoaded) {
     return <Loader />;
   }
@@ -87,7 +87,6 @@ function Home() {
                     region={property.region}
                     comments={property.Comments}
                   ></Card>
-                  <GoUpButton />
                 </div>
               );
             })
