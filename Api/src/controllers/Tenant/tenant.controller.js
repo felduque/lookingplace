@@ -66,109 +66,60 @@ export const createTenant = async (req, res) => {
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
-  if (!email || !password)
-    return res
-      .status(400)
-      .json({ message: "emailname and password are required." });
 
-  const foundUser = await Tenant.findOne({ where: { email } });
-  if (!foundUser) return res.sendStatus(401); //Unauthorized
-  //evaluate password
-  const match = await bcrypt.compare(password, foundUser.password);
-
-  if (!match) {
-    return res.status(400).json({ message: "Password incorrecta" });
+  const user = await Tenant.findOne({ where: { email } });
+  if (!user) {
+    return res.json({ error: "User Not found" });
   }
-
-  if (match) {
-    //create JWTS
-    const accessToken = jwt.sign(
-      {
-        userInfo: {
-          email: foundUser.email,
-        },
-      },
-      secretjwt,
-      { expiresIn: "30m" }
-    );
-    const refreshToken = jwt.sign(
-      { email: foundUser.email },
-      "b0b53d04c7f3a2631116667f0786b94a0fea2b668fac2ad776442e786ba1a6cbf92a6f65034bbff1dfb9168567d31a780058856aef566993a894937d44303ec2",
-      {
-        expiresIn: "30m",
-      }
-    );
-
-    //Saving refreshToken with current email
-    foundUser.refreshToken = refreshToken;
-    const result = await foundUser.save();
-
-    //Creaamos cookie segura con refresh token
-    res.cookie("jwt", refreshToken, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "None",
-      maxAge: 24 * 60 * 60 * 1000,
+  if (await bcrypt.compare(password, user.password)) {
+    const token = jwt.sign({ email: user.email }, secretjwt, {
+      expiresIn: "15m",
     });
 
-    //Enviamos accessToken
-    console.log(foundUser.id);
-    let userId = foundUser.id;
-    let role = foundUser.role;
-    let fullName = foundUser.fullName;
-    let avatar = foundUser.avatar;
-    //require("crypto").randomBytes(64).toString("hex");
-    res.status(200).json({ accessToken, userId, role, avatar, fullName });
-  }
-};
+    const role = user.role;
+    const avatar = user.avatar;
+    const userId = user.id;
+    const fullName = user.fullName;
 
-export const logout = async (req, res) => {
-  const cookies = req.cookies;
-  if (!cookies?.jwt) return res.sendStatus(204); //no content
-  const refreshToken = cookies.jwt;
-
-  //Está refreshtoken en la db?
-  const foundUser = await Tenant.findOne({ where: { refreshToken } });
-  if (!foundUser) {
-    res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true });
-    return res.sendStatus(204);
-  }
-
-  //Delete refresh token en db
-  foundUser.refreshToken = "";
-  const result = await foundUser.save();
-  //console.log(result);
-
-  res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true });
-  res.sendStatus(204);
-};
-
-export const refreshToken = async (req, res) => {
-  const cookies = req.cookies;
-  if (!cookies?.jwt) return res.sendStatus(401);
-  const refreshToken = cookies.jwt;
-
-  const foundUser = await Tenant.findOne({ where: { refreshToken } });
-  if (!foundUser) return res.sendStatus(403);
-
-  //evualar jwt
-  jwt.verify(
-    refreshToken,
-    "b0b53d04c7f3a2631116667f0786b94a0fea2b668fac2ad776442e786ba1a6cbf92a6f65034bbff1dfb9168567d31a780058856aef566993a894937d44303ec2",
-    (err, decoded) => {
-      if (err || foundUser.email !== decoded.email) return res.sendStatus(403);
-      const accessToken = jwt.sign(
-        {
-          UserInfo: {
-            email: decoded.email,
-          },
-        },
-        secretjwt,
-        { expiresIn: "15h" }
-      );
-      res.json({ accessToken });
+    if (res.status(201)) {
+      return res.json({
+        status: "ok",
+        data: token,
+        role: role,
+        avatar: avatar,
+        userId: userId,
+        fullName,
+      });
+    } else {
+      return res.json({ error: "error" });
     }
-  );
+  }
+  res.json({ status: "error", error: "InvAlid Password" });
+};
+
+export const tenantData = async (req, res) => {
+  const { token } = req.body;
+  try {
+    const user = jwt.verify(token, secretjwt, (err, res) => {
+      if (err) {
+        return "token expired";
+      }
+      return res;
+    });
+    console.log(user);
+    if (user == "token expired") {
+      res.send({ status: "error", data: "token expired" });
+    }
+
+    const useremail = user.email;
+    Tenant.findOne({ where: { email: useremail } })
+      .then((data) => {
+        res.send({ status: "ok", data: data });
+      })
+      .catch((error) => {
+        res.send({ status: "error", data: error });
+      });
+  } catch (error) {}
 };
 
 function validateEmail(email) {

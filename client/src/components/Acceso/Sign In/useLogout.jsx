@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import axios from "../hooks/axios";
+//import axios from "../hooks/axios";
 import useAuth from "../hooks/useAuth";
 
 const useLogout = () => {
@@ -11,19 +11,13 @@ const useLogout = () => {
 
     if (auth.role === "Client") {
       try {
-        const response = await axios("/client/logout", {
-          withCredentials: true,
-        });
         window.localStorage.clear();
         navigate("/home");
       } catch (err) {
         console.error(err);
       }
-    } else if (auth.role === "Tenant") {
+    } else if (auth.role === "Tenant" || auth.role === "Admin") {
       try {
-        const response = await axios("/tenant/logout", {
-          withCredentials: true,
-        });
         window.localStorage.clear();
         navigate("/home");
       } catch (err) {

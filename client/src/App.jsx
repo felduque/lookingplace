@@ -10,7 +10,7 @@ import Login from "./components/Acceso/Sign In/Login";
 import Admin from "./components/Admin/Admin";
 import ForgotPassword from "./components/Acceso/Sign In/ForgotPass";
 /*import ResetPassword from "./components/Acceso/Sign In/ResetPassword";*/
-//import UserDetails from "./components/Acceso/Sign In/userData";
+import UserDetails from "./components/Acceso/Sign In/userData";
 
 /*Auth Guards*/
 //import RequireAuth from "./components/ProtectRoute/RequireAuth";
@@ -54,14 +54,6 @@ function App() {
   const isLoggedClient = window.localStorage.getItem("loggedClient");
   const isLoggedAdmin = window.localStorage.getItem("loggedAdmin");
 
-  /*function RequireSession() {
-    return isLoggedTenant == true ? (
-      <Outlet />
-    ) : (
-      <Navigate to="/login" state={{ from: location }} replace />
-    );
-  }*/
-
   return (
     <div>
       <div>
@@ -89,16 +81,16 @@ function App() {
             <Route path="/forgotpassword" element={<ForgotPassword />} />
           </Route>
 
-          {/*<Route path="/userData" element={<UserDetails />} />*/}
+          <Route path="/UserDetails" element={<UserDetails />} />
           {/*Protect routes*/}
 
           <Route
             path="/settings"
             element={
               isLoggedTenant == "true" ||
-                isLoggedClient == "true" ||
-                isLoggedAdmin == "true" ||
-                user ? (
+              isLoggedClient == "true" ||
+              isLoggedAdmin == "true" ||
+              user ? (
                 <Admin />
               ) : (
                 <Navigate to="/home" />

@@ -51,7 +51,7 @@ export const Profile_edit = () => {
       const idClient = storedAuth?.idClient;
       const idTenant = storedAuth?.idTenant;
       setStore(storedAuth);
-      if (storedAuth.role === "Client") {
+      if (storedAuth && storedAuth.role === "Client") {
         const users = await getUserById(idClient);
         const abt = users?.data?.Aboutmes;
         const newValue = {
@@ -65,7 +65,10 @@ export const Profile_edit = () => {
 
         setUsers(users.data);
         setIdUser(idClient);
-      } else if (storedAuth.role === "Tenant" || storedAuth.role === "Admin") {
+      } else if (
+        (storedAuth && storedAuth.role === "Tenant") ||
+        (storedAuth && storedAuth.role === "Admin")
+      ) {
         const users = await getTenantById(idTenant);
         const abt = users?.data?.Aboutmes;
         const newValue = {
@@ -183,9 +186,7 @@ export const Profile_edit = () => {
       <div className="form-container-edit-profile">
         <form onSubmit={handleSubmit}>
           <div className="columns">
-            <div className="column">
-              Nombre completo
-            </div>
+            <div className="column">Nombre completo</div>
             <div className="column">
               <input
                 type="text"
@@ -198,9 +199,7 @@ export const Profile_edit = () => {
             </div>
           </div>
           <div className="columns">
-            <div className="column">
-              Teléfono
-            </div>
+            <div className="column">Teléfono</div>
             <div className="column">
               <input
                 type="text"
@@ -213,9 +212,7 @@ export const Profile_edit = () => {
             </div>
           </div>
           <div className="columns">
-            <div className="column">
-              País / Ciudad
-            </div>
+            <div className="column">País / Ciudad</div>
             <div className="column">
               <input
                 type="text"
@@ -228,9 +225,7 @@ export const Profile_edit = () => {
             </div>
           </div>
           <div className="columns">
-            <div className="column">
-              Edad
-            </div>
+            <div className="column">Edad</div>
             <div className="column">
               <input
                 type="text"
@@ -243,9 +238,7 @@ export const Profile_edit = () => {
             </div>
           </div>
           <div className="columns">
-            <div className="column">
-              Sobre mí
-            </div>
+            <div className="column">Sobre mí</div>
             <div className="column">
               <textarea
                 type="text"
@@ -253,21 +246,21 @@ export const Profile_edit = () => {
                 name="description"
                 id="description"
                 className="textarea"
-                onChange={(e) => setForm({ ...form, description: e.target.value })}
+                onChange={(e) =>
+                  setForm({ ...form, description: e.target.value })
+                }
               ></textarea>
             </div>
           </div>
           <div className="columns">
-            <div className="column">
-              Aficiones
-            </div>
+            <div className="column">Aficiones</div>
             <div className="column">
               <Select
                 closeMenuOnSelect={true}
                 components={animatedComponents}
                 isSearchable={true}
                 maxMenuHeight={200}
-                placeholder={'Seleciona...'}
+                placeholder={"Seleciona..."}
                 isMulti
                 options={opciones}
                 // guardar en string sin value y label
@@ -276,14 +269,26 @@ export const Profile_edit = () => {
             </div>
           </div>
           <div className="columns">
-
             <div className="column">
               Avatar Actual
-              <p><img src={users?.avatar} alt="ActualAvatar" width='150px' height='150px' /></p>
+              <p>
+                <img
+                  src={users?.avatar}
+                  alt="ActualAvatar"
+                  width="150px"
+                  height="150px"
+                />
+              </p>
             </div>
             <div className="column">
               Nuevo avatar
-              <p>{avatarupload ? <img src={avatarupload} width='150' height='150' /> : ''}</p>
+              <p>
+                {avatarupload ? (
+                  <img src={avatarupload} width="150" height="150" />
+                ) : (
+                  ""
+                )}
+              </p>
             </div>
             <div className="column">
               <div class="file is-info">
@@ -300,22 +305,16 @@ export const Profile_edit = () => {
                     <span class="file-icon">
                       <i class="fas fa-upload"></i>
                     </span>
-                    <span class="file-label">
-                      Cambiar avatar...
-                    </span>
+                    <span class="file-label">Cambiar avatar...</span>
                   </span>
                 </label>
               </div>
-
             </div>
-
-
           </div>
 
           <button type="submit" className="button is-success centered-button">
             Guardar
           </button>
-
         </form>
       </div>
     </>

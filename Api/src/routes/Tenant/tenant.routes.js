@@ -5,14 +5,16 @@ import {
   updateTenant,
   validateTenant,
   login,
-  logout,
-  refreshToken,
   forgot,
   verifyPassword,
   resetPassword,
   updateAvatar,
   deleteTenant,
+<<<<<<< HEAD
+  tenantData,
+=======
   patchProTenant,
+>>>>>>> d7978435510ac6d240860ca2387424fca8946816
 } from "../../controllers/Tenant/tenant.controller.js";
 import { Router } from "express";
 import multer from "multer";
@@ -29,8 +31,7 @@ router.post(
   createTenant
 );
 router.post("/tenant/login", login);
-router.get("/tenant/logout", logout);
-router.get("/tenant/refreshToken", refreshToken);
+router.post("/tenant/userData", tenantData);
 router.post("/tenant/forgot", forgot);
 router.get("/tenant/reset/:id/:token", verifyPassword);
 router.post("/tenant/reset/:id/:token", resetPassword);

@@ -9,8 +9,10 @@ import useLogout from "../Acceso/Sign In/useLogout";
 import logoIcon from "../../assets/logo-icon.png";
 import userIcon from "../../assets/user-default-icon.png";
 import Login from "../Acceso/Sign In/Login";
+//import useAuth from "../Acceso/hooks/useAuth";
 
 export default function Navbar() {
+  //const [auth, setAuth] = useState(null);
   const [auth, setAuth] = useState(null);
   const logout = useLogout();
   const { user, logOut } = UserAuth();
@@ -22,16 +24,17 @@ export default function Navbar() {
     const storedAuth = JSON.parse(localStorage.getItem("auth"));
     if (storedAuth) {
       setAuth(storedAuth);
+      //console.log(storedAuth.role);
     }
   }, []);
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const storedAuth = JSON.parse(localStorage.getItem("auth") || "{}");
+      const storedAuth = JSON.parse(localStorage.getItem("auth"));
       const idClient = storedAuth?.idClient;
       const idTenant = storedAuth?.idTenant;
 
-      if (storedAuth.role === "Client") {
+      if (storedAuth && storedAuth.role === "Client") {
         const usersLocal = await getUserById(idClient);
         setUsersLocal(usersLocal.data);
       } else if (storedAuth.role === "Tenant" || storedAuth.role === "Admin") {
@@ -94,12 +97,11 @@ export default function Navbar() {
                 </Link>
               </div>
             </div>
-            ) : (<div id="navbarBasicExample" className="navbar-menu">
-            <div className="navbar-start suscribe-button">
-              
+          ) : (
+            <div id="navbarBasicExample" className="navbar-menu">
+              <div className="navbar-start suscribe-button"></div>
             </div>
-          </div>)}
-          
+          )}
 
           {location.pathname === "/home" ? <SearchBar /> : null}
 
@@ -135,7 +137,9 @@ export default function Navbar() {
                       <div className="navbar-dropdown is-right">
                         <span className="name-user-navbar">
                           <a className="navbar-item name-user-navbar">
-                            <strong>{usersLocal?.fullName || user?.displayName}</strong>
+                            <strong>
+                              {usersLocal?.fullName || user?.displayName}
+                            </strong>
                           </a>
                         </span>
                         <Link to="/createProperty" className="navbar-item">
@@ -153,7 +157,7 @@ export default function Navbar() {
                   ) : auth?.role === "Client" ? (
                     <div className="navbar-item has-dropdown is-hoverable">
                       <a className="navbar-link">
-                        {auth?.avatar ? (
+                        {usersLocal?.avatar ? (
                           <figure class="image">
                             <img
                               src={usersLocal?.avatar}
@@ -179,7 +183,9 @@ export default function Navbar() {
                       <div className="navbar-dropdown is-right">
                         <span className="name-user-navbar">
                           <a className="navbar-item name-user-navbar">
-                            <strong>{usersLocal?.fullName || user?.displayName}</strong>
+                            <strong>
+                              {usersLocal?.fullName || user?.displayName}
+                            </strong>
                           </a>
                         </span>
                         <Link to="/settings" className="navbar-item">
