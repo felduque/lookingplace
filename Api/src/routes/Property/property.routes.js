@@ -6,6 +6,7 @@ import {
   updateProperty,
   patchBookingsProperty,
   createBulkProperty,
+  patchProProperty,
 } from "../../controllers/Property/property.controller.js";
 import { Router } from "express";
 
@@ -23,6 +24,7 @@ router.post(
   createProperty
 );
 router.patch("/property/update/bookings", patchBookingsProperty);
+router.patch("/property/update/pro", patchProProperty);
 router.get("/properties", getProperty);
 router.get("/property/:id", getPropertyById);
 router.delete("/property/delete/:id", deleteProperty);

@@ -399,6 +399,7 @@ export const getClientById = async (req, res) => {
         },
         {
           model: Property,
+          attributes: ["title"],
         },
         {
           model: Booking,
