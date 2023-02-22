@@ -1,7 +1,17 @@
 import { Payments } from "../../models/payment.model.js";
 
 export const createPayment = async (req, res) => {
-  const { description, amount, status, type, client_payment } = req.body;
+  const {
+    description,
+    amount,
+    status,
+    type,
+    client_payment,
+    tenant_payment,
+    property_payment,
+  } = req.body;
+
+  console.log(req.body);
   try {
     let newPayment = await Payments.create(
       {
@@ -10,9 +20,19 @@ export const createPayment = async (req, res) => {
         status,
         type,
         client_payment,
+        tenant_payment,
+        property_payment,
       },
       {
-        fields: ["description", "amount", "status", "type", "client_payment"],
+        fields: [
+          "description",
+          "amount",
+          "status",
+          "type",
+          "client_payment",
+          "tenant_payment",
+          "property_payment",
+        ],
       }
     );
     if (newPayment) {
@@ -40,6 +60,8 @@ export const getPayment = async (req, res) => {
         "status",
         "type",
         "client_payment",
+        "tenant_payment",
+        "property_payment",
       ],
     });
     res.json({

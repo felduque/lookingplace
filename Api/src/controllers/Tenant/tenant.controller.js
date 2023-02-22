@@ -12,6 +12,7 @@ import { Client } from "../../models/client.model.js";
 import { Aboutme } from "../../models/aboutme.model.js";
 import { Property } from "../../models/property.model.js";
 import { sendEmail } from "../Nodemailer/nodemailer.controller.js";
+import { Payments } from "../../models/payment.model.js";
 import bcrypt from "bcrypt";
 const app = express();
 import jwt from "jsonwebtoken";
@@ -312,6 +313,16 @@ export const getTenantById = async (req, res) => {
         },
         {
           model: Property,
+        },
+        {
+          model: Payments,
+          attributes: ["id", "description", "amount", "status", "type"],
+          include: [
+            {
+              model: Client,
+              attributes: ["id", "fullName", "email", "phone"],
+            },
+          ],
         },
       ],
     });
