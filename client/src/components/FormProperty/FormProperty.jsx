@@ -439,7 +439,7 @@ export default function FormHostCreate() {
                       />
                     </div>
                   </div>
-                  <div className="column">
+                  <div className="column is-8 clock-margin-right">
                     <label className="label" htmlFor="checkOut">
                       Horario de salida
                     </label>
