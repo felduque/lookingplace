@@ -2,7 +2,7 @@ import AuthContext from "../context/AuthProvider";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import PaymentMP from '../Pay/PaymentMP';
-import Footer from "../../components/Footer/Footer";
+
 import './Suscribe.css';
 import topPRO from '../../assets/pro-top.png';
 import chatPRO from '../../assets/pro-chat.png';
@@ -99,7 +99,7 @@ export default function Suscribe() {
           
         </div>
       </div>
-      <Footer />
+      
       </div>
     </>
   )

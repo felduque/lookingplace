@@ -29,6 +29,7 @@ import ResumePay from "./components/ResumePay/ResumePay";
 import PaySuccess from "./components/MercadoPago/MPSuccess/MPSuccess";
 import PayFailure from "./components/MercadoPago/MPSuccess/MPSuccess";
 import LandingPage from "./components/LandingPage/LandingPage.jsx";
+import Footer from "././components/Footer/Footer";
 
 function App() {
   /*User Google*/
@@ -116,6 +117,7 @@ function App() {
           <Route path="*" element={<Home />} />
         </Routes>
       </div>
+      {location.pathname === "/settings" ? null : <Footer />}
     </div>
   );
 }
