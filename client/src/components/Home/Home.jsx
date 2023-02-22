@@ -42,6 +42,11 @@ function Home() {
   console.log("Soy propiedades", statePropertys);
   const totalProperty = statePropertys.result?.length;
 
+  // let arrayFiltrados = statePropertys.result.filter((e) => {
+  //   e.pro === "true";
+  // });
+  // console.log("Soy array Filtrados", arrayFiltrados);
+
   console.log(loading);
   if (loading || !isLoaded) {
     return <Loader />;

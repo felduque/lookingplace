@@ -208,7 +208,7 @@ export const forgot = async (req, res) => {
       html: `
       <div style="border: 4px solid #0099CC; border-radius: 10px; padding: 20px; max-width: 500px; margin: auto; font-family: Arial, sans-serif; font-size: 16px; line-height: 1.4; color: #333;">
         <div style="text-align: center;">
-          <img src="https://thumbs2.imgbox.com/b1/74/LZvDpeYQ_t.png" alt="LookingPlace" style="max-width: 200px; height: auto;">
+          <img src="https://thumbs2.imgbox.com/f0/b1/ukj3hkGl_t.jpg" alt="LookingPlace" style="max-width: 200px; height: auto;">
           <h1 style="color: #0099CC; font-size: 32px; margin: 10px 0;">LookingPlace</h1>
         </div>
         <p>Estimado ${email},</p>
@@ -312,7 +312,15 @@ export const getTenantById = async (req, res) => {
   try {
     const client = await Tenant.findOne({
       where: { id },
-      attributes: ["id", "fullName", "email", "avatar", "phone", "role"],
+      attributes: [
+        "id",
+        "fullName",
+        "email",
+        "avatar",
+        "phone",
+        "role",
+        "isPro",
+      ],
       include: [
         {
           model: Aboutme,

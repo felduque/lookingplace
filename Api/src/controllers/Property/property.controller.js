@@ -39,7 +39,7 @@ export const createProperty = async (req, res) => {
     city,
     region,
     id_tenant,
-    // pro, // esto es para type
+    pro, // esto es para type
   } = req.body;
 
   console.log(id_tenant);
@@ -130,6 +130,7 @@ export const getProperty = async (req, res) => {
     pets,
     party,
     services,
+    type,
   } = req.query;
   try {
     const property = await Property.findAll({
@@ -289,6 +290,7 @@ export const getPropertyById = async (req, res) => {
       where: { id },
       attributes: [
         "id",
+        "type",
         "title",
         "description",
         "image",
@@ -311,6 +313,7 @@ export const getPropertyById = async (req, res) => {
         "region",
         "city",
         "bookings",
+        "pro",
       ],
       include: [
         {
@@ -478,13 +481,13 @@ export const patchBookingsProperty = async (req, res) => {
 
 export const patchProProperty = async (req, res) => {
   console.log(req.body);
-  const { id, pro } = req.body;
-  console.log("Soy Id", id, "pro", pro);
+  const { id } = req.body;
+  // console.log("Soy Id", id, "pro", pro);
   try {
     let searchProperty = await Property.findOne({
       where: { id },
     });
-    await searchProperty.update({ pro: pro });
+    await searchProperty.update({ pro: true });
 
     res.json("Propiedad Actualizada a Pro - IdPropiedad : " + id);
   } catch (e) {
