@@ -261,7 +261,6 @@ export default function Filters({ closeModal, title }) {
   }, [filters]);
 
 
-  console.log(filterProperties.result.length);
 
 
   if (!isLoaded) return <h1>Cargando...</h1>;
