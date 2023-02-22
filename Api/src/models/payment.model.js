@@ -20,6 +20,10 @@ export const Payments = sequelize.define(
     type: {
       type: DataTypes.STRING,
     },
+    tenantIdPay: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
   },
   {
     timestamps: false,

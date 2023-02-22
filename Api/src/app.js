@@ -85,6 +85,12 @@ Comment.belongsTo(Property, {
 Client.hasMany(Payments, { foreignKey: "client_payment" });
 Payments.belongsTo(Client, { foreignKey: "client_payment" });
 
+Tenant.hasMany(Payments, { foreignKey: "tenant_payment" });
+Payments.belongsTo(Tenant, { foreignKey: "tenant_payment" });
+
+Property.hasMany(Payments, { foreignKey: "property_payment" });
+Payments.belongsTo(Property, { foreignKey: "property_payment" }); //
+
 // Relation ClientRecord
 
 Client.hasMany(ClientRecord, {

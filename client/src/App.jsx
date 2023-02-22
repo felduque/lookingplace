@@ -27,7 +27,7 @@ import Suscribe from "./components/Pay/Suscribe";
 import AboutUs from "./components/AboutUs/AboutUs";
 import ResumePay from "./components/ResumePay/ResumePay";
 import PaySuccess from "./components/MercadoPago/MPSuccess/MPSuccess";
-import PayFailure from "./components/MercadoPago/MPSuccess/MPSuccess";
+import PayFailure from "./components/MercadoPago/MPFailure/MPFailure";
 import LandingPage from "./components/LandingPage/LandingPage.jsx";
 
 function App() {

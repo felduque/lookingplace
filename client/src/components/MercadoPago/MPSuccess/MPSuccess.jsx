@@ -30,6 +30,7 @@ export default function MPSuccess() {
           const idProperty = response.data.additional_info?.items[0].id;
           const priceTotal = response.data.additional_info?.items[0].unit_price;
           const titlePay = response.data.additional_info?.items[0].title;
+          const metodoPago = response.data.payment_method?.type;
           const bookings = JSON.parse(
             response.data.additional_info?.items[0].description
           );
@@ -79,7 +80,32 @@ export default function MPSuccess() {
                     console.log("created book");
                     console.log(res.data);
                   });
+
+                axios
+                  .post("http://localhost:3000/pay/payment", {
+                    description: titlePay,
+                    amount: priceTotal,
+                    status: "Aprobado",
+                    type: metodoPago, // METODO DE PAGO -> QUE TARJETA
+                    client_payment: parseInt(clientId),
+                    tenant_payment: parseInt(prop),
+                    property_payment: parseInt(idProperty),
+                  })
+                  .then((res) => {
+                    console.log("created payment");
+                    console.log(res.data);
+                  });
               });
+
+            // axios.post("http://localhost:3000/pay/payment", {
+            //   description: titlePay,
+            //   amount: priceTotal,
+            //   status: "Aprobado",
+            //   type: metodoPago, // METODO DE PAGO -> QUE TARJETA
+            //   client_payment: parseInt(clientId),
+            //   tenant_payment: parseInt(idTenant),
+            //   property_payment: parseInt(idProperty),
+            // });
           }
         }
       })

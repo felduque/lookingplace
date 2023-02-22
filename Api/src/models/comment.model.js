@@ -36,4 +36,8 @@ export const Comment = sequelize.define("Comment", {
     type: DataTypes.FLOAT,
     allowNull: true,
   },
+  fullName: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
 });
