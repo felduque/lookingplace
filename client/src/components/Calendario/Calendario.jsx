@@ -179,22 +179,23 @@ export default function Calendar({
         />
       </div>
       <div>
-        <p className="">
+        <hr />
+        <p className="c-description title is-6">
           Precio por noche : <strong> USD$:{price}</strong>{" "}
         </p>
       </div>
       <div>
-        <p className="subTitleData">Resumen de la reserva</p>
+        {/* <p className="subTitleData c-description title is-6">Resumen de la reserva</p> */}
 
         <div>
-          <p>
+          <p className="c-description title is-6">
             Noches a hospedarse :
             {state.selection1.endDate.getDate() -
               state.selection1.startDate.getDate()}
           </p>
         </div>
 
-        <p>
+        <p className="c-description title is-6">
           Precio total a pagar : USD$:
           {(state.selection1.endDate.getDate() -
             state.selection1.startDate.getDate()) *
@@ -209,11 +210,12 @@ export default function Calendar({
           margin: "20px 0",
         }}
       >
-        <button className="button is-large is-warning" onClick={reset}>
+        <hr />
+        <button className="button is-warning" onClick={reset}>
           Reset
         </button>
         <button
-          className="button is-large is-primary is-outlined is-active"
+          className="button is-primary is-outlined is-active"
           onClick={select}
         >
           Reservar

@@ -5,18 +5,26 @@
   justify-content: center;
   width: 95%;
   height: 400px;
-  margin: 5px auto;
-  background-color: rgb(27, 27, 27);
+  margin: 30px auto;
 }
 
 .imgPrin {
-  width: 95%;
-  height: 100%;
+  width: 80%;
+  height: 90%;
+  border-radius: 10px;
   object-fit: contain;
   object-position: center;
+  background-color: rgb(235, 233, 233);
+  border: solid 1px rgb(14, 147, 223);
+  box-shadow: 3px 3px 3px grey;
+  
   /* transition: 1.5s; */
 }
-
+.c-hr{
+  background-color: rgb(180, 180, 180);
+  margin-right: 50px;
+  margin-left: 50px;
+}
 /* .imgPrin:active {
   transform: scale(1.25);
 } */
@@ -26,19 +34,23 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  height: 100%;
+  height: 10%;
   text-align: center;
-  margin: 0;
+  margin: 15px;
   border: none;
-  width: 3.5%;
-  color: white;
-  background-color: rgba(54, 54, 54, 0.731);
+  width: 5,5%;
+  color: rgb(14, 147, 223);
+  border: solid 1px rgb(14, 147, 223);
+  /* box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); */
+  box-shadow: 3px 3px 3px grey;
 }
 
 .container-mini-cards {
   display: flex;
   margin: 10px auto;
-  width: 40%;
+  width: 100%;
+  /* background-color: rgb(180, 180, 180); */
+  /* border-radius: 10px; */
   justify-content: center;
   align-items: center;
   align-content: center;
@@ -55,4 +67,8 @@
 .img-thum {
   width: 100%;
   height: 100%;
+  margin-top: 15px;
+  border-radius: 10px;
+  border: solid 1px rgb(14, 147, 223);
+  box-shadow: 3px 3px 3px grey;
 }
