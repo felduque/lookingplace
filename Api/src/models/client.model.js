@@ -70,9 +70,7 @@ export const Client = sequelize.define("Clients", {
     type: DataTypes.ARRAY(DataTypes.STRING),
     allowNull: true,
   },
-  refreshToken: {
-    type: DataTypes.STRING,
-  },
+
   role: {
     type: DataTypes.STRING,
     allowNull: false,

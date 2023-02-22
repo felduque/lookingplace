@@ -208,8 +208,8 @@ export default function CardDetail() {
     const comentario = {
       comment: nuevoComentario,
       property_comment: id,
-      author: usersLocal?.email || user?.email,
-      avatar: usersLocal?.avatar || user?.photoURL,
+      author: auth?.email || user?.email,
+      avatar: auth?.avatar || user?.photoURL,
       fecha: fechaFormateada,
       client_comment: usersLocal?.idClient ? auth?.idClient : null,
       //parent_comment_id: parentCommentId,
@@ -500,7 +500,7 @@ export default function CardDetail() {
                           id={`comentario-${comentario.id}`}
                           className="comment-container title is-5"
                         >
-                          {(usersLocal?.email === comentario.author &&
+                          {(auth?.email === comentario.author &&
                             usersLocal?.role === "Client") ||
                           user?.email === comentario.author ||
                           usersLocal?.role == "Admin" ? (
@@ -513,7 +513,7 @@ export default function CardDetail() {
                           ) : (
                             ""
                           )}
-                          {(usersLocal?.email === comentario.author &&
+                          {(auth?.email === comentario.author &&
                             usersLocal?.role === "Client") ||
                           user?.email === comentario.author ||
                           usersLocal?.role === "Admin" ? (
@@ -561,7 +561,7 @@ export default function CardDetail() {
                             ""
                           )}
                           <div className="c-avatar-author-comment">
-                            {usersLocal?.email === comentario.author &&
+                            {auth?.email === comentario.author &&
                             usersLocal?.avatar !== comentario.avatar ? (
                               <img
                                 className="imgComment"

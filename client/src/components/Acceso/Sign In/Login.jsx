@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import axios from "axios";
+//import axios from "axios";
 import usermailIcon from "../../../assets/usermail-login.png";
 import userPasswordIcon from "../../../assets/key-login.png";
 
@@ -38,8 +38,8 @@ export default function Login({ closeModal }) {
 
   useEffect(() => {
     setErrMsg("");
-    const storedAuth = JSON.parse(localStorage.getItem("auth") || "{}");
-    if (storedAuth?.email && storedAuth?.password && storedAuth?.accessToken) {
+    const storedAuth = localStorage.getItem("auth") || "{}";
+    if (storedAuth?.email && storedAuth?.password) {
       setAuth(storedAuth);
       navigate(from, { replace: true });
     }
@@ -57,45 +57,46 @@ export default function Login({ closeModal }) {
 
     if (setType.client === true) {
       try {
-        const response = await axios.post(
-          `http://localhost:3000/client/login`,
-          JSON.stringify({ email: email, password: password }),
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-            withCredentials: true,
-          }
-        );
-        console.log(response);
-        //console.log(JSON.stringify(response));
-        const accessToken = response?.data?.accessToken;
-        const idClient = response?.data?.userId;
-        const role = response?.data?.role;
-        const fullName = response?.data?.fullName;
-        const avatar = response?.data?.avatar;
-        //const role = roleMapping[email] || "default";
+        fetch("http://localhost:3000/client/login", {
+          method: "POST",
 
-        setAuth({ email, password, accessToken, role, avatar, fullName });
-        console.log(email, password, accessToken);
-        localStorage.setItem(
-          "auth",
-          JSON.stringify({
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
             email,
-            idClient,
-            accessToken,
-            role,
-            avatar,
-            fullName,
-          })
-        );
-        window.localStorage.setItem("loggedClient", true);
-        setEmail("");
-        setPassword("");
-        //setRole("");
-        navigate(from, { replace: true });
-        window.location.reload();
+            password,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data, "userRegister");
+            const role = data?.role;
+            const avatar = data?.avatar;
+            const idClient = data?.userId;
+            const fullName = data?.fullName;
+
+            if (data.status == "ok") {
+              alert("login successful");
+              setAuth({ email, password, role, avatar, fullName });
+              localStorage.setItem(
+                "auth",
+                JSON.stringify({
+                  email,
+                  idClient,
+                  role,
+                  avatar,
+                  fullName,
+                })
+              );
+              window.localStorage.setItem("token", data.data);
+              window.localStorage.setItem("loggedClient", true);
+              setEmail("");
+              setPassword("");
+
+              window.location.href = "./userDetails";
+            }
+          });
       } catch (err) {
         if (!err?.response) {
           setErrMsg("Sin respuesta del servidor(back)");
@@ -111,42 +112,46 @@ export default function Login({ closeModal }) {
       }
     } else if (setType.tenant === true) {
       try {
-        const response = await axios.post(
-          `http://localhost:3000/tenant/login`,
-          JSON.stringify({ email: email, password: password }),
-          {
-            headers: { "Content-Type": "application/json" },
-            withCredentials: true,
-          }
-        );
-        console.log(response);
-        //console.log(JSON.stringify(response));
-        const accessToken = response?.data?.accessToken;
-        const idTenant = response?.data?.userId;
-        const role = response?.data?.role;
-        const fullName = response?.data?.fullName;
-        const avatar = response?.data?.avatar;
-        //const role = roleMapping[email] || "default";
+        fetch("http://localhost:3000/tenant/login", {
+          method: "POST",
 
-        setAuth({ email, password, accessToken, role, avatar, fullName });
-        console.log(email, password, accessToken);
-        localStorage.setItem(
-          "auth",
-          JSON.stringify({
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
             email,
-            idTenant,
-            accessToken,
-            role,
-            avatar,
-            fullName,
-          })
-        );
-        window.localStorage.setItem("loggedTenant", true);
-        setEmail("");
-        setPassword("");
-        //setRole("");
-        navigate(from, { replace: true });
-        window.location.reload();
+            password,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data, "userRegister");
+            const role = data?.role;
+            const avatar = data?.avatar;
+            const idTenant = data?.userId;
+            const fullName = data?.fullName;
+
+            if (data.status == "ok") {
+              alert("login successful");
+              setAuth({ email, password, role, avatar, fullName });
+              localStorage.setItem(
+                "auth",
+                JSON.stringify({
+                  email,
+                  idTenant,
+                  role,
+                  avatar,
+                  fullName,
+                })
+              );
+              window.localStorage.setItem("token", data.data);
+              window.localStorage.setItem("loggedTenant", true);
+              setEmail("");
+              setPassword("");
+
+              window.location.href = "./userDetails";
+            }
+          });
       } catch (err) {
         if (!err?.response) {
           setErrMsg("Sin respuesta del servidor(back)");
@@ -162,42 +167,44 @@ export default function Login({ closeModal }) {
       }
     } else if (auth.role === "Admin") {
       try {
-        const response = await axios.post(
-          `http://localhost:3000/tenant/login`,
-          JSON.stringify({ email: email, password: password }),
-          {
-            headers: { "Content-Type": "application/json" },
-            withCredentials: true,
-          }
-        );
-        console.log(response);
-        //console.log(JSON.stringify(response));
-        const accessToken = response?.data?.accessToken;
-        const idClient = response?.data?.userId;
-        const role = response?.data?.role;
-        const fullName = response?.data?.fullName;
-        const avatar = response?.data?.avatar;
-        //const role = roleMapping[email] || "default";
+        fetch("http://localhost:3000/tenant/login", {
+          method: "POST",
 
-        setAuth({ email, password, accessToken, role, avatar, fullName });
-        console.log(email, password, accessToken);
-        localStorage.setItem(
-          "auth",
-          JSON.stringify({
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
             email,
-            idClient,
-            accessToken,
-            role,
-            avatar,
-            fullName,
-          })
-        );
-        window.localStorage.setItem("loggedAdmin", true);
-        setEmail("");
-        setPassword("");
-        //setRole("");
-        navigate(from, { replace: true });
-        window.location.reload();
+            password,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data, "userRegister");
+            const role = data?.role;
+            const avatar = data?.avatar;
+            const fullName = data?.fullName;
+
+            if (data.status == "ok") {
+              alert("login successful");
+              setAuth({ email, password, role, avatar, fullName });
+              localStorage.setItem(
+                "auth",
+                JSON.stringify({
+                  email,
+                  role,
+                  avatar,
+                  fullName,
+                })
+              );
+              window.localStorage.setItem("token", data.data);
+              window.localStorage.setItem("loggedAdmin", true);
+              setEmail("");
+              setPassword("");
+
+              window.location.href = "./userDetails";
+            }
+          });
       } catch (err) {
         if (!err?.response) {
           setErrMsg("Sin respuesta del servidor(back)");
@@ -243,9 +250,7 @@ export default function Login({ closeModal }) {
           <div className="form-container-login">
             <section>
               <div className="error-messg-server">{errMsg}</div>
-              <div className="title is-4 is-spaced">
-                Ingresar a la aventura
-              </div>
+              <div className="title is-4 is-spaced">Ingresar a la aventura</div>
               <form onSubmit={handleSubmit}>
                 <div className="field">
                   <p className="control has-icons-left">
@@ -345,7 +350,11 @@ export default function Login({ closeModal }) {
           </div>
         </>
       </div>
-      <button class="modal-close is-large" aria-label="close" onClick={closeModal}></button>
+      <button
+        class="modal-close is-large"
+        aria-label="close"
+        onClick={closeModal}
+      ></button>
     </div>
   );
 }
