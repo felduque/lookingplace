@@ -38,11 +38,11 @@ export default function SearchBar() {
 
   return (
     <>
-      <div className="search-input-bar">
+      <div className="search-input-bar is-normal pt-2">
         <form onSubmit={handleClickSearchTitle}>
           <input
             type="text"
-            className="input is-rounded is-small input-search"
+            className="input is-info is-rounded is-small input-search"
             placeholder="Buscar por título... EJ: Casa, apartamento, cabaña, etc."
             name="title"
             onChange={handleInputChange}

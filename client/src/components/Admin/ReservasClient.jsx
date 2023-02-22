@@ -128,8 +128,9 @@ export const ReservacionesCliente = () => {
                         title: "Quieres cancelar tu reserva?",
                         showDenyButton: true,
                         // showCancelButton: true,
-                        confirmButtonText: "Si",
                         denyButtonText: `No`,
+                        confirmButtonText: "Si",
+                        reverseButtons: true,
                       }).then((result) => {
                         /* Read more about isConfirmed, isDenied below */
                         if (result.isConfirmed) {

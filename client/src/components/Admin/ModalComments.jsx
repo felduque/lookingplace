@@ -31,6 +31,7 @@ export const ModalComments = ({ id }) => {
       cancelButtonColor: "#d33",
       confirmButtonText: "Sí, eliminar",
       cancelButtonText: "Cancelar",
+      reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
         deleteComment(id).then((res) => {

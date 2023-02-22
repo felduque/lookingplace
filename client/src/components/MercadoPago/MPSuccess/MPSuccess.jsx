@@ -118,19 +118,23 @@ export default function MPSuccess() {
   // console.log(data);
   return (
     <div
+      className=""
       style={{
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-evenly",
         alignItems: "center",
-        width: "60%",
+        width: "40%",
         minHeight: "75vh",
         maxHeight: "auto",
-        backgroundColor: "#b3ff3b",
+        backgroundColor: "#FFFFFF",
         margin: "20px auto",
         borderRadius: "50px",
+        border: "solid 2px rgb(14, 147, 223)",
         flexWrap: "nowrap",
         textAlign: "center",
+        marginTop: "5em",
+        boxShadow: "7px 5px 5px grey",
       }}
     >
       <h3
@@ -143,7 +147,7 @@ export default function MPSuccess() {
           width: "60%",
         }}
       >
-        Se Registro tu Pago Exitosamente
+        Se registró tu pago exitosamente
       </h3>
       <img src={Logo} alt="Logo LookingPlace" />
       <p
@@ -188,7 +192,7 @@ export default function MPSuccess() {
             navigate("/home");
           }}
         >
-          Home
+          Inicio
         </button>
         <button
           className="button is-primary"
@@ -197,7 +201,7 @@ export default function MPSuccess() {
             navigate("/settings");
           }}
         >
-          Dashboard
+          Perfil
         </button>
       </div>
       <span
@@ -208,7 +212,7 @@ export default function MPSuccess() {
           textAlign: "center",
         }}
       >
-        En tu Dashboard puedes ver tus Reservaciones
+        En tu perfil puedes ver las reservaciones que realizaste...
       </span>
     </div>
   );

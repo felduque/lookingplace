@@ -33,7 +33,8 @@ export const ModalForm = (props) => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Sí, editar",
+      confirmButtonText: "Si, editar",
+      reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
         updatePropery(id, data);
@@ -85,7 +86,7 @@ export const ModalForm = (props) => {
             className="textarea is-hovered has-fixed-size"
             onChange={(e) => setData({ ...data, description: e.target.value })}
           ></textarea></p>
-          
+
         </div>
         <button onClick={handleSubmit} type="submit" className="button is-success">
           Editar

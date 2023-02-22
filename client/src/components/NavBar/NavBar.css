@@ -29,7 +29,10 @@
 .suscribe-button {
   margin-right: 170px;
 }
-
-.name-user-navbar a{
+name-user-navbar a{
   pointer-events: none;
 }
+.suscribe-button{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     }
+     
