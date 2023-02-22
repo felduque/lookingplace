@@ -134,9 +134,9 @@ export default function Navbar() {
 
                       <div className="navbar-dropdown is-right">
                         <span className="name-user-navbar">
-                        <a className="navbar-item name-user-navbar">
-                          <strong>{usersLocal?.fullName || user?.displayName}</strong>
-                        </a>
+                          <a className="navbar-item name-user-navbar">
+                            <strong>{usersLocal?.fullName || user?.displayName}</strong>
+                          </a>
                         </span>
                         <Link to="/createProperty" className="navbar-item">
                           Publicar propiedad
@@ -157,7 +157,7 @@ export default function Navbar() {
                           <figure class="image">
                             <img
                               src={usersLocal?.avatar}
-                              className="is-rounded"
+                              class="is-rounded is-fullwidth"
                               width="60"
                               height="60"
                             />
@@ -166,7 +166,7 @@ export default function Navbar() {
                           <figure class="image">
                             <img
                               src={user.providerData[0]?.photoURL}
-                              className="is-rounded"
+                              class="is-rounded is-fullwidth"
                               width="60"
                               height="60"
                             />
@@ -178,7 +178,7 @@ export default function Navbar() {
 
                       <div className="navbar-dropdown is-right">
                         <span className="name-user-navbar">
-                           <a className="navbar-item name-user-navbar">
+                          <a className="navbar-item name-user-navbar">
                             <strong>{usersLocal?.fullName || user?.displayName}</strong>
                           </a>
                         </span>

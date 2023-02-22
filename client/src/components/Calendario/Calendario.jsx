@@ -71,7 +71,7 @@ export default function Calendar({
     if (auth === null) {
       Swal.fire({
         icon: "error",
-        title: "Oops no estas registrado",
+        title: "Oops, ¡no estas registrado!",
         text: "Para poder realizar la reserva, debes estar registrado como Cliente",
       });
     } else if (auth.role === "Client") {

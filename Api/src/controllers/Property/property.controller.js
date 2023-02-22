@@ -198,6 +198,13 @@ export const getProperty = async (req, res) => {
       });
       filters += " title=" + title;
     }
+    if (type) {
+      result = result.filter((property) => {
+        let propertyLower = property.type.toLowerCase();
+        return propertyLower.includes(type.toLowerCase());
+      });
+      filters += " type=" + type;
+    }
     if (order === "asc") {
       result.sort((a, b) => a.title.localeCompare(b.title));
       filters += " order=asc";
