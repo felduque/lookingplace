@@ -476,6 +476,7 @@ export default function CardDetail() {
                           onChange={(event) =>
                             setNuevoComentario(event.target.value)
                           }
+                          style={{padding: "10px"}}
                         />
                       </div>
                     </div>
@@ -528,8 +529,10 @@ export default function CardDetail() {
                                         commentText: event.target.value,
                                       })
                                     }
+                                    style={{padding: "10px"}}
                                   />
-                                  <button type="submit">Guardar cambios</button>
+                                  <button type="submit" 
+                                    style={{margin: "10px"}}>Guardar cambios</button>
                                   <button type="button" onClick={handleCancel}>
                                     Cancelar
                                   </button>
