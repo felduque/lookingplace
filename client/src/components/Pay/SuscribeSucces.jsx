@@ -42,6 +42,19 @@ export default function SuscribeSuccess() {
             });
 
             console.log("Suscripcion approved");
+
+            axios(`http://localhost:3000/tenant/gettenant/${tenantId}`).then(
+              (res) => {
+                if (res.data?.Properties.length > 0) {
+                  res.data.Properties.forEach((e) => {
+                    axios.patch("http://localhost:3000/property/update/pro", {
+                      id: e.id,
+                    });
+                  });
+                }
+              }
+            );
+
             // axios
             //   .get(`http://localhost:3000/client/getuser/${clientId}`)
             //   .then((res) => {
