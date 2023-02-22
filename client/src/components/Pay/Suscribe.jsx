@@ -40,7 +40,7 @@ export default function Suscribe() {
                   <li>
                     <div className="button-bottom">
           {
-          auth?.email ? 
+          auth ? 
           (
             <div>
                <a className="button is-primary center-button-pro">
@@ -77,7 +77,7 @@ export default function Suscribe() {
                   <li>
                   {
             // Poner ! en auth para testear paneles sin iniciar sesión
-          auth?.email ? 
+          auth ? 
           (
             <PaymentMP/>
           ) : 

@@ -10,7 +10,7 @@
   position:fixed;
   top: 80px;
   width: 189px;
-  height: auto;
+  min-height: 550px;
   /*Barra lateral color*/
   background-color: #f8f6f6;
   border-right-width: 3px;
