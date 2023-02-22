@@ -8,6 +8,7 @@ import Filters from "../Filters/Filters";
 import { useLoadScript } from "@react-google-maps/api";
 import { Pagination } from "../Pagination/Pagination";
 import Loader from "../Loader/Loader";
+import GoUpButton from "../GoUpButton/GoUpButton";
 
 function Home() {
   const { isLoaded } = useLoadScript({
@@ -69,10 +70,12 @@ function Home() {
                     region={property.region}
                     comments={property.Comments}
                   ></Card>
+                  <GoUpButton />
                 </div>
               );
             })
             .slice(firstIndex, lastIndex)}
+
         </div>
       </div>
       <div className="pagination">

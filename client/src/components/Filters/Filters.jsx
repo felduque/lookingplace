@@ -94,6 +94,7 @@ export default function Filters({ closeModal, title }) {
   const [capacity, setCapacity] = useState("");
   const [beds, setBeds] = useState("");
   const [baths, setBaths] = useState("");
+  const [type, setType] = useState("");
   const [filters, setFilters] = useState({
     price: "",
     rating: "",
@@ -108,6 +109,7 @@ export default function Filters({ closeModal, title }) {
     pets: "",
     baths: "",
     beds: "",
+    type: ""
   });
 
   //-----------------------------------------------------------------//
@@ -119,7 +121,7 @@ export default function Filters({ closeModal, title }) {
       ...filters,
       services: services,
     });
-    let urlfilter = `${urlbase}&order=${filters.order}&priceMin=${priceRange[0]}&priceMax=${priceRange[1]}&rating=${filters.rating}&capacity=${filters.capacity}&country=${filters.country}&state=${filters.state}&services=${filters.services}&pets=${filters.pets}&party=${filters.party}&smoke=${filters.smoke}&beds=${filters.beds}&baths=${filters.beds}`;
+    let urlfilter = `${urlbase}&order=${filters.order}&priceMin=${priceRange[0]}&priceMax=${priceRange[1]}&rating=${filters.rating}&capacity=${filters.capacity}&country=${filters.country}&state=${filters.state}&services=${filters.services}&pets=${filters.pets}&party=${filters.party}&smoke=${filters.smoke}&beds=${filters.beds}&baths=${filters.beds}&type=${filters.type}`;
     dispatch(getPropertiesAsync(urlfilter));
   };
   const handleSelect = async (value) => {
@@ -152,7 +154,7 @@ export default function Filters({ closeModal, title }) {
   };
 
   const handleClickFilter = (e) => {
-    let urlfilter = `${urlbase}&order=${filters.order}&priceMin=${priceRange[0]}&priceMax=${priceRange[1]}&rating=${filters.rating}&capacity=${filters.capacity}&country=${filters.country}&state=${filters.state}&services=${filters.services}&pets=${filters.pets}&party=${filters.party}&smoke=${filters.smoke}&beds=${filters.beds}&baths=${filters.baths}`;
+    let urlfilter = `${urlbase}&order=${filters.order}&priceMin=${priceRange[0]}&priceMax=${priceRange[1]}&rating=${filters.rating}&capacity=${filters.capacity}&country=${filters.country}&state=${filters.state}&services=${filters.services}&pets=${filters.pets}&party=${filters.party}&smoke=${filters.smoke}&beds=${filters.beds}&baths=${filters.baths}&type=${filters.type}`;
     dispatch(getPropertiesAsync(urlfilter));
     // closeModal();
   };
@@ -223,6 +225,22 @@ export default function Filters({ closeModal, title }) {
       setFilters({
         ...filters,
         baths: value,
+      });
+    }
+  };
+
+  const handleTypeButtonClick = (value) => {
+    if (type === value) {
+      setType("");
+      setFilters({
+        ...filters,
+        type: "",
+      });
+    } else {
+      setType(value);
+      setFilters({
+        ...filters,
+        type: value,
       });
     }
   };
@@ -320,6 +338,44 @@ export default function Filters({ closeModal, title }) {
                         </div>
                       )}
                     </PlacesAutocomplete>
+                  </div>
+                </div>
+                <div className="type-container box">
+                  <div className="is-flex is-align-items-center">
+                    <h1 className="title is-size-4 align-left">
+                      Tipo de propiedad
+                    </h1>
+                    <img src={abcfilerIcon} className="rating-icon" />
+                  </div>
+                  <div>
+                    <button
+                      className={`capacity-button button is-active mr-2 ${type === "Casa" ? "capacity-button-active" : ""
+                        }`}
+                      onClick={() => handleTypeButtonClick("Casa")}
+                    >
+                      Casa
+                    </button>
+                    <button
+                      className={`capacity-button button is-active mr-2 ${type === "Cabaña" ? "capacity-button-active" : ""
+                        }`}
+                      onClick={() => handleTypeButtonClick("Cabaña")}
+                    >
+                      Cabaña
+                    </button>
+                    <button
+                      className={`capacity-button button is-active mr-2 ${type === "Apartamento" ? "capacity-button-active" : ""
+                        }`}
+                      onClick={() => handleTypeButtonClick("Apartamento")}
+                    >
+                      Apartamento
+                    </button>
+                    <button
+                      className={`capacity-button button is-active mr-2 ${type === "Habitacion" ? "capacity-button-active" : ""
+                        }`}
+                      onClick={() => handleTypeButtonClick("Habitacion")}
+                    >
+                      Habitación
+                    </button>
                   </div>
                 </div>
                 <div className="alpha-container box">
