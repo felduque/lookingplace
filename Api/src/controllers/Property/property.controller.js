@@ -3,6 +3,7 @@ import { Tenant } from "../../models/tenant.model.js";
 import { Client } from "../../models/client.model.js";
 import { Comment } from "../../models/comment.model.js";
 import { Booking } from "../../models/booking.model.js";
+import { Payments } from "../../models/payment.model.js";
 import { sendEmailProperty } from "../Nodemailer/nodemailer.controller.js";
 
 export const createProperty = async (req, res) => {
@@ -16,6 +17,7 @@ export const createProperty = async (req, res) => {
   }
 
   const {
+    type, // esto es para type
     title,
     description,
     checkIn,
@@ -37,6 +39,7 @@ export const createProperty = async (req, res) => {
     city,
     region,
     id_tenant,
+    pro, // esto es para type
   } = req.body;
 
   console.log(id_tenant);
@@ -46,6 +49,7 @@ export const createProperty = async (req, res) => {
   try {
     let newProperty = await Property.create(
       {
+        type, // agregado al ultimo
         title,
         description,
         checkIn,
@@ -67,6 +71,7 @@ export const createProperty = async (req, res) => {
         state,
         city,
         region,
+        pro, // para suscription
       },
       {
         includes: [
@@ -125,11 +130,13 @@ export const getProperty = async (req, res) => {
     pets,
     party,
     services,
+    type,
   } = req.query;
   try {
     const property = await Property.findAll({
       attributes: [
         "id",
+        "type", // agregado
         "title",
         "description",
         "image",
@@ -151,6 +158,7 @@ export const getProperty = async (req, res) => {
         "state",
         "region",
         "city",
+        "pro", // agregado
       ],
       include: [
         {
@@ -282,6 +290,7 @@ export const getPropertyById = async (req, res) => {
       where: { id },
       attributes: [
         "id",
+        "type",
         "title",
         "description",
         "image",
@@ -304,6 +313,7 @@ export const getPropertyById = async (req, res) => {
         "region",
         "city",
         "bookings",
+        "pro",
       ],
       include: [
         {
@@ -331,6 +341,9 @@ export const getPropertyById = async (req, res) => {
         {
           model: Booking,
           attributes: ["id", "bookingsPropCli"],
+        },
+        {
+          model: Payments,
         },
       ],
     });
@@ -458,6 +471,25 @@ export const patchBookingsProperty = async (req, res) => {
       await clientSearch.addProperty(id);
       res.json(arrayBookings);
     }
+  } catch (e) {
+    return res.status(404).json({
+      message: "Something goes wrong",
+      error: e,
+    });
+  }
+};
+
+export const patchProProperty = async (req, res) => {
+  console.log(req.body);
+  const { id } = req.body;
+  // console.log("Soy Id", id, "pro", pro);
+  try {
+    let searchProperty = await Property.findOne({
+      where: { id },
+    });
+    await searchProperty.update({ pro: true });
+
+    res.json("Propiedad Actualizada a Pro - IdPropiedad : " + id);
   } catch (e) {
     return res.status(404).json({
       message: "Something goes wrong",

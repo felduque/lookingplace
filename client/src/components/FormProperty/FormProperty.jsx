@@ -44,7 +44,12 @@ const options = [
   { value: "Cuna", label: "Cuna" },
 ];
 const predefinedTitleNames = ["Casa", "Apartamento", "Habitación", "Cabaña"];
-const predefinedPropertyTypes = ["Apartamento", "Casa", "Habitación privada", "Habitación compartida"];
+const predefinedPropertyTypes = [
+  "Apartamento",
+  "Casa",
+  "Habitación privada",
+  "Habitación compartida",
+];
 
 export default function FormHostCreate() {
   const auth = JSON.parse(localStorage.getItem("auth"));
@@ -118,6 +123,7 @@ export default function FormHostCreate() {
     city: "",
     id_tenant: auth.idTenant,
     type: "",
+    pro: false,
   });
   // estados relacionados con inputs.images para mostrar lo subido
   const [urlImages, setUrlImages] = useState([]);
@@ -128,20 +134,42 @@ export default function FormHostCreate() {
   const [errors, setErrors] = useState({});
   const errorsLength = Object.entries(errors).length;
 
+  useEffect(
+    () => {
+      // seteo el array si no hay images, sino creo el array a mostrar
+      if (inputs.image.length === 0) setUrlImages([]);
+      setValidateImages("Sube una foto del lugar");
+      if (inputs.image.length > 0) {
+        const newArrayUrl = [];
+        inputs.image.forEach((img) =>
+          newArrayUrl.push(URL.createObjectURL(img))
+        );
+        setUrlImages(newArrayUrl);
+        setValidateImages("");
+      }
+      if (inputs.image.length > 5)
+        setValidateImages("Máximo 5 fotos del lugar");
+
+      setErrors(validateForm(inputs));
+    },
+    [inputs],
+    [urlImages]
+  );
+
   useEffect(() => {
-    // seteo el array si no hay images, sino creo el array a mostrar
-    if (inputs.image.length === 0) setUrlImages([]); setValidateImages('Sube una foto del lugar');
-    if (inputs.image.length > 0) {
-      const newArrayUrl = [];
-      inputs.image.forEach((img) => newArrayUrl.push(URL.createObjectURL(img)));
-      setUrlImages(newArrayUrl);
-      setValidateImages('');
-    }
-    if (inputs.image.length > 5) setValidateImages('Máximo 5 fotos del lugar');
-
-    setErrors(validateForm(inputs));
-  }, [inputs], [urlImages]);
-
+    const axiosDataTenant = async () => {
+      const data = await axios(
+        `http://localhost:3000/tenant/gettenant/${auth.idTenant}`
+      );
+      if (data.data.isPro) {
+        setInputs({
+          ...inputs,
+          pro: true,
+        });
+      }
+    };
+    axiosDataTenant();
+  }, []);
 
   const handleChange = (e, actionMeta = false, nextChecked) => {
     // Select no tiene name en el evento, usa ActionMeta
@@ -182,7 +210,6 @@ export default function FormHostCreate() {
       setErrors(validateForm({ ...inputs, [e.target.name]: e.target.value }));
       setChecked(nextChecked);
     }
-
   };
 
   // eliminando image del estado y actualizando el estado; todo esta referenciado al state principal inputs
@@ -198,10 +225,9 @@ export default function FormHostCreate() {
       ...inputs,
       type: typeName,
     }));
-    console.log('typeName:', typeName);
-    console.log('inputs:', inputs);
+    console.log("typeName:", typeName);
+    console.log("inputs:", inputs);
   };
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -269,7 +295,6 @@ export default function FormHostCreate() {
   // console.log(inputs);
   console.log(inputs);
 
-
   const handleButtonClick = (titleName) => {
     setInputs((inputs) => ({
       ...inputs,
@@ -277,7 +302,6 @@ export default function FormHostCreate() {
     }));
   };
   const [checked, setChecked] = useState(false);
-
 
   if (!isLoaded) return <div>Cargando...</div>;
   return (
@@ -295,7 +319,9 @@ export default function FormHostCreate() {
                   {predefinedTitleNames.map((name) => (
                     <button
                       key={name}
-                      className={`button ${inputs.title === name ? "is-info" : ""}`}
+                      className={`button ${
+                        inputs.title === name ? "is-info" : ""
+                      }`}
                       type="button"
                       onClick={() => handleButtonClick(name)}
                     >
@@ -310,8 +336,9 @@ export default function FormHostCreate() {
                   {predefinedPropertyTypes.map((typeName) => (
                     <button
                       key={typeName}
-                      className={`button ${inputs.type === typeName ? "is-info" : ""
-                        }`}
+                      className={`button ${
+                        inputs.type === typeName ? "is-info" : ""
+                      }`}
                       type="button"
                       onClick={() => handlePropertyTypeButtonClick(typeName)}
                     >
@@ -439,7 +466,7 @@ export default function FormHostCreate() {
                       />
                     </div>
                   </div>
-                  <div className="column">
+                  <div className="column is-8 clock-margin-right">
                     <label className="label" htmlFor="checkOut">
                       Horario de salida
                     </label>
@@ -461,12 +488,17 @@ export default function FormHostCreate() {
               <div className="areas-spaces-top">
                 <div className="field">
                   <label className="label" htmlFor="smoke">
-                    ¿Permitido mascotas?
+                    ¿Permitido fumar?
                     <Switch
                       id="smoke"
                       name="smoke"
                       checked={inputs.smoke}
-                      onChange={value => setInputs(prevInputs => ({ ...prevInputs, smoke: value }))}
+                      onChange={(value) =>
+                        setInputs((prevInputs) => ({
+                          ...prevInputs,
+                          smoke: value,
+                        }))
+                      }
                       onColor="#86d3ff"
                       onHandleColor="#2693e6"
                       handleDiameter={30}
@@ -485,7 +517,12 @@ export default function FormHostCreate() {
                       id="party"
                       name="party"
                       checked={inputs.party}
-                      onChange={value => setInputs(prevInputs => ({ ...prevInputs, party: value }))}
+                      onChange={(value) =>
+                        setInputs((prevInputs) => ({
+                          ...prevInputs,
+                          party: value,
+                        }))
+                      }
                       onColor="#86d3ff"
                       onHandleColor="#2693e6"
                       handleDiameter={30}
@@ -504,7 +541,12 @@ export default function FormHostCreate() {
                       id="pets"
                       name="pets"
                       checked={inputs.pets}
-                      onChange={value => setInputs(prevInputs => ({ ...prevInputs, pets: value }))}
+                      onChange={(value) =>
+                        setInputs((prevInputs) => ({
+                          ...prevInputs,
+                          pets: value,
+                        }))
+                      }
                       onColor="#86d3ff"
                       onHandleColor="#2693e6"
                       handleDiameter={30}
@@ -578,11 +620,14 @@ export default function FormHostCreate() {
               </div>
               <div className="areas-spaces-top">
                 <div className="field">
-                  <p><label className="label">Imágenes del lugar</label></p>
+                  <p>
+                    <label className="label">Imágenes del lugar</label>
+                  </p>
                   <button
-                    className='button is-info'
+                    className="button is-info"
                     disabled={inputs.image.length === 5 ? true : false}
-                    type="button">
+                    type="button"
+                  >
                     <img src={uploadIcon} className="upload-button-place" />
                     <label htmlFor="image">Selecciona las fotos...</label>
                   </button>
@@ -596,11 +641,14 @@ export default function FormHostCreate() {
                     accept="image/*"
                     onChange={handleChange}
                     disabled={inputs.image.length === 5 ? true : false}
-
                   />
                   {validateImages ? (
-                    <p><span className="error">{validateImages}</span></p>
-                  ) : ''}
+                    <p>
+                      <span className="error">{validateImages}</span>
+                    </p>
+                  ) : (
+                    ""
+                  )}
                   {urlImages.map((img, i) => (
                     <div key={i}>
                       <img

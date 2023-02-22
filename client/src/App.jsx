@@ -30,6 +30,8 @@ import PaySuccess from "./components/MercadoPago/MPSuccess/MPSuccess";
 import PayFailure from "./components/MercadoPago/MPFailure/MPFailure";
 import LandingPage from "./components/LandingPage/LandingPage.jsx";
 import Footer from "././components/Footer/Footer";
+import SuscribeSuccess from "./components/Pay/SuscribeSucces.jsx";
+import SuscribeFailure from "./components/Pay/SuscribeFailure.jsx";
 
 function App() {
   /*User Google*/
@@ -76,6 +78,8 @@ function App() {
           <Route path="/ResumePay" element={<ResumePay />} />
           <Route path="/Pay/Success" element={<PaySuccess />} />
           <Route path="/Pay/Failure" element={<PayFailure />} />
+          <Route path="/Suscription/Success" element={<SuscribeSuccess />} />
+          <Route path="/Suscription/Failure" element={<SuscribeFailure />} />
 
           {/*si quieren agregar rutas publicas arriba de este mensaje*/}
 
