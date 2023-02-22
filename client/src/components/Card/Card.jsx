@@ -20,10 +20,11 @@ function Card({
   country,
   state,
   region,
+  comments,
 }) {
   const slides = [];
   image?.forEach((e) => slides.push({ url: e }));
-  console.log(slides);
+  // console.log(slides);
   // const slides = [
   //   { url: "https://images.pexels.com/photos/2102587/pexels-photo-2102587.jpeg", title: "Beach" },
   //   { url: "https://images.pexels.com/photos/8317058/pexels-photo-8317058.jpeg", title: "Boat" },
@@ -31,6 +32,28 @@ function Card({
   //   { url: "https://images.pexels.com/photos/3635805/pexels-photo-3635805.jpeg", title: "City" },
   //   { url: "https://images.pexels.com/photos/1560065/pexels-photo-1560065.jpeg", title: "Venecia" },
   // ];
+
+  console.log(comments);
+  let arrayCalificacioCard = [];
+  comments?.forEach((c) => {
+    if (c.calificacion !== null)
+      arrayCalificacioCard = [...arrayCalificacioCard, c.calificacion];
+  });
+
+  console.log("Soy ArrayCalificacion card", arrayCalificacioCard);
+
+  let promedio =
+    arrayCalificacioCard.reduce(
+      (acumulador, currentValue) => acumulador + currentValue,
+      0
+    ) / arrayCalificacioCard.length;
+
+  if (promedio % 1 === 0) {
+    promedio = promedio + ".0";
+  }
+
+  if (isNaN(promedio)) promedio = "0.0";
+  console.log(promedio);
 
   const containerStyles = {
     width: "280px",
@@ -57,7 +80,7 @@ function Card({
                   <img src={starIcon} className="icon-star" />
                 </div>
                 <div className="column">
-                  <span className="number-card">{rating}/5</span>
+                  <span className="number-card">{promedio}/5.0</span>
                 </div>
 
                 <div className="column">
