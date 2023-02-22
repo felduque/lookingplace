@@ -3,6 +3,7 @@ import nodemailer from "nodemailer";
 import { tenantHtml } from "../../Templates/tenantHtml.js";
 import { clientHtml } from "../../Templates/clientHtml.js";
 import { payHtml } from "../../Templates/payHtml.js";
+import { cancelHtml } from "../../Templates/cancelHtml.js";
 import { propertyHtml } from "../../Templates/propertyHtml.js";
 // require("dotenv").config();
 // const { NODEMAILER_PASS } = process.env;
@@ -87,22 +88,61 @@ export async function sendEmailPay(fullName, email, priceTotal, title) {
   return;
 }
 
-export async function sendEmailProperty (property, fullName, email) {
+export async function sendEmailCancel(fullName, email, title) {
+  // console.log("NODEMAILER", fullName, email, priceTotal, title);
+
   const transporter = nodemailer.createTransport({
     service: "gmail",
     host: "smtp.gmail.email",
     port: 587,
     auth: {
       user: "lookingplace.app.henry@gmail.com",
-      pass: "lrzuyphbebplwmci"
+      pass: "lrzuyphbebplwmci",
     },
   });
 
-	const urlValidation = "https://api.gmail.com/"
+  // console.log("cree Transporte");
+
+  var htmlSend = cancelHtml;
+
+  htmlSend = htmlSend?.replace("*fullName*", fullName);
+  htmlSend = htmlSend?.replace("*title*", title);
+  // htmlSend = htmlSend?.replace("*priceTotal*", priceTotal);
+  //   htmlSend = htmlSend?.replace("*lastname*", client.lastname);
+  //   htmlSend = htmlSend?.replace("*message*", client.message);
+
+  let mailOptions = {
+    from: "<lookingplace.app.henry@gmail.com>",
+    to: email,
+    subject: `Hola ${fullName}, LookingPlace : Reserva Cancelada`,
+    html: htmlSend,
+  };
+
+  await transporter.sendMail(mailOptions, (error) => {
+    if (error) {
+      console.log(error);
+      return "Error";
+    }
+    console.log("send email");
+  });
+  return;
+}
+
+export async function sendEmailProperty(property, fullName, email) {
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    host: "smtp.gmail.email",
+    port: 587,
+    auth: {
+      user: "lookingplace.app.henry@gmail.com",
+      pass: "lrzuyphbebplwmci",
+    },
+  });
+
+  const urlValidation = "https://api.gmail.com/";
   var htmlSend = propertyHtml;
 
   htmlSend = htmlSend?.replace("*fullName*", fullName);
-
 
   const info = await transporter.sendMail(
     {
@@ -119,6 +159,4 @@ export async function sendEmailProperty (property, fullName, email) {
     }
   );
   return;
-};
-
-
+}

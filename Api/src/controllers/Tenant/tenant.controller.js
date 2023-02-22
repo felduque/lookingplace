@@ -284,7 +284,15 @@ export const resetPassword = async (req, res) => {
 export const getTenant = async (req, res) => {
   try {
     const client = await Tenant.findAll({
-      attributes: ["id", "fullName", "email", "avatar", "phone", "role"],
+      attributes: [
+        "id",
+        "fullName",
+        "email",
+        "avatar",
+        "phone",
+        "role",
+        "isPro",
+      ],
       include: [
         {
           model: Aboutme,
@@ -460,6 +468,27 @@ export const validateTenant = async (req, res) => {
     res.status(500).json({
       message: "Something goes wrong",
       data: {},
+    });
+  }
+};
+
+//  para suscription
+
+export const patchProTenant = async (req, res) => {
+  console.log(req.body);
+  const { id, pro } = req.body;
+  console.log("Soy Id", id, "pro", pro);
+  try {
+    let searchTenant = await Tenant.findOne({
+      where: { id },
+    });
+    await searchTenant.update({ isPro: pro });
+
+    res.json("Tenant Actualizado a Pro - IdTenant : " + id);
+  } catch (e) {
+    return res.status(404).json({
+      message: "Something goes wrong",
+      error: e,
     });
   }
 };

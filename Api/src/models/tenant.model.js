@@ -48,4 +48,9 @@ export const Tenant = sequelize.define("Tenant", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  isPro: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+    allowNull: true,
+  },
 });

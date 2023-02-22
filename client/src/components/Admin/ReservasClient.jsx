@@ -34,6 +34,7 @@ export const ReservacionesCliente = () => {
           idClient: allPropierte.data.id,
           avatar: allPropierte.data.avatar,
           email: allPropierte.data.email,
+          fullName: allPropierte.data.fullName,
         }),
           setAllPropiertie(prop);
         setAllBookings(booking);
@@ -52,103 +53,116 @@ export const ReservacionesCliente = () => {
 
   return (
     <>
-    <div className="container-title-section-panel">
-      <div className="title is-4">Tus alojamientos reservados</div>
-    </div>
-    
+      <div className="container-title-section-panel">
+        <div className="title is-4">Tus alojamientos reservados</div>
+      </div>
+
       <div className="container-list-publish-tenant">
-        {allBookings.length > 0 ? (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-evenly",
-            width: "100%",
-            // flexDirection: "column",
-            flexWrap: "wrap",
-          }}
-        >
-          {allBookings?.map((b) => {
-            let ingreso = new Date(b.bookingsPropCli[0]);
-            console.log(ingreso);
+        {allBookings?.length > 0 ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-evenly",
+              width: "100%",
+              // flexDirection: "column",
+              flexWrap: "wrap",
+            }}
+          >
+            {allBookings?.map((b) => {
+              let ingreso = new Date(b.bookingsPropCli[0]);
+              console.log(ingreso);
 
-            let nocheFinal = new Date(
-              b.bookingsPropCli[b.bookingsPropCli.length - 1]
-            );
-            console.log(nocheFinal);
-            let salida = new Date(nocheFinal.setDate(nocheFinal.getDate() + 1));
+              let nocheFinal = new Date(
+                b.bookingsPropCli[b.bookingsPropCli.length - 1]
+              );
+              console.log(nocheFinal);
+              let salida = new Date(
+                nocheFinal.setDate(nocheFinal.getDate() + 1)
+              );
 
-            console.log(salida);
+              console.log(salida);
 
-            return (
-              <div
-                className="container-list-publish-tenant__list__item"
-                style={{ width: "400px" }}
-              >
-                {/* AQUI MODIFICO STYLOS DE CONTENEDOR DE CARDS DE RESERVAS */}
+              return (
                 <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
-                    color: "black",
-                    gap: "20px",
-                    fontSize: "14px",
-                    margin: "8px",
-                  }}
+                  className="container-list-publish-tenant__list__item"
+                  style={{ width: "400px" }}
                 >
-                  <p>
-                    <strong style={{ color: "black" }}>
-                      Fecha de ingreso :
-                    </strong>{" "}
-                    {ingreso.toDateString()}
-                  </p>
-                  <p>
-                    <strong style={{ color: "black" }}>
-                      Fecha de salida :
-                    </strong>
-                    {salida.toDateString()}
-                  </p>
-                </div>
-                <ReservasProp id={b.booking_property} />
-                <ReservasTen id={b.booking_tenant} />
-                <div className="reservasClientPrincipal">
-                  <ReservasComent
-                    idPropiedad={b.booking_property}
-                    clientCom={b.Client.Comments}
-                    idCliente={dataClient.idClient}
-                    avatarCliente={dataClient.avatar}
-                    emailCliente={dataClient.email}
-                  />
-                </div>
-                <div className="columns">
-                  <button
-                    className="button is-danger m-5 is-4"
-                    onClick={() => {
-                      Swal.fire({
-                        title: "Quieres cancelar tu reserva?",
-                        showDenyButton: true,
-                        // showCancelButton: true,
-                        confirmButtonText: "Si",
-                        denyButtonText: `No`,
-                      }).then((result) => {
-                        /* Read more about isConfirmed, isDenied below */
-                        if (result.isConfirmed) {
-                          Swal.fire("Cancelado con éxito!", "", "success");
-                          axios.delete(
-                            `http://localhost:3000/deleteBooking/${b.id}`
-                          );
-                          setTimeout(() => {
-                            window.location.reload(false);
-                          }, 2500);
-                        } else if (result.isDenied) {
-                          Swal.fire("No se cancelo tu Reserva", "", "info");
-                        }
-                      });
+                  {/* AQUI MODIFICO STYLOS DE CONTENEDOR DE CARDS DE RESERVAS */}
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-evenly",
+                      alignItems: "center",
+                      color: "black",
+                      gap: "20px",
+                      fontSize: "14px",
+                      margin: "8px",
                     }}
                   >
-                    Cancelar Reservación
-                  </button>
-                  {/* <button
+                    <p>
+                      <strong style={{ color: "black" }}>
+                        Fecha de ingreso :
+                      </strong>{" "}
+                      {ingreso.toDateString()}
+                    </p>
+                    <p>
+                      <strong style={{ color: "black" }}>
+                        Fecha de salida :
+                      </strong>
+                      {salida.toDateString()}
+                    </p>
+                  </div>
+                  <ReservasProp id={b.booking_property} />
+                  <ReservasTen id={b.booking_tenant} />
+                  <div className="reservasClientPrincipal">
+                    <ReservasComent
+                      idPropiedad={b.booking_property}
+                      clientCom={b.Client.Comments}
+                      idCliente={dataClient.idClient}
+                      avatarCliente={dataClient.avatar}
+                      emailCliente={dataClient.email}
+                    />
+                  </div>
+                  <div className="columns">
+                    <button
+                      className="button is-danger m-5 is-4"
+                      onClick={() => {
+                        Swal.fire({
+                          title: "Quieres cancelar tu reserva?",
+                          showDenyButton: true,
+                          // showCancelButton: true,
+                          confirmButtonText: "Si",
+                          denyButtonText: `No`,
+                        }).then((result) => {
+                          /* Read more about isConfirmed, isDenied below */
+                          if (result.isConfirmed) {
+                            Swal.fire("Cancelado con éxito!", "", "success");
+                            axios.delete(
+                              `http://localhost:3000/deleteBooking/${b.id}`
+                            );
+                            axios(
+                              `http://localhost:3000/property/${b.booking_property}`
+                            ).then((result) => {
+                              console.log(result.data.title);
+                              axios.post("http://localhost:3000/cancel/book", {
+                                fullName: dataClient.fullName,
+                                email: dataClient.email,
+                                title: result.data.title,
+                              });
+                            });
+
+                            setTimeout(() => {
+                              window.location.reload(false);
+                            }, 2500);
+                          } else if (result.isDenied) {
+                            Swal.fire("No se cancelo tu Reserva", "", "info");
+                          }
+                        });
+                      }}
+                    >
+                      Cancelar Reservación
+                    </button>
+                    {/* <button
                     className="button is-primary m-5 is-4"
                     onClick={(e) => {
                       setModalCalificacion(true);
@@ -156,17 +170,19 @@ export const ReservacionesCliente = () => {
                   >
                     Calificar Alojamiento
                   </button> */}
-                </div>
-                {/* {modalCalificacion && (
+                  </div>
+                  {/* {modalCalificacion && (
                   <ModalCalificacion
                     closeModal={() => setModalCalificacion(false)}
                   />
                 )} */}
-              </div>
-            );
-          })}
-        </div>
-        ) : <div className="title is-6">No hay reservaciones aún</div>}
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="title is-6">No hay reservaciones aún</div>
+        )}
       </div>
     </>
   );
