@@ -87,6 +87,7 @@ export const Profile = () => {
                 <h2 className="title is-4">Teléfono</h2>
                 <p>{aboutMe ? users?.phone : "No hay telefono"}</p>
               </div>
+              
               <div className="detail-profile">
                 <h2 className="title is-4">Correo</h2>
                 <p>{users?.email || user?.email}</p>
