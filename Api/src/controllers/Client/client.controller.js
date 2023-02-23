@@ -207,8 +207,8 @@ export const forgot = async (req, res) => {
     var transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "lookingplace.app.henry@gmail.com",
-        pass: "lrzuyphbebplwmci",
+        user: "lookingplace.app.henry2@gmail.com",
+        pass: "rtmxlgfasbphaafd",
       },
     });
 

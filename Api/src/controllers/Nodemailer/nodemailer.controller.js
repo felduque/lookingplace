@@ -14,8 +14,8 @@ export async function sendEmail(client, role, id) {
     host: "smtp.gmail.email",
     port: 587,
     auth: {
-      user: "lookingplace.app.henry@gmail.com",
-      pass: "lrzuyphbebplwmci",
+      user: "lookingplace.app.henry2@gmail.com",
+      pass: "rtmxlgfasbphaafd",
     },
   });
 
@@ -33,7 +33,7 @@ export async function sendEmail(client, role, id) {
 
   const info = await transporter.sendMail(
     {
-      from: "<lookingplace.app.henry@gmail.com>", // cual es el email que esta enviando el correo ( por lo general el de la empresa info@...)
+      from: "<lookingplace.app.henry2@gmail.com>", // cual es el email que esta enviando el correo ( por lo general el de la empresa info@...)
       to: `${client.email}`, // lista o persona a la que le queremos enviar el correo
       subject: `Hola ${client.fullName}, Bienvenido a LookingPlace. Gracias por suscribirte!`, // Asunto
       html: htmlSend,
@@ -56,8 +56,8 @@ export async function sendEmailPay(fullName, email, priceTotal, title) {
     host: "smtp.gmail.email",
     port: 587,
     auth: {
-      user: "lookingplace.app.henry@gmail.com",
-      pass: "lrzuyphbebplwmci",
+      user: "lookingplace.app.henry2@gmail.com",
+      pass: "rtmxlgfasbphaafd",
     },
   });
 
@@ -72,7 +72,7 @@ export async function sendEmailPay(fullName, email, priceTotal, title) {
   //   htmlSend = htmlSend?.replace("*message*", client.message);
 
   let mailOptions = {
-    from: "<lookingplace.app.henry@gmail.com>",
+    from: "<lookingplace.app.henry2@gmail.com>",
     to: email,
     subject: `Hola ${fullName}, LookingPlace : Pago Realizado con Exito!`,
     html: htmlSend,
@@ -96,8 +96,8 @@ export async function sendEmailCancel(fullName, email, title) {
     host: "smtp.gmail.email",
     port: 587,
     auth: {
-      user: "lookingplace.app.henry@gmail.com",
-      pass: "lrzuyphbebplwmci",
+      user: "lookingplace.app.henry2@gmail.com",
+      pass: "rtmxlgfasbphaafd",
     },
   });
 
@@ -112,7 +112,7 @@ export async function sendEmailCancel(fullName, email, title) {
   //   htmlSend = htmlSend?.replace("*message*", client.message);
 
   let mailOptions = {
-    from: "<lookingplace.app.henry@gmail.com>",
+    from: "<lookingplace.app.henry2@gmail.com>",
     to: email,
     subject: `Hola ${fullName}, LookingPlace : Reserva Cancelada`,
     html: htmlSend,
@@ -134,8 +134,8 @@ export async function sendEmailProperty(property, fullName, email) {
     host: "smtp.gmail.email",
     port: 587,
     auth: {
-      user: "lookingplace.app.henry@gmail.com",
-      pass: "lrzuyphbebplwmci",
+      user: "lookingplace.app.henry2@gmail.com",
+      pass: "rtmxlgfasbphaafd",
     },
   });
 
@@ -146,7 +146,7 @@ export async function sendEmailProperty(property, fullName, email) {
 
   const info = await transporter.sendMail(
     {
-      from: "<lookingplace.app.henry@gmail.com>", // cual es el email que esta enviando el correo ( por lo general el de la empresa info@...)
+      from: "<lookingplace.app.henry2@gmail.com>", // cual es el email que esta enviando el correo ( por lo general el de la empresa info@...)
       to: `${email}`, // lista o persona a la que le queremos enviar el correo
       subject: `Hola ${fullName}, ha publicado una nueva propiedad`, // Asunto
       html: htmlSend,

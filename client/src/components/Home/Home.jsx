@@ -31,7 +31,7 @@ function Home() {
   }, []);
 
   //----------------------Pagintado--------------------------------
-  const [propertyPerPage, setPropertyPerAge] = useState(24);
+  const [propertyPerPage, setPropertyPerAge] = useState(8);
   const [currentPage, setCurrentPage] = useState(1);
 
   const lastIndex = currentPage * propertyPerPage;
