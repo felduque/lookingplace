@@ -50,7 +50,7 @@ export const Profile = () => {
             />
             <span className="content-profile-name">
               <h1 className="name-profile">
-                {users.fullName || user.displayName}{" "}
+                {users?.fullName || user?.displayName}{" "}
               </h1>
             </span>
           </div>
@@ -59,7 +59,7 @@ export const Profile = () => {
           <div className="profile-content-title-description">
             <h1 className="title is-4">Descripción</h1>
             <p className="title is-5">
-              {aboutMe ? aboutMe.description : "No hay descripción"}
+              {aboutMe ? aboutMe?.description : "No hay descripción"}
             </p>
             <div className="hobbies-content">
               <h1 className="title is-4">Aficiones</h1>
@@ -80,7 +80,7 @@ export const Profile = () => {
             <div className="profile-detail">
               <div className="detail-profile">
                 <h2 className="title is-4">País / Ciudad</h2>
-                <p>{aboutMe ? aboutMe.from : "No hay pais"}</p>
+                <p>{aboutMe ? aboutMe?.from : "No hay pais"}</p>
               </div>
 
               <div className="detail-profile">
