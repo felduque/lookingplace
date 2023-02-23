@@ -125,7 +125,7 @@ export const createClient = async (req, res) => {
 export const login = async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await Client.findOne({ where: { email } });
+  const user = await Client.findOne({ where: { email: email } });
   if (!user) {
     return res.json({ error: "User Not found" });
   }
