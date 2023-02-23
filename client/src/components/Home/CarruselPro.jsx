@@ -21,13 +21,23 @@ export default function CarruselPro() {
   const lastIndex = currentPage * propertyPerPage;
   const firstIndex = lastIndex - propertyPerPage;
 
+  console.log("------------",lastIndex, firstIndex);
+
+  // (pagina-1)porPagina,(pagina-1)porPagina+porPagina
+
   const pageNumber = [];
 
   const totalProperty = statePropertys.result?.length;
 
-  for (let i = 1; i <= Math.ceil(totalProperty / propertyPerPage); i++) {
+  const arrayFiltrados = statePropertys.result?.filter((e) => e.pro === true);
+  // console.log("Soy array Filtrados", arrayFiltrados);
+
+  const arrayFiltradosLong = arrayFiltrados?.length
+  
+  for (let i = 1; i <= Math.ceil(arrayFiltradosLong/ propertyPerPage); i++) {
     pageNumber.push(i);
   }
+
 
   const onPreviusPage = () => {
     setCurrentPage(currentPage - 1);
@@ -40,8 +50,6 @@ export default function CarruselPro() {
     setCurrentPage(n);
   };
 
-  let arrayFiltrados = statePropertys.result?.filter((e) => e.pro === true);
-  console.log("Soy array Filtrados", arrayFiltrados);
 
   const [mostrarDiv, setMostrarDiv] = useState(false);
 

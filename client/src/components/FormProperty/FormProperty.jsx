@@ -55,8 +55,8 @@ const predefinedPropertyTypes = [
   "Apartamento",
   "Cabaña",
   "Casa",
-  "Habitación",
-  "Camping",
+  "Habitacion",
+  "Camping"
 ];
 
 export default function FormHostCreate() {
@@ -251,7 +251,7 @@ export default function FormHostCreate() {
       urlImages.length < 1
     ) {
       Swal.fire({
-        title: "Error al publicar Place",
+        title: "Error al publicar Propiedad",
         text: "Algo salió mal, intenta de nuevo.",
         icon: "error",
         confirmButtonText: "Entendido",
@@ -271,8 +271,8 @@ export default function FormHostCreate() {
         .then(function (response) {
           console.log(response);
           Swal.fire({
-            title: "Place publicado con éxito",
-            text: "Ahora tu Place aparece en la portada.",
+            title: "Propiedad publicada con éxito",
+            text: "Ahora tu Propiedad aparece en la portada.",
             imageUrl: tipiCreatePlace,
             imageWidth: 200,
             imageHeight: 180,

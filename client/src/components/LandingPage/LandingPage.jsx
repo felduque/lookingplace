@@ -36,7 +36,12 @@ export default function LandingPage() {
 
   const totalProperty = statePropertys.result?.length;
 
-  for (let i = 1; i <= Math.ceil(totalProperty / propertyPerPage); i++) {
+  const arrayFiltrados = statePropertys.result?.filter((e) => e.pro === true);
+  // console.log("Soy array Filtrados", arrayFiltrados);
+
+  const arrayFiltradosLong = arrayFiltrados?.length
+  
+  for (let i = 1; i <= Math.ceil(arrayFiltradosLong/ propertyPerPage); i++) {
     pageNumber.push(i);
   }
 
@@ -51,8 +56,6 @@ export default function LandingPage() {
     setCurrentPage(n);
   };
 
-  let arrayFiltrados = statePropertys.result?.filter((e) => e.pro === true);
-  console.log("Soy array Filtrados", arrayFiltrados);
 
   //---------------------------------------------------------------
 
