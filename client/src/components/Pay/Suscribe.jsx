@@ -13,17 +13,18 @@ export default function Suscribe() {
   const dataPayer = JSON.parse(localStorage.getItem("auth"));
   console.log(dataPayer);
 
-  
   useEffect(() => {
     const petition = async () => {
-      const data = await axios(`http://localhost:3000/tenant/gettenant/${dataPayer.idTenant}`)
-      console.log('Data: ',data);
-      setUsersLocal(data.data)
+      const data = await axios(
+        `http://localhost:3000/tenant/gettenant/${dataPayer.idTenant}`
+      );
+      console.log("Data: ", data);
+      setUsersLocal(data.data);
     };
     petition();
   }, []);
 
- console.log('UserLocal: ', usersLocal);
+  console.log("UserLocal: ", usersLocal);
 
   return (
     <>
@@ -48,10 +49,8 @@ export default function Suscribe() {
                       <li class="bottom-bar">Comenta y puntúa tus visitas</li>
                       <li>
                         <div className="button-bottom">
-                          {
-                            usersLocal?.isPro === true ? (
-                            <div>
-                            </div>
+                          {usersLocal?.isPro === true ? (
+                            <div></div>
                           ) : (
                             <div>
                               <a className="button is-primary center-button-pro">
@@ -77,34 +76,31 @@ export default function Suscribe() {
                       <li class="bottom-bar">Propiedades sin límite</li>
                       <li class="bottom-bar">Panel de control avanzado</li>
                       <li>
-                        { 
+                        {
                           // Poner ! en auth para testear paneles sin iniciar sesión
-                          
-                            <div>
-                              {
-                            usersLocal?.isPro === true ? (
+
+                          <div>
+                            {usersLocal?.isPro === true ? (
                               <div>
-                                <a className="button is-primary center-button-pro" disabled>
+                                <a
+                                  className="button is-primary center-button-pro"
+                                  disabled
+                                >
                                   <strong>Tu plan actual</strong>
                                 </a>
                               </div>
-                            )
-                              :
-                              (
-                                <div>
-                              <MPButtonSuscription
-                                idTenant={dataPayer.idTenant}
-                                emailTenant={dataPayer.email}
-                                nameTenant={dataPayer.fullName}
-                              />
+                            ) : (
+                              <div>
+                                <MPButtonSuscription
+                                  idTenant={dataPayer.idTenant}
+                                  emailTenant={dataPayer.email}
+                                  nameTenant={dataPayer.fullName}
+                                />
                               </div>
-                              )
-                              }
-                            </div>
-                          
-                        } 
+                            )}
+                          </div>
+                        }
                       </li>
-                      
                     </ul>
                   </div>
                 </div>

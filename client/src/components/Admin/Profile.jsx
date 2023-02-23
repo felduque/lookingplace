@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import { getTenantById, getUserById } from "./Api.js";
-
+import { UserAuth } from "../../service/AuthContext";
 export const Profile = () => {
   const [users, setUsers] = React.useState([]);
   const [about, setAbout] = React.useState([]);
+  const { user } = UserAuth();
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -40,9 +41,17 @@ export const Profile = () => {
       <div className="profile-container">
         <div className="profile-header">
           <div className="profile-header-title">
-            <img className="image-profile" src={users.avatar} alt="profile" />
+            <img
+              className="image-profile"
+              src={
+                user?.photoURL ? user?.providerData[0]?.photoURL : users.avatar
+              }
+              alt="profile"
+            />
             <span className="content-profile-name">
-              <h1 className="name-profile">{users.fullName} </h1>
+              <h1 className="name-profile">
+                {users.fullName || user.displayName}{" "}
+              </h1>
             </span>
           </div>
         </div>
@@ -80,7 +89,7 @@ export const Profile = () => {
               </div>
               <div className="detail-profile">
                 <h2 className="title is-4">Correo</h2>
-                <p>{users?.email}</p>
+                <p>{users?.email || user?.email}</p>
               </div>
             </div>
           </div>
