@@ -49,7 +49,7 @@ export default function Suscribe() {
                       <li>
                         <div className="button-bottom">
                           {
-                            usersLocal.isPro === true ? (
+                            usersLocal?.isPro === true ? (
                             <div>
                             </div>
                           ) : (
@@ -82,7 +82,7 @@ export default function Suscribe() {
                           
                             <div>
                               {
-                            usersLocal.isPro === true ? (
+                            usersLocal?.isPro === true ? (
                               <div>
                                 <a className="button is-primary center-button-pro" disabled>
                                   <strong>Tu plan actual</strong>
