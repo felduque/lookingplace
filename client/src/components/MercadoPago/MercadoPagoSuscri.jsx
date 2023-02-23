@@ -71,7 +71,7 @@ export default function MPButtonSuscription({
           },
           render: {
             container: ".cho-container",
-            label: "Rentar Alojamiento",
+            label: "Obtener ahora",
           },
           theme: {
             elementsColor: "#3D8C00",
