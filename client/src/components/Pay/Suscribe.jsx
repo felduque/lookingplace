@@ -49,7 +49,7 @@ export default function Suscribe() {
                       <li class="bottom-bar">Comenta y puntúa tus visitas</li>
                       <li>
                         <div className="button-bottom">
-                          {usersLocal.isPro === true ? (
+                          {usersLocal?.isPro === true ? (
                             <div></div>
                           ) : (
                             <div>
@@ -80,7 +80,7 @@ export default function Suscribe() {
                           // Poner ! en auth para testear paneles sin iniciar sesión
 
                           <div>
-                            {usersLocal.isPro === true ? (
+                            {usersLocal?.isPro === true ? (
                               <div>
                                 <a
                                   className="button is-primary center-button-pro"
