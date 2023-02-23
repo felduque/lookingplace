@@ -93,7 +93,7 @@ export default function Login({ closeModal }) {
               setEmail("");
               setPassword("");
 
-              window.location.href = "./userDetails";
+              window.location.href = "./home";
             }
           });
       } catch (err) {
@@ -147,7 +147,7 @@ export default function Login({ closeModal }) {
               setEmail("");
               setPassword("");
 
-              window.location.href = "./userDetails";
+              window.location.href = "./home";
             }
           });
       } catch (err) {
@@ -199,7 +199,7 @@ export default function Login({ closeModal }) {
               setEmail("");
               setPassword("");
 
-              window.location.href = "./userDetails";
+              window.location.href = "./home";
             }
           });
       } catch (err) {
