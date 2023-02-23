@@ -5,7 +5,6 @@ import axios from "axios";
 
 export const ListClient = () => {
   const auth = JSON.parse(localStorage.getItem("auth"));
-  console.log(auth.idTenant);
 
   const [dataPayments, setDataPayments] = useState([]);
 

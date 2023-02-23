@@ -110,7 +110,10 @@ export default function Navbar() {
               <div className="buttons">
                 {
                   // Poner ! en auth para testear paneles sin iniciar sesión
-                  auth?.role === "Tenant" || auth?.role === "Admin" || user ? (
+                  auth?.role === "Tenant" ||
+                  auth?.role === "Admin" ||
+                  usersLocal.isPro === true ||
+                  user ? (
                     <div className="navbar-item has-dropdown is-hoverable">
                       <a className="navbar-link">
                         {auth?.avatar ? (
@@ -157,7 +160,7 @@ export default function Navbar() {
                   ) : auth?.role === "Client" ? (
                     <div className="navbar-item has-dropdown is-hoverable">
                       <a className="navbar-link">
-                        {usersLocal?.avatar ? (
+                        {auth?.avatar ? (
                           <figure class="image">
                             <img
                               src={usersLocal?.avatar}

@@ -20,82 +20,82 @@ export default function Suscribe() {
         <div className="planes-PRO">
           <div className="title is-2 center-text">¿Por qué ser PRO?</div>
 
-         
-
           <div className="conteiner-planes">
-          <div className="title is-4 center-text is-italic text-planes">
-            Conoce nuestros planes gratis y Profesional
-          </div>
-          <div className="pricing-table">
-            <div class="cards">
-              <div class="card shadow">
-                <ul>
-                  <li class="pack">Básico</li>
-                  <li id="basic" class="price bottom-bar">
-                    Gratis <span className="title-small">por siempre</span>
-                  </li>
-                  <li class="bottom-bar">Busca y publica hospedaje</li>
-                  <li class="bottom-bar">Comenta y puntúa tus visitas</li>
-                  <li>
-                    <div className="button-bottom">
-          {
-          auth ? 
-          (
-            <div>
-               <a className="button is-primary center-button-pro ">
-                   <strong>Tu plan actual</strong>
-               </a>
+            <div className="title is-4 center-text is-italic text-planes">
+              Conoce nuestros planes gratis y Profesional
             </div>
-          ) : 
-            <div>
-               <a className="button is-primary center-button-pro" to='/register'>
-                 <Link to="/register">
-                   <strong>Registrarse</strong>
-                 </Link>
-               </a>
-            </div>
-          }
-                    </div>
-                    
-                  </li>
-                </ul>
+            <div className="pricing-table">
+              <div class="cards">
+                <div class="card shadow">
+                  <ul>
+                    <li class="pack">Básico</li>
+                    <li id="basic" class="price bottom-bar">
+                      Gratis <span className="title-small">por siempre</span>
+                    </li>
+                    <li class="bottom-bar">Busca y publica hospedaje</li>
+                    <li class="bottom-bar">Comenta y puntúa tus visitas</li>
+                    <li>
+                      <div className="button-bottom">
+                        {auth ? (
+                          <div>
+                            <a className="button is-primary center-button-pro ">
+                              <strong>Tu plan actual</strong>
+                            </a>
+                          </div>
+                        ) : (
+                          <div>
+                            <a
+                              className="button is-primary center-button-pro"
+                              to="/register"
+                            >
+                              <Link to="/register">
+                                <strong>Registrarse</strong>
+                              </Link>
+                            </a>
+                          </div>
+                        )}
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card active">
+                  <ul>
+                    <li class="pack">Profesional</li>
+                    <li id="professional" class="price bottom-bar">
+                      $8.99 <span className="title-small">por mes</span>
+                      <span className="new-price-oro">
+                        <del>$13.99</del>
+                      </span>
+                    </li>
+                    <li class="bottom-bar">Busca y publica hospedaje</li>
+                    <li class="bottom-bar">Comenta y puntúa tus visitas</li>
+                    <li class="bottom-bar">Mejor posicionamiento</li>
+                    <li>
+                      {
+                        // Poner ! en auth para testear paneles sin iniciar sesión
+                        auth ? (
+                          <PaymentMP />
+                        ) : (
+                          <div>
+                            <a
+                              className="button is-primary center-button-pro"
+                              to="/register"
+                            >
+                              <Link to="/register">
+                                <strong>Registrarse para ser PRO</strong>
+                              </Link>
+                            </a>
+                          </div>
+                        )
+                      }
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <div class="card active">
-                <ul>
-                  <li class="pack">Profesional</li>
-                  <li id="professional" class="price bottom-bar">
-                    $8.99 <span className="title-small">por mes</span>
-                    <span className="new-price-oro">
-                      <del>$13.99</del>
-                    </span>
-                   
-                  </li>
-                  <li class="bottom-bar">Busca y publica hospedaje</li>
-                  <li class="bottom-bar">Comenta y puntúa tus visitas</li>
-                  <li class="bottom-bar">Mejor posicionamiento</li>
-                  <li>
-                  {
-            // Poner ! en auth para testear paneles sin iniciar sesión
-          auth ? 
-          (
-            <PaymentMP/>
-          ) : 
-            <div>
-               <a className="button is-primary center-button-pro" to='/register'>
-                 <Link to="/register">
-                   <strong>Registrarse para ser PRO</strong>
-                 </Link>
-               </a>
-            </div>
-          }
-                    
-                  </li>
-                </ul>
-              </div>
             </div>
           </div>
-        </div></div>
         </div>
+      </div>
     </>
   );
 }

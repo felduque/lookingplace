@@ -466,6 +466,11 @@ export default function CardDetail() {
                       <div className="c-avatar">
                         {usersLocal?.avatar ? (
                           <img class="c-avatar-img" src={usersLocal?.avatar} />
+                        ) : user ? (
+                          <img
+                            class="c-avatar-img"
+                            src={user?.providerData[0]?.photoURL}
+                          />
                         ) : (
                           <img src={userIcon} width="50" height="50" />
                         )}

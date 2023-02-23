@@ -13,7 +13,7 @@ import {
   RiSettings5Fill,
 } from "react-icons/ri";
 import { useState, useEffect } from "react";
-
+import { UserAuth } from "../../service/AuthContext";
 import { AllPublish } from "./AllPublish";
 import { ListClient } from "./ListClient";
 import { ListPublish } from "./ListPublish";
@@ -37,7 +37,7 @@ const UserSettings = () => {
   });
 
   const [auth, setAuth] = useState("");
-
+  const { user } = UserAuth();
   useEffect(() => {
     const storedAuth = JSON.parse(localStorage.getItem("auth"));
     if (storedAuth) {
@@ -75,7 +75,7 @@ const UserSettings = () => {
             }`}
           >
             <div className="sidebar-list">
-            <span className="sidebar-list-item">
+              <span className="sidebar-list-item">
                 <a
                   className="side-item"
                   name="profile"
@@ -85,10 +85,7 @@ const UserSettings = () => {
                   <div className="icon-panel-control">
                     <RiFileList3Line />
                   </div>
-                  <div className="text-panel-control">
-                    Perfil
-                  </div>
-                  
+                  <div className="text-panel-control">Perfil</div>
                 </a>
               </span>
               <span className="sidebar-list-item">
@@ -98,9 +95,10 @@ const UserSettings = () => {
                   onClick={handleComponent}
                   href="#"
                 >
-                  <div className="icon-panel-control"><RiSettings5Fill /></div>
+                  <div className="icon-panel-control">
+                    <RiSettings5Fill />
+                  </div>
                   <div className="text-panel-control">Editar perfil</div>
-                  
                 </a>
               </span>
               <span className="sidebar-list-item">
@@ -111,7 +109,9 @@ const UserSettings = () => {
                   href="#"
                 >
                   {/* Cambiar icono*/}
-                  <div className="icon-panel-control"><RiSettings5Fill /></div>
+                  <div className="icon-panel-control">
+                    <RiSettings5Fill />
+                  </div>
                   <div className="text-panel-control">Reservaciones</div>
                 </a>
               </span>
@@ -122,7 +122,9 @@ const UserSettings = () => {
                 href="https://github.com/felduque/lookingplace"
                 target="_blank"
               >
-                <div className="icon-panel-control"><RiGithubFill /></div>
+                <div className="icon-panel-control">
+                  <RiGithubFill />
+                </div>
                 <div className="text-panel-control">Github</div>
               </a>
             </div>
@@ -138,7 +140,7 @@ const UserSettings = () => {
             </div>
           </main>
         </div>
-      ) : auth?.role == "Tenant" ? (
+      ) : auth?.role == "Tenant" || user ? (
         <div className="admin-container">
           <div
             className={`sidebar-header ${
@@ -146,7 +148,7 @@ const UserSettings = () => {
             }`}
           >
             <div className="sidebar-list">
-            <span className="sidebar-list-item">
+              <span className="sidebar-list-item">
                 <a
                   className="side-item"
                   name="profile"
@@ -156,10 +158,7 @@ const UserSettings = () => {
                   <div className="icon-panel-control">
                     <RiFileList3Line />
                   </div>
-                  <div className="text-panel-control">
-                    Perfil
-                  </div>
-                  
+                  <div className="text-panel-control">Perfil</div>
                 </a>
               </span>
               <span className="sidebar-list-item">
@@ -169,9 +168,10 @@ const UserSettings = () => {
                   onClick={handleComponent}
                   href="#"
                 >
-                  <div className="icon-panel-control"><RiSettings5Fill /></div>
+                  <div className="icon-panel-control">
+                    <RiSettings5Fill />
+                  </div>
                   <div className="text-panel-control">Editar perfil</div>
-                  
                 </a>
               </span>
               <span className="sidebar-list-item">
@@ -181,9 +181,10 @@ const UserSettings = () => {
                   onClick={handleComponent}
                   href="#"
                 >
-                  <div className="icon-panel-control"><RiFileChartFill /></div>
+                  <div className="icon-panel-control">
+                    <RiFileChartFill />
+                  </div>
                   <div className="text-panel-control">Publicar</div>
-                  
                 </a>
               </span>
               <span className="sidebar-list-item">
@@ -193,9 +194,10 @@ const UserSettings = () => {
                   onClick={handleComponent}
                   href="#"
                 >
-                  <div className="icon-panel-control"><RiWindow2Line /></div>
+                  <div className="icon-panel-control">
+                    <RiWindow2Line />
+                  </div>
                   <div className="text-panel-control">Clientes</div>
-                  
                 </a>
               </span>
               <span className="sidebar-list-item">
@@ -205,9 +207,10 @@ const UserSettings = () => {
                   onClick={handleComponent}
                   href="#"
                 >
-                  <div className="icon-panel-control"><RiUser3Fill /></div>
+                  <div className="icon-panel-control">
+                    <RiUser3Fill />
+                  </div>
                   <div className="text-panel-control">Publicaciones</div>
-                  
                 </a>
               </span>
             </div>
@@ -217,7 +220,9 @@ const UserSettings = () => {
                 href="https://github.com/felduque/lookingplace"
                 target="_blank"
               >
-                <div className="icon-panel-control"><RiGithubFill /></div>
+                <div className="icon-panel-control">
+                  <RiGithubFill />
+                </div>
                 <div className="text-panel-control">Github</div>
               </a>
             </div>
@@ -253,10 +258,7 @@ const UserSettings = () => {
                   <div className="icon-panel-control">
                     <RiFileList3Line />
                   </div>
-                  <div className="text-panel-control">
-                    Perfil
-                  </div>
-                  
+                  <div className="text-panel-control">Perfil</div>
                 </a>
               </span>
               <span className="sidebar-list-item">
@@ -266,9 +268,10 @@ const UserSettings = () => {
                   onClick={handleComponent}
                   href="#"
                 >
-                  <div className="icon-panel-control"><RiSettings5Fill /></div>
+                  <div className="icon-panel-control">
+                    <RiSettings5Fill />
+                  </div>
                   <div className="text-panel-control">Editar perfil</div>
-                  
                 </a>
               </span>
               <span className="sidebar-list-item">
@@ -278,9 +281,10 @@ const UserSettings = () => {
                   onClick={handleComponent}
                   href="#"
                 >
-                  <div className="icon-panel-control"><RiFileChartFill /></div>
+                  <div className="icon-panel-control">
+                    <RiFileChartFill />
+                  </div>
                   <div className="text-panel-control">Publicar</div>
-                  
                 </a>
               </span>
               <span className="sidebar-list-item">
@@ -290,9 +294,10 @@ const UserSettings = () => {
                   onClick={handleComponent}
                   href="#"
                 >
-                  <div className="icon-panel-control"><RiWindow2Line /></div>
+                  <div className="icon-panel-control">
+                    <RiWindow2Line />
+                  </div>
                   <div className="text-panel-control">Clientes</div>
-                  
                 </a>
               </span>
               <span className="sidebar-list-item">
@@ -302,24 +307,25 @@ const UserSettings = () => {
                   onClick={handleComponent}
                   href="#"
                 >
-                  <div className="icon-panel-control"><RiUser3Fill /></div>
+                  <div className="icon-panel-control">
+                    <RiUser3Fill />
+                  </div>
                   <div className="text-panel-control">Publicaciones</div>
-                  
                 </a>
               </span>
 
-          
               <span className="sidebar-list-item">
                 <a
                   className="side-item"
                   name="listuser"
                   onClick={handleComponent}
                 >
-                  <div className="icon-panel-control"><RiTeamFill/></div>
+                  <div className="icon-panel-control">
+                    <RiTeamFill />
+                  </div>
                   <div className="text-panel-control">Usuarios</div>
                 </a>
               </span>
-
 
               <span className="sidebar-list-item">
                 <a
@@ -328,9 +334,12 @@ const UserSettings = () => {
                   onClick={handleComponent}
                   href="#"
                 >
-                  <div className="icon-panel-control"><RiDatabase2Fill /></div>
-                  <div className="text-panel-control">Todas las publicaciones</div>
-                  
+                  <div className="icon-panel-control">
+                    <RiDatabase2Fill />
+                  </div>
+                  <div className="text-panel-control">
+                    Todas las publicaciones
+                  </div>
                 </a>
               </span>
             </div>
@@ -340,9 +349,10 @@ const UserSettings = () => {
                 href="https://github.com/felduque/lookingplace"
                 target="_blank"
               >
-                <div className="icon-panel-control"><RiGithubFill /></div>
+                <div className="icon-panel-control">
+                  <RiGithubFill />
+                </div>
                 <div className="text-panel-control">Github</div>
-                
               </a>
             </div>
           </div>
