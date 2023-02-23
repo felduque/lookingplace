@@ -66,7 +66,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="propertyDetail/:id" element={<CardDetail />} />
           <Route path="/aboutUs" element={<AboutUs />} />
-          <Route path="suscribe" element={<Suscribe />} />
+          
           <Route path="/ResumePay" element={<ResumePay />} />
           <Route path="/Pay/Success" element={<PaySuccess />} />
           <Route path="/Pay/Failure" element={<PayFailure />} />
@@ -109,6 +109,17 @@ function App() {
               )
             }
           />
+          <Route
+            path="/suscribe"
+            element={
+              isLoggedTenant == "true" || isLoggedAdmin == "true" ? (
+                <Suscribe />
+              ) : (
+                <Navigate to="/register" />
+              )
+            }
+          />
+          {/*<Route path="suscribe" element={<Suscribe />} /> */}
 
           <Route path="*" element={<Home />} />
         </Routes>
