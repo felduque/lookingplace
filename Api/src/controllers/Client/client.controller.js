@@ -131,7 +131,7 @@ export const login = async (req, res) => {
   }
   if (await bcrypt.compare(password, user.password)) {
     const token = jwt.sign({ email: user.email }, secretjwt, {
-      expiresIn: "15m",
+      expiresIn: "1h",
     });
 
     const role = user.role;

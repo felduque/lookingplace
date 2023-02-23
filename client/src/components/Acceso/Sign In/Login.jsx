@@ -182,13 +182,14 @@ export default function Login({ closeModal }) {
             const role = data?.role;
             const avatar = data?.avatar;
             const fullName = data?.fullName;
-
+            const idTenant = data?.userId;
             if (data.status == "ok") {
               setAuth({ email, password, role, avatar, fullName });
               localStorage.setItem(
                 "auth",
                 JSON.stringify({
                   email,
+                  idTenant,
                   role,
                   avatar,
                   fullName,

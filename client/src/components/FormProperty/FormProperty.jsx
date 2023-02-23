@@ -43,7 +43,14 @@ const options = [
   { value: "Parilla", label: "Parilla" },
   { value: "Cuna", label: "Cuna" },
 ];
-const predefinedTitleNames = ["Apartamento", "Cabaña", "Casa", "Camping", "Habitación", "Habitación comunitaria"];
+const predefinedTitleNames = [
+  "Apartamento",
+  "Cabaña",
+  "Casa",
+  "Camping",
+  "Habitación",
+  "Habitación comunitaria",
+];
 const predefinedPropertyTypes = [
   "Apartamento",
   "Cabaña",
@@ -54,7 +61,6 @@ const predefinedPropertyTypes = [
 
 export default function FormHostCreate() {
   const auth = JSON.parse(localStorage.getItem("auth"));
-  console.log("Soy idTenan", auth.idTenant);
 
   // Google Maps
   const libraries = ["places"];
@@ -122,7 +128,7 @@ export default function FormHostCreate() {
     state: "",
     region: "",
     city: "",
-    id_tenant: auth.idTenant,
+    id_tenant: auth?.idTenant,
     type: "",
     pro: false,
   });
@@ -318,8 +324,9 @@ export default function FormHostCreate() {
                   {predefinedPropertyTypes.map((typeName) => (
                     <button
                       key={typeName}
-                      className={`button ${inputs.type === typeName ? "is-info" : ""
-                        }`}
+                      className={`button ${
+                        inputs.type === typeName ? "is-info" : ""
+                      }`}
                       type="button"
                       onClick={() => handlePropertyTypeButtonClick(typeName)}
                     >
@@ -341,16 +348,15 @@ export default function FormHostCreate() {
                   {predefinedTitleNames.map((name) => (
                     <button
                       key={name}
-                      className={`button ${inputs.title === name ? "is-info" : ""
-                        }`}
+                      className={`button ${
+                        inputs.title === name ? "is-info" : ""
+                      }`}
                       type="button"
                       onClick={() => handleButtonClick(name)}
                     >
                       {name}
                     </button>
-
                   ))}
-
                 </div>
               </div>
               <div className="field">
@@ -629,7 +635,7 @@ export default function FormHostCreate() {
                 ) : null}
               </div>
               <div className="areas-spaces-top">
-                <div className="field" >
+                <div className="field">
                   <p>
                     <label className="label pb-2">Imágenes del lugar</label>
                   </p>
@@ -665,7 +671,8 @@ export default function FormHostCreate() {
                         <img
                           key={i}
                           src={img}
-                          className="loaded-images" style={{ width: "250px", height: "200px" }}
+                          className="loaded-images"
+                          style={{ width: "250px", height: "200px" }}
                         ></img>
                         <button id={i} type="button" onClick={handleClickImg}>
                           X
@@ -705,7 +712,14 @@ export default function FormHostCreate() {
               </div>
               <div className="container">
                 <div className="text-center">
-                  <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', paddingTop: "50px" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      alignItems: "center",
+                      paddingTop: "50px",
+                    }}
+                  >
                     <button
                       className="button is-warning is-rounded ml-3 mr-6"
                       onClick={cancelPublish}
@@ -715,7 +729,9 @@ export default function FormHostCreate() {
                     <button
                       className="button is-link is-rounded ml-6 mr-4"
                       type="submit"
-                      disabled={errorsLength !== 0 && validateImages ? true : false}
+                      disabled={
+                        errorsLength !== 0 && validateImages ? true : false
+                      }
                     >
                       Publicar Alojamiento
                     </button>
